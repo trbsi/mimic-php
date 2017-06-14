@@ -11,7 +11,8 @@
         "barryvdh/laravel-cors": "*",
         "phpmailer/phpmailer": "*",
         "pubnub/pubnub": "*",
-        "dingo/api": "1.0.0-beta8"
+        "dingo/api": "1.0.0-beta8",
+        "aws/aws-sdk-php": "^3.29"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
