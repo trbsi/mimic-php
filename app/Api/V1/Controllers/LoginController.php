@@ -10,11 +10,6 @@ use Tymon\JWTAuth\JWTAuth;
 
 class LoginController extends Controller
 {
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
     public function login(Request $request, JWTAuth $JWTAuth)
     {
         //init var

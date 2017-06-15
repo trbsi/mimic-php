@@ -50,6 +50,7 @@ class User extends Authenticatable
     }
 
     // somewhere in your controller
+    // https://github.com/tymondesigns/jwt-auth/wiki/Authentication
     public function getAuthenticatedUser()
     {
         $token = JWTAuth::getToken();
