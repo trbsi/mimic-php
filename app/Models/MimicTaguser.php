@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class MimicTaguser extends Model {
+class MimicTaguser extends Model
+{
 
     /**
      * Generated
@@ -12,11 +13,13 @@ class MimicTaguser extends Model {
     protected $fillable = ['id', 'mimic_id', 'user_id'];
 
 
-    public function mimic() {
+    public function mimic()
+    {
         return $this->belongsTo(\App\Models\Mimic::class, 'mimic_id', 'id');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 

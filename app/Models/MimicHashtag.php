@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class MimicHashtag extends Model {
+class MimicHashtag extends Model
+{
 
     /**
      * Generated
@@ -12,11 +13,13 @@ class MimicHashtag extends Model {
     protected $fillable = ['id', 'mimic_id', 'hashtag_id'];
 
 
-    public function hashtag() {
+    public function hashtag()
+    {
         return $this->belongsTo(\App\Models\Hashtag::class, 'hashtag_id', 'id');
     }
 
-    public function mimic() {
+    public function mimic()
+    {
         return $this->belongsTo(\App\Models\Mimic::class, 'mimic_id', 'id');
     }
 

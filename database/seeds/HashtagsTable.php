@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Hashtag;
 
 class HashtagsTable extends Seeder
 {
@@ -9,19 +10,21 @@ class HashtagsTable extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Hashtag $model)
     {
         $data =
-        [
-        	[
-        		'' => '',
-        	],
+            [
+                '#jumping', '#playingaround', '#kissing', '#comewithme', '#playingsport', '#meandmycrew', '#dance', '#swim', '#yolo', '#swag',
+            ];
 
-        ];
+        foreach ($data as $key => $value) {
+            $insert =
+                [
+                    'popularity' => rand(1, 100),
+                    'name' => $value
+                ];
 
-        foreach ($data as $key => $value) 
-        {
-        	$user->create($value);
+            $model->create($insert);
         }
     }
 }

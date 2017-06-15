@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('username', 50);
             $table->bigInteger('facebook_id');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

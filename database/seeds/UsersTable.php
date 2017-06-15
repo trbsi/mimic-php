@@ -12,19 +12,17 @@ class UsersTable extends Seeder
      */
     public function run(User $user)
     {
-        $data =
-        [
-        	[
-        		'email' => 'user1@mail.com',
-                'facebook_id' => mt_rand(),
-                'username' => "user_1",
-        	],
+        for ($i = 1; $i <= 10; $i++) {
 
-        ];
+            $insert =
+                [
+                    'email' => 'user' . $i . '@mail.com',
+                    'facebook_id' => mt_rand(),
+                    'username' => "user_$i",
+                ];
 
-        foreach ($data as $key => $value) 
-        {
-        	$user->create($value);
+            $user->create($insert);
         }
+
     }
 }

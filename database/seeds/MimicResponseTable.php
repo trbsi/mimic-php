@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\MimicResponse;
 
 class MimicResponseTable extends Seeder
 {
@@ -9,19 +10,28 @@ class MimicResponseTable extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(MimicResponse $model)
     {
-        $data =
-        [
-        	[
-        		'' => '',
-        	],
+        $original_mimic_id = 1;
+        $response_mimic_id = 4;
+        for ($i = 0; $i < 50; $i++) {
+            if ($original_mimic_id > 3) {
+                $original_mimic_id = 1;
+            }
 
-        ];
+            if ($response_mimic_id > 10) {
+                $response_mimic_id = 4;
+            }
 
-        foreach ($data as $key => $value) 
-        {
-        	$user->create($value);
+            $insert =
+            [
+                'original_mimic_id' => $original_mimic_id,
+                'response_mimic_id' => $response_mimic_id,
+            ];
+            
+            $model->create($insert);
+            $original_mimic_id++;
+            $response_mimic_id++;
         }
     }
 }

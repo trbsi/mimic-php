@@ -7,8 +7,7 @@ $api = app(Router::class);
 
 $api->version('v1', function (Router $api) {
 
-    $api->group(['middleware' => ['api.global']], function(Router $api)
-    {
+    $api->group(['middleware' => ['api.global']], function (Router $api) {
         $api->group(['prefix' => 'auth'], function (Router $api) {
             /*$api->post('signup', 'App\\Api\\V1\\Controllers\\SignUpController@signUp');
             $api->post('recovery', 'App\\Api\\V1\\Controllers\\ForgotPasswordController@sendResetEmail');
@@ -22,7 +21,7 @@ $api->version('v1', function (Router $api) {
             $api->group(['prefix' => 'map'], function (Router $api) {
 
             });
-        });        
+        });
     });
 
 

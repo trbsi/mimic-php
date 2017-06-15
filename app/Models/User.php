@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'birthday', 'first_name', 'last_name', 'gender', 'facebook_id', 'profile_picture',
+        'email', 'facebook_id', 'username'
     ];
 
     /**
@@ -26,7 +26,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
     ];
 
     /**
@@ -79,57 +78,6 @@ class User extends Authenticatable
 
         // the token is valid and we have found the user via the sub claim
         return $user;
-    }
-
-    //RELATIONS
-    public function usersBlockedBy()
-    {
-        return $this->belongsToMany(\App\Models\User::class, 'block_user', 'blocked_by', 'who_is_blocked');
-    }
-
-    public function usersWhoisBlocked()
-    {
-        return $this->belongsToMany(\App\Models\User::class, 'block_user', 'who_is_blocked', 'blocked_by');
-    }
-
-    public function messages()
-    {
-        return $this->belongsToMany(\App\Models\Message::class, 'messages_reply', 'user_id', 'message_id');
-    }
-
-    public function blockUsersBlockedBy()
-    {
-        return $this->hasMany(\App\Models\BlockUser::class, 'blocked_by', 'id');
-    }
-
-    public function blockUsersWhoIsBlocked()
-    {
-        return $this->hasMany(\App\Models\BlockUser::class, 'who_is_blocked', 'id');
-    }
-
-    public function locations()
-    {
-        return $this->hasMany(\App\Models\Location::class, 'user_id', 'id');
-    }
-
-    public function messagesUserOne()
-    {
-        return $this->hasMany(\App\Models\Message::class, 'user_one', 'id');
-    }
-
-    public function messagesUserTwo()
-    {
-        return $this->hasMany(\App\Models\Message::class, 'user_two', 'id');
-    }
-
-    public function messagesReplies()
-    {
-        return $this->hasMany(\App\Models\MessagesReply::class, 'user_id', 'id');
-    }
-
-    public function pushNotificationsTokens()
-    {
-        return $this->hasMany(\App\Models\PushNotificationsToken::class, 'user_id', 'id');
     }
 
 }

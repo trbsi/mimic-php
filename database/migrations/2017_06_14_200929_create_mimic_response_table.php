@@ -15,9 +15,11 @@ class CreateMimicResponseTable extends Migration
     {
         Schema::create('mimic_response', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('mimic_id');
+            $table->integer('original_mimic_id');
+            $table->integer('response_mimic_id');
             $table->timestamps();
-            $table->foreign('mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('original_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('response_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
