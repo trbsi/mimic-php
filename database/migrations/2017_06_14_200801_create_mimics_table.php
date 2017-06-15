@@ -19,6 +19,7 @@ class CreateMimicsTable extends Migration
             $table->string('media', 255);
             $table->tinyInteger('mimic_type'); //video/picture
             $table->tinyInteger('is_response'); //0/1 - is this mimic response or not
+            $table->tinyInteger('is_private'); //0/1 - is this mimic private or not
             $table->integer('upvote');
             $table->integer('user_id');
             $table->timestamps();

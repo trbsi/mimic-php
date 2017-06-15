@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7eceada4f59b4168a4ec12849c4eb159",
+    "content-hash": "30db504258f787a137242fea190dcfeb",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1620,56 +1620,6 @@
             "time": "2016-10-10T12:19:37+00:00"
         },
         {
-            "name": "pubnub/pubnub",
-            "version": "4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pubnub/php.git",
-                "reference": "1a3b5350e9767f9553ab3d88d75ae543b7fff652"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pubnub/php/zipball/1a3b5350e9767f9553ab3d88d75ae543b7fff652",
-                "reference": "1a3b5350e9767f9553ab3d88d75ae543b7fff652",
-                "shasum": ""
-            },
-            "require": {
-                "monolog/monolog": "^1.0",
-                "php": ">=5.6.0",
-                "rmccue/requests": ">=1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PubNub\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PubNub",
-                    "email": "support@pubnub.com"
-                }
-            ],
-            "description": "The Only Global Network For Real-Time Data -- PubNub!",
-            "homepage": "http://www.pubnub.com/",
-            "keywords": [
-                "ajax",
-                "api",
-                "push",
-                "real time",
-                "real-time",
-                "realtime"
-            ],
-            "time": "2017-06-08T17:49:44+00:00"
-        },
-        {
             "name": "ramsey/uuid",
             "version": "3.6.1",
             "source": {
@@ -1750,55 +1700,6 @@
                 "uuid"
             ],
             "time": "2017-03-26T20:37:53+00:00"
-        },
-        {
-            "name": "rmccue/requests",
-            "version": "v1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rmccue/Requests.git",
-                "reference": "87932f52ffad70504d93f04f15690cf16a089546"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rmccue/Requests/zipball/87932f52ffad70504d93f04f15690cf16a089546",
-                "reference": "87932f52ffad70504d93f04f15690cf16a089546",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "requests/test-server": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Requests": "library/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "ISC"
-            ],
-            "authors": [
-                {
-                    "name": "Ryan McCue",
-                    "homepage": "http://ryanmccue.info"
-                }
-            ],
-            "description": "A HTTP library written in PHP, for human beings.",
-            "homepage": "http://github.com/rmccue/Requests",
-            "keywords": [
-                "curl",
-                "fsockopen",
-                "http",
-                "idna",
-                "ipv6",
-                "iri",
-                "sockets"
-            ],
-            "time": "2016-10-13T00:11:37+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
