@@ -29,9 +29,16 @@ class MimicResponseTable extends Seeder
                 'response_mimic_id' => $response_mimic_id,
             ];
             
-            $model->create($insert);
-            $original_mimic_id++;
-            $response_mimic_id++;
+            try
+            {
+                $model->create($insert);
+                $original_mimic_id++;
+                $response_mimic_id++;
+            }
+            catch(\Exception $e)
+            {
+                
+            }
         }
     }
 }

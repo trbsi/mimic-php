@@ -13,7 +13,7 @@ class MimicUserTagTable extends Seeder
     public function run(MimicTaguser $model)
     {
         $mimic_id = 1;
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             if ($mimic_id > 3) {
                 $mimic_id = 1;
             }
@@ -23,8 +23,16 @@ class MimicUserTagTable extends Seeder
                 'mimic_id' => $mimic_id,
                 'user_id' => rand(1, 10),
             ];
-            $model->create($insert);
-            $mimic_id++;
+
+            try
+            {
+                $model->create($insert);
+                $mimic_id++;
+            }
+            catch(\Exception $e)
+            {
+                
+            }
         }
     }
 }

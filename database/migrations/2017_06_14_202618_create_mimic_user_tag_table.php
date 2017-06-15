@@ -20,6 +20,7 @@ class CreateMimicUserTagTable extends Migration
             $table->timestamps();
             $table->foreign('mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->unique(['mimic_id', 'user_id']);
         });
     }
 

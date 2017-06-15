@@ -20,6 +20,7 @@ class CreateMimicResponseTable extends Migration
             $table->timestamps();
             $table->foreign('original_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('response_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
+            $table->unique(['response_mimic_id']);
         });
     }
 

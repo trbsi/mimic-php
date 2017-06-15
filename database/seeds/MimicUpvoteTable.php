@@ -23,8 +23,16 @@ class MimicUpvoteTable extends Seeder
                 'mimic_id' => $mimic_id,
                 'user_id' => rand(1, 10),
             ];
-            $model->create($insert);
-            $mimic_id++;
+            
+            try
+            {
+                $model->create($insert);
+                $mimic_id++;
+            }
+            catch(\Exception $e)
+            {
+                
+            }
         }
     }
 }
