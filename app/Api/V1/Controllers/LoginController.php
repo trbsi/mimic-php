@@ -15,22 +15,6 @@ class LoginController extends Controller
         $this->user = $user;
     }
 
-    /**
-     * refresh the token after it expires
-     * @param  Request $request [description]
-     * @param  JWTAuth $JWTAuth [description]
-     * @return [type]           [description]
-     */
-    /*public function refreshToken(Request $request, JWTAuth $JWTAuth)
-    {
-        $token = $JWTAuth->refresh($JWTAuth->getToken());
-        return response()
-            ->json([
-                'status' => true,
-                'token' => $token,
-            ]);
-    }*/
-
     public function login(Request $request, JWTAuth $JWTAuth)
     {
         //init var
@@ -43,7 +27,6 @@ class LoginController extends Controller
         ];
 
         //save or update
-        $request["birthday"] = date("Y-m-d", strtotime($request->birthday));
         $user = User::updateOrCreate(['email' => $request->email], $request->all());
         if ($user) {
 
