@@ -15,9 +15,9 @@ class CreateMimicResponseTable extends Migration
     {
         Schema::create('mimic_response', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('id', true);
-            $table->integer('original_mimic_id');
-            $table->integer('response_mimic_id');
+            $table->bigInteger('id', true);
+            $table->bigInteger('original_mimic_id');
+            $table->bigInteger('response_mimic_id');
             $table->timestamps();
             $table->foreign('original_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('response_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');

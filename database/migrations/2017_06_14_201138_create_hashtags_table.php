@@ -15,7 +15,7 @@ class CreateHashtagsTable extends Migration
     {
         Schema::create('hashtags', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('id', true);
+            $table->bigInteger('id', true);
             $table->string('name', 255);
             $table->integer('popularity');
             $table->timestamps();

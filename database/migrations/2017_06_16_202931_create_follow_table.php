@@ -15,11 +15,11 @@ class CreateFollowTable extends Migration
     {
         Schema::create('follow', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('id', true);
+            $table->bigInteger('id', true);
             //"followed_by" is following "following"
-            $table->integer('followed_by'); //user who is following another user
-            $table->integer('following'); //user who is being followed
-            
+            $table->bigInteger('followed_by'); //user who is following another user
+            $table->bigInteger('following'); //user who is being followed
+            $table->timestamps();            
             $table->foreign('followed_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('following')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unique(['followed_by', 'following']);

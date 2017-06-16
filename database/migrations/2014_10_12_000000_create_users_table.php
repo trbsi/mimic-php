@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('id', true);
+            $table->bigInteger('id', true);
             $table->string('email')->unique();
             $table->string('username', 50);
             $table->bigInteger('facebook_id');

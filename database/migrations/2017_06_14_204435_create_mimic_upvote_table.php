@@ -15,9 +15,9 @@ class CreateMimicUpvoteTable extends Migration
     {
         Schema::create('mimic_upvote', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->integer('id', true);
-            $table->integer('mimic_id');
-            $table->integer('user_id');
+            $table->bigInteger('id', true);
+            $table->bigInteger('mimic_id');
+            $table->bigInteger('user_id');
             $table->timestamps();
             $table->foreign('mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');

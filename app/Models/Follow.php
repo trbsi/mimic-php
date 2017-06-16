@@ -9,7 +9,6 @@ class Follow extends Model {
      */
 
     protected $table = 'follow';
-    public $timestamps = false;
     protected $fillable = ['id', 'followed_by', 'following'];
 
 
