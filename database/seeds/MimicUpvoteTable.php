@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\MimicUpvote;
+use App\Models\User;
 
 class MimicUpvoteTable extends Seeder
 {
@@ -10,8 +11,9 @@ class MimicUpvoteTable extends Seeder
      *
      * @return void
      */
-    public function run(MimicUpvote $model)
+    public function run(MimicUpvote $model, User $user)
     {
+        $numberOfUsers = $user->count();
         $mimic_id = 1;
         for ($i = 0; $i < 50; $i++) {
             if ($mimic_id > 10) {
@@ -21,7 +23,7 @@ class MimicUpvoteTable extends Seeder
             $insert =
             [
                 'mimic_id' => $mimic_id,
-                'user_id' => rand(1, 10),
+                'user_id' => rand(1, $numberOfUsers),
             ];
             
             try

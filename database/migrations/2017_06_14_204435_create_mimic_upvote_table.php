@@ -14,6 +14,7 @@ class CreateMimicUpvoteTable extends Migration
     public function up()
     {
         Schema::create('mimic_upvote', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->integer('id', true);
             $table->integer('mimic_id');
             $table->integer('user_id');

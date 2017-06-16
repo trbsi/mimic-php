@@ -14,6 +14,7 @@ class CreateMimicHashtagTable extends Migration
     public function up()
     {
         Schema::create('mimic_hashtag', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->integer('id', true);
             $table->integer('mimic_id');
             $table->integer('hashtag_id');

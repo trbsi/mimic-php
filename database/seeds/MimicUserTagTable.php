@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\MimicTaguser;
+use App\Models\User;
 
 class MimicUserTagTable extends Seeder
 {
@@ -10,8 +11,9 @@ class MimicUserTagTable extends Seeder
      *
      * @return void
      */
-    public function run(MimicTaguser $model)
+    public function run(MimicTaguser $model, User $user)
     {
+        $numberOfUsers = $user->count();
         $mimic_id = 1;
         for ($i = 0; $i < 10; $i++) {
             if ($mimic_id > 3) {
@@ -21,7 +23,7 @@ class MimicUserTagTable extends Seeder
             $insert =
             [
                 'mimic_id' => $mimic_id,
-                'user_id' => rand(1, 10),
+                'user_id' => rand(1, $numberOfUsers),
             ];
 
             try

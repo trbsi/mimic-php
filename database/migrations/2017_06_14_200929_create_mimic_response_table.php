@@ -14,6 +14,7 @@ class CreateMimicResponseTable extends Migration
     public function up()
     {
         Schema::create('mimic_response', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->integer('id', true);
             $table->integer('original_mimic_id');
             $table->integer('response_mimic_id');
