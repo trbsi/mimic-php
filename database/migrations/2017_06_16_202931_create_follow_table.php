@@ -19,6 +19,7 @@ class CreateFollowTable extends Migration
             //"followed_by" is following "following"
             $table->integer('followed_by'); //user who is following another user
             $table->integer('following'); //user who is being followed
+            
             $table->foreign('followed_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('following')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unique(['followed_by', 'following']);
