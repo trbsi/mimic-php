@@ -16,7 +16,7 @@ class CreateMimicsTable extends Migration
         Schema::create('mimics', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
-            $table->string('media', 255);
+            $table->string('file', 255);
             $table->tinyInteger('mimic_type'); //video/picture
             $table->tinyInteger('is_response'); //0/1 - is this mimic response or not
             $table->tinyInteger('is_private')->default(0); //0/1 - is this mimic private or not

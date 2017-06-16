@@ -7,6 +7,7 @@ class Mimic extends Model
 
     const TYPE_VIDEO = 1;
     const TYPE_PIC = 2;
+    const FILE_PATH = 'files/user/';
 
     /**
      * Generated

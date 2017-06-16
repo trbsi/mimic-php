@@ -20,9 +20,9 @@ class MimicController extends BaseAuthController
      * Add new mimic
      * @param Request $request
      */
-    public function addMimic(Request $request)
+    public function addMimic(Request $request, FileUploadHelper $fileUpload)
     {
-        $media = $request->file('media');
+        $file = $request->file('file');
         $mime =  $media->getMimeType();
 
         if(strpos($mime,"video") !== false)
@@ -37,9 +37,12 @@ class MimicController extends BaseAuthController
             throw new \Exception(trans("validation.file_should_be_image_video"), 403);
         }
 
+        //path: files/user/USER_ID/YEAR/
+        $file = $fileUpload->upload($file, Mimic::FILE_PATH.$this->authUser->id."/".date("Y")."/");
+
         $this->mimic->create(
         [
-            'media' => $media, 
+            'file' => $file, 
             'mimic_type' => $type, 
             'is_response' => $request->is_response, 
             'is_private' => $request->is_private, 
