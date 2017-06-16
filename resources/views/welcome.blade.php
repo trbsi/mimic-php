@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <title><?= config("app.name") ?> - live in the moment</title>
+    <title><?= config("app.name") ?> - mimic people</title>
 
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -81,11 +81,10 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="banner-text">
                         <h2 class="animation-box wow bounceIn animated"><strong
-                                    class="strong"><?= config("app.name") ?></strong><br>Live in the moment</h2>
+                                    class="strong"><?= config("app.name") ?></strong><br>Mimic people</h2>
 
                         <p>
-                            <?= config("app.name") ?> is a social discovery app where people can discover other people
-                            on the map based on hashtags, chat from within map markers and quickly meet in real life.
+                            <?= config("app.name") ?> is an app for mimicing other people. I need help with this here.
                         </p>
                         <a href="<?= env("GOOGLE_PLAY_LINK") ?>" target="_blank"
                            class="btn btn-download wow animated fadeInLeft">
@@ -182,10 +181,10 @@
             <h1 class="text-center animation-box wow bounceIn animated"><?= config("app.name") ?></h1>
         </div>
         <ul class="social-icons text-center">
-            <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/BlitzerApp/" target="_blank"><i
+            <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/MimicApp/" target="_blank"><i
                             class="fa fa-facebook"></i></a></li>
         </ul>
-        EMAIL: hello@blitzerapp.com
+        EMAIL: hello@gomimic.com
     </div>
     <!-- container -->
 </section>
