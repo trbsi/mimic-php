@@ -22,9 +22,9 @@ class FileUpload
     /**
      * upload file to S3
      * @param  $file            File object, got through: $request->file('file_name')
-     * @param  $path         [any path you want to for S3]
-     * @param  $allow         [what kind of file to allow to upload]
-     * @return [string]               [file url]
+     * @param  $path         	[any path you want to for S3]
+     * @param  $allow         	[what kind of file to allow to upload]
+     * @return [string]         [file url]
      */
     public function upload($file, $path, $allow = null)
     {
@@ -44,7 +44,7 @@ class FileUpload
 
                 return $result['ObjectURL'];
             } catch (S3Exception $e) {
-                throw new \Exception("There was an error uploading the file.");
+                throw new \Exception(trans('validation.error_upload_file'));
             }
 
         }
@@ -63,7 +63,12 @@ class FileUpload
         switch ($allow) {
             case 'image':
                 if (strpos($file->getMimeType(), 'image') === false) {
-                    throw new \Exception($file->getClientOriginalName() . " is not a picture");
+                    throw new \Exception($file->getClientOriginalName() ." ". trans('validation.is_not_a_picture'));
+                }
+                break;
+            case 'video':
+                if (strpos($file->getMimeType(), 'video') === false) {
+                    throw new \Exception($file->getClientOriginalName() ." ". trans('validation.is_not_a_video'));
                 }
                 break;
         }
