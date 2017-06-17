@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Follow extends Model {
+class Follow extends Model
+{
 
     /**
      * Generated
@@ -12,11 +13,13 @@ class Follow extends Model {
     protected $fillable = ['id', 'followed_by', 'following'];
 
 
-    public function followedBy() {
+    public function followedBy()
+    {
         return $this->belongsTo(\App\Models\User::class, 'followed_by', 'id');
     }
 
-    public function following() {
+    public function following()
+    {
         return $this->belongsTo(\App\Models\User::class, 'following', 'id');
     }
 

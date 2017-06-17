@@ -10,10 +10,10 @@ class FileUpload
     public function __construct()
     {
         $this->s3client = new S3Client([
-            'version'     => 'latest',
-            'region'      => 'us-west-2',
+            'version' => 'latest',
+            'region' => 'us-west-2',
             'credentials' => [
-                'key'    => env('AWS_KEY'),
+                'key' => env('AWS_KEY'),
                 'secret' => env('AWS_SECRET'),
             ],
         ]);
@@ -22,8 +22,8 @@ class FileUpload
     /**
      * upload file to S3
      * @param  $file            File object, got through: $request->file('file_name')
-     * @param  $path         	[any path you want to for S3]
-     * @param  $allow         	[what kind of file to allow to upload]
+     * @param  $path [any path you want to for S3]
+     * @param  $allow [what kind of file to allow to upload]
      * @return [string]         [file url]
      */
     public function upload($file, $path, $allow = null)
@@ -35,11 +35,11 @@ class FileUpload
 
             try {
                 $result = $this->s3client->putObject(array(
-                    'Bucket'       => env('AWS_BUCKET'),
-                    'Key'          => $path . (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension(),
-                    'SourceFile'   => $file->getPathName(),
-                    'ContentType'  => 'text/plain',
-                    'ACL'          => 'public-read',
+                    'Bucket' => env('AWS_BUCKET'),
+                    'Key' => $path . (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension(),
+                    'SourceFile' => $file->getPathName(),
+                    'ContentType' => 'text/plain',
+                    'ACL' => 'public-read',
                 ));
 
                 return $result['ObjectURL'];
@@ -55,7 +55,7 @@ class FileUpload
 
     /**
      * check file and its extenstion
-     * @param  $allow         [what kind of file to allow to upload]
+     * @param  $allow [what kind of file to allow to upload]
      * @param  $file            File object, got through: $request->file('file_name')
      */
     private function checkFile($allow, $file)
@@ -63,12 +63,12 @@ class FileUpload
         switch ($allow) {
             case 'image':
                 if (strpos($file->getMimeType(), 'image') === false) {
-                    throw new \Exception($file->getClientOriginalName() ." ". trans('validation.is_not_a_picture'));
+                    throw new \Exception($file->getClientOriginalName() . " " . trans('validation.is_not_a_picture'));
                 }
                 break;
             case 'video':
                 if (strpos($file->getMimeType(), 'video') === false) {
-                    throw new \Exception($file->getClientOriginalName() ." ". trans('validation.is_not_a_video'));
+                    throw new \Exception($file->getClientOriginalName() . " " . trans('validation.is_not_a_video'));
                 }
                 break;
         }

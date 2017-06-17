@@ -22,10 +22,11 @@ class Mimic extends Model
 
     /**
      * @TODO - check if tags exists, put in redis as key => value and check in that way
-     * @param $tags
+     * @param  [string] $tags [list of tags: "#tag1 #tag2"]
+     * @param $mimicModel - created mimic model
      * @return array
      */
-    public function checkTags($tags)
+    public function checkTags($tags, $mimicModel)
     {
         $return = [];
         preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags);
@@ -46,6 +47,12 @@ class Mimic extends Model
                 $t->update();
             }
 
+            //save to mimic_hahstag table
+            $mimicHashtag = new $this->mimicHashtag;
+            $mimicHashtag->mimic_id = $mimicModel->id;
+            $mimicHashtag->hashtag_id = $t->id;
+            $mimicHashtag->save();
+
             $return[$t->id] = $hashtag;
         }
 
@@ -54,8 +61,8 @@ class Mimic extends Model
 
     /**
      * check if person tagged a user
-     * @param  [type] $tags [description]
-     * @return [type]       [description]
+     * @param  [string] $usernames [list of usernames: "@user1 @user2"]
+     * @param $mimicModel - created mimic model
      */
     public function checkTaggedUser($usernames)
     {
@@ -69,7 +76,15 @@ class Mimic extends Model
             if (!empty($user)) {
                 //send notification
                 $this->sendMimicTagNotification($user);
+                
+                //save to mimic_hahstag table
+                $mimicTaguser = new $this->mimicTaguser;
+                $mimicTaguser->mimic_id = $mimicModel->id;
+                $mimicTaguser->user_id = $user->id;
+                $mimicTaguser->save();
+
             }
+
             $return[$user->id] = $username;
         }
 
@@ -83,13 +98,13 @@ class Mimic extends Model
      */
     private function sendMimicTagNotification($user)
     {
-        $data = 
-        [
-            'badge' => 1,
-            'sound' => 'default',
-            'title' => trans('core.notifications.respond_to_mimic_title'),
-            'body' => trans('core.notifications.respond_to_mimic_body'),
-        ];
+        $data =
+            [
+                'badge' => 1,
+                'sound' => 'default',
+                'title' => trans('core.notifications.respond_to_mimic_title'),
+                'body' => trans('core.notifications.respond_to_mimic_body'),
+            ];
 
         SendPushNotification::sendNotification($user->id, $data);
     }

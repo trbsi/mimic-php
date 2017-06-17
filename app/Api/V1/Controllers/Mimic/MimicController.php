@@ -8,13 +8,17 @@ use App\Models\User;
 use App\Models\Mimic;
 use App\Helpers\FileUploadHelper;
 use DB;
+use App\Models\MimicTaguser;
+use App\Models\MimicHashtag;
 
 class MimicController extends BaseAuthController
 {
-    public function __construct(User $user, Mimic $mimic)
+    public function __construct(User $user, Mimic $mimic, MimicTaguser $mimicTaguser, MimicHashtag $mimicHashtag)
     {
         parent::__construct($user);
         $this->mimic = $mimic;
+        $this->mimicTaguser = $mimicTaguser;
+        $this->mimicHashtag = $mimicHashtag;
     }
 
     /**
@@ -24,63 +28,58 @@ class MimicController extends BaseAuthController
     public function addMimic(Request $request, FileUploadHelper $fileUpload)
     {
         DB::beginTransaction();
-        try
-        {
+        try {
             $file = $request->file('file');
-            $mime =  $media->getMimeType();
+            $mime = $media->getMimeType();
 
-            if(strpos($mime,"video") !== false)
-            {
+            if (strpos($mime, "video") !== false) {
                 $type = Mimic::TYPE_VIDEO;
-            }
-            elseif(strpos($mime,"image") !== false)
-            {
+            } elseif (strpos($mime, "image") !== false) {
                 $type = Mimic::TYPE_PIC;
-            }
-            else{
+            } else {
                 throw new \Exception(trans("validation.file_should_be_image_video"), 403);
             }
 
             //upload mimic
             //path: files/user/USER_ID/YEAR/
-            $file = $fileUpload->upload($file, Mimic::FILE_PATH.$this->authUser->id."/".date("Y")."/");
+            $file = $fileUpload->upload($file, Mimic::FILE_PATH . $this->authUser->id . "/" . date("Y") . "/");
 
-            //check for hashtags
-            $hashtags = $this->mimic->checkTags($request->hashtags);
+            if ($mimic = $this->mimic->create(
+                [
+                    'file' => $file,
+                    'mimic_type' => $type,
+                    'is_response' => $request->is_response,
+                    'user_id' => $this->authUser->id
+                ])
+            ) {
+                //check for hashtags
+                $hashtags = $this->mimic->checkTags($request->hashtags, $mimic);
 
-            //tag users
-            $taggedUsers = $this->mimic->checkTaggedUser($request->usernames);
+                //tag users
+                $taggedUsers = $this->mimic->checkTaggedUser($request->usernames, $mimic);
+            }
 
-            $this->mimic->create(
-            [
-                'file' => $file, 
-                'mimic_type' => $type, 
-                'is_response' => $request->is_response, 
-                'user_id' => $this->authUser->id
-            ]);
 
             DB::commit();
             return response()->json(
-            [   
-                'status' => true,
-                'showAlert' => false,
-                'message' => 
                 [
-                    'title' => null,
-                    'body' => null
-                ]
-                'mimic' => $this->mimic,
+                    'status' => true,
+                    'showAlert' => false,
+                    'message' =>
+                        [
+                            'title' => null,
+                            'body' => null
+                        ]
+                'mimic' => $mimic,
                 'hashtags' => $hashtags,
                 'taggedUsers' => $taggedUsers
             ]);
 
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(
-            [
-                'status' => false
+                [
+                    'status' => false
                 'showAlert' => true,
                 'message' =>
                 [
@@ -89,12 +88,12 @@ class MimicController extends BaseAuthController
                 ]
             ]);
        }
-           
+
     }
 
     public function listMimics(Request $request)
     {
 
     }
-        
+
 }
