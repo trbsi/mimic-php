@@ -93,6 +93,63 @@ class Mimic extends Model
 
 
     /**
+     * generate mimic response
+     * @param  [type] $mimic       [Mimic model]
+     * @param  [type] $hashtags    [array of hashtags in form: [hashtag id] => hashtag name ]
+     * @param  [type] $taggedUsers [array of usernames in form: [user id] => username]
+     * @return [type]              [description]
+     */
+    public function generateMimicResponse($mimic, $hashtags, $taggedUsers)
+    {
+        $mimic = 
+        [
+            'user' => $mimic->user->username,
+            'user_id' => $mimic->user_id,
+            'mimic_type' => $this->getMimicType($mimic),
+            'upvote' => $mimic->upvote
+            'file' => $mimic->file
+        ];
+
+        $hashTagsTmp = [];
+        $i = 0;
+        foreach ($hashtags as $hashtag_id => $hashtag_name) {
+            $hashTagsTmp[$i]["hashtag_id"] = $hashtag_id;
+            $hashTagsTmp[$i]["hashtag_name"] = $hashtag_name;
+            $i++;
+        }
+        
+        $taggedUsersTmp = [];
+        $i = 0;
+        foreach ($taggedUsers as $user_id => $username) {
+            $hashTagsTmp[$i]["user_id"] = $user_id;
+            $hashTagsTmp[$i]["username"] = $username;
+            $i++;
+        }
+        
+        return 
+        [
+            'mimic' => $mimic,
+            'hashtags' => $hashTagsTmp,
+            'taggedUsers' => $taggedUsersTmp
+        ]
+    }
+
+    /**
+     * get mimic type: video, image
+     * @param  [type] $mimic [Mimic model]
+     */
+    private function getMimicType($mimic)
+    {
+        switch ($mimic->mimic_type) {
+            case Mimic::TYPE_VIDEO:
+                return 'video';
+                break;
+            case Mimic::TYPE_PIC:
+                return 'picture';
+                break;
+        }
+    }
+    /**
      * send notification to a user if someone tags him/her
      * @param  $user [User model]
      */

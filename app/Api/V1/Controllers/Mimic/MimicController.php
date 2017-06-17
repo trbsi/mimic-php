@@ -59,33 +59,31 @@ class MimicController extends BaseAuthController
                 $taggedUsers = $this->mimic->checkTaggedUser($request->usernames, $mimic);
             }
 
-
-            DB::commit();
-            return response()->json(
+            $mimicResponse = array_merge(
+                $this->mimic->generateMimicResponse($mimic, $hashtags, $taggedUsers),  
                 [
                     'status' => true,
                     'showAlert' => false,
                     'message' =>
-                        [
-                            'title' => null,
-                            'body' => null
-                        ]
-                'mimic' => $mimic,
-                'hashtags' => $hashtags,
-                'taggedUsers' => $taggedUsers
-            ]);
-
+                    [
+                        'title' => null,
+                        'body' => null
+                    ]
+                ]);
+            DB::commit();
+            return response()->json($mimicResponse);
+            
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(
-                [
-                    'status' => false
+            [
+                'status' => false,
                 'showAlert' => true,
                 'message' =>
                 [
                     'title' => trans('core.alert.cant_upload_mimic_title'),
                     'body' => trans('core.alert.cant_upload_mimic_body'),
-                ]
+                ],
             ]);
        }
 
