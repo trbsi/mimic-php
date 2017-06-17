@@ -1,6 +1,9 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Hashtag;
+use App\Models\User;
+use App\Helpers\SendPushNotification;
 
 class Mimic extends Model
 {
@@ -8,6 +11,7 @@ class Mimic extends Model
     const TYPE_VIDEO = 1;
     const TYPE_PIC = 2;
     const FILE_PATH = 'files/user/';
+    const MAX_TAG_LENGTH = 50;
 
     /**
      * Generated
@@ -16,6 +20,79 @@ class Mimic extends Model
     protected $table = 'mimics';
     protected $fillable = ['id', 'media', 'mimic_type', 'is_response', 'is_private', 'upvote', 'user_id'];
 
+    /**
+     * @TODO - check if tags exists, put in redis as key => value and check in that way
+     * @param $tags
+     * @return array
+     */
+    public function checkTags($tags)
+    {
+        $return = [];
+        preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags);
+        foreach ($hashtags[0] as $hashtag) {
+            if (strlen($hashtag) > self::MAX_TAG_LENGTH) {
+                $hashtag = substr($hashtag, 0, self::MAX_TAG_LENGTH);
+            }
+
+            $t = Hashtag::where(['name' => $hashtag])->first();
+
+            if (empty($t)) {
+                $t = new Hashtag;
+                $t->name = $hashtag;
+                $t->popularity = 1;
+                $t->save();
+            } else {
+                $t->popularity = $t->popularity + 1;
+                $t->update();
+            }
+
+            $return[$t->id] = $hashtag;
+        }
+
+        return $return;
+    }
+
+    /**
+     * check if person tagged a user
+     * @param  [type] $tags [description]
+     * @return [type]       [description]
+     */
+    public function checkTaggedUser($usernames)
+    {
+        $return = [];
+        preg_match_all("(@[a-zA-Z0-9]*)", $usernames, $usernames);
+        foreach ($usernames[0] as $username) {
+
+            //substr exlude "@"
+            $user = Hashtag::where(['username' => substr($username, 1)])->first();
+
+            if (!empty($user)) {
+                //send notification
+                $this->sendMimicTagNotification($user);
+            }
+            $return[$user->id] = $username;
+        }
+
+        return $return;
+    }
+
+
+    /**
+     * send notification to a user if someone tags him/her
+     * @param  $user [User model]
+     */
+    private function sendMimicTagNotification($user)
+    {
+        $data = 
+        [
+            'badge' => 1,
+            'sound' => 'default',
+            'title' => trans('core.notifications.respond_to_mimic_title'),
+            'body' => trans('core.notifications.respond_to_mimic_body'),
+        ];
+
+        SendPushNotification::sendNotification($user->id, $data);
+    }
 
     public function user()
     {

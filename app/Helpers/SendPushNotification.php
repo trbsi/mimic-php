@@ -99,11 +99,6 @@ class SendPushNotification
             $body['aps']['badge'] = (int)$data['badge'];
         }
 
-        //this is used so you know which pin to open
-        if (isset($data["pin_id"])) {
-            $body["pin_id"] = (int)$data["pin_id"];
-        }
-
         //------------CHANGED-------------------
 
         // Encode the payload as JSON
