@@ -12,17 +12,14 @@ return
                 'login_failed_title' => 'Login failed',
                 'login_failed_body' => "We couldn't log you in. Try again.",
             ],
-        'map' =>
+        'notifications' =>
             [
-                'missing_tags_title' => 'Enter tags',
-                'missing_tags_body' => 'Please enter valid tags. E.g. #sunnyday #goforawalk',
-
-                'user_didnt_publish_pin_body' => 'Publish a pin to activate other pins ;)',
-                'user_didnt_publish_pin_title' => 'Publish your own pin',
+                'respond_to_mimic_title' => 'Respond to new mimic',
+                'respond_to_mimic_body' => ':user come and respond to my mimic! - :owner',
             ],
-        'message' =>
+        'alert' => 
             [
-                'no_reply_title' => 'Say something',
-                'no_reply_body' => 'Say something before hitting Send',
+                'cant_upload_mimic_title' => "Mimic couldn't be added"
+                'cant_upload_mimic_body' => "We're too hot right now, keep trying!"
             ]
     ];

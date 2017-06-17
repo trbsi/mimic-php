@@ -18,7 +18,7 @@ class UsersTable extends Seeder
                 [
                     'email' => 'user' . $i . '@mail.com',
                     'facebook_id' => mt_rand(),
-                    'username' => "user_$i",
+                    'username' => "user$i",
                 ];
 
             $user->create($insert);
