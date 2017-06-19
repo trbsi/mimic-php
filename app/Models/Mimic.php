@@ -12,6 +12,7 @@ class Mimic extends Model
     const TYPE_PIC = 2;
     const FILE_PATH = 'files/user/';
     const MAX_TAG_LENGTH = 50;
+    const LIST_MIMIC_LIMIT = 50;
 
     /**
      * Generated
@@ -103,27 +104,59 @@ class Mimic extends Model
     {
         $mimic = 
         [
+            'id' => $mimic->id,
             'user' => $mimic->user->username,
             'user_id' => $mimic->user_id,
             'mimic_type' => $this->getMimicType($mimic),
-            'upvote' => $mimic->upvote
-            'file' => $mimic->file
+            'upvote' => $mimic->upvote,
+            'file' => $mimic->file,
         ];
 
         $hashTagsTmp = [];
-        $i = 0;
-        foreach ($hashtags as $hashtag_id => $hashtag_name) {
-            $hashTagsTmp[$i]["hashtag_id"] = $hashtag_id;
-            $hashTagsTmp[$i]["hashtag_name"] = $hashtag_name;
-            $i++;
+
+        //it could be an array generated with  checkTags
+        if(is_array($hashtags)) {
+            foreach ($hashtags as $hashtag_id => $hashtag_name) {
+                $hashTagsTmp[] = 
+                [
+                    "hashtag_id" => $hashtag_id,
+                    "hashtag_name" => $hashtag_name
+                ];
+            }
+        }
+
+        //if it's object from database
+        if(is_object($hashtags)) {
+            foreach ($hashtags as $hashtag) {
+                $hashTagsTmp[] = 
+                [
+                    "hashtag_id" => $hashtag->id,
+                    "hashtag_name" => $hashtag->name,
+                ];
+            }
         }
         
         $taggedUsersTmp = [];
-        $i = 0;
-        foreach ($taggedUsers as $user_id => $username) {
-            $hashTagsTmp[$i]["user_id"] = $user_id;
-            $hashTagsTmp[$i]["username"] = $username;
-            $i++;
+        //it could be an array generated with  checkTaggedUser
+        if(is_array($taggedUsers)) {
+            foreach ($taggedUsers as $user_id => $username) {
+                $taggedUsersTmp[] = 
+                [
+                    "user_id" => $user_id,
+                    "username" => $username,
+                ];
+            }
+        }
+
+        //if it's object from database
+        if(is_object($taggedUsers)) {
+            foreach ($taggedUsers as $taggedUser) {
+                $taggedUsersTmp[] = 
+                [
+                    "user_id" => $taggedUser->id,
+                    "username" => $taggedUser->username
+                ];
+            }
         }
         
         return 
@@ -131,7 +164,7 @@ class Mimic extends Model
             'mimic' => $mimic,
             'hashtags' => $hashTagsTmp,
             'taggedUsers' => $taggedUsersTmp
-        ]
+        ];
     }
 
     /**
@@ -193,7 +226,7 @@ class Mimic extends Model
 
     public function mimicResponses()
     {
-        return $this->hasMany(\App\Models\MimicResponse::class, 'mimic_id', 'id');
+        return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id');
     }
 
     public function mimicTagusers()

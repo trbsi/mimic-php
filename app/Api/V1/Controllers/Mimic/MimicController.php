@@ -92,6 +92,23 @@ class MimicController extends BaseAuthController
     public function listMimics(Request $request)
     {
 
+        $offset = 0;
+        if($request->page) {
+            $offset = Mimic::LIST_MIMIC_LIMIT*$request->page;
+        }
+        $mimics = $this->mimic->orderBy('id', 'DESC')
+        ->limit(Mimic::LIST_MIMIC_LIMIT)
+        ->offset($offset)
+        ->where('is_response', 0)
+        ->with(['mimicResponses.responseMimic', 'user', 'hashtags', 'mimicTaguser'])
+        ->get();    
+
+        $mimicsResponse = [];
+        foreach ($mimics as $key => $mimic) {
+            $mimicsResponse[] = $this->mimic->generateMimicResponse($mimic, $mimic->hashtags, $mimic->mimicTaguser);
+        }
+
+        return response()->json(['mimics' => $mimicsResponse]);
     }
 
 }

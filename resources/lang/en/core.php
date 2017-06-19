@@ -19,7 +19,7 @@ return
             ],
         'alert' => 
             [
-                'cant_upload_mimic_title' => "Mimic couldn't be added"
-                'cant_upload_mimic_body' => "We're too hot right now, keep trying!"
+                'cant_upload_mimic_title' => "Mimic couldn't be added",
+                'cant_upload_mimic_body' => "We're too hot right now, keep trying!",
             ]
     ];
