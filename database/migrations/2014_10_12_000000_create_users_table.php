@@ -17,7 +17,10 @@ class CreateUsersTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->string('email')->unique();
-            $table->string('username', 50);
+            $table->string('username', 50)->unique();
+            $table->integer('followers')->default(0);
+            $table->integer('following')->default(0);
+            $table->integer('number_of_mimics')->default(0);
             $table->bigInteger('facebook_id');
             $table->timestamps();
         });

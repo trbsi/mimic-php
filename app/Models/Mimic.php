@@ -92,15 +92,30 @@ class Mimic extends Model
         return $return;
     }
 
+    /**
+     * get mimic model and return response
+     * @param  [type] $mimics [Mimic model]
+     * @return [array]        [generated mimic response]
+     */
+    public function getMimicResponse($mimics)
+    {
+        $mimicsResponse = [];
+        foreach ($mimics as $mimic) {
+            $mimicsResponse[] = $this->generateMimicResponse($mimic, $mimic->hashtags, $mimic->mimicTaguser, $mimic->mimicResponses);
+        }
+
+        return $mimicsResponse;
+    }
 
     /**
      * generate mimic response
      * @param  [type] $mimic       [Mimic model]
      * @param  [type] $hashtags    [array of hashtags in form: [hashtag id] => hashtag name ]
      * @param  [type] $taggedUsers [array of usernames in form: [user id] => username]
+     * @param  [type] $mimicResponses [all responses of a specific origina mimic, ordered descending by upvotes]
      * @return [type]              [description]
      */
-    public function generateMimicResponse($mimic, $hashtags, $taggedUsers)
+    private function generateMimicResponse($mimic, $hashtags, $taggedUsers, $mimicResponses)
     {
         $mimic = 
         [
@@ -124,9 +139,8 @@ class Mimic extends Model
                 ];
             }
         }
-
         //if it's object from database
-        if(is_object($hashtags)) {
+        else if(is_object($hashtags)) {
             foreach ($hashtags as $hashtag) {
                 $hashTagsTmp[] = 
                 [
@@ -147,9 +161,8 @@ class Mimic extends Model
                 ];
             }
         }
-
         //if it's object from database
-        if(is_object($taggedUsers)) {
+        else if(is_object($taggedUsers)) {
             foreach ($taggedUsers as $taggedUser) {
                 $taggedUsersTmp[] = 
                 [
@@ -158,12 +171,19 @@ class Mimic extends Model
                 ];
             }
         }
-        
+
+        $mimicResponsesTmp = [];
+        //get all mimic responses
+        foreach ($mimicResponses as $mimicResponse) {
+            $mimicResponsesTmp[] = $mimicResponse->responseMimic;
+        }
+
         return 
         [
             'mimic' => $mimic,
             'hashtags' => $hashTagsTmp,
-            'taggedUsers' => $taggedUsersTmp
+            'taggedUsers' => $taggedUsersTmp,
+            'mimicResponses' => $mimicResponsesTmp
         ];
     }
 

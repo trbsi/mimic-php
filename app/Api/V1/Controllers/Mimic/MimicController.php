@@ -6,6 +6,7 @@ use App\Api\V1\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Mimic;
+use App\Models\Follow;
 use App\Helpers\FileUploadHelper;
 use DB;
 use App\Models\MimicTaguser;
@@ -13,10 +14,15 @@ use App\Models\MimicHashtag;
 
 class MimicController extends BaseAuthController
 {
-    public function __construct(User $user, Mimic $mimic, MimicTaguser $mimicTaguser, MimicHashtag $mimicHashtag)
+    public function __construct(User $user,
+     Mimic $mimic, 
+     MimicTaguser $mimicTaguser, 
+     MimicHashtag $mimicHashtag,
+     Follow $follow)
     {
         parent::__construct($user);
         $this->mimic = $mimic;
+        $this->follow = $follow;
         $this->mimicTaguser = $mimicTaguser;
         $this->mimicHashtag = $mimicHashtag;
     }
@@ -53,25 +59,40 @@ class MimicController extends BaseAuthController
                 ])
             ) {
                 //check for hashtags
-                $hashtags = $this->mimic->checkTags($request->hashtags, $mimic);
+                $this->mimic->checkTags($request->hashtags, $mimic);
 
                 //tag users
-                $taggedUsers = $this->mimic->checkTaggedUser($request->usernames, $mimic);
+                $this->mimic->checkTaggedUser($request->usernames, $mimic);
+
+                $mimicResponse = 
+                array_merge(
+                    $this->mimic->getMimicResponse($this->mimic->where('id', $mimic->id)->with(['mimicResponses.responseMimic', 'user', 'hashtags', 'mimicTaguser'])->first()),  
+                    [
+                        'status' => true,
+                        'showAlert' => false,
+                        'message' =>
+                        [
+                            'title' => null,
+                            'body' => null
+                        ]
+                    ]
+                );
+
+                DB::commit();
+                return response()->json($mimicResponse);
             }
 
-            $mimicResponse = array_merge(
-                $this->mimic->generateMimicResponse($mimic, $hashtags, $taggedUsers),  
+            DB::rollBack();
+            return response()->json(
+            [
+                'status' => false,
+                'showAlert' => true,
+                'message' =>
                 [
-                    'status' => true,
-                    'showAlert' => false,
-                    'message' =>
-                    [
-                        'title' => null,
-                        'body' => null
-                    ]
-                ]);
-            DB::commit();
-            return response()->json($mimicResponse);
+                    'title' => trans('core.alert.cant_upload_mimic_title'),
+                    'body' => trans('core.alert.cant_upload_mimic_body'),
+                ],
+            ]);
             
         } catch (\Exception $e) {
             DB::rollBack();
@@ -89,25 +110,47 @@ class MimicController extends BaseAuthController
 
     }
 
+    /**
+     * list newest mimics
+     * @param  Request $request
+     */
     public function listMimics(Request $request)
     {
+        $mimicsTable = $this->mimic->getTable();
+        $followTable = $this->follow->getTable();
 
         $offset = 0;
         if($request->page) {
             $offset = Mimic::LIST_MIMIC_LIMIT*$request->page;
         }
-        $mimics = $this->mimic->orderBy('id', 'DESC')
+
+        $mimics = $this->mimic;
+        if($request->type && $request->type == "followers") {
+            $mimics = $mimics
+            ->join('follow', "$followTable.following", '=', "$mimicsTable.user_id")
+            ->where('followed_by', $this->authUser->id);
+        } 
+
+        $mimics = $mimics->select("$mimicsTable.*")
+        ->orderBy("$mimicsTable.id", 'DESC')
         ->limit(Mimic::LIST_MIMIC_LIMIT)
         ->offset($offset)
         ->where('is_response', 0)
         ->with(['mimicResponses.responseMimic', 'user', 'hashtags', 'mimicTaguser'])
         ->get();    
 
-        $mimicsResponse = [];
-        foreach ($mimics as $key => $mimic) {
-            $mimicsResponse[] = $this->mimic->generateMimicResponse($mimic, $mimic->hashtags, $mimic->mimicTaguser);
-        }
+        $mimicsResponse[] = $this->mimic->getMimicResponse($mimics);
 
+        return response()->json(['mimics' => $mimicsResponse]);
+    }
+
+    /**
+     * load responses of a specific original mimic
+     * @param  Request $request
+     */
+    public function loadResponses(Request $request)
+    {
+       // $this->mimic
         return response()->json(['mimics' => $mimicsResponse]);
     }
 

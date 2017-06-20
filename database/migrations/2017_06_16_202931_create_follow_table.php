@@ -17,8 +17,8 @@ class CreateFollowTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             //"followed_by" is following "following"
-            $table->bigInteger('followed_by'); //user who is following another user
-            $table->bigInteger('following'); //user who is being followed
+            $table->bigInteger('followed_by')->comment("user who is following another user, user_id"); //user who is following another user
+            $table->bigInteger('following')->comment("user who is being followed"); //user who is being followed
             $table->timestamps();            
             $table->foreign('followed_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('following')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
