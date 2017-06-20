@@ -66,7 +66,7 @@ class MimicController extends BaseAuthController
 
                 $mimicResponse = 
                 array_merge(
-                    $this->mimic->getMimicResponse($this->mimic->where('id', $mimic->id)->with(['mimicResponses.responseMimic', 'user', 'hashtags', 'mimicTaguser'])->first()),  
+                    $this->mimic->getMimicResponse($this->mimic->where('id', $mimic->id)->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])->first()),  
                     [
                         'status' => true,
                         'showAlert' => false,
