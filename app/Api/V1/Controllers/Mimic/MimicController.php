@@ -8,9 +8,10 @@ use App\Models\User;
 use App\Models\Mimic;
 use App\Models\Follow;
 use App\Helpers\FileUploadHelper;
-use DB;
 use App\Models\MimicTaguser;
 use App\Models\MimicHashtag;
+use App\Models\MimicResponse;
+use DB;
 
 class MimicController extends BaseAuthController
 {
@@ -18,13 +19,15 @@ class MimicController extends BaseAuthController
      Mimic $mimic, 
      MimicTaguser $mimicTaguser, 
      MimicHashtag $mimicHashtag,
-     Follow $follow)
+     Follow $follow,
+     MimicResponse $mimicResponse)
     {
         parent::__construct($user);
         $this->mimic = $mimic;
         $this->follow = $follow;
         $this->mimicTaguser = $mimicTaguser;
         $this->mimicHashtag = $mimicHashtag;
+        $this->mimicResponse = $mimicResponse;
     }
 
     /**
@@ -121,27 +124,25 @@ class MimicController extends BaseAuthController
 
         $offset = 0;
         if($request->page) {
-            $offset = Mimic::LIST_MIMIC_LIMIT*$request->page;
+            $offset = Mimic::LIST_ORIGINAL_MIMIC_LIMIT*$request->page;
         }
 
         $mimics = $this->mimic;
         if($request->type && $request->type == "followers") {
             $mimics = $mimics
-            ->join('follow', "$followTable.following", '=', "$mimicsTable.user_id")
+            ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
             ->where('followed_by', $this->authUser->id);
         } 
 
         $mimics = $mimics->select("$mimicsTable.*")
         ->orderBy("$mimicsTable.id", 'DESC')
-        ->limit(Mimic::LIST_MIMIC_LIMIT)
+        ->limit(Mimic::LIST_ORIGINAL_MIMIC_LIMIT)
         ->offset($offset)
         ->where('is_response', 0)
         ->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])
         ->get();    
 
-        $mimicsResponse[] = $this->mimic->getMimicResponse($mimics);
-
-        return response()->json(['mimics' => $mimicsResponse]);
+        return response()->json(['mimics' => $this->mimic->getMimicResponse($mimics)]);
     }
 
     /**
@@ -150,8 +151,23 @@ class MimicController extends BaseAuthController
      */
     public function loadResponses(Request $request)
     {
-        //$this->mimic
-        return response()->json(['mimics' => $mimicsResponse]);
+        $mimicsTable = $this->mimic->getTable();
+        $mimicResponseTable = $this->mimicResponse->getTable();
+
+        $offset = 0;
+        if($request->page) {
+            $offset = Mimic::LIST_RESPONSE_MIMIC_LIMIT*$request->page;
+        }
+
+        $mimicsResponses = $this->mimic->select("$mimicsTable.*")
+        ->join($mimicResponseTable, "$mimicResponseTable.response_mimic_id", '=', "$mimicsTable.id")
+        ->where("$mimicResponseTable.original_mimic_id", $request->original_mimic_id)
+        ->orderBy("upvote", "DESC")
+        ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT)
+        ->offset($offset)
+        ->get();
+
+        return response()->json(['mimics' => $mimicsResponses]);
     }
 
 }

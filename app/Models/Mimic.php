@@ -13,7 +13,8 @@ class Mimic extends Model
     const TYPE_PIC = 2;
     const FILE_PATH = 'files/user/';
     const MAX_TAG_LENGTH = 50;
-    const LIST_MIMIC_LIMIT = 50;
+    const LIST_ORIGINAL_MIMIC_LIMIT = 50;
+    const LIST_RESPONSE_MIMIC_LIMIT = 20;
 
     /**
      * Generated
