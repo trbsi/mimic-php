@@ -88,7 +88,7 @@ trait MimicTrait
         return         
         [
             'id' => $mimic->id,
-           // 'user' => $mimic->user->username,
+            'user' => $mimic->user->username,
             'user_id' => $mimic->user_id,
             'mimic_type' => $this->getMimicType($mimic),
             'upvote' => $mimic->upvote,

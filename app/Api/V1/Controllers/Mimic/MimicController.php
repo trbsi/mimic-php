@@ -136,7 +136,7 @@ class MimicController extends BaseAuthController
         ->limit(Mimic::LIST_MIMIC_LIMIT)
         ->offset($offset)
         ->where('is_response', 0)
-        ->with(['mimicResponses.responseMimic', 'user', 'hashtags', 'mimicTaguser'])
+        ->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])
         ->get();    
 
         $mimicsResponse[] = $this->mimic->getMimicResponse($mimics);
@@ -150,7 +150,7 @@ class MimicController extends BaseAuthController
      */
     public function loadResponses(Request $request)
     {
-        $this->mimic
+        //$this->mimic
         return response()->json(['mimics' => $mimicsResponse]);
     }
 
