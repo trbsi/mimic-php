@@ -21,10 +21,7 @@ class MimicResponse extends Model
 
     public function responseMimic()
     {
-        return $this->belongsTo(\App\Models\Mimic::class, 'response_mimic_id', 'id')
-        ->orderBy("upvote", "DESC")
-       // ->limit(2)
-        ;
+        return $this->belongsTo(\App\Models\Mimic::class, 'response_mimic_id', 'id');
     }
 
 
