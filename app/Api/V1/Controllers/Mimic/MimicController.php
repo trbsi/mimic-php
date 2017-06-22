@@ -9,7 +9,6 @@ use App\Models\Mimic;
 use App\Helpers\FileUploadHelper;
 use App\Models\MimicTaguser;
 use App\Models\MimicHashtag;
-use App\Models\MimicResponse;
 use DB;
 
 class MimicController extends BaseAuthController
@@ -17,14 +16,12 @@ class MimicController extends BaseAuthController
     public function __construct(User $user,
      Mimic $mimic, 
      MimicTaguser $mimicTaguser, 
-     MimicHashtag $mimicHashtag,
-     MimicResponse $mimicResponse)
+     MimicHashtag $mimicHashtag)
     {
         parent::__construct($user);
         $this->mimic = $mimic;
         $this->mimicTaguser = $mimicTaguser;
         $this->mimicHashtag = $mimicHashtag;
-        $this->mimicResponse = $mimicResponse;
     }
 
     /**
@@ -127,22 +124,8 @@ class MimicController extends BaseAuthController
      */
     public function loadResponses(Request $request)
     {
-        $mimicsTable = $this->mimic->getTable();
-        $mimicResponseTable = $this->mimicResponse->getTable();
-
-        $offset = 0;
-        if($request->page) {
-            $offset = Mimic::LIST_RESPONSE_MIMIC_LIMIT*$request->page;
-        }
-
-        $mimicsResponses = $this->mimic->select("$mimicsTable.*")
-        ->join($mimicResponseTable, "$mimicResponseTable.response_mimic_id", '=', "$mimicsTable.id")
-        ->where("$mimicResponseTable.original_mimic_id", $request->original_mimic_id)
-        ->orderBy("upvote", "DESC")
-        ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT)
-        ->offset($offset)
-        ->get();
-
+        $mimicsResponses = $this->mimic->getMimicResponses($request);
+        
         return response()->json(['mimics' => $mimicsResponses]);
     }
 

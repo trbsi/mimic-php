@@ -5,6 +5,7 @@ use App\Models\Hashtag;
 use App\Models\User;
 use App\Traits\MimicTrait;
 use App\Models\Follow;
+use App\Models\MimicResponse;
 
 class Mimic extends Model
 {
@@ -24,7 +25,36 @@ class Mimic extends Model
     protected $table = 'mimics';
     protected $fillable = ['id', 'media', 'mimic_type', 'is_response', 'is_private', 'upvote', 'user_id'];
 
+    /**
+     * get all mimic responses of a specific original mimic
+     * @param  $request
+     * @return data from the database
+     */
+    public function getMimicResponses($request)
+    {
+        $mimicsTable = $this->getTable();
+        $mimicResponseTable = (new MimicResponse)->getTable();
 
+        $offset = 0;
+        if($request->page) {
+            $offset = Mimic::LIST_RESPONSE_MIMIC_LIMIT*$request->page;
+        }
+
+        return $this->select("$mimicsTable.*")
+        ->join($mimicResponseTable, "$mimicResponseTable.response_mimic_id", '=', "$mimicsTable.id")
+        ->where("$mimicResponseTable.original_mimic_id", $request->original_mimic_id)
+        ->orderBy("upvote", "DESC")
+        ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT)
+        ->offset($offset)
+        ->get();
+
+    }
+
+    /**
+     * get all original mimics (latest or from followers) from the database, with relations
+     * @param  [type] $request [description]
+     * @return [model]          [datafrom the database]
+     */
     public function getMimics($request)
     {
         $mimicsTable = $this->getTable();
