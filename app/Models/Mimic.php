@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Hashtag;
 use App\Models\User;
 use App\Traits\MimicTrait;
+use App\Models\Follow;
 
 class Mimic extends Model
 {
@@ -14,7 +15,7 @@ class Mimic extends Model
     const FILE_PATH = 'files/user/';
     const MAX_TAG_LENGTH = 50;
     const LIST_ORIGINAL_MIMIC_LIMIT = 50;
-    const LIST_RESPONSE_MIMIC_LIMIT = 20;
+    const LIST_RESPONSE_MIMIC_LIMIT = 2;
 
     /**
      * Generated
@@ -22,6 +23,34 @@ class Mimic extends Model
 
     protected $table = 'mimics';
     protected $fillable = ['id', 'media', 'mimic_type', 'is_response', 'is_private', 'upvote', 'user_id'];
+
+
+    public function getMimics($request)
+    {
+        $mimicsTable = $this->getTable();
+        $followTable = (new Follow)->getTable();
+
+        $offset = 0;
+        if($request->page) {
+            $offset = Mimic::LIST_ORIGINAL_MIMIC_LIMIT*$request->page;
+        }
+
+        $mimics = $this;
+        if($request->type && $request->type == "followers") {
+            $mimics = $mimics
+            ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
+            ->where('followed_by', $this->authUser->id);
+        } 
+
+        return $mimics->select("$mimicsTable.*")
+        ->orderBy("$mimicsTable.id", 'DESC')
+        ->limit(Mimic::LIST_ORIGINAL_MIMIC_LIMIT)
+        ->offset($offset)
+        ->where('is_response', 0)
+        ->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])
+        ->get();    
+
+    }
 
     /**
      * @TODO - check if tags exists, put in redis as key => value and check in that way

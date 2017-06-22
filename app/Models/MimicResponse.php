@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Mimic;
 
 class MimicResponse extends Model
 {
@@ -20,7 +21,10 @@ class MimicResponse extends Model
 
     public function responseMimic()
     {
-        return $this->belongsTo(\App\Models\Mimic::class, 'response_mimic_id', 'id')->orderBy("mimics.upvote", "DESC");
+        return $this->belongsTo(\App\Models\Mimic::class, 'response_mimic_id', 'id')
+        ->orderBy("upvote", "DESC")
+       // ->limit(2)
+        ;
     }
 
 

@@ -6,7 +6,6 @@ use App\Api\V1\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Mimic;
-use App\Models\Follow;
 use App\Helpers\FileUploadHelper;
 use App\Models\MimicTaguser;
 use App\Models\MimicHashtag;
@@ -19,12 +18,10 @@ class MimicController extends BaseAuthController
      Mimic $mimic, 
      MimicTaguser $mimicTaguser, 
      MimicHashtag $mimicHashtag,
-     Follow $follow,
      MimicResponse $mimicResponse)
     {
         parent::__construct($user);
         $this->mimic = $mimic;
-        $this->follow = $follow;
         $this->mimicTaguser = $mimicTaguser;
         $this->mimicHashtag = $mimicHashtag;
         $this->mimicResponse = $mimicResponse;
@@ -119,28 +116,7 @@ class MimicController extends BaseAuthController
      */
     public function listMimics(Request $request)
     {
-        $mimicsTable = $this->mimic->getTable();
-        $followTable = $this->follow->getTable();
-
-        $offset = 0;
-        if($request->page) {
-            $offset = Mimic::LIST_ORIGINAL_MIMIC_LIMIT*$request->page;
-        }
-
-        $mimics = $this->mimic;
-        if($request->type && $request->type == "followers") {
-            $mimics = $mimics
-            ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
-            ->where('followed_by', $this->authUser->id);
-        } 
-
-        $mimics = $mimics->select("$mimicsTable.*")
-        ->orderBy("$mimicsTable.id", 'DESC')
-        ->limit(Mimic::LIST_ORIGINAL_MIMIC_LIMIT)
-        ->offset($offset)
-        ->where('is_response', 0)
-        ->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])
-        ->get();    
+        $mimics = $this->mimic->getMimics($request);
 
         return response()->json(['mimics' => $this->mimic->getMimicResponse($mimics)]);
     }

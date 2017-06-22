@@ -65,6 +65,7 @@ trait MimicTrait
 
         $mimicResponsesTmp = [];
         //get all mimic responses
+        //dd($mimicResponses);
         foreach ($mimicResponses as $mimicResponse) {
             $mimicResponsesTmp[] = $this->createMimicArraySructure($mimicResponse->responseMimic);
         }
