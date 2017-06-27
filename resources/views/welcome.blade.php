@@ -81,10 +81,10 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="banner-text">
                         <h2 class="animation-box wow bounceIn animated"><strong
-                                    class="strong"><?= config("app.name") ?></strong><br>Mimic people</h2>
+                                    class="strong"><?= config("app.name") ?></strong><br>Split your world</h2>
 
                         <p>
-                            <?= config("app.name") ?> is an app for mimicing other people. I need help with this here.
+                            Post your short video or a photo and watch other people mimic you
                         </p>
                         <a href="<?= env("GOOGLE_PLAY_LINK") ?>" target="_blank"
                            class="btn btn-download wow animated fadeInLeft">
