@@ -52,7 +52,7 @@
                     <div class="col-md-11 col-xs-10">
                         <a href="/">
                             <img src="img/logo.png" class="img-responsive"
-                                 style="max-width: 25px; float: left;margin-right: 20px; padding-top: 10px;">
+                                 style="max-width: 35px; float: left;margin-right: 20px; padding-top: 10px;">
                             <span id="logo"><?= config("app.name") ?></span>
                         </a>
                     </div>
@@ -76,7 +76,7 @@
         <div class="starting">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    <img src="img/LUCY2.png" alt="LUCY" class="img-responsive wow flipInY animated animated">
+                    <img src="img/phone.png" alt="Mimic" class="img-responsive wow flipInY animated animated">
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="banner-text">
@@ -145,23 +145,8 @@
                     <a href="img/4.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
                         <img src="img/4.jpg" class="img_res wow animated zoomIn" alt="">
                     </a>
-                    <a href="img/1.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/1.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
-                    <a href="img/2.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/2.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
-                    <a href="img/3.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/3.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
-                    <a href="img/4.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/4.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
-                    <a href="img/1.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/1.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
-                    <a href="img/2.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/2.jpg" class="img_res wow animated zoomIn" alt="">
+                    <a href="img/5.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
+                        <img src="img/5.jpg" class="img_res wow animated zoomIn" alt="">
                     </a>
                 </div>
                 <div class="customNavigation row">
