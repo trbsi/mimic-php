@@ -81,4 +81,47 @@ class User extends Authenticatable
         return $user;
     }
 
+    /*public function users() {
+        return $this->belongsToMany(\App\Models\User::class, 'follow', 'followed_by', 'following');
+    }
+
+    public function users() {
+        return $this->belongsToMany(\App\Models\User::class, 'follow', 'following', 'followed_by');
+    }
+
+    public function mimics() {
+        return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
+    }
+
+    public function mimics() {
+        return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_upvote', 'user_id', 'mimic_id');
+    }
+
+    public function follows() {
+        return $this->hasMany(\App\Models\Follow::class, 'followed_by', 'id');
+    }
+
+    public function follows() {
+        return $this->hasMany(\App\Models\Follow::class, 'following', 'id');
+    }
+
+    public function mimicTagusers() {
+        return $this->hasMany(\App\Models\MimicTaguser::class, 'user_id', 'id');
+    }
+
+    public function mimicUpvotes() {
+        return $this->hasMany(\App\Models\MimicUpvote::class, 'user_id', 'id');
+    }
+
+    public function mimics() {
+        return $this->hasMany(\App\Models\Mimic::class, 'user_id', 'id');
+    }
+
+    public function pushNotificationsTokens() {
+        return $this->hasMany(\App\Models\PushNotificationsToken::class, 'user_id', 'id');
+    }*/
+
+    public function socialAccounts() {
+        return $this->hasMany(\App\Models\SocialAccount::class, 'user_id', 'id');
+    }    
 }

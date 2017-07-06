@@ -53,4 +53,13 @@ class LoginController extends Controller
             ]);
 
     }
+
+    /**
+     * Set username
+     * @param Request $request
+     */
+    public function setUsername(Request $request)
+    {
+
+    }
 }

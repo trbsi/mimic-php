@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->integer('followers')->default(0);
             $table->integer('following')->default(0);
             $table->integer('number_of_mimics')->default(0);
-            $table->bigInteger('facebook_id');
             $table->timestamps();
         });
     }
