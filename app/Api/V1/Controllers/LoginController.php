@@ -21,13 +21,7 @@ class LoginController extends Controller
     public function login(Request $request, JWTAuth $JWTAuth)
     {
         //init var
-        $status = true;
-        $showAlert = false;
         $token = false;
-        $message = [
-            'body' => trans('core.login.login_failed_title'),
-            'title' => trans('core.login.login_failed_body'),
-        ];
 
         $provider_data = Helper::getOauthProviderData($request->provider, $request->provider_data);
         DB::beginTransaction();
@@ -39,7 +33,7 @@ class LoginController extends Controller
             if (!$provider = $user->socialAccounts()->where('provider', $request->provider)->first()) {
 
                 $user->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
-
+                DB::commit();
             }
             //user already logged with this provider, check if provider_id is the right one
             else
@@ -54,34 +48,27 @@ class LoginController extends Controller
             try {
                 $user = $this->user->create(array_only($provider_data, ['email']))
                     ->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
-
+                DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
                 abort(400, trans('core.login.login_failed_body'));
             }
         }
 
-        DB::commit();
+        
 
         if ($user) {
-
             try {
                 $token = $JWTAuth->fromUser($user);
                 if (!$token) {
-                    $status = false;
-                    $showAlert = true;
-                } else {
-                    $message = null;
+                    abort(400, trans('core.general.smth_went_wront_body'));
                 }
 
             } catch (JWTException $e) {
-                $status = false;
-                $showAlert = true;
+                abort(400, trans('core.general.smth_went_wront_body'));
             }
         } else {
-            $status = false;
-            $showAlert = true;
-
+            abort(400, trans('core.general.smth_went_wront_body'));
         }
 
         return response()
