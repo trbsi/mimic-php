@@ -11,6 +11,10 @@ return
             [
                 'login_failed_title' => 'Login failed',
                 'login_failed_body' => "We couldn't log you in. Try again or contact us.",
+
+                'username_exists' => 'This username already exists, try another one.',
+                'username_empty' => 'Username cannot be empty.',
+                'username_contain' => "Username can only contain letters, numbers, '.' and '-'",
             ],
         'notifications' =>
             [

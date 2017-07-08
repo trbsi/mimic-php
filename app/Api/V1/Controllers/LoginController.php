@@ -35,7 +35,7 @@ class LoginController extends Controller
         //try to get user by email
         if ($user = User::where('email', $provider_data['email'])->first()) {
             //check if user already logged in with that provider
-            //if user didn't already logged via this provider add it to the database
+            //if user haven't already logged via this provider add it to the database (e.g. user logged in via FB but not via twitter)
             if (!$provider = $user->socialAccounts()->where('provider', $request->provider)->first()) {
 
                 $user->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
@@ -44,7 +44,7 @@ class LoginController extends Controller
             //user already logged with this provider, check if provider_id is the right one
             else
             {
-                //provider ids are different, user is try to fake somthing
+                //provider ids are different, user is trying to fake something
                 if($provider->provider_id != $provider_data['provider_id']) {
                     abort(400, trans('core.login.login_failed_body'));
                 }
@@ -98,6 +98,26 @@ class LoginController extends Controller
      */
     public function setUsername(Request $request)
     {
+        //check if username exists
+        if(empty($request->username)) {
+            abort(403, trans('core.login.username_empty'));
+        }
 
+        if(!preg_match('/^[a-zA-Z0-9_.-]*$/', $request->username)) {
+            abort(403, trans('core.login.username_contain'));
+        }
+
+        //username doesn't exist, create it
+        if(!$this->user->where('username', $request->username)->first()) {
+            $this->authUser = $this->user->getAuthenticatedUser();
+            $this->authUser->update(['username' => $request->username]);
+
+            return response()
+            ->json([
+                'status' => true,            ]);
+
+        } else {
+            abort(403, trans('core.login.username_exists'));
+        }
     }
 }
