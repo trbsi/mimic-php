@@ -23,7 +23,7 @@ class Mimic extends Model
      */
 
     protected $table = 'mimics';
-    protected $fillable = ['id', 'media', 'mimic_type', 'is_response', 'is_private', 'upvote', 'user_id'];
+    protected $fillable = ['id', 'file', 'mimic_type', 'is_response', 'is_private', 'upvote', 'user_id'];
     protected $casts =
         [
             'id' => 'int',
@@ -108,7 +108,7 @@ class Mimic extends Model
             }
 
             $tag = Hashtag::updateOrCreate(['name' => $hashtag]);
-            $tagSave->increment("popularity");
+            $tag->increment("popularity");
 
             //save to mimic_hahstag table
             $tag->mimics()->attach($mimicModel->id);
@@ -121,10 +121,10 @@ class Mimic extends Model
 
     /**
      * check if person tagged a user
-     * @param  [string] $usernames [list of usernames: "@user1 @user2"]
-     * @param $mimicModel - created mimic model
+     * @param  String $usernames List of usernames: "@user1 @user2"
+     * @param  Model $mimicModel Created mimic model
      */
-    public function checkTaggedUser($usernames)
+    public function checkTaggedUser($usernames, $mimicModel)
     {
         $return = [];
         preg_match_all("(@[a-zA-Z0-9]*)", $usernames, $usernames);
@@ -138,11 +138,7 @@ class Mimic extends Model
                 $this->sendMimicTagNotification($user);
 
                 //save to mimic_hahstag table
-                $mimicTaguser = new $this->mimicTaguser;
-                $mimicTaguser->mimic_id = $mimicModel->id;
-                $mimicTaguser->user_id = $user->id;
-                $mimicTaguser->save();
-
+                $user->mimicTaguser()->attach($mimicModel->id);
             }
 
             $return[$user->id] = $username;
@@ -156,12 +152,22 @@ class Mimic extends Model
      * @param  [type] $mimics [Mimic model]
      * @return [array]        [generated mimic response]
      */
-    public function getMimicResponse($mimics)
+    public function getMimicResponseContent($mimics)
     {
         $mimicsResponse = [];
-        foreach ($mimics as $mimic) {
-            $mimicsResponse[] = $this->generateMimicResponse($mimic, $mimic->hashtags, $mimic->mimicTaguser, $mimic->mimicsOriginalResponses);
+        
+        //if there are more records from the database (e.g. when listing all mimics)
+        if(count($mimics) > 1) {
+            foreach ($mimics as $mimic) {
+                $mimicsResponse[] = $this->generateContentForMimicResponse($mimic, $mimic->hashtags, $mimic->mimicTaguser, $mimic->mimicsOriginalResponses);
+            } 
+        } 
+        //if there is only one record from the database (e.g. after uploading single mimic)
+        else {
+            $mimicsResponse[] = $this->generateContentForMimicResponse($mimics, $mimics->hashtags, $mimics->mimicTaguser, $mimics->mimicsOriginalResponses);
+
         }
+        
 
         return $mimicsResponse;
     }

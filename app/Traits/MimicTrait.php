@@ -14,7 +14,7 @@ trait MimicTrait
      * @param  [type] $mimicResponses [all responses of a specific origina mimic, ordered descending by upvotes]
      * @return [type]              [description]
      */
-    private function generateMimicResponse($mimic, $hashtags, $taggedUsers, $mimicResponses)
+    private function generateContentForMimicResponse($mimic, $hashtags, $taggedUsers, $mimicResponses)
     {
         $mimic = $this->createMimicArraySructure($mimic);
 

@@ -31,11 +31,10 @@ class MimicController extends BaseAuthController
      */
     public function addMimic(AddMimicRequest $request, FileUpload $fileUpload)
     {
-       return;
         DB::beginTransaction();
         try {
             $file = $request->file('file');
-            $mime = $media->getMimeType();
+            $mime = $file->getMimeType();
 
             if (strpos($mime, "video") !== false) {
                 $type = Mimic::TYPE_VIDEO;
@@ -47,7 +46,7 @@ class MimicController extends BaseAuthController
 
             //upload mimic
             //path: files/user/USER_ID/YEAR/
-            $file = $fileUpload->upload($file, Mimic::FILE_PATH . $this->authUser->id . "/" . date("Y") . "/", ['image', 'video'], 'simple');
+            $file = $fileUpload->upload($file, Mimic::FILE_PATH . $this->authUser->id . "/" . date("Y"), ['image', 'video'], 'server');
 
             if ($mimic = $this->mimic->create(
                 [
@@ -65,7 +64,7 @@ class MimicController extends BaseAuthController
 
                 DB::commit();
                 return response()->json(
-                        $this->mimic->getMimicResponse($this->mimic->find($mimic->id)->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])->first())
+                        $this->mimic->getMimicResponseContent($this->mimic->where('id', $mimic->id)->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])->first())
                     );
             }
 
@@ -73,7 +72,7 @@ class MimicController extends BaseAuthController
             abort(400, trans('core.alert.cant_upload_mimic_body'));
         } catch (\Exception $e) {
             DB::rollBack();
-            abort(400, trans('core.alert.cant_upload_mimic_body'));
+            abort(400, $e->getMessage());
         }
 
     }
@@ -86,7 +85,7 @@ class MimicController extends BaseAuthController
     {
         $mimics = $this->mimic->getMimics($request);
 
-        return response()->json(['mimics' => $this->mimic->getMimicResponse($mimics)]);
+        return response()->json(['mimics' => $this->mimic->getMimicResponseContent($mimics)]);
     }
 
     /**
@@ -95,7 +94,7 @@ class MimicController extends BaseAuthController
      */
     public function loadResponses(Request $request)
     {
-        $mimicsResponses = $this->mimic->getMimicResponses($request);
+        $mimicsResponses = $this->mimic->getMimicResponseContent($request);
 
         return response()->json(['mimics' => $mimicsResponses]);
     }

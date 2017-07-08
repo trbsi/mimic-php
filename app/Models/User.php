@@ -89,9 +89,6 @@ class User extends Authenticatable
         return $this->belongsToMany(\App\Models\User::class, 'follow', 'following', 'followed_by');
     }
 
-    public function mimics() {
-        return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
-    }
 
     public function mimics() {
         return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_upvote', 'user_id', 'mimic_id');
@@ -124,5 +121,11 @@ class User extends Authenticatable
     public function socialAccounts()
     {
         return $this->hasMany(\App\Models\SocialAccount::class, 'user_id', 'id');
+    }
+
+
+    public function mimicTaguser() 
+    {
+        return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
     }
 }

@@ -18,18 +18,12 @@ class FileUpload
     {
         if ($file) {
             if ($allowType != null) {
-                if(is_array($allowType)) {
-                    foreach ($allowType as $type) {
-                        $this->checkFile($type, $file);
-                    }
-                } else {
-                    $this->checkFile($allowType, $file);
-                }
+                $this->checkFile($allowType, $file);
             }
 
             switch ($uploadWhere) {
                 case 'server':
-                    return $this->uploadToServer($path, $file);
+                    return $this->uploadToServer(public_path().$path, $file);
                     break;
                 
                 case 'aws':
@@ -52,10 +46,14 @@ class FileUpload
     private function uploadToServer($path, $file)
     {
         try {
+
             if(!file_exists($path)) {
-                mkdir($path);
-            }
-            return $file->storeAs($path, (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension());
+                mkdir($path, 0777, true);
+            } 
+            $file_name = (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension();
+            $file->move($path, $file_name);
+
+            return $file_name;
         } catch (S3Exception $e) {
             abort(500, trans('validation.error_upload_file'));
         }
@@ -101,17 +99,33 @@ class FileUpload
      */
     private function checkFile($allowType, $file)
     {
-        switch ($allowType) {
-            case 'image':
-                if (strpos($file->getMimeType(), 'image') === false) {
-                    abort(403, $file->getClientOriginalName() . " " . trans('validation.is_not_a_picture'));
+        if(is_array($allowType)) {
+            $fileAllowed = false;
+            foreach ($allowType as $type) {
+                //check if allowed type of a file can be found inside Mime type. If you can find it that means this file is alloed
+                if(strpos($file->getMimeType(), $type) !== false) {
+                    $fileAllowed = true;
                 }
-                break;
-            case 'video':
-                if (strpos($file->getMimeType(), 'video') === false) {
-                    abort(403, $file->getClientOriginalName() . " " . trans('validation.is_not_a_video'));
-                }
-                break;
+            }
+            if($fileAllowed == false) {
+                abort(403, trans('validation.file_should_be_image_video'));
+            }
+
+        } else {
+           switch ($allowType) {
+                case 'image':
+                    if (strpos($file->getMimeType(), 'image') === false) {
+                        abort(403, $file->getClientOriginalName() . " " . trans('validation.is_not_a_picture'));
+                    }
+                    break;
+                case 'video':
+                    if (strpos($file->getMimeType(), 'video') === false) {
+                        abort(403, $file->getClientOriginalName() . " " . trans('validation.is_not_a_video'));
+                    }
+                    break;
+            } 
         }
+
+        
     }
 }
