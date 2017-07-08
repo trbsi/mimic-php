@@ -6,9 +6,10 @@ use App\Api\V1\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Mimic;
-use App\Helpers\FileUploadHelper;
+use App\Helpers\FileUpload;
 use App\Models\MimicTaguser;
 use App\Models\MimicHashtag;
+use App\Api\V1\Requests\Mimic\AddMimicRequest;
 use DB;
 
 class MimicController extends BaseAuthController
@@ -28,8 +29,9 @@ class MimicController extends BaseAuthController
      * Add new mimic
      * @param Request $request
      */
-    public function addMimic(Request $request, FileUploadHelper $fileUpload)
+    public function addMimic(AddMimicRequest $request, FileUpload $fileUpload)
     {
+       return;
         DB::beginTransaction();
         try {
             $file = $request->file('file');
@@ -40,12 +42,12 @@ class MimicController extends BaseAuthController
             } elseif (strpos($mime, "image") !== false) {
                 $type = Mimic::TYPE_PIC;
             } else {
-                throw new \Exception(trans("validation.file_should_be_image_video"), 403);
+                abort(403, trans("validation.file_should_be_image_video"));
             }
 
             //upload mimic
             //path: files/user/USER_ID/YEAR/
-            $file = $fileUpload->upload($file, Mimic::FILE_PATH . $this->authUser->id . "/" . date("Y") . "/");
+            $file = $fileUpload->upload($file, Mimic::FILE_PATH . $this->authUser->id . "/" . date("Y") . "/", ['image', 'video'], 'simple');
 
             if ($mimic = $this->mimic->create(
                 [
@@ -61,48 +63,17 @@ class MimicController extends BaseAuthController
                 //tag users
                 $this->mimic->checkTaggedUser($request->usernames, $mimic);
 
-                $mimicResponse =
-                    array_merge(
-                        $this->mimic->getMimicResponse($this->mimic->where('id', $mimic->id)->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])->first()),
-                        [
-                            'status' => true,
-                            'showAlert' => false,
-                            'message' =>
-                                [
-                                    'title' => null,
-                                    'body' => null
-                                ]
-                        ]
-                    );
-
                 DB::commit();
-                return response()->json($mimicResponse);
+                return response()->json(
+                        $this->mimic->getMimicResponse($this->mimic->find($mimic->id)->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])->first())
+                    );
             }
 
             DB::rollBack();
-            return response()->json(
-                [
-                    'status' => false,
-                    'showAlert' => true,
-                    'message' =>
-                        [
-                            'title' => trans('core.alert.cant_upload_mimic_title'),
-                            'body' => trans('core.alert.cant_upload_mimic_body'),
-                        ],
-                ]);
-
+            abort(400, trans('core.alert.cant_upload_mimic_body'));
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(
-                [
-                    'status' => false,
-                    'showAlert' => true,
-                    'message' =>
-                        [
-                            'title' => trans('core.alert.cant_upload_mimic_title'),
-                            'body' => trans('core.alert.cant_upload_mimic_body'),
-                        ],
-                ]);
+            abort(400, trans('core.alert.cant_upload_mimic_body'));
         }
 
     }

@@ -13,7 +13,7 @@ class Mimic extends Model
 
     const TYPE_VIDEO = 1;
     const TYPE_PIC = 2;
-    const FILE_PATH = 'files/user/';
+    const FILE_PATH = '/files/user/';
     const MAX_TAG_LENGTH = 50;
     const LIST_ORIGINAL_MIMIC_LIMIT = 50;
     const LIST_RESPONSE_MIMIC_LIMIT = 2;
@@ -107,25 +107,13 @@ class Mimic extends Model
                 $hashtag = substr($hashtag, 0, self::MAX_TAG_LENGTH);
             }
 
-            $t = Hashtag::where(['name' => $hashtag])->first();
-
-            if (empty($t)) {
-                $t = new Hashtag;
-                $t->name = $hashtag;
-                $t->popularity = 1;
-                $t->save();
-            } else {
-                $t->popularity = $t->popularity + 1;
-                $t->update();
-            }
+            $tag = Hashtag::updateOrCreate(['name' => $hashtag]);
+            $tagSave->increment("popularity");
 
             //save to mimic_hahstag table
-            $mimicHashtag = new $this->mimicHashtag;
-            $mimicHashtag->mimic_id = $mimicModel->id;
-            $mimicHashtag->hashtag_id = $t->id;
-            $mimicHashtag->save();
+            $tag->mimics()->attach($mimicModel->id);
 
-            $return[$t->id] = $hashtag;
+            $return[$tag->id] = $hashtag;
         }
 
         return $return;
