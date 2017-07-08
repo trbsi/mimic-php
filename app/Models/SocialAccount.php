@@ -2,7 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class SocialAccount extends Model {
+class SocialAccount extends Model
+{
 
     /**
      * Generated
@@ -10,9 +11,13 @@ class SocialAccount extends Model {
 
     protected $table = 'social_accounts';
     protected $fillable = ['id', 'user_id', 'provider', 'provider_id'];
+    protected $casts =
+        [
+            'user_id' => 'int',
+        ];
 
-
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 

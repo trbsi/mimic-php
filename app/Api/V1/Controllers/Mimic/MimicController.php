@@ -14,9 +14,9 @@ use DB;
 class MimicController extends BaseAuthController
 {
     public function __construct(User $user,
-     Mimic $mimic, 
-     MimicTaguser $mimicTaguser, 
-     MimicHashtag $mimicHashtag)
+                                Mimic $mimic,
+                                MimicTaguser $mimicTaguser,
+                                MimicHashtag $mimicHashtag)
     {
         parent::__construct($user);
         $this->mimic = $mimic;
@@ -61,19 +61,19 @@ class MimicController extends BaseAuthController
                 //tag users
                 $this->mimic->checkTaggedUser($request->usernames, $mimic);
 
-                $mimicResponse = 
-                array_merge(
-                    $this->mimic->getMimicResponse($this->mimic->where('id', $mimic->id)->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])->first()),  
-                    [
-                        'status' => true,
-                        'showAlert' => false,
-                        'message' =>
+                $mimicResponse =
+                    array_merge(
+                        $this->mimic->getMimicResponse($this->mimic->where('id', $mimic->id)->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])->first()),
                         [
-                            'title' => null,
-                            'body' => null
+                            'status' => true,
+                            'showAlert' => false,
+                            'message' =>
+                                [
+                                    'title' => null,
+                                    'body' => null
+                                ]
                         ]
-                    ]
-                );
+                    );
 
                 DB::commit();
                 return response()->json($mimicResponse);
@@ -81,29 +81,29 @@ class MimicController extends BaseAuthController
 
             DB::rollBack();
             return response()->json(
-            [
-                'status' => false,
-                'showAlert' => true,
-                'message' =>
                 [
-                    'title' => trans('core.alert.cant_upload_mimic_title'),
-                    'body' => trans('core.alert.cant_upload_mimic_body'),
-                ],
-            ]);
-            
+                    'status' => false,
+                    'showAlert' => true,
+                    'message' =>
+                        [
+                            'title' => trans('core.alert.cant_upload_mimic_title'),
+                            'body' => trans('core.alert.cant_upload_mimic_body'),
+                        ],
+                ]);
+
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(
-            [
-                'status' => false,
-                'showAlert' => true,
-                'message' =>
                 [
-                    'title' => trans('core.alert.cant_upload_mimic_title'),
-                    'body' => trans('core.alert.cant_upload_mimic_body'),
-                ],
-            ]);
-       }
+                    'status' => false,
+                    'showAlert' => true,
+                    'message' =>
+                        [
+                            'title' => trans('core.alert.cant_upload_mimic_title'),
+                            'body' => trans('core.alert.cant_upload_mimic_body'),
+                        ],
+                ]);
+        }
 
     }
 
@@ -125,7 +125,7 @@ class MimicController extends BaseAuthController
     public function loadResponses(Request $request)
     {
         $mimicsResponses = $this->mimic->getMimicResponses($request);
-        
+
         return response()->json(['mimics' => $mimicsResponses]);
     }
 

@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->string('email')->unique();
-            $table->string('username', 50)->unique();
+            $table->string('username', 50)->unique()->nullable();
             $table->integer('followers')->default(0);
             $table->integer('following')->default(0);
             $table->integer('number_of_mimics')->default(0);

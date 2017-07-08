@@ -11,7 +11,12 @@ class MimicTaguser extends Model
 
     protected $table = 'mimic_taguser';
     protected $fillable = ['id', 'mimic_id', 'user_id'];
-
+    protected $casts =
+        [
+            'id' => 'int',
+            'mimic_id' => 'int',
+            'user_id' => 'int',
+        ];
 
     public function mimic()
     {

@@ -15,51 +15,49 @@ trait MimicTrait
      * @return [type]              [description]
      */
     private function generateMimicResponse($mimic, $hashtags, $taggedUsers, $mimicResponses)
-    {            
+    {
         $mimic = $this->createMimicArraySructure($mimic);
 
         $hashTagsTmp = [];
 
         //it could be an array generated with  checkTags
-        if(is_array($hashtags)) {
+        if (is_array($hashtags)) {
             foreach ($hashtags as $hashtag_id => $hashtag_name) {
-                $hashTagsTmp[] = 
-                [
-                    "hashtag_id" => $hashtag_id,
-                    "hashtag_name" => $hashtag_name
-                ];
+                $hashTagsTmp[] =
+                    [
+                        "hashtag_id" => $hashtag_id,
+                        "hashtag_name" => $hashtag_name
+                    ];
             }
-        }
-        //if it's object from database
-        else if(is_object($hashtags)) {
+        } //if it's object from database
+        else if (is_object($hashtags)) {
             foreach ($hashtags as $hashtag) {
-                $hashTagsTmp[] = 
-                [
-                    "hashtag_id" => $hashtag->id,
-                    "hashtag_name" => $hashtag->name,
-                ];
+                $hashTagsTmp[] =
+                    [
+                        "hashtag_id" => $hashtag->id,
+                        "hashtag_name" => $hashtag->name,
+                    ];
             }
         }
-        
+
         $taggedUsersTmp = [];
         //it could be an array generated with  checkTaggedUser
-        if(is_array($taggedUsers)) {
+        if (is_array($taggedUsers)) {
             foreach ($taggedUsers as $user_id => $username) {
-                $taggedUsersTmp[] = 
-                [
-                    "user_id" => $user_id,
-                    "username" => $username,
-                ];
+                $taggedUsersTmp[] =
+                    [
+                        "user_id" => $user_id,
+                        "username" => $username,
+                    ];
             }
-        }
-        //if it's object from database
-        else if(is_object($taggedUsers)) {
+        } //if it's object from database
+        else if (is_object($taggedUsers)) {
             foreach ($taggedUsers as $taggedUser) {
-                $taggedUsersTmp[] = 
-                [
-                    "user_id" => $taggedUser->id,
-                    "username" => $taggedUser->username
-                ];
+                $taggedUsersTmp[] =
+                    [
+                        "user_id" => $taggedUser->id,
+                        "username" => $taggedUser->username
+                    ];
             }
         }
 
@@ -69,13 +67,13 @@ trait MimicTrait
             $mimicResponsesTmp[] = $this->createMimicArraySructure($mimicResponse);
         }
 
-        return 
-        [
-            'mimic' => $mimic,
-            'hashtags' => $hashTagsTmp,
-            'taggedUsers' => $taggedUsersTmp,
-            'mimicResponses' => $mimicResponsesTmp
-        ];
+        return
+            [
+                'mimic' => $mimic,
+                'hashtags' => $hashTagsTmp,
+                'taggedUsers' => $taggedUsersTmp,
+                'mimicResponses' => $mimicResponsesTmp
+            ];
     }
 
     /**
@@ -85,15 +83,15 @@ trait MimicTrait
      */
     private function createMimicArraySructure($mimic)
     {
-        return         
-        [
-            'id' => $mimic->id,
-            'user' => $mimic->user->username,
-            'user_id' => $mimic->user_id,
-            'mimic_type' => $this->getMimicType($mimic),
-            'upvote' => $mimic->upvote,
-            'file' => $mimic->file,
-        ];
+        return
+            [
+                'id' => $mimic->id,
+                'user' => $mimic->user->username,
+                'user_id' => $mimic->user_id,
+                'mimic_type' => $this->getMimicType($mimic),
+                'upvote' => $mimic->upvote,
+                'file' => $mimic->file,
+            ];
     }
 
     /**
@@ -112,7 +110,7 @@ trait MimicTrait
                 break;
         }
     }
-    
+
     /**
      * send notification to a user if someone tags him/her
      * @param  $user [User model]

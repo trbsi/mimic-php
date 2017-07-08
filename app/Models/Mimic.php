@@ -24,6 +24,15 @@ class Mimic extends Model
 
     protected $table = 'mimics';
     protected $fillable = ['id', 'media', 'mimic_type', 'is_response', 'is_private', 'upvote', 'user_id'];
+    protected $casts =
+        [
+            'id' => 'int',
+            'mimic_type' => 'int',
+            'is_response' => 'boolean',
+            'is_private' => 'boolean',
+            'upvote' => 'int',
+            'user_id' => 'int',
+        ];
 
     /**
      * get all mimic responses of a specific original mimic
@@ -36,17 +45,17 @@ class Mimic extends Model
         $mimicResponseTable = (new MimicResponse)->getTable();
 
         $offset = 0;
-        if($request->page) {
-            $offset = Mimic::LIST_RESPONSE_MIMIC_LIMIT*$request->page;
+        if ($request->page) {
+            $offset = Mimic::LIST_RESPONSE_MIMIC_LIMIT * $request->page;
         }
 
         return $this->select("$mimicsTable.*")
-        ->join($mimicResponseTable, "$mimicResponseTable.response_mimic_id", '=', "$mimicsTable.id")
-        ->where("$mimicResponseTable.original_mimic_id", $request->original_mimic_id)
-        ->orderBy("upvote", "DESC")
-        ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT)
-        ->offset($offset)
-        ->get();
+            ->join($mimicResponseTable, "$mimicResponseTable.response_mimic_id", '=', "$mimicsTable.id")
+            ->where("$mimicResponseTable.original_mimic_id", $request->original_mimic_id)
+            ->orderBy("upvote", "DESC")
+            ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT)
+            ->offset($offset)
+            ->get();
 
     }
 
@@ -61,25 +70,26 @@ class Mimic extends Model
         $followTable = (new Follow)->getTable();
 
         $offset = 0;
-        if($request->page) {
-            $offset = Mimic::LIST_ORIGINAL_MIMIC_LIMIT*$request->page;
+        if ($request->page) {
+            $offset = Mimic::LIST_ORIGINAL_MIMIC_LIMIT * $request->page;
         }
 
         $mimics = $this;
-        if($request->type && $request->type == "followers") {
+        if ($request->type && $request->type == "followers") {
             $mimics = $mimics
-            ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
-            ->where('followed_by', $this->authUser->id);
-        } 
+                ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
+                ->where('followed_by', $this->authUser->id);
+        }
 
-        return $mimics->select("$mimicsTable.*")
-        ->orderBy("$mimicsTable.id", 'DESC')
-        ->limit(Mimic::LIST_ORIGINAL_MIMIC_LIMIT)
-        ->offset($offset)
-        ->where('is_response', 0)
-        ->with(['mimicsOriginalResponses.user', 'user', 'hashtags', 'mimicTaguser'])
-        ->get();    
+        $mimics = $mimics->select("$mimicsTable.*")
+            ->orderBy("$mimicsTable.id", 'DESC')
+            ->limit(Mimic::LIST_ORIGINAL_MIMIC_LIMIT)
+            ->offset($offset)
+            ->where('is_response', 0)
+            ->with(['mimicsOriginalResponses.user', 'user', 'hashtags', 'mimicTaguser'])
+            ->get();
 
+        return $mimics;
     }
 
     /**
@@ -138,7 +148,7 @@ class Mimic extends Model
             if (!empty($user)) {
                 //send notification
                 $this->sendMimicTagNotification($user);
-                
+
                 //save to mimic_hahstag table
                 $mimicTaguser = new $this->mimicTaguser;
                 $mimicTaguser->mimic_id = $mimicModel->id;
@@ -169,54 +179,62 @@ class Mimic extends Model
     }
 
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
-    public function hashtags() {
+    public function hashtags()
+    {
         return $this->belongsToMany(\App\Models\Hashtag::class, 'mimic_hashtag', 'mimic_id', 'hashtag_id');
     }
 
-    public function mimicTaguser() {
+    public function mimicTaguser()
+    {
         return $this->belongsToMany(\App\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
     }
 
-    public function mimicUpvote() {
+    public function mimicUpvote()
+    {
         return $this->belongsToMany(\App\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id');
     }
 
-    public function mimicHashtags() {
+    public function mimicHashtags()
+    {
         return $this->hasMany(\App\Models\MimicHashtag::class, 'mimic_id', 'id');
     }
 
-    public function mimicOriginal() {
+    public function mimicOriginal()
+    {
         return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id');
     }
 
-    public function mimicTagusers() {
+    public function mimicTagusers()
+    {
         return $this->hasMany(\App\Models\MimicTaguser::class, 'mimic_id', 'id');
     }
 
-    public function mimicUpvotes() {
+    public function mimicUpvotes()
+    {
         return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
     }
 
-    public function mimicsOriginalResponses() {
+    public function mimicsOriginalResponses()
+    {
         return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_response', 'original_mimic_id', 'response_mimic_id')
             ->orderBy("upvote", "DESC")
-            ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT)
-        ;
+            ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT);
     }
 
-    public function mimicsResponseOriginal() {
+    public function mimicsResponseOriginal()
+    {
         return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_response', 'response_mimic_id', 'original_mimic_id');
     }
 
-    public function mimicResponses() {
+    public function mimicResponses()
+    {
         return $this->hasMany(\App\Models\MimicResponse::class, 'response_mimic_id', 'id');
     }
-
-
 
 
 }

@@ -11,7 +11,10 @@ class Hashtag extends Model
 
     protected $table = 'hashtags';
     protected $fillable = ['id', 'name', 'popularity'];
-
+    protected $casts =
+        [
+            'id' => 'int',
+        ];
 
     public function mimics()
     {

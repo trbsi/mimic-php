@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'facebook_id', 'username'
+        'email', 'username'
     ];
 
     /**
@@ -121,7 +121,8 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\PushNotificationsToken::class, 'user_id', 'id');
     }*/
 
-    public function socialAccounts() {
+    public function socialAccounts()
+    {
         return $this->hasMany(\App\Models\SocialAccount::class, 'user_id', 'id');
-    }    
+    }
 }

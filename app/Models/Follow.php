@@ -11,7 +11,12 @@ class Follow extends Model
 
     protected $table = 'follow';
     protected $fillable = ['id', 'followed_by', 'following'];
-
+    protected $casts =
+        [
+            'id' => 'int',
+            'followed_by' => 'int',
+            'following' => 'int'
+        ];
 
     public function followedBy()
     {
