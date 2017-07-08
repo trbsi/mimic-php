@@ -114,7 +114,8 @@ class LoginController extends Controller
 
             return response()
             ->json([
-                'status' => true,            ]);
+                'status' => true,
+            ]);
 
         } else {
             abort(403, trans('core.login.username_exists'));
