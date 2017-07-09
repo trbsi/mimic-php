@@ -28,16 +28,16 @@ class AddMimicRequest extends FormRequest
         ];
     }
 
-	/**
-	 * Get the error messages for the defined validation rules.
-	 *
-	 * @return array
-	 */
-	public function messages()
-	{
-	    return [
-	        'file.required' => trans('validation.file_should_be_image_video'),
-	        'file.file'  => trans('validation.file_should_be_image_video'),
-	    ];
-	}
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'file.required' => trans('validation.file_should_be_image_video'),
+            'file.file' => trans('validation.file_should_be_image_video'),
+        ];
+    }
 }

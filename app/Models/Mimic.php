@@ -43,7 +43,7 @@ class Mimic extends Model
      */
     public function getFileOrPath($authUser, $model = null)
     {
-        if($model != null) {
+        if ($model != null) {
             $file = $model->file;
             $Y = date("Y", strtotime($model->created_at));
             $m = date("m", strtotime($model->created_at));
@@ -52,7 +52,7 @@ class Mimic extends Model
             $Y = date("Y");
             $m = date("m");
         }
-        return Mimic::FILE_PATH . $authUser->id . "/" . $Y."/".$m."/".$file;
+        return Mimic::FILE_PATH . $authUser->id . "/" . $Y . "/" . $m . "/" . $file;
     }
 
     /**
@@ -134,7 +134,7 @@ class Mimic extends Model
             $returnHashtags[$tag->id] = $hashtag;
         }
 
-        if(!empty($returnHashtags)) {
+        if (!empty($returnHashtags)) {
             //save to mimic_hahstag table
             $mimicModel->hashtags()->attach(array_flip($returnHashtags));
         }
@@ -165,7 +165,7 @@ class Mimic extends Model
             $returnUsers[$user->id] = $username;
         }
 
-        if(!empty($returnUsers)) {
+        if (!empty($returnUsers)) {
             //save to mimic_taguser table
             $user->mimicTaguser()->attach(array_flip($returnUsers));
         }
@@ -181,19 +181,18 @@ class Mimic extends Model
     public function getMimicResponseContent($mimics)
     {
         $mimicsResponse = [];
-        
+
         //if there are more records from the database (e.g. when listing all mimics)
-        if(count($mimics) > 1) {
+        if (count($mimics) > 1) {
             foreach ($mimics as $mimic) {
                 $mimicsResponse[] = $this->generateContentForMimicResponse($mimic, $mimic->hashtags, $mimic->responsesToOriginalMimic);
-            } 
-        } 
-        //if there is only one record from the database (e.g. after uploading single mimic)
+            }
+        } //if there is only one record from the database (e.g. after uploading single mimic)
         else {
             $mimicsResponse[] = $this->generateContentForMimicResponse($mimics, $mimics->hashtags, $mimics->responsesToOriginalMimic);
 
         }
-        
+
 
         return $mimicsResponse;
     }

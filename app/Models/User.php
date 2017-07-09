@@ -124,7 +124,7 @@ class User extends Authenticatable
     }
 
 
-    public function mimicTaguser() 
+    public function mimicTaguser()
     {
         return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
     }

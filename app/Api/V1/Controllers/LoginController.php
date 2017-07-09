@@ -34,12 +34,10 @@ class LoginController extends Controller
 
                 $user->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
                 DB::commit();
-            }
-            //user already logged with this provider, check if provider_id is the right one
-            else
-            {
+            } //user already logged with this provider, check if provider_id is the right one
+            else {
                 //provider ids are different, user is trying to fake something
-                if($provider->provider_id != $provider_data['provider_id']) {
+                if ($provider->provider_id != $provider_data['provider_id']) {
                     abort(400, trans('core.login.login_failed_body'));
                 }
             }
@@ -55,7 +53,6 @@ class LoginController extends Controller
             }
         }
 
-        
 
         if ($user) {
             try {
@@ -86,23 +83,23 @@ class LoginController extends Controller
     public function setUsername(Request $request)
     {
         //check if username exists
-        if(empty($request->username)) {
+        if (empty($request->username)) {
             abort(403, trans('core.login.username_empty'));
         }
 
-        if(!preg_match('/^[a-zA-Z0-9_.-]*$/', $request->username)) {
+        if (!preg_match('/^[a-zA-Z0-9_.-]*$/', $request->username)) {
             abort(403, trans('core.login.username_contain'));
         }
 
         //username doesn't exist, create it
-        if(!$this->user->where('username', $request->username)->first()) {
+        if (!$this->user->where('username', $request->username)->first()) {
             $this->authUser = $this->user->getAuthenticatedUser();
             $this->authUser->update(['username' => $request->username]);
 
             return response()
-            ->json([
-                'status' => true,
-            ]);
+                ->json([
+                    'status' => true,
+                ]);
 
         } else {
             abort(403, trans('core.login.username_exists'));

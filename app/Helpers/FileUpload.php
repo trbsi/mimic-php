@@ -23,9 +23,9 @@ class FileUpload
 
             switch ($uploadWhere) {
                 case 'server':
-                    return $this->uploadToServer(public_path().$path, $file);
+                    return $this->uploadToServer(public_path() . $path, $file);
                     break;
-                
+
                 case 'aws':
                     return $this->uploadToAws($path, $file);
                     break;
@@ -47,9 +47,9 @@ class FileUpload
     {
         try {
 
-            if(!file_exists($path)) {
+            if (!file_exists($path)) {
                 mkdir($path, 0777, true);
-            } 
+            }
             $file_name = (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension();
             $file->move($path, $file_name);
 
@@ -99,20 +99,20 @@ class FileUpload
      */
     private function checkFile($allowType, $file)
     {
-        if(is_array($allowType)) {
+        if (is_array($allowType)) {
             $fileAllowed = false;
             foreach ($allowType as $type) {
                 //check if allowed type of a file can be found inside Mime type. If you can find it that means this file is alloed
-                if(strpos($file->getMimeType(), $type) !== false) {
+                if (strpos($file->getMimeType(), $type) !== false) {
                     $fileAllowed = true;
                 }
             }
-            if($fileAllowed == false) {
+            if ($fileAllowed == false) {
                 abort(403, trans('validation.file_should_be_image_video'));
             }
 
         } else {
-           switch ($allowType) {
+            switch ($allowType) {
                 case 'image':
                     if (strpos($file->getMimeType(), 'image') === false) {
                         abort(403, $file->getClientOriginalName() . " " . trans('validation.is_not_a_picture'));
@@ -123,9 +123,9 @@ class FileUpload
                         abort(403, $file->getClientOriginalName() . " " . trans('validation.is_not_a_video'));
                     }
                     break;
-            } 
+            }
         }
 
-        
+
     }
 }
