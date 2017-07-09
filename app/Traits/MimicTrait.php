@@ -91,7 +91,8 @@ trait MimicTrait
                 'user_id' => $mimic->user_id,
                 'mimic_type' => $this->getMimicType($mimic),
                 'upvote' => $mimic->upvote,
-                'file' => $mimic->file,
+                'file' => $this->getFileOrPath($mimic->user, $mimic, true),
+                'aws_file' => $mimic->aws_file,
             ];
     }
 

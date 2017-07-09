@@ -102,7 +102,7 @@ class FileUpload
         if (is_array($allowType)) {
             $fileAllowed = false;
             foreach ($allowType as $type) {
-                //check if allowed type of a file can be found inside Mime type. If you can find it that means this file is alloed
+                //check if allowed type of a file can be found inside Mime type. If you can find it that means this file is allowed
                 if (strpos($file->getMimeType(), $type) !== false) {
                     $fileAllowed = true;
                 }

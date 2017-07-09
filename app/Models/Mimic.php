@@ -37,12 +37,16 @@ class Mimic extends Model
 
     /**
      * Get file path for a mimic
-     * @param  object $authUser Authenticated user model
+     * @param  object $user Authenticated user model or User model
      * @param  object $model Mimic model
      * @return string Path to a file or a folder of a mimic
      */
-    public function getFileOrPath($authUser, $model = null)
+    public function getFileOrPath($user, $model = null, $includeDomain = false)
     {
+        if($includeDomain) {
+            $includeDomain = env('APP_URL');
+        }
+
         if ($model != null) {
             $file = $model->file;
             $Y = date("Y", strtotime($model->created_at));
@@ -52,7 +56,7 @@ class Mimic extends Model
             $Y = date("Y");
             $m = date("m");
         }
-        return Mimic::FILE_PATH . $authUser->id . "/" . $Y . "/" . $m . "/" . $file;
+        return $includeDomain.Mimic::FILE_PATH . $user->id . "/" . $Y . "/" . $m . "/" . $file;
     }
 
     /**

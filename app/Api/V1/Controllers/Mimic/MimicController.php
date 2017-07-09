@@ -64,7 +64,9 @@ class MimicController extends BaseAuthController
 
                 DB::commit();
                 return response()->json(
-                    $this->mimic->getMimicResponseContent($this->mimic->where('id', $mimic->id)->with(['user', 'hashtags', 'responsesToOriginalMimic.user'])->first())
+                    [
+                        'mimics' => $this->mimic->getMimicResponseContent($this->mimic->where('id', $mimic->id)->with(['user', 'hashtags', 'responsesToOriginalMimic.user'])->first())
+                    ]
                 );
             }
 
