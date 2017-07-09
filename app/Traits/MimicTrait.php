@@ -10,11 +10,11 @@ trait MimicTrait
      * generate mimic response
      * @param  [type] $mimic       [Mimic model]
      * @param  [type] $hashtags    [array of hashtags in form: [hashtag id] => hashtag name ]
-     * @param  [type] $taggedUsers [array of usernames in form: [user id] => username]
+     * @param  [type] $taggedUsers [array of usernames in form: [user id] => username] @TODO-TagUsers (future feature and needs to be tested)
      * @param  [type] $mimicResponses [all responses of a specific origina mimic, ordered descending by upvotes]
      * @return [type]              [description]
      */
-    private function generateContentForMimicResponse($mimic, $hashtags, $taggedUsers, $mimicResponses)
+    private function generateContentForMimicResponse($mimic, $hashtags, $mimicResponses, $taggedUsers = null)
     {
         $mimic = $this->createMimicArraySructure($mimic);
 
@@ -40,7 +40,8 @@ trait MimicTrait
             }
         }
 
-        $taggedUsersTmp = [];
+        //@TODO-TagUsers (future feature and needs to be tested)
+        /*$taggedUsersTmp = [];
         //it could be an array generated with  checkTaggedUser
         if (is_array($taggedUsers)) {
             foreach ($taggedUsers as $user_id => $username) {
@@ -59,7 +60,7 @@ trait MimicTrait
                         "username" => $taggedUser->username
                     ];
             }
-        }
+        }*/
 
         $mimicResponsesTmp = [];
         //get all mimic responses
@@ -71,7 +72,7 @@ trait MimicTrait
             [
                 'mimic' => $mimic,
                 'hashtags' => $hashTagsTmp,
-                'taggedUsers' => $taggedUsersTmp,
+                //'taggedUsers' => $taggedUsersTmp, @TODO-TagUsers (future feature and needs to be tested)
                 'mimicResponses' => $mimicResponsesTmp
             ];
     }

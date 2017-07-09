@@ -34,6 +34,27 @@ class Mimic extends Model
             'user_id' => 'int',
         ];
 
+
+    /**
+     * Get file path for a mimic
+     * @param  object $authUser Authenticated user model
+     * @param  object $model Mimic model
+     * @return string Path to a file or a folder of a mimic
+     */
+    public function getFileOrPath($authUser, $model = null)
+    {
+        if($model != null) {
+            $file = $model->file;
+            $Y = date("Y", strtotime($model->created_at));
+            $m = date("m", strtotime($model->created_at));
+        } else {
+            $file = null;
+            $Y = date("Y");
+            $m = date("m");
+        }
+        return Mimic::FILE_PATH . $authUser->id . "/" . $Y."/".$m."/".$file;
+    }
+
     /**
      * get all mimic responses of a specific original mimic
      * @param  $request
@@ -86,7 +107,7 @@ class Mimic extends Model
             ->limit(Mimic::LIST_ORIGINAL_MIMIC_LIMIT)
             ->offset($offset)
             ->where('is_response', 0)
-            ->with(['mimicsOriginalResponses.user', 'user', 'hashtags', 'mimicTaguser'])
+            ->with(['responsesToOriginalMimic.user', 'user', 'hashtags', 'mimicTaguser'])
             ->get();
 
         return $mimics;
@@ -100,7 +121,7 @@ class Mimic extends Model
      */
     public function checkTags($tags, $mimicModel)
     {
-        $return = [];
+        $returnHashtags = [];
         preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags);
         foreach ($hashtags[0] as $hashtag) {
             if (strlen($hashtag) > self::MAX_TAG_LENGTH) {
@@ -110,23 +131,26 @@ class Mimic extends Model
             $tag = Hashtag::updateOrCreate(['name' => $hashtag]);
             $tag->increment("popularity");
 
-            //save to mimic_hahstag table
-            $tag->mimics()->attach($mimicModel->id);
-
-            $return[$tag->id] = $hashtag;
+            $returnHashtags[$tag->id] = $hashtag;
         }
 
-        return $return;
+        if(!empty($returnHashtags)) {
+            //save to mimic_hahstag table
+            $mimicModel->hashtags()->attach(array_flip($returnHashtags));
+        }
+
+        return $returnHashtags;
     }
 
     /**
+     * @TODO-TagUsers (still in progress and needs to be tested)
      * check if person tagged a user
      * @param  String $usernames List of usernames: "@user1 @user2"
      * @param  Model $mimicModel Created mimic model
      */
     public function checkTaggedUser($usernames, $mimicModel)
     {
-        $return = [];
+        $returnUsers = [];
         preg_match_all("(@[a-zA-Z0-9]*)", $usernames, $usernames);
         foreach ($usernames[0] as $username) {
 
@@ -136,15 +160,17 @@ class Mimic extends Model
             if (!empty($user)) {
                 //send notification
                 $this->sendMimicTagNotification($user);
-
-                //save to mimic_hahstag table
-                $user->mimicTaguser()->attach($mimicModel->id);
             }
 
-            $return[$user->id] = $username;
+            $returnUsers[$user->id] = $username;
         }
 
-        return $return;
+        if(!empty($returnUsers)) {
+            //save to mimic_taguser table
+            $user->mimicTaguser()->attach(array_flip($returnUsers));
+        }
+
+        return $returnUsers;
     }
 
     /**
@@ -159,12 +185,12 @@ class Mimic extends Model
         //if there are more records from the database (e.g. when listing all mimics)
         if(count($mimics) > 1) {
             foreach ($mimics as $mimic) {
-                $mimicsResponse[] = $this->generateContentForMimicResponse($mimic, $mimic->hashtags, $mimic->mimicTaguser, $mimic->mimicsOriginalResponses);
+                $mimicsResponse[] = $this->generateContentForMimicResponse($mimic, $mimic->hashtags, $mimic->responsesToOriginalMimic);
             } 
         } 
         //if there is only one record from the database (e.g. after uploading single mimic)
         else {
-            $mimicsResponse[] = $this->generateContentForMimicResponse($mimics, $mimics->hashtags, $mimics->mimicTaguser, $mimics->mimicsOriginalResponses);
+            $mimicsResponse[] = $this->generateContentForMimicResponse($mimics, $mimics->hashtags, $mimics->responsesToOriginalMimic);
 
         }
         
@@ -213,7 +239,7 @@ class Mimic extends Model
         return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
     }
 
-    public function mimicsOriginalResponses()
+    public function responsesToOriginalMimic()
     {
         return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_response', 'original_mimic_id', 'response_mimic_id')
             ->orderBy("upvote", "DESC")

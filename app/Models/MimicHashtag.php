@@ -11,6 +11,7 @@ class MimicHashtag extends Model
 
     protected $table = 'mimic_hashtag';
     protected $fillable = ['id', 'mimic_id', 'hashtag_id'];
+    public $timestamps = false;
     protected $casts =
         [
             'id' => 'int',

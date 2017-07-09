@@ -12,6 +12,7 @@ class MimicResponse extends Model
 
     protected $table = 'mimic_response';
     protected $fillable = ['id', 'response_mimic_id', 'original_mimic_id'];
+    public $timestamps = false;
     protected $casts =
         [
             'id' => 'int',

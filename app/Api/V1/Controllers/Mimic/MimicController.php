@@ -46,7 +46,7 @@ class MimicController extends BaseAuthController
 
             //upload mimic
             //path: files/user/USER_ID/YEAR/
-            $file = $fileUpload->upload($file, Mimic::FILE_PATH . $this->authUser->id . "/" . date("Y"), ['image', 'video'], 'server');
+            $file = $fileUpload->upload($file, $this->mimic->getFileOrPath($this->authUser), ['image', 'video'], 'server');
 
             if ($mimic = $this->mimic->create(
                 [
@@ -59,12 +59,12 @@ class MimicController extends BaseAuthController
                 //check for hashtags
                 $this->mimic->checkTags($request->hashtags, $mimic);
 
-                //tag users
-                $this->mimic->checkTaggedUser($request->usernames, $mimic);
+                //@TODO-TagUsers (still in progress and needs to be tested)
+                //$this->mimic->checkTaggedUser($request->usernames, $mimic);
 
                 DB::commit();
                 return response()->json(
-                        $this->mimic->getMimicResponseContent($this->mimic->where('id', $mimic->id)->with(['mimicResponses.responseMimic.user', 'user', 'hashtags', 'mimicTaguser'])->first())
+                        $this->mimic->getMimicResponseContent($this->mimic->where('id', $mimic->id)->with(['user', 'hashtags', 'responsesToOriginalMimic.user'])->first())
                     );
             }
 
