@@ -15,8 +15,8 @@ class Mimic extends Model
     const TYPE_PIC = 2;
     const FILE_PATH = '/files/user/';
     const MAX_TAG_LENGTH = 50;
-    const LIST_ORIGINAL_MIMIC_LIMIT = 50;
-    const LIST_RESPONSE_MIMIC_LIMIT = 2;
+    const LIST_ORIGINAL_MIMICS_LIMIT = 50;
+    const LIST_RESPONSE_MIMICS_LIMIT = 20;
 
     /**
      * Generated
@@ -71,14 +71,14 @@ class Mimic extends Model
 
         $offset = 0;
         if ($request->page) {
-            $offset = Mimic::LIST_RESPONSE_MIMIC_LIMIT * $request->page;
+            $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT * $request->page;
         }
 
         return $this->select("$mimicsTable.*")
             ->join($mimicResponseTable, "$mimicResponseTable.response_mimic_id", '=', "$mimicsTable.id")
             ->where("$mimicResponseTable.original_mimic_id", $request->original_mimic_id)
             ->orderBy("upvote", "DESC")
-            ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT)
+            ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT)
             ->offset($offset)
             ->get();
 
@@ -86,29 +86,30 @@ class Mimic extends Model
 
     /**
      * get all original mimics (latest or from followers) from the database, with relations
-     * @param  [type] $request [description]
+     * @param  Request $request Laravel request
+     * @param  Object $authUser Authenitacted user
      * @return [model]          [datafrom the database]
      */
-    public function getMimics($request)
+    public function getMimics($request, $authUser)
     {
         $mimicsTable = $this->getTable();
         $followTable = (new Follow)->getTable();
 
         $offset = 0;
         if ($request->page) {
-            $offset = Mimic::LIST_ORIGINAL_MIMIC_LIMIT * $request->page;
+            $offset = Mimic::LIST_ORIGINAL_MIMICS_LIMIT * $request->page;
         }
 
         $mimics = $this;
-        if ($request->type && $request->type == "followers") {
+        if ($request->type && $request->type == "following") {
             $mimics = $mimics
                 ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
-                ->where('followed_by', $this->authUser->id);
+                ->where('followed_by', $authUser->id);
         }
 
         $mimics = $mimics->select("$mimicsTable.*")
             ->orderBy("$mimicsTable.id", 'DESC')
-            ->limit(Mimic::LIST_ORIGINAL_MIMIC_LIMIT)
+            ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($offset)
             ->where('is_response', 0)
             ->with(['responsesToOriginalMimic.user', 'user', 'hashtags', 'mimicTaguser'])
@@ -246,7 +247,7 @@ class Mimic extends Model
     {
         return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_response', 'original_mimic_id', 'response_mimic_id')
             ->orderBy("upvote", "DESC")
-            ->limit(Mimic::LIST_RESPONSE_MIMIC_LIMIT);
+            ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
     }
 
     public function mimicsResponseOriginal()
