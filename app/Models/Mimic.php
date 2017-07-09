@@ -34,6 +34,32 @@ class Mimic extends Model
             'user_id' => 'int',
         ];
 
+    /**
+     * Get file with full path and url
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
+    public function getFileAttribute($value)
+    {
+        return $this->getFileOrPath($this->user, $value, $this, true);
+    }
+
+    /**
+     * get mimic type: video, image
+     * @param  Integer $value Mimic type 0 or 1
+     * @return String "video/picture"
+     */
+    public function getMimicTypeAttribute($value)
+    {
+        switch ($value) {
+            case Mimic::TYPE_VIDEO:
+                return 'video';
+                break;
+            case Mimic::TYPE_PIC:
+                return 'picture';
+                break;
+        }    
+    }
 
     /**
      * Get file path for a mimic
@@ -41,18 +67,16 @@ class Mimic extends Model
      * @param  object $model Mimic model
      * @return string Path to a file or a folder of a mimic
      */
-    public function getFileOrPath($user, $model = null, $includeDomain = false)
+    public function getFileOrPath($user, $file = null, $model = null, $includeDomain = false)
     {
         if($includeDomain) {
             $includeDomain = env('APP_URL');
         }
 
         if ($model != null) {
-            $file = $model->file;
             $Y = date("Y", strtotime($model->created_at));
             $m = date("m", strtotime($model->created_at));
         } else {
-            $file = null;
             $Y = date("Y");
             $m = date("m");
         }
@@ -80,6 +104,7 @@ class Mimic extends Model
             ->orderBy("upvote", "DESC")
             ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT)
             ->offset($offset)
+            ->with(['user'])
             ->get();
 
     }

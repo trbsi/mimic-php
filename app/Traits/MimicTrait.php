@@ -89,28 +89,11 @@ trait MimicTrait
                 'id' => $mimic->id,
                 'user' => $mimic->user->username,
                 'user_id' => $mimic->user_id,
-                'mimic_type' => $this->getMimicType($mimic),
+                'mimic_type' => $mimic->mimic_type,
                 'upvote' => $mimic->upvote,
-                'file' => $this->getFileOrPath($mimic->user, $mimic, true),
+                'file' => $mimic->file, 
                 'aws_file' => $mimic->aws_file,
             ];
-    }
-
-    /**
-     * get mimic type: video, image
-     * @param  [type] $mimic [Mimic model]
-     */
-    private function getMimicType($mimic)
-    {
-
-        switch ($mimic->mimic_type) {
-            case Mimic::TYPE_VIDEO:
-                return 'video';
-                break;
-            case Mimic::TYPE_PIC:
-                return 'picture';
-                break;
-        }
     }
 
     /**
