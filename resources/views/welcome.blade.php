@@ -34,6 +34,11 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <meta property="og:image" content="<?= env('APP_URL') ?>/img/phone.png"/>
+    <meta property="og:title" content="<?= config("app.name") ?> - split your world"/>
+    <meta property="og:url" content="<?= env('APP_URL') ?>"/>
+    <meta property="og:site_name" content="<?= config("app.name") ?>"/>
+    <meta property="og:description" content="Post your short video or a photo and watch other people respond to it"/>
 
     <script src="js/modernizr.custom.js"></script>
 
@@ -84,7 +89,7 @@
                                     class="strong"><?= config("app.name") ?></strong><br>Split your world</h2>
 
                         <p>
-                            Post your short video or a photo and watch other people mimic you
+                            Post your short video or a photo and watch other people respond to it
                         </p>
                         <a href="<?= env("GOOGLE_PLAY_LINK") ?>" target="_blank"
                            class="btn btn-download wow animated fadeInLeft">
