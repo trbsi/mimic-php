@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Traits\MimicTrait;
 use App\Models\Follow;
 use App\Models\MimicResponse;
+use Illuminate\Support\Collection;
 
 class Mimic extends Model
 {
@@ -15,8 +16,8 @@ class Mimic extends Model
     const TYPE_PIC = 2;
     const FILE_PATH = '/files/user/';
     const MAX_TAG_LENGTH = 50;
-    const LIST_ORIGINAL_MIMICS_LIMIT = 1;
-    const LIST_RESPONSE_MIMICS_LIMIT = 2;
+    const LIST_ORIGINAL_MIMICS_LIMIT = 50;
+    const LIST_RESPONSE_MIMICS_LIMIT = 20;
 
     /**
      * Generated
@@ -159,13 +160,29 @@ class Mimic extends Model
      * @param  [type] $mimics [Mimic model]
      * @return [array]        [generated mimic response]
      */
-    public function getMimicResponseContent($mimics)
+    public function getMimicApiResponseContent($mimics)
     {
         $mimicsResponse = [];
-        if(!$mimics->isEmpty()){
+
+        //if this is collection of items get with get() method
+        if($mimics instanceof Collection && !$mimics->isEmpty()){
             foreach ($mimics as $mimic) {
-                $mimicsResponse[] = $this->generateContentForMimicResponse($mimic, $mimic->hashtags, $mimic->mimicResponses);
+                $mimicsResponse[] = $this->generateContentForMimicResponse
+                (
+                    $mimic, 
+                    ($mimic->hashtags) ? $mimic->hashtags : [], 
+                    ($mimic->mimicResponses) ? $mimic->mimicResponses: []
+                );
             }
+        }
+        //if this is single item taken with first()
+         else {
+                $mimicsResponse[] = $this->generateContentForMimicResponse
+                (
+                    $mimics, 
+                    ($mimics->hashtags) ? $mimics->hashtags : [], 
+                    ($mimics->mimicResponses) ? $mimics->mimicResponses: []
+                );
         }
 
         return $mimicsResponse;
@@ -186,11 +203,15 @@ class Mimic extends Model
 
     public function users() {
         return $this->belongsToMany(\App\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id');
-    }*/
+    }
 
     public function mimicHashtags() {
         return $this->hasMany(\App\Models\MimicHashtag::class, 'mimic_id', 'id');
     }
+
+    public function mimicUpvotes() {
+        return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
+    }*/
 
     public function mimicResponses() {
         return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id')
@@ -202,9 +223,7 @@ class Mimic extends Model
         return $this->hasMany(\App\Models\MimicTaguser::class, 'mimic_id', 'id');
     }
 
-    public function mimicUpvotes() {
-        return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
-    }
+
 
 
 }

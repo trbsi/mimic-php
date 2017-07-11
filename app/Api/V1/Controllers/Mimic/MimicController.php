@@ -36,6 +36,19 @@ class MimicController extends BaseAuthController
     {
         DB::beginTransaction();
         try {
+
+            //init variables
+            $model = $this->mimic;
+            $additionalFields = [];
+            $relations = ['user', 'hashtags', 'mimicResponses.user'];
+
+            //if this is response upload
+            if($request->original_mimic_id) {
+                $model = $this->mimicResponse;
+                $additionalFields['original_mimic_id'] = $request->original_mimic_id;
+                $relations = ['user'];
+            } 
+
             $file = $request->file('file');
             $mime = $file->getMimeType();
 
@@ -51,27 +64,27 @@ class MimicController extends BaseAuthController
             //path: files/user/USER_ID/YEAR/
             $file = $fileUpload->upload($file, $this->mimic->getFileOrPath($this->authUser), ['image', 'video'], 'server');
 
-            if ($mimic = $this->mimic->create(
-                [
+            if ($mimic = $model->create(
+                array_merge([
                     'file' => $file,
                     'mimic_type' => $type,
-                    'is_response' => $request->is_response,
                     'user_id' => $this->authUser->id
-                ])
+                ],$additionalFields))
             ) {
+
                 //check for hashtags
                 $this->mimic->checkTags($request->hashtags, $mimic);
 
                 //update user number of mimics
                 $this->authUser->increment('number_of_mimics');
-                
+                 
                 //@TODO-TagUsers (still in progress and needs to be tested)
                 //$this->mimic->checkTaggedUser($request->usernames, $mimic);
 
                 DB::commit();
                 return response()->json(
                     [
-                        'mimics' => $this->mimic->getMimicResponseContent($this->mimic->where('id', $mimic->id)->with(['user', 'hashtags', 'responsesToOriginalMimic.user'])->first())
+                        'mimics' => $this->mimic->getMimicApiResponseContent($model->where('id', $mimic->id)->with($relations)->first())
                     ]
                 );
             }
@@ -93,7 +106,7 @@ class MimicController extends BaseAuthController
     {
         $mimics = $this->mimic->getMimics($request, $this->authUser);
 
-        return response()->json(['mimics' => $this->mimic->getMimicResponseContent($mimics)]);
+        return response()->json(['mimics' => $this->mimic->getMimicApiResponseContent($mimics)]);
     }
 
     /**
