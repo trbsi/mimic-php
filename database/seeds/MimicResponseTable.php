@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\MimicResponse;
+use App\Models\Mimic;
 
 class MimicResponseTable extends Seeder
 {
@@ -12,33 +13,65 @@ class MimicResponseTable extends Seeder
      */
     public function run(MimicResponse $model)
     {
-        $original_mimic_id = 1;
-        $response_mimic_id = 4;
-        for ($i = 0; $i < 50; $i++) {
-            if ($original_mimic_id > 3) {
-                $original_mimic_id = 1;
-            }
 
-            if ($response_mimic_id > 10) {
-                $response_mimic_id = 4;
-            }
-
-            $insert =
+        $data = 
+        [
             [
-                'original_mimic_id' => $original_mimic_id,
-                'response_mimic_id' => $response_mimic_id,
-            ];
-            
-            try
-            {
-                $model->create($insert);
-                $original_mimic_id++;
-                $response_mimic_id++;
-            }
-            catch(\Exception $e)
-            {
-                
+                'file' => 'https://img-9gag-fun.9cache.com/photo/aPBObDG_460sv.mp4',
+                'mimic_type' => Mimic::TYPE_VIDEO,
+                'upvote' => rand(1, 100),
+                'user_id' => rand(4,10),
+                'original_mimic_id' => rand(1,3),
+            ],
+            [
+                'file' => 'https://img-9gag-fun.9cache.com/photo/a6bWYnq_460sv.mp4',
+                'mimic_type' => Mimic::TYPE_VIDEO,
+                'upvote' => rand(1, 100),
+                'user_id' => rand(4,10),
+                'original_mimic_id' => rand(1,3),
+            ],
+            [
+                'file' => 'https://img-9gag-fun.9cache.com/photo/ajX2e1Q_460sv.mp4',
+                'mimic_type' => Mimic::TYPE_VIDEO,
+                'upvote' => rand(1, 100),
+                'user_id' => rand(4,10),
+                'original_mimic_id' => rand(1,3),
+            ],
+            [
+                'file' => 'https://img-9gag-fun.9cache.com/photo/aAdnz0g_460sv.mp4',
+                'mimic_type' => Mimic::TYPE_VIDEO,
+                'upvote' => rand(1, 100),
+                'user_id' => rand(4,10),
+                'original_mimic_id' => rand(1,3),
+            ],
+            [
+                'file' => 'https://img-9gag-fun.9cache.com/photo/avGbKAn_460sv.mp4',
+                'mimic_type' => Mimic::TYPE_VIDEO,
+                'upvote' => rand(4,10),
+                'user_id' => rand(4,10),
+                'original_mimic_id' => rand(1,3),
+            ],
+            [
+                'file' => 'https://img-9gag-fun.9cache.com/photo/a8yrxGQ_460sv.mp4',
+                'mimic_type' => Mimic::TYPE_VIDEO,
+                'upvote' => rand(1, 100),
+                'user_id' => rand(4,10),
+                'original_mimic_id' => rand(1,3),
+            ],
+            [
+                'file' => 'https://img-9gag-fun.9cache.com/photo/aVqG65M_460sv.mp4',
+                'mimic_type' => Mimic::TYPE_VIDEO,
+                'upvote' => rand(1, 100),
+                'user_id' => rand(4,10),
+                'original_mimic_id' => rand(1,3),
+            ],
+        ];
+
+        for ($i=0; $i < 10; $i++) { 
+            foreach ($data as $key => $value) {
+                $model->create($value);
             }
         }
+        
     }
 }

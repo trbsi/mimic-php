@@ -19,7 +19,6 @@ class CreateMimicsTable extends Migration
             $table->string('file', 255);
             $table->string('aws_file', 255)->nullable();
             $table->tinyInteger('mimic_type'); //video/picture
-            $table->tinyInteger('is_response'); //0/1 - is this mimic response or not
             $table->tinyInteger('is_private')->default(0); //0/1 - is this mimic private or not
             $table->bigInteger('upvote')->default(1);
             $table->bigInteger('user_id');

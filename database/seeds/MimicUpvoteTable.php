@@ -16,7 +16,7 @@ class MimicUpvoteTable extends Seeder
         $numberOfUsers = $user->count();
         $mimic_id = 1;
         for ($i = 0; $i < 50; $i++) {
-            if ($mimic_id > 10) {
+            if ($mimic_id > 3) {
                 $mimic_id = 1;
             }
 

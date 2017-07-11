@@ -11,13 +11,14 @@ class MimicResponse extends Model
      */
 
     protected $table = 'mimic_response';
-    protected $fillable = ['id', 'response_mimic_id', 'original_mimic_id'];
-    public $timestamps = false;
+    protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'original_mimic_id', 'upvote', 'user_id'];
     protected $casts =
         [
             'id' => 'int',
-            'response_mimic_id' => 'int',
-            'original_mimic_id' => 'int',
+            'mimic_type' => 'int',
+            'upvote' => 'int',
+            'user_id' => 'int',
+            'original_mimic_id' => 'int'
         ];
 
     public function originalMimic()

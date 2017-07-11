@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MimicUpvoteTable::class);
         $this->call(MimicUserTagTable::class);
         $this->call(FollowTable::class);
+        $this->call(MimicResponseUpvoteTable::class);
     }
 }

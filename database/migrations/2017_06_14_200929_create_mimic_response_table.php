@@ -17,10 +17,15 @@ class CreateMimicResponseTable extends Migration
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('original_mimic_id');
-            $table->bigInteger('response_mimic_id');
+            $table->string('file', 255);
+            $table->string('aws_file', 255)->nullable();
+            $table->tinyInteger('mimic_type'); //video/picture
+            $table->bigInteger('upvote')->default(1);
+            $table->bigInteger('user_id');
+            $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+
             $table->foreign('original_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('response_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
-            $table->unique(['response_mimic_id']);
         });
     }
 

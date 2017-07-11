@@ -23,12 +23,11 @@ class Mimic extends Model
      */
 
     protected $table = 'mimics';
-    protected $fillable = ['id', 'file', 'mimic_type', 'is_response', 'is_private', 'upvote', 'user_id'];
+    protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id'];
     protected $casts =
         [
             'id' => 'int',
             'mimic_type' => 'int',
-            'is_response' => 'boolean',
             'is_private' => 'boolean',
             'upvote' => 'int',
             'user_id' => 'int',
