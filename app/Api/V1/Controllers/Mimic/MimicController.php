@@ -6,6 +6,7 @@ use App\Api\V1\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Mimic;
+use App\Models\MimicResponse;
 use App\Helpers\FileUpload;
 use App\Models\MimicTaguser;
 use App\Models\MimicHashtag;
@@ -16,11 +17,13 @@ class MimicController extends BaseAuthController
 {
     public function __construct(User $user,
                                 Mimic $mimic,
+                                MimicResponse $mimicResponse,
                                 MimicTaguser $mimicTaguser,
                                 MimicHashtag $mimicHashtag)
     {
         parent::__construct($user);
         $this->mimic = $mimic;
+        $this->mimicResponse = $mimicResponse;
         $this->mimicTaguser = $mimicTaguser;
         $this->mimicHashtag = $mimicHashtag;
     }
@@ -99,7 +102,7 @@ class MimicController extends BaseAuthController
      */
     public function loadResponses(Request $request)
     {
-        $mimicsResponses = $this->mimic->getMimicResponses($request);
+        $mimicsResponses = $this->mimicResponse->getMimicResponses($request);
 
         return response()->json(['mimics' => $mimicsResponses]);
     }

@@ -15,8 +15,8 @@ class Mimic extends Model
     const TYPE_PIC = 2;
     const FILE_PATH = '/files/user/';
     const MAX_TAG_LENGTH = 50;
-    const LIST_ORIGINAL_MIMICS_LIMIT = 50;
-    const LIST_RESPONSE_MIMICS_LIMIT = 20;
+    const LIST_ORIGINAL_MIMICS_LIMIT = 1;
+    const LIST_RESPONSE_MIMICS_LIMIT = 2;
 
     /**
      * Generated
@@ -50,66 +50,15 @@ class Mimic extends Model
      */
     public function getMimicTypeAttribute($value)
     {
-        switch ($value) {
-            case Mimic::TYPE_VIDEO:
-                return 'video';
-                break;
-            case Mimic::TYPE_PIC:
-                return 'picture';
-                break;
-        }    
+        return $this->getMimicType($value);   
     }
 
-    /**
-     * Get file path for a mimic
-     * @param  object $user Authenticated user model or User model
-     * @param  object $model Mimic model
-     * @return string Path to a file or a folder of a mimic
-     */
-    public function getFileOrPath($user, $file = null, $model = null, $includeDomain = false)
-    {
-        if($includeDomain) {
-            $includeDomain = env('APP_URL');
-        }
-
-        if ($model != null) {
-            $Y = date("Y", strtotime($model->created_at));
-            $m = date("m", strtotime($model->created_at));
-        } else {
-            $Y = date("Y");
-            $m = date("m");
-        }
-        return $includeDomain.Mimic::FILE_PATH . $user->id . "/" . $Y . "/" . $m . "/" . $file;
-    }
-
-    /**
-     * get all mimic responses of a specific original mimic
-     * @param  $request
-     * @return data from the database
-     */
-    public function getMimicResponses($request)
-    {
-        $mimicsTable = $this->getTable();
-        $mimicResponseTable = (new MimicResponse)->getTable();
-
-        $offset = 0;
-        if ($request->page) {
-            $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT * $request->page;
-        }
-
-        return $this->select("$mimicsTable.*")
-            ->join($mimicResponseTable, "$mimicResponseTable.response_mimic_id", '=', "$mimicsTable.id")
-            ->where("$mimicResponseTable.original_mimic_id", $request->original_mimic_id)
-            ->orderBy("upvote", "DESC")
-            ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT)
-            ->offset($offset)
-            ->with(['user'])
-            ->get();
-
-    }
 
     /**
      * get all original mimics (latest or from followers) from the database, with relations
+     * See this for help on how to get only X items from relation table using map()
+        https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
+        https://stackoverflow.com/questions/31700003/laravel-4-eloquent-relationship-hasmany-limit-records
      * @param  Request $request Laravel request
      * @param  Object $authUser Authenitacted user
      * @return [model]          [datafrom the database]
@@ -135,9 +84,12 @@ class Mimic extends Model
             ->orderBy("$mimicsTable.id", 'DESC')
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($offset)
-            ->where('is_response', 0)
-            ->with(['responsesToOriginalMimic.user', 'user', 'hashtags', 'mimicTaguser'])
-            ->get();
+            ->with(['mimicResponses.user', 'user', 'hashtags', 'mimicTagusers'])
+            ->get()
+            ->map(function($query) {
+                $query->mimicResponses = $query->mimicResponses->take(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
+                return $query;
+            });
 
         return $mimics;
     }
@@ -210,78 +162,48 @@ class Mimic extends Model
     public function getMimicResponseContent($mimics)
     {
         $mimicsResponse = [];
-
-        //if there are more records from the database (e.g. when listing all mimics)
-        if (count($mimics) > 1) {
+        if(!$mimics->isEmpty()){
             foreach ($mimics as $mimic) {
-                $mimicsResponse[] = $this->generateContentForMimicResponse($mimic, $mimic->hashtags, $mimic->responsesToOriginalMimic);
+                $mimicsResponse[] = $this->generateContentForMimicResponse($mimic, $mimic->hashtags, $mimic->mimicResponses);
             }
-        } //if there is only one record from the database (e.g. after uploading single mimic)
-        else {
-            $mimicsResponse[] = $this->generateContentForMimicResponse($mimics, $mimics->hashtags, $mimics->responsesToOriginalMimic);
-
         }
-
 
         return $mimicsResponse;
     }
 
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
-    public function hashtags()
-    {
+    public function hashtags() {
         return $this->belongsToMany(\App\Models\Hashtag::class, 'mimic_hashtag', 'mimic_id', 'hashtag_id');
     }
 
-    public function mimicTaguser()
-    {
+    /*public function users() {
         return $this->belongsToMany(\App\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
     }
 
-    public function mimicUpvote()
-    {
+    public function users() {
         return $this->belongsToMany(\App\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id');
-    }
+    }*/
 
-    public function mimicHashtags()
-    {
+    public function mimicHashtags() {
         return $this->hasMany(\App\Models\MimicHashtag::class, 'mimic_id', 'id');
     }
 
-    public function mimicOriginal()
-    {
-        return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id');
+    public function mimicResponses() {
+        return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id')
+        ->orderBy("upvote", "DESC");
+
     }
 
-    public function mimicTagusers()
-    {
+    public function mimicTagusers() {
         return $this->hasMany(\App\Models\MimicTaguser::class, 'mimic_id', 'id');
     }
 
-    public function mimicUpvotes()
-    {
+    public function mimicUpvotes() {
         return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
-    }
-
-    public function responsesToOriginalMimic()
-    {
-        return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_response', 'original_mimic_id', 'response_mimic_id')
-            ->orderBy("upvote", "DESC")
-            ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
-    }
-
-    public function mimicsResponseOriginal()
-    {
-        return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_response', 'response_mimic_id', 'original_mimic_id');
-    }
-
-    public function mimicResponses()
-    {
-        return $this->hasMany(\App\Models\MimicResponse::class, 'response_mimic_id', 'id');
     }
 
 

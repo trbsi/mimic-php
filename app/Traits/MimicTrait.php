@@ -6,6 +6,46 @@ use App\Models\Mimic;
 
 trait MimicTrait
 {
+
+    /**
+     * Get file path for a mimic
+     * @param  object $user Authenticated user model or User model
+     * @param  object $model Mimic model
+     * @return string Path to a file or a folder of a mimic
+     */
+    public function getFileOrPath($user, $file = null, $model = null, $includeDomain = false)
+    {
+        if($includeDomain) {
+            $includeDomain = env('APP_URL');
+        }
+
+        if ($model != null) {
+            $Y = date("Y", strtotime($model->created_at));
+            $m = date("m", strtotime($model->created_at));
+        } else {
+            $Y = date("Y");
+            $m = date("m");
+        }
+        return $includeDomain.Mimic::FILE_PATH . $user->id . "/" . $Y . "/" . $m . "/" . $file;
+    }
+
+    /**
+     * Get Mimic type
+     * @param  int $type 0/1
+     * @return string "video/picture"
+     */
+    public function getMimicType($type)
+    {
+        switch ($type) {
+            case Mimic::TYPE_VIDEO:
+                return 'video';
+                break;
+            case Mimic::TYPE_PIC:
+                return 'picture';
+                break;
+        } 
+    }
+
     /**
      * generate mimic response
      * @param  [type] $mimic       [Mimic model]
