@@ -29,6 +29,7 @@ class Helper
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
                     'email' => $provider_data["email"],
+                    'profile_picture' => $provider_data["profile_picture"],
                 ];
         }
 
@@ -38,6 +39,7 @@ class Helper
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
                     'email' => $provider_data["email"],
+                    'profile_picture' => $provider_data["profile_image_url"],
                 ];
         }
     }

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('id', true);
             $table->string('email')->unique();
             $table->string('username', 50)->unique()->nullable();
+            $table->string('profile_picture', 255)->nullable();
             $table->integer('followers')->default(0);
             $table->integer('following')->default(0);
             $table->integer('number_of_mimics')->default(0);
