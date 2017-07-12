@@ -89,7 +89,7 @@
                                     class="strong"><?= config("app.name") ?></strong><br>Split your world</h2>
 
                         <p>
-                            Post your short video or a photo and watch other people respond to it
+                              Post your short video or a photo and watch other people respond to it.  See something you like? Add your own cool response and stand out from the crowd.
                         </p>
                         <a href="<?= env("GOOGLE_PLAY_LINK") ?>" target="_blank"
                            class="btn btn-download wow animated fadeInLeft">
@@ -113,6 +113,7 @@
 <!-- /#header -->
 
 <!-- HHHHHHHHHHHHHHHHHH        Video          HHHHHHHHHHHHHHHH -->
+<?php /*
 <div id="video" class="wrapper">
     <div class="container">
         <h2 class=""><?= config("app.name") ?> Video</h2>
@@ -124,7 +125,7 @@
         </div>
     </div>
     <!-- /.container -->
-</div>
+</div>*/ ?>
 <!-- /#video -->
 
 <!-- HHHHHHHHHHHHHHHHHH      Screenshots    HHHHHHHHHHHHHHHH -->
