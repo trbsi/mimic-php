@@ -89,7 +89,9 @@
                                     class="strong"><?= config("app.name") ?></strong><br>Split your world</h2>
 
                         <p>
-                              Post your short video or a photo and watch other people respond to it.  See something you like? Add your own cool response and stand out from the crowd.
+                              Swipe through posts of short videos or pictures, or add your own.
+                              <br>
+                              See how people have responded with their own video or photo, or add you own and stand out from the crowd
                         </p>
                         <a href="<?= env("GOOGLE_PLAY_LINK") ?>" target="_blank"
                            class="btn btn-download wow animated fadeInLeft">
@@ -172,7 +174,7 @@
             <h1 class="text-center animation-box wow bounceIn animated"><?= config("app.name") ?></h1>
         </div>
         <ul class="social-icons text-center">
-            <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/MimicApp/" target="_blank"><i
+            <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/MimicAppOfficial/" target="_blank"><i
                             class="fa fa-facebook"></i></a></li>
         </ul>
         EMAIL: hello@gomimic.com
