@@ -133,6 +133,7 @@ trait MimicTrait
                 'upvote' => $mimic->upvote,
                 'file' => $mimic->file, 
                 'aws_file' => $mimic->aws_file,
+                'upvoted' => $mimic->upvoted,
             ];
     }
 }

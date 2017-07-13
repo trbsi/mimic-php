@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Traits\MimicTrait;
 use App\Models\Follow;
 use App\Models\MimicResponse;
+use App\Models\MimicUpvote;
+use App\Models\MimicResponseUpvote;
 use Illuminate\Support\Collection;
 use App\Helpers\Constants;
 
@@ -69,6 +71,7 @@ class Mimic extends Model
     {
         $mimicsTable = $this->getTable();
         $followTable = (new Follow)->getTable();
+        $mimicResponseTable = (new MimicResponse)->getTable();
 
         $offset = 0;
         if ($request->page) {
@@ -83,10 +86,15 @@ class Mimic extends Model
         }
 
         $mimics = $mimics->select("$mimicsTable.*")
+            ->selectRaw("IF(EXISTS(SELECT null FROM ".(new MimicUpvote)->getTable()." WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
             ->orderBy("$mimicsTable.id", 'DESC')
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($offset)
-            ->with(['mimicResponses.user', 'user', 'hashtags', 'mimicTagusers'])
+            ->with(['mimicResponses' => function($query) use ($authUser, $mimicResponseTable) {
+                $query->select("$mimicResponseTable.*");
+                $query->selectRaw("IF(EXISTS(SELECT null FROM ".(new MimicResponseUpvote)->getTable()." WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
+                $query->with('user');
+            }, 'user', 'hashtags', 'mimicTagusers'])
             ->get()
             ->map(function($query) {
                 $query->mimicResponses = $query->mimicResponses->take(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
