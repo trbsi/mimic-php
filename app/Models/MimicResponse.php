@@ -81,7 +81,7 @@ class MimicResponse extends Model
         return $this->belongsToMany(\App\Models\User::class, 'mimic_response_upvote', 'mimic_id', 'user_id');
     }
 
-    public function mimicResponseUpvotes() {
+    public function upvotes() {
         return $this->hasMany(\App\Models\MimicResponseUpvote::class, 'mimic_id', 'id');
     }
 

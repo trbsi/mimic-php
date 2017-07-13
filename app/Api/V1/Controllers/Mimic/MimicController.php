@@ -130,4 +130,33 @@ class MimicController extends BaseAuthController
         return response()->json(['mimics' => $mimicsResponses]);
     }
 
+    /**
+     * Upvote original or response mimic
+     * @param  Request $request
+     */
+    public function upvote(Request $request)
+    {
+        if($request->original_mimic_id) {
+            $model = $this->mimic;
+            $id = $request->original_mimic_id;
+        } else {
+            $model = $this->mimicResponse;
+            $id = $request->reseponse_mimic_id;
+        }
+        DB::beginTransaction();
+        $model = $model->find($id);
+        //try to increment, if you can't catch and decrement it
+        try {
+            $model->increment('upvote');
+            $model->upvotes()->create(['user_id' => $this->authUser->id]);
+            DB::commit();
+            return response()->json(['type' => 'voted']);
+        } catch (\Exception $e) {
+            DB::rollBack(); //rollback query inside "try"
+            $model->decrement('upvote');
+            $model->upvotes()->where(['user_id' => $this->authUser->id])->delete();
+            return response()->json(['type' => 'downvoted']);
+
+        }
+    }
 }

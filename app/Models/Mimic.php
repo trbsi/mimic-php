@@ -239,10 +239,11 @@ class Mimic extends Model
     public function mimicHashtags() {
         return $this->hasMany(\App\Models\MimicHashtag::class, 'mimic_id', 'id');
     }
+    */
 
-    public function mimicUpvotes() {
+    public function upvotes() {
         return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
-    }*/
+    }
 
     public function mimicResponses() {
         return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id')
