@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Mimic;
 use App\Traits\MimicTrait;
+use App\Models\MimicResponseUpvote;
 
 class MimicResponse extends Model
 {
@@ -46,9 +47,10 @@ class MimicResponse extends Model
     /**
      * get all mimic responses of a specific original mimic
      * @param  $request
+     * @param  $authUser Model of an authenitcated user
      * @return data from the database
      */
-    public function getMimicResponses($request)
+    public function getMimicResponses($request, $authUser)
     {
         $offset = 0;
         if ($request->page) {
@@ -56,6 +58,8 @@ class MimicResponse extends Model
         }
 
         return $this
+            ->select($this->getTable().".*")
+            ->selectRaw("IF(EXISTS(SELECT null FROM ".(new MimicResponseUpvote)->getTable()." WHERE user_id=$authUser->id AND mimic_id = ".$this->getTable().".id), 1, 0) AS upvoted")
             ->where("original_mimic_id", $request->original_mimic_id)
             ->orderBy("upvote", "DESC")
             ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT)

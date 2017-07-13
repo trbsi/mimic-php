@@ -125,7 +125,7 @@ class MimicController extends BaseAuthController
      */
     public function loadResponses(Request $request)
     {
-        $mimicsResponses = $this->mimicResponse->getMimicResponses($request);
+        $mimicsResponses = $this->mimicResponse->getMimicResponses($request, $this->authUser);
 
         return response()->json(['mimics' => $mimicsResponses]);
     }
