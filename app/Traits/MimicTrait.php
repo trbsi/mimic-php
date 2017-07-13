@@ -135,21 +135,4 @@ trait MimicTrait
                 'aws_file' => $mimic->aws_file,
             ];
     }
-
-    /**
-     * send notification to a user if someone tags him/her
-     * @param  $user [User model]
-     */
-    private function sendMimicTagNotification($user)
-    {
-        $data =
-            [
-                'badge' => 1,
-                'sound' => 'default',
-                'title' => trans('core.notifications.respond_to_mimic_title'),
-                'body' => trans('core.notifications.respond_to_mimic_body'),
-            ];
-
-        SendPushNotification::sendNotification($user->id, $data);
-    }
 }

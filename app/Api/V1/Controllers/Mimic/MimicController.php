@@ -11,6 +11,8 @@ use App\Helpers\FileUpload;
 use App\Models\MimicTaguser;
 use App\Models\MimicHashtag;
 use App\Api\V1\Requests\Mimic\AddMimicRequest;
+use App\Helpers\SendPushNotification;
+use App\Helpers\Constants;
 use DB;
 
 class MimicController extends BaseAuthController
@@ -40,6 +42,7 @@ class MimicController extends BaseAuthController
             //init variables
             $model = $this->mimic;
             $additionalFields = [];
+            $responseMimic = false; //is someone posted a response or not
             $relations = ['user', 'hashtags', 'mimicResponses.user'];
 
             //if this is response upload
@@ -47,6 +50,7 @@ class MimicController extends BaseAuthController
                 $model = $this->mimicResponse;
                 $additionalFields['original_mimic_id'] = $request->original_mimic_id;
                 $relations = ['user'];
+                $responseMimic = true;
             } 
 
             $file = $request->file('file');
@@ -77,6 +81,12 @@ class MimicController extends BaseAuthController
 
                 //update user number of mimics
                 $this->authUser->increment('number_of_mimics');
+
+                //send notification to a owner of original mimic that someone post a respons
+                if($responseMimic == true) {
+                    $this->mimic->sendMimicNotification($mimic->mimic, Constants::PUSH_TYPE_NEW_RESPONSE);
+                }
+                
                  
                 //@TODO-TagUsers (still in progress and needs to be tested)
                 //$this->mimic->checkTaggedUser($request->usernames, $mimic);

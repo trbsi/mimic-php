@@ -7,6 +7,7 @@ use App\Traits\MimicTrait;
 use App\Models\Follow;
 use App\Models\MimicResponse;
 use Illuminate\Support\Collection;
+use App\Helpers\Constants;
 
 class Mimic extends Model
 {
@@ -188,6 +189,28 @@ class Mimic extends Model
         return $mimicsResponse;
     }
 
+    /**
+     * send various notification to a user
+     * @param model $model Mimic/MimicResponse model
+     * @param  string $type What kind of notification to send
+     */
+    public function sendMimicNotification($model, $type)
+    {
+        $data =
+        [
+            'badge' => 1,
+            'sound' => 'default',
+        ];
+
+        if($type == Constants::PUSH_TYPE_NEW_RESPONSE) {
+            $data['title'] = trans('core.notifications.new_response_title');
+            $data['body'] = trans('core.notifications.new_response_body', ['user' => $model->user->username]);
+            $user_id = $model->user_id;
+        }
+        dd($data);
+
+        SendPushNotification::sendNotification($user_id, $data);
+    }
 
     public function user() {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
@@ -222,8 +245,5 @@ class Mimic extends Model
     public function mimicTagusers() {
         return $this->hasMany(\App\Models\MimicTaguser::class, 'mimic_id', 'id');
     }
-
-
-
 
 }

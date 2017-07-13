@@ -91,13 +91,8 @@ class SendPushNotification
                         'title' => $data['title'],
                         'body' => $data['body'],
                     ],
-                'sound' => $data['sound'], //"message.wav"
+                'sound' => isset($data['sound']) ? $data['sound'] : 'default', //"message.wav"
             ];
-
-        //only if badge is set, send it
-        if (isset($data['badge'])) {
-            $body['aps']['badge'] = (int)$data['badge'];
-        }
 
         //------------CHANGED-------------------
 
@@ -196,7 +191,7 @@ class SendPushNotification
 
     /**
      * send notification to a user
-     * @param $user_id - id of a user from users
+     * @param $user_id - whom to send a notification
      * @param $data - notification payload
      * @return bool
      */
