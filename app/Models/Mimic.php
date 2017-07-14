@@ -54,15 +54,15 @@ class Mimic extends Model
      */
     public function getMimicTypeAttribute($value)
     {
-        return $this->getMimicType($value);   
+        return $this->getMimicType($value);
     }
 
 
     /**
      * get all original mimics (latest or from followers) from the database, with relations
      * See this for help on how to get only X items from relation table using map()
-        https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
-        https://stackoverflow.com/questions/31700003/laravel-4-eloquent-relationship-hasmany-limit-records
+     * https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
+     * https://stackoverflow.com/questions/31700003/laravel-4-eloquent-relationship-hasmany-limit-records
      * @param  Request $request Laravel request
      * @param  Object $authUser Authenitacted user
      * @return [model]          [datafrom the database]
@@ -79,6 +79,7 @@ class Mimic extends Model
         }
 
         $mimics = $this;
+        //if this is not "following", get all "recent" mimics (->orderBy("$mimicsTable.id", 'DESC'))
         if ($request->type && $request->type == "following") {
             $mimics = $mimics
                 ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
@@ -86,17 +87,17 @@ class Mimic extends Model
         }
 
         $mimics = $mimics->select("$mimicsTable.*")
-            ->selectRaw("IF(EXISTS(SELECT null FROM ".(new MimicUpvote)->getTable()." WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
+            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
             ->orderBy("$mimicsTable.id", 'DESC')
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($offset)
-            ->with(['mimicResponses' => function($query) use ($authUser, $mimicResponseTable) {
+            ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable) {
                 $query->select("$mimicResponseTable.*");
-                $query->selectRaw("IF(EXISTS(SELECT null FROM ".(new MimicResponseUpvote)->getTable()." WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
+                $query->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
                 $query->with('user');
             }, 'user', 'hashtags', 'mimicTagusers'])
             ->get()
-            ->map(function($query) {
+            ->map(function ($query) {
                 $query->mimicResponses = $query->mimicResponses->take(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
                 return $query;
             });
@@ -174,24 +175,23 @@ class Mimic extends Model
         $mimicsResponse = [];
 
         //if this is collection of items get with get() method
-        if($mimics instanceof Collection && !$mimics->isEmpty()){
+        if ($mimics instanceof Collection && !$mimics->isEmpty()) {
             foreach ($mimics as $mimic) {
                 $mimicsResponse[] = $this->generateContentForMimicResponse
                 (
-                    $mimic, 
-                    ($mimic->hashtags) ? $mimic->hashtags : [], 
-                    ($mimic->mimicResponses) ? $mimic->mimicResponses: []
+                    $mimic,
+                    ($mimic->hashtags) ? $mimic->hashtags : [],
+                    ($mimic->mimicResponses) ? $mimic->mimicResponses : []
                 );
             }
-        }
-        //if this is single item taken with first()
-         else {
-                $mimicsResponse[] = $this->generateContentForMimicResponse
-                (
-                    $mimics, 
-                    ($mimics->hashtags) ? $mimics->hashtags : [], 
-                    ($mimics->mimicResponses) ? $mimics->mimicResponses: []
-                );
+        } //if this is single item taken with first()
+        else {
+            $mimicsResponse[] = $this->generateContentForMimicResponse
+            (
+                $mimics,
+                ($mimics->hashtags) ? $mimics->hashtags : [],
+                ($mimics->mimicResponses) ? $mimics->mimicResponses : []
+            );
         }
 
         return $mimicsResponse;
@@ -205,12 +205,12 @@ class Mimic extends Model
     public function sendMimicNotification($model, $type)
     {
         $data =
-        [
-            'badge' => 1,
-            'sound' => 'default',
-        ];
+            [
+                'badge' => 1,
+                'sound' => 'default',
+            ];
 
-        if($type == Constants::PUSH_TYPE_NEW_RESPONSE) {
+        if ($type == Constants::PUSH_TYPE_NEW_RESPONSE) {
             $data['title'] = trans('core.notifications.new_response_title');
             $data['body'] = trans('core.notifications.new_response_body', ['user' => $model->user->username]);
             $user_id = $model->user_id;
@@ -220,11 +220,13 @@ class Mimic extends Model
         SendPushNotification::sendNotification($user_id, $data);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
-    public function hashtags() {
+    public function hashtags()
+    {
         return $this->belongsToMany(\App\Models\Hashtag::class, 'mimic_hashtag', 'mimic_id', 'hashtag_id');
     }
 
@@ -237,25 +239,25 @@ class Mimic extends Model
     }
 
     */
-   
-    public function upvotes() 
+
+    public function upvotes()
     {
         return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
     }
 
-    public function userUpvotes() 
+    public function userUpvotes()
     {
         return $this->belongsToMany(\App\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
-    public function mimicResponses() 
+    public function mimicResponses()
     {
         return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id')
-        ->orderBy("upvote", "DESC");
+            ->orderBy("upvote", "DESC");
 
     }
 
-    public function mimicTagusers() 
+    public function mimicTagusers()
     {
         return $this->hasMany(\App\Models\MimicTaguser::class, 'mimic_id', 'id');
     }

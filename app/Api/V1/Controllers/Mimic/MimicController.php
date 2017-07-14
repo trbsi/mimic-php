@@ -46,12 +46,12 @@ class MimicController extends BaseAuthController
             $relations = ['user', 'hashtags', 'mimicResponses.user'];
 
             //if this is response upload
-            if($request->original_mimic_id) {
+            if ($request->original_mimic_id) {
                 $model = $this->mimicResponse;
                 $additionalFields['original_mimic_id'] = $request->original_mimic_id;
                 $relations = ['user'];
                 $responseMimic = true;
-            } 
+            }
 
             $file = $request->file('file');
             $mime = $file->getMimeType();
@@ -73,7 +73,7 @@ class MimicController extends BaseAuthController
                     'file' => $file,
                     'mimic_type' => $type,
                     'user_id' => $this->authUser->id
-                ],$additionalFields))
+                ], $additionalFields))
             ) {
 
                 //check for hashtags
@@ -83,11 +83,11 @@ class MimicController extends BaseAuthController
                 $this->authUser->increment('number_of_mimics');
 
                 //send notification to a owner of original mimic that someone post a respons
-                if($responseMimic == true) {
+                if ($responseMimic == true) {
                     $this->mimic->sendMimicNotification($mimic->mimic, Constants::PUSH_TYPE_NEW_RESPONSE);
                 }
-                
-                 
+
+
                 //@TODO-TagUsers (still in progress and needs to be tested)
                 //$this->mimic->checkTaggedUser($request->usernames, $mimic);
 
@@ -136,7 +136,7 @@ class MimicController extends BaseAuthController
      */
     public function upvote(Request $request)
     {
-        if($request->original_mimic_id) {
+        if ($request->original_mimic_id) {
             $model = $this->mimic;
             $id = $request->original_mimic_id;
         } else {
@@ -151,8 +151,7 @@ class MimicController extends BaseAuthController
             $model->userUpvotes()->attach($this->authUser->id);
             DB::commit();
             return response()->json(['type' => 'upvoted']);
-        } 
-        //downvote
+        } //downvote
         catch (\Exception $e) {
             DB::rollBack(); //rollback query inside "try"
             $model->decrement('upvote');

@@ -41,9 +41,9 @@ class MimicResponse extends Model
      */
     public function getMimicTypeAttribute($value)
     {
-        return $this->getMimicType($value);   
+        return $this->getMimicType($value);
     }
-    
+
     /**
      * get all mimic responses of a specific original mimic
      * @param  $request
@@ -58,8 +58,8 @@ class MimicResponse extends Model
         }
 
         return $this
-            ->select($this->getTable().".*")
-            ->selectRaw("IF(EXISTS(SELECT null FROM ".(new MimicResponseUpvote)->getTable()." WHERE user_id=$authUser->id AND mimic_id = ".$this->getTable().".id), 1, 0) AS upvoted")
+            ->select($this->getTable() . ".*")
+            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = " . $this->getTable() . ".id), 1, 0) AS upvoted")
             ->where("original_mimic_id", $request->original_mimic_id)
             ->orderBy("upvote", "DESC")
             ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT)
@@ -69,19 +69,23 @@ class MimicResponse extends Model
 
     }
 
-    public function mimic() {
+    public function mimic()
+    {
         return $this->belongsTo(\App\Models\Mimic::class, 'original_mimic_id', 'id');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
-    public function userUpvotes() {
+    public function userUpvotes()
+    {
         return $this->belongsToMany(\App\Models\User::class, 'mimic_response_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
-    public function upvotes() {
+    public function upvotes()
+    {
         return $this->hasMany(\App\Models\MimicResponseUpvote::class, 'mimic_id', 'id');
     }
 

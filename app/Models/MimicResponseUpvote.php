@@ -18,11 +18,13 @@ class MimicResponseUpvote extends Model
             'user_id' => 'int',
         ];
 
-    public function mimicResponse() {
+    public function mimicResponse()
+    {
         return $this->belongsTo(\App\Models\MimicResponse::class, 'mimic_id', 'id');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 

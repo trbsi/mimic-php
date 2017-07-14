@@ -81,7 +81,8 @@ class User extends Authenticatable
         return $user;
     }
 
-    public function userFollowedBy() {
+    public function userFollowedBy()
+    {
         return $this->belongsToMany(\App\Models\User::class, 'follow', 'followed_by', 'following')->withTimestamps();
     }
 

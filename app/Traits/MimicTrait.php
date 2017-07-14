@@ -15,7 +15,7 @@ trait MimicTrait
      */
     public function getFileOrPath($user, $file = null, $model = null, $includeDomain = false)
     {
-        if($includeDomain) {
+        if ($includeDomain) {
             $includeDomain = env('APP_URL');
         }
 
@@ -26,7 +26,7 @@ trait MimicTrait
             $Y = date("Y");
             $m = date("m");
         }
-        return $includeDomain.Mimic::FILE_PATH . $user->id . "/" . $Y . "/" . $m . "/" . $file;
+        return $includeDomain . Mimic::FILE_PATH . $user->id . "/" . $Y . "/" . $m . "/" . $file;
     }
 
     /**
@@ -43,7 +43,7 @@ trait MimicTrait
             case Mimic::TYPE_PIC:
                 return 'picture';
                 break;
-        } 
+        }
     }
 
     /**
@@ -132,7 +132,7 @@ trait MimicTrait
                 'user_id' => $mimic->user_id,
                 'mimic_type' => $mimic->mimic_type,
                 'upvote' => $mimic->upvote,
-                'file' => $mimic->file, 
+                'file' => $mimic->file,
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
             ];
