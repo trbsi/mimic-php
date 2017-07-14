@@ -77,8 +77,8 @@ class MimicResponse extends Model
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
-    public function users() {
-        return $this->belongsToMany(\App\Models\User::class, 'mimic_response_upvote', 'mimic_id', 'user_id');
+    public function userUpvotes() {
+        return $this->belongsToMany(\App\Models\User::class, 'mimic_response_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
     public function upvotes() {

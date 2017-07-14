@@ -26,6 +26,7 @@ $api->version('v1', function (Router $api) {
 
             $api->group(['prefix' => 'profile'], function (Router $api) {
                 $api->get('user', ['uses' => 'App\Api\V1\Controllers\Profile\ProfileController@userProfile']);
+                $api->post('follow', ['uses' => 'App\Api\V1\Controllers\Profile\FollowController@followUser']);
             });
 
         });

@@ -145,18 +145,19 @@ class MimicController extends BaseAuthController
         }
         DB::beginTransaction();
         $model = $model->find($id);
-        //try to increment, if you can't catch and decrement it
+        //try to upvote
         try {
             $model->increment('upvote');
-            $model->upvotes()->create(['user_id' => $this->authUser->id]);
+            $model->userUpvotes()->attach($this->authUser->id);
             DB::commit();
-            return response()->json(['type' => 'voted']);
-        } catch (\Exception $e) {
+            return response()->json(['type' => 'upvoted']);
+        } 
+        //downvote
+        catch (\Exception $e) {
             DB::rollBack(); //rollback query inside "try"
             $model->decrement('upvote');
-            $model->upvotes()->where(['user_id' => $this->authUser->id])->delete();
+            $model->userUpvotes()->detach($this->authUser->id);
             return response()->json(['type' => 'downvoted']);
-
         }
     }
 }

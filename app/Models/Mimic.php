@@ -232,26 +232,31 @@ class Mimic extends Model
         return $this->belongsToMany(\App\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
     }
 
-    public function users() {
-        return $this->belongsToMany(\App\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id');
-    }
-
     public function mimicHashtags() {
         return $this->hasMany(\App\Models\MimicHashtag::class, 'mimic_id', 'id');
     }
-    */
 
-    public function upvotes() {
+    */
+   
+    public function upvotes() 
+    {
         return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
     }
 
-    public function mimicResponses() {
+    public function userUpvotes() 
+    {
+        return $this->belongsToMany(\App\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
+    }
+
+    public function mimicResponses() 
+    {
         return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id')
         ->orderBy("upvote", "DESC");
 
     }
 
-    public function mimicTagusers() {
+    public function mimicTagusers() 
+    {
         return $this->hasMany(\App\Models\MimicTaguser::class, 'mimic_id', 'id');
     }
 
