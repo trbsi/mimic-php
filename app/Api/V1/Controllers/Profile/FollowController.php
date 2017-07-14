@@ -10,11 +10,6 @@ use DB;
 
 class FollowController extends BaseAuthController
 {
-    public function __construct(User $user)
-    {
-        parent::__construct($user);
-    }
-
     /**
      * Follow or unfollow user
      * @param  Request $requets [description]

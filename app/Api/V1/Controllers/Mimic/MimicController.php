@@ -77,7 +77,7 @@ class MimicController extends BaseAuthController
             ) {
 
                 //check for hashtags
-                $this->mimic->checkTags($request->hashtags, $mimic);
+                $this->mimic->checkHashtags($request->hashtags, $mimic);
 
                 //update user number of mimics
                 $this->authUser->increment('number_of_mimics');

@@ -79,6 +79,7 @@ class Mimic extends Model
         }
 
         $mimics = $this;
+        //filter mimics by a specific user
         if($request->user_id) {
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
         }
@@ -114,7 +115,7 @@ class Mimic extends Model
      * @param $mimicModel - created mimic model
      * @return array
      */
-    public function checkTags($tags, $mimicModel)
+    public function checkHashtags($tags, $mimicModel)
     {
         $returnHashtags = [];
         preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags);

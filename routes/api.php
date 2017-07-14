@@ -29,6 +29,8 @@ $api->version('v1', function (Router $api) {
                 $api->post('follow', ['uses' => 'App\Api\V1\Controllers\Profile\FollowController@followUser']);
             });
 
+            $api->get('search', ['uses' => 'App\Api\V1\Controllers\Search\SearchController@search']);
+
         });
     });
 

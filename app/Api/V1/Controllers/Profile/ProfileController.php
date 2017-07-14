@@ -9,12 +9,6 @@ use App\Models\Follow;
 
 class ProfileController extends BaseAuthController
 {
-
-    public function __construct(User $user)
-    {
-        parent::__construct($user);
-    }
-
     /**
      * Get user profile and return data
      * @param  Request $request
