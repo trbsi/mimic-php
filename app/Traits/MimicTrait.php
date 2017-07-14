@@ -127,7 +127,8 @@ trait MimicTrait
         return
             [
                 'id' => $mimic->id,
-                'user' => $mimic->user->username,
+                'username' => $mimic->user->username,
+                'profile_picture' => $mimic->user->profile_picture,
                 'user_id' => $mimic->user_id,
                 'mimic_type' => $mimic->mimic_type,
                 'upvote' => $mimic->upvote,
