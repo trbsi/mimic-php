@@ -24,6 +24,10 @@ $api->version('v1', function (Router $api) {
                 $api->post('upvote', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@upvote']);
             });
 
+            $api->group(['prefix' => 'profile'], function (Router $api) {
+                $api->get('user', ['uses' => 'App\Api\V1\Controllers\Profile\ProfileController@userProfile']);
+            });
+
         });
     });
 

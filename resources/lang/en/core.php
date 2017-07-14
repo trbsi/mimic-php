@@ -5,7 +5,10 @@ return
         [
             'smth_went_wront_title' => 'Try again',
             'smth_went_wront_body' => 'Something went wrong. Try again.',
-
+        ],
+        'user' =>
+        [
+            'user_not_found' => 'User not found',
         ],
         'login' =>
         [
