@@ -24,6 +24,9 @@ class CreateUsersTable extends Migration
             $table->integer('number_of_mimics')->default(0);
             $table->timestamps();
         });
+
+        //https://laracasts.com/discuss/channels/general-discussion/fulltext-indexes-at-migrations
+        \DB::statement('ALTER TABLE users ADD FULLTEXT INDEX ft_users_username (username);');
     }
 
     /**

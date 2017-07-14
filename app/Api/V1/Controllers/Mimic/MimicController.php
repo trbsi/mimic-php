@@ -141,7 +141,7 @@ class MimicController extends BaseAuthController
             $id = $request->original_mimic_id;
         } else {
             $model = $this->mimicResponse;
-            $id = $request->reseponse_mimic_id;
+            $id = $request->response_mimic_id;
         }
         DB::beginTransaction();
         $model = $model->find($id);

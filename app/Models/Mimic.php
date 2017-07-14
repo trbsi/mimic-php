@@ -79,8 +79,11 @@ class Mimic extends Model
         }
 
         $mimics = $this;
+        if($request->user_id) {
+            $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
+        }
         //if this is not "following", get all "recent" mimics (->orderBy("$mimicsTable.id", 'DESC'))
-        if ($request->type && $request->type == "following") {
+        else if ($request->type && $request->type == "following") {
             $mimics = $mimics
                 ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
                 ->where('followed_by', $authUser->id);

@@ -20,6 +20,9 @@ class CreateHashtagsTable extends Migration
             $table->integer('popularity');
             $table->timestamps();
         });
+
+        //https://laracasts.com/discuss/channels/general-discussion/fulltext-indexes-at-migrations
+        \DB::statement('ALTER TABLE hashtags ADD FULLTEXT INDEX ft_hashtags_name (name);');
     }
 
     /**
