@@ -26,33 +26,27 @@ class LoginController extends Controller
         $provider_data = Helper::getOauthProviderData($request->provider, $request->provider_data);
         DB::beginTransaction();
 
-        //try to get user by email
-        if ($user = User::where('email', $provider_data['email'])->first()) {
-            //check if user already logged in with that provider
-            //if user haven't already logged via this provider add it to the database (e.g. user logged in via FB but not via twitter)
-            if (!$provider = $user->socialAccounts()->where('provider', $request->provider)->first()) {
+        //try to get user
+        $user = User::whereHas('socialAccounts', function($query) use ($provider_data) {
+            $query->where('provider_id', $provider_data['provider_id']);
+            $query->where('provider', $provider_data['provider']);
+        })->first();
 
-                $user->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
-                DB::commit();
-            } //user already logged with this provider, check if provider_id is the right one
-            else {
-                //provider ids are different, user is trying to fake something
-                if ($provider->provider_id != $provider_data['provider_id']) {
-                    abort(400, trans('core.login.login_failed_body'));
-                }
-            }
-        } //user doesn't exist, create an account
-        else {
+        if (!$user) {
             try {
-                $user = $this->user->create(array_only($provider_data, ['email']))
+                $user = $this->user->create(array_only($provider_data, ['email', 'profile_picture']))
                     ->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
                 abort(400, trans('core.login.login_failed_body'));
             }
+        } 
+        //update user
+        else {
+            $user->update(array_only($provider_data, ['email', 'profile_picture']));
+            DB::commit();
         }
-
 
         if ($user) {
             try {

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Hashtag;
+use App\Models\MimicHashtag;
 use App\Models\User;
 use App\Traits\MimicTrait;
 use App\Models\Follow;
@@ -70,7 +71,7 @@ class Mimic extends Model
     public function getMimics($request, $authUser)
     {
         $mimicsTable = $this->getTable();
-        $followTable = (new Follow)->getTable();
+        
         $mimicResponseTable = (new MimicResponse)->getTable();
 
         $offset = 0;
@@ -83,8 +84,16 @@ class Mimic extends Model
         if($request->user_id) {
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
         }
+        //filter by hashtag
+        else if($request->hashtag_id) {
+            $mimicHashtagTable = (new MimicHashtag)->getTable();
+            $mimics = $mimics
+                ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
+                ->where('hashtag_id', $request->hashtag_id);
+        }
         //if this is not "following", get all "recent" mimics (->orderBy("$mimicsTable.id", 'DESC'))
         else if ($request->type && $request->type == "following") {
+            $followTable = (new Follow)->getTable();
             $mimics = $mimics
                 ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
                 ->where('followed_by', $authUser->id);
@@ -97,9 +106,12 @@ class Mimic extends Model
             ->offset($offset)
             ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable) {
                 $query->select("$mimicResponseTable.*");
+                //check if user upvoted this mimic response
                 $query->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
+                //get user info for mimicResponses
                 $query->with('user');
             }, 'user', 'hashtags', 'mimicTagusers'])
+            ->groupBy("$mimicsTable.id")
             ->get()
             ->map(function ($query) {
                 $query->mimicResponses = $query->mimicResponses->take(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
