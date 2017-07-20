@@ -113,7 +113,7 @@ trait MimicTrait
                 'mimic' => $mimic,
                 'hashtags' => $hashTagsTmp,
                 //'taggedUsers' => $taggedUsersTmp, @TODO-TagUsers (future feature and needs to be tested)
-                'mimicResponses' => $mimicResponsesTmp
+                'mimic_responses' => $mimicResponsesTmp
             ];
     }
 
