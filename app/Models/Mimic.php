@@ -64,6 +64,7 @@ class Mimic extends Model
      * See this for help on how to get only X items from relation table using map()
      * https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
      * https://stackoverflow.com/questions/31700003/laravel-4-eloquent-relationship-hasmany-limit-records
+     * Order by recent mimics is default
      * @param  Request $request Laravel request
      * @param  Object $authUser Authenitacted user
      * @return [model]          [datafrom the database]
@@ -71,15 +72,15 @@ class Mimic extends Model
     public function getMimics($request, $authUser)
     {
         $mimicsTable = $this->getTable();
-        
         $mimicResponseTable = (new MimicResponse)->getTable();
 
-        $offset = 0;
+        $query = ['offset' => 0, 'orderColumn' => "$mimicsTable.id", 'orderType' => 'DESC'];
         if ($request->page) {
-            $offset = Mimic::LIST_ORIGINAL_MIMICS_LIMIT * $request->page;
+            $query['offset'] = Mimic::LIST_ORIGINAL_MIMICS_LIMIT * $request->page;
         }
 
         $mimics = $this;
+
         //filter mimics by a specific user
         if($request->user_id) {
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
@@ -91,19 +92,24 @@ class Mimic extends Model
                 ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
                 ->where('hashtag_id', $request->hashtag_id);
         }
-        //if this is not "following", get all "recent" mimics (->orderBy("$mimicsTable.id", 'DESC'))
+        //if this is not "following", get all "recent" mimics (->orderBy("$mimicsTable.id", 'DESC')), but also order following as recent
         else if ($request->type && $request->type == "following") {
             $followTable = (new Follow)->getTable();
             $mimics = $mimics
                 ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
                 ->where('followed_by', $authUser->id);
         }
+        else if ($request->type && $request->type == "popular") {
+        {
+            //popular mimics
+            $query['orderColumn'] = "$mimicsTable.upvote";
+        }
 
         $mimics = $mimics->select("$mimicsTable.*")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
-            ->orderBy("$mimicsTable.id", 'DESC')
+            ->orderBy($query['orderColumn'], $query['orderType'])
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
-            ->offset($offset)
+            ->offset($query['offset'])
             ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable) {
                 $query->select("$mimicResponseTable.*");
                 //check if user upvoted this mimic response
