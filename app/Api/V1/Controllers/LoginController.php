@@ -27,7 +27,7 @@ class LoginController extends Controller
         DB::beginTransaction();
 
         //try to get user
-        $user = User::whereHas('socialAccounts', function($query) use ($provider_data) {
+        $user = User::whereHas('socialAccounts', function ($query) use ($provider_data) {
             $query->where('provider_id', $provider_data['provider_id']);
             $query->where('provider', $provider_data['provider']);
         })->first();
@@ -41,8 +41,7 @@ class LoginController extends Controller
                 DB::rollBack();
                 abort(400, trans('core.login.login_failed_body'));
             }
-        } 
-        //update user
+        } //update user
         else {
             $user->update(array_only($provider_data, ['email', 'profile_picture']));
             DB::commit();

@@ -82,25 +82,21 @@ class Mimic extends Model
         $mimics = $this;
 
         //filter mimics by a specific user
-        if($request->user_id) {
+        if ($request->user_id) {
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
-        }
-        //filter by hashtag
-        else if($request->hashtag_id) {
+        } //filter by hashtag
+        else if ($request->hashtag_id) {
             $mimicHashtagTable = (new MimicHashtag)->getTable();
             $mimics = $mimics
                 ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
                 ->where('hashtag_id', $request->hashtag_id);
-        }
-        //if this is not "following", get all "recent" mimics (->orderBy("$mimicsTable.id", 'DESC')), but also order following as recent
+        } //if this is not "following", get all "recent" mimics (->orderBy("$mimicsTable.id", 'DESC')), but also order following as recent
         else if ($request->type && $request->type == "following") {
             $followTable = (new Follow)->getTable();
             $mimics = $mimics
                 ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
                 ->where('followed_by', $authUser->id);
-        }
-        else if ($request->type && $request->type == "popular") {
-        {
+        } else if ($request->type && $request->type == "popular") {
             //popular mimics
             $query['orderColumn'] = "$mimicsTable.upvote";
         }

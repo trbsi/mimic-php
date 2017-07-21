@@ -12,20 +12,19 @@ class SearchController extends BaseAuthController
 {
     /**
      * Search for users or hashtags
-     * @param  Request $requets 
+     * @param  Request $requets
      * @return json Result
      */
     public function search(Request $request)
     {
         //search hashtags
-        if(substr($request->term, 0, 1) == "#") {
+        if (substr($request->term, 0, 1) == "#") {
             $table = (new Hashtag)->getTable();
             $match = 'name';
             $orderBy = 'popularity';
             $term = $request->term;
-        } 
-        //search users
-        else if(substr($request->term, 0, 1) == "@") {
+        } //search users
+        else if (substr($request->term, 0, 1) == "@") {
             $table = (new User)->getTable();
             $match = $orderBy = 'username';
             $term = substr($request->term, 1);

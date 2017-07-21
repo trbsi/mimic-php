@@ -12,11 +12,11 @@ class SocialAccount extends Model
     protected $table = 'social_accounts';
     protected $fillable = ['id', 'user_id', 'provider', 'provider_id'];
     protected $casts =
-    [
-        'id' => 'int',
-        'user_id' => 'int',
-        'provider_id' => 'int',
-    ];
+        [
+            'id' => 'int',
+            'user_id' => 'int',
+            'provider_id' => 'int',
+        ];
 
     public function user()
     {
