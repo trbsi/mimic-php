@@ -20,6 +20,8 @@ class CreateMimicHashtagTable extends Migration
             $table->bigInteger('hashtag_id');
             $table->foreign('mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('hashtag_id')->references('id')->on('hashtags')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->unique(['mimic_id', 'hashtag_id']);
         });
     }
 

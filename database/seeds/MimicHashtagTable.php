@@ -23,8 +23,14 @@ class MimicHashtagTable extends Seeder
                 'mimic_id' => $mimic_id,
                 'hashtag_id' => rand(1, 10),
             ];
-            $model->create($insert);
-            $mimic_id++;
+
+            try {
+                $model->create($insert);
+                $mimic_id++;
+            } catch(\Exception $e) {
+                //do nothung
+            }
+            
         }
     }
 }

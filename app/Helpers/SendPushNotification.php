@@ -20,15 +20,15 @@ class SendPushNotification
     /**
      * Sends Push notification for Android users
      * @param $data
-     * @param $reg_id - array of all tokens for notifications
+     * @param $tokens - array of all tokens for notifications
      * @return mixed
      */
-    public function android($data, $reg_id)
+    public function android($data, $tokens)
     {
-        $url = 'https://android.googleapis.com/gcm/send';
+        $url = 'https://fcm.googleapis.com/fcm/send';
         $message = array(
             'title' => $data['title'],
-            'message' => $data['body'],
+            'body' => $data['body'],
             'subtitle' => '',
             'tickerText' => '',
             'msgcnt' => 1,
@@ -41,7 +41,7 @@ class SendPushNotification
         );
 
         $fields = array(
-            'registration_ids' => $reg_id,
+            'registration_ids' => $tokens,
             'data' => $message,
         );
 
