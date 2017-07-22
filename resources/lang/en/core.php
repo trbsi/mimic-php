@@ -17,7 +17,7 @@ return
 
             'username_exists' => 'This username already exists, try another one.',
             'username_empty' => 'Username cannot be empty.',
-            'username_contain' => "Username can only contain letters, numbers, '.' and '-'",
+            'username_contain' => "Username can only contain letters, numbers, '.' and '-'. It should be min 4 characters long.",
         ],
         'notifications' =>
         [

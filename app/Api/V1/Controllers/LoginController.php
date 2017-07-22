@@ -80,7 +80,7 @@ class LoginController extends Controller
             abort(403, trans('core.login.username_empty'));
         }
 
-        if (!preg_match('/^[a-zA-Z0-9_.-]*$/', $request->username)) {
+        if (!preg_match('/^[a-zA-Z0-9_.-]{4,}$/', $request->username)) {
             abort(403, trans('core.login.username_contain'));
         }
 
