@@ -26,7 +26,7 @@ class Helper
         if ($provider == "facebook") {
             return
                 [
-                    'provider_dataer' => $provider,
+                    'provider' => $provider,
                     'provider_id' => $provider_data["id"],
                     'email' => (!isset($provider_data["email"]) || empty($provider_data["email"])) ? NULL : $provider_data["email"],
                     'profile_picture' => $provider_data["picture"]["data"]["url"],
