@@ -36,6 +36,7 @@ class Mimic extends Model
             'is_private' => 'boolean',
             'upvote' => 'int',
             'user_id' => 'int',
+            'upvoted' => 'int', //this is to check if user upvoted mimic or not
         ];
 
     /**
