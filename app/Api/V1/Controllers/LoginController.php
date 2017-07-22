@@ -34,8 +34,8 @@ class LoginController extends Controller
 
         if (!$user) {
             try {
-                $user = $this->user->create(array_only($provider_data, ['email', 'profile_picture']))
-                    ->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
+                $user = $this->user->create(array_only($provider_data, ['email', 'profile_picture']));
+                $user->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
