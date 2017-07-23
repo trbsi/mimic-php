@@ -14,8 +14,8 @@ class Follow extends Model
     protected $casts =
         [
             'id' => 'int',
-            'followed_by' => 'int',
-            'following' => 'int'
+            'followed_by' => 'int', //user who is following another user
+            'following' => 'int', //user who is being followed
         ];
 
     public function followedBy()

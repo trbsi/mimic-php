@@ -11,10 +11,10 @@ class FollowTable extends Seeder
      *
      * @return void
      */
-    public function run(User $user, Follow $model)
+    public function run(User $user, Follow $follow)
     {
         $numberOfUsers = $user->count();
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 1; $i <= 200; $i++) {
             $insert =
             [
                 'followed_by' => rand(1, $numberOfUsers),
@@ -23,12 +23,20 @@ class FollowTable extends Seeder
 
             try
             {
-                $model->create($insert);
+                $follow->create($insert);
             }
             catch(\Exception $e)
             {
                 //var_dump($e->getMessage());
             }
+        }
+
+        //update user's following and followers
+        foreach ($user->all() as $user) {
+            $followers = $follow->where('following', $user->id)->count();  //number of followers
+            $following = $follow->where('followed_by', $user->id)->count(); //number of user I'm following
+       
+            $user->update(['following' => $following, 'followers' => $followers]);
         }
     }
 }

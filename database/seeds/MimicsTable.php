@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Mimic;
+use App\Models\User;
 
 class MimicsTable extends Seeder
 {
@@ -10,35 +11,102 @@ class MimicsTable extends Seeder
      *
      * @return void
      */
-    public function run(Mimic $model)
+    public function run(Mimic $mimic, User $user)
     {
-        $data =
-            [
-                [
-                    'file' => 'https://img-9gag-fun.9cache.com/photo/aNAyE7v_460sv.mp4',
-                    'mimic_type' => Mimic::TYPE_VIDEO,
-                    'is_private' => 0,
-                    'upvote' => rand(1, 100),
-                    'user_id' => 1
-                ],
-                [
-                    'file' => 'https://img-9gag-fun.9cache.com/photo/aDWBeLG_460sv.mp4',
-                    'mimic_type' => Mimic::TYPE_VIDEO,
-                    'is_private' => 1,
-                    'upvote' => rand(1, 100),
-                    'user_id' => 2
-                ],
-                [
-                    'file' => 'https://img-9gag-fun.9cache.com/photo/avGbKqd_460sv.mp4',
-                    'mimic_type' => Mimic::TYPE_VIDEO,
-                    'is_private' => 0,
-                    'upvote' => rand(1, 100),
-                    'user_id' => 3
-                ],
-            ];
+        $users = $user->count();
 
-        foreach ($data as $key => $value) {
-            $model->create($value);
+        $rootDir = public_path().'/files/seeds';
+        $rii = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($rootDir));
+
+        $files = array(); 
+
+        foreach ($rii as $key=>$file) {
+            if ($file->isDir() || $file->getFileName() == 'hashtags.txt'){ 
+                continue;
+            }
+
+            //replace all "\" with "/" and take string betweeb "/files/seeds/" and "/"
+            //for example: E:\xampp\htdocs\mimic\public/files/seeds/Beatbox/Beatbom.mp4, you take "Beatbox"
+            preg_match('/(?<=\/files\/seeds\/)(.*)(?=\/)/', str_replace("\\", "/", $file->getPathname()), $matches);
+
+            $files[$matches[0]][] = $file->getFileName(); 
+
         }
+
+        //before moving all files to a directore remove old directory
+        $this->delDir(public_path().'/files/user');
+
+        //main mimic and its creator
+        $mainUserId = 1;
+        //$dirName = Beatbox, HappyDogs, Muscles...
+        foreach ($files as $dirName => $filesTmp) { 
+            $mimicResponses = [];
+            $year = "1970";
+            $month = $date = "01";
+            foreach ($filesTmp as $arrayKey => $file) {
+                //get file info
+                $path_parts = pathinfo($file);
+                $mime = mime_content_type($rootDir.'/'.$dirName.'/'.$file); 
+
+                //main mimic
+                if($arrayKey == 0) {
+                    $userIdTmp = $mainUserId;
+                } 
+                //response mimic
+                else {
+                    $userIdTmp = rand($mainUserId, $users);
+                }
+
+                //copy files to another directory
+                $path = public_path().'/files/user/'.$userIdTmp.'/'.$year.'/'.$month;
+                if(!file_exists($path)) {
+                    mkdir($path, 0755, true);
+                }
+                $fileName = md5(mt_rand()).'.'.$path_parts['extension'];
+                copy($rootDir.'/'.$dirName.'/'.$file, $path.'/'.$fileName);
+
+                //insert into database
+                $data = 
+                [
+                    'file' => $fileName,
+                    'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PIC : Mimic::TYPE_VIDEO,
+                    'upvote' => rand(1, 35),
+                    'user_id' => $userIdTmp,
+                    'created_at' => "$year-$month-$date 12:00:00",
+                    'updated_at' => "$year-$month-$date 12:00:00",
+                ];
+
+                if($arrayKey == 0) {
+                    //create mimic
+                    $mainMimic = $mimic->create($data);
+                    //add hashtags for this mimic
+                    $mimic->checkHashtags(file_get_contents($rootDir.'/'.$dirName.'/'.'hashtags.txt'), $mainMimic);
+                    
+                } 
+                //response mimic
+                else {
+                    $mimicResponses[] = $data;
+                }
+
+            }
+
+            $mainUserId++;
+            $mainMimic->mimicResponses()->createMany($mimicResponses);
+
+        }
+    
     }
+
+    /**
+     * delete directory recursively 
+     * @param  string $dir Path to a directory
+     * @return bool
+     */
+    public function delDir($dir) { 
+        $files = array_diff(scandir($dir), array('.','..')); 
+        foreach ($files as $file) { 
+            (is_dir("$dir/$file")) ? $this->delDir("$dir/$file") : unlink("$dir/$file"); 
+        } 
+        return rmdir($dir); 
+    } 
 }

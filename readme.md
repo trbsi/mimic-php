@@ -18,6 +18,11 @@ https://github.com/francescomalatesta/laravel-api-boilerplate-jwt
 6aa47845287ddfa019e6aabed531e397f50e5689
 
 #AWS
-- Add this for AWS with your own information: AWS_KEY=AKIAJKLILUIBUPZUUVDQ AWS_SECRET=zk5ftgenehYiSLWsdYPiz+N66QYr1NPEJgs/7TAQ AWS_BUCKET=beyondi.test.perform365.bucket.com
+- Add this for AWS with your own information: 
+AWS_KEY=AKIAJKLILUIBUPZUUVDQ 
+AWS_SECRET=zk5ftgenehYiSLWsdYPiz+N66QYr1NPEJgs/7TAQ 
+AWS_BUCKET=beyondi.test.perform365.bucket.com
 
-- How to get KEY and SECRET: 1) Go to https://console.aws.amazon.com/iam/home?region=us-west-2#/users and edit your user. Under Permissions tab click on Add Permission and add "AmazonS3FullAccess" permission. 2) Under Security Credentials tab click on "Create access key" button and reate new KEY and SECRET
+- How to get KEY and SECRET: 
+1) Go to https://console.aws.amazon.com/iam/home?region=us-west-2#/users and edit your user. Under Permissions tab click on Add Permission and add "AmazonS3FullAccess" permission. 
+2) Under Security Credentials tab click on "Create access key" button and reate new KEY and SECRET

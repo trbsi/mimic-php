@@ -17,12 +17,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'username', 'profile_picture'
+        'email', 'username', 'profile_picture', 'followers', 'following', 'number_of_mimics', 'i_am_following_you'
     ];
 
     protected $casts =
         [
             'id' => 'int',
+            'followers' => 'int', //number of followers
+            'following' => 'int',  //number of user I'm following
+            'number_of_mimics' => 'int',
+            'i_am_following_you' => 'int', //when I open someone else's profile check if I (loggedin user) am following another user
         ];
 
     /**
