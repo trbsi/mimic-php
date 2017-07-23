@@ -103,10 +103,12 @@ class MimicsTable extends Seeder
      * @return bool
      */
     public function delDir($dir) { 
-        $files = array_diff(scandir($dir), array('.','..')); 
-        foreach ($files as $file) { 
-            (is_dir("$dir/$file")) ? $this->delDir("$dir/$file") : unlink("$dir/$file"); 
-        } 
-        return rmdir($dir); 
+        if(file_exists($dir)) {
+            $files = array_diff(scandir($dir), array('.','..')); 
+            foreach ($files as $file) { 
+                (is_dir("$dir/$file")) ? $this->delDir("$dir/$file") : unlink("$dir/$file"); 
+            } 
+            return rmdir($dir); 
+        }
     } 
 }
