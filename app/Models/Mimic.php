@@ -11,6 +11,7 @@ use App\Models\MimicUpvote;
 use App\Models\MimicResponseUpvote;
 use Illuminate\Support\Collection;
 use App\Helpers\Constants;
+use App\Helpers\SendPushNotification;
 
 class Mimic extends Model
 {
@@ -198,7 +199,7 @@ class Mimic extends Model
     {
         $mimicsResponse = [];
 
-        //if this is collection of items get with get() method
+        //check if this is collection of items get with get() method
         if ($mimics instanceof Collection && !$mimics->isEmpty()) {
             foreach ($mimics as $mimic) {
                 $mimicsResponse[] = $this->generateContentForMimicResponse
@@ -209,7 +210,8 @@ class Mimic extends Model
                 );
             }
         } //if this is single item taken with first()
-        else {
+        else if($mimics instanceof Collection == false && !empty($mimics)) {
+
             $mimicsResponse[] = $this->generateContentForMimicResponse
             (
                 $mimics,
@@ -239,7 +241,6 @@ class Mimic extends Model
             $data['body'] = trans('core.notifications.new_response_body', ['user' => $model->user->username]);
             $user_id = $model->user_id;
         }
-        dd($data);
 
         SendPushNotification::sendNotification($user_id, $data);
     }

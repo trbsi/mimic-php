@@ -87,7 +87,6 @@ class MimicController extends BaseAuthController
                     $this->mimic->sendMimicNotification($mimic->mimic, Constants::PUSH_TYPE_NEW_RESPONSE);
                 }
 
-
                 //@TODO-TagUsers (still in progress and needs to be tested)
                 //$this->mimic->checkTaggedUser($request->usernames, $mimic);
 
