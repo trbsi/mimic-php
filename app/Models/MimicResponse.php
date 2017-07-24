@@ -47,6 +47,7 @@ class MimicResponse extends Model
 
     /**
      * get all mimic responses of a specific original mimic
+     * order by most popular
      * @param  $request
      * @param  $authUser Model of an authenitcated user
      * @return data from the database

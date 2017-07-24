@@ -65,6 +65,9 @@ class Mimic extends Model
      * See this for help on how to get only X items from relation table using map()
      * https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
      * https://stackoverflow.com/questions/31700003/laravel-4-eloquent-relationship-hasmany-limit-records
+     * Recent, All Posts on System
+        Following, User only Following, auto-sorted by most recent
+        Popular, All Posts on System, auto-sorted by most upvotes
      * Order by recent mimics is default
      * @param  Request $request Laravel request
      * @param  Object $authUser Authenitacted user
@@ -113,6 +116,8 @@ class Mimic extends Model
                 $query->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
                 //get user info for mimicResponses
                 $query->with('user');
+                //load responses by upvotes
+                $query->orderBy("upvote", "DESC");
             }, 'user', 'hashtags', 'mimicTagusers'])
             ->groupBy("$mimicsTable.id")
             ->get()
