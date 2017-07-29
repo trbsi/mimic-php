@@ -69,7 +69,7 @@ class Mimic extends Model
      */
     public function getUpvotedAttribute($value)
     {
-        return ($value == NULL ? 0 : $value);
+        return (int)($value == NULL ? 0 : $value);
     }
 
 
