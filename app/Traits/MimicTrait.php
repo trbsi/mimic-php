@@ -7,12 +7,12 @@ use App\Models\Mimic;
 trait MimicTrait
 {
     /**
-     * Return file dimensions
+     * Return file attribues like dimensions
      * @param  string $file Path to a file
      * @param  string $mime Mime type of a file
      * @return array Widht and height of a file
      */
-    public function getFileDimensions($file, $mime)
+    public function getFileAttributes($file, $mime)
     {
         //image
         if(strpos($mime, 'image') !== false) {

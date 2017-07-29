@@ -1,0 +1,6 @@
+Order deny,allow
+Deny from all
+
+<Files ~ "\.(jpe?g|png|gif|mp4|3gp|avi|m4v|nov|mpg|mpeg|mov|MOV)$">
+  Allow from all
+</Files>

@@ -62,6 +62,16 @@ class Mimic extends Model
         return $this->getMimicType($value);
     }
 
+    /**
+     * Get if mimic has been upvoted by user
+     * @param  Integer $value 0 or 1 or null (on upload new mimic)
+     * @return 0 or 1
+     */
+    public function getUpvotedAttribute($value)
+    {
+        return ($value == NULL ? 0 : $value);
+    }
+
 
     /**
      * get all original mimics (latest or from followers) from the database, with relations

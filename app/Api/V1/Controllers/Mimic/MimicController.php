@@ -66,7 +66,7 @@ class MimicController extends BaseAuthController
             }
 
             //get file dimensions
-            $fileDimensions = $this->mimic->getFileDimensions($file, $mime);
+            $fileAttributes = $this->mimic->getFileAttributes($file, $mime);
 
             //upload mimic
             //path to upload do: files/user/USER_ID/YEAR/
@@ -77,8 +77,8 @@ class MimicController extends BaseAuthController
                     'file' => $fileName,
                     'mimic_type' => $type,
                     'user_id' => $this->authUser->id,
-                    'width' => $fileDimensions['width'],
-                    'height' => $fileDimensions['height']
+                    'width' => $fileAttributes['width'],
+                    'height' => $fileAttributes['height']
                 ], $additionalFields))
             ) {
 

@@ -29,3 +29,6 @@ AWS_BUCKET=beyondi.test.perform365.bucket.com
 
 #Get file dimensions
 https://stackoverflow.com/questions/4847752/how-to-get-video-duration-dimension-and-size-in-php/25741135
+
+#htaccess allow access to one file
+https://stackoverflow.com/questions/20978086/htaccess-allow-access-to-one-php-file
