@@ -65,13 +65,30 @@ class MimicsTable extends Seeder
                 $fileName = md5(mt_rand()).'.'.$path_parts['extension'];
                 copy($rootDir.'/'.$dirName.'/'.$file, $path.'/'.$fileName);
 
+                //image
+                if(strpos($mime, 'image') !== false) {
+                    list($width, $height) = getimagesize($path.'/'.$fileName);
+                    $mimic_type = Mimic::TYPE_PIC;
+                }
+                //video
+                else {
+                    $getID3 = new \getID3;
+                    $fileAttributes = $getID3->analyze($path.'/'.$fileName);
+                    $width = $fileAttributes['video']['resolution_x'];
+                    $height = $fileAttributes['video']['resolution_y'];
+                    $mimic_type = Mimic::TYPE_VIDEO;
+                }
+                
+
                 //insert into database
                 $data = 
                 [
                     'file' => $fileName,
-                    'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PIC : Mimic::TYPE_VIDEO,
+                    'mimic_type' => $mimic_type,
                     'upvote' => rand(1, 35),
                     'user_id' => $userIdTmp,
+                    'width' => $width,
+                    'height' => $height,
                     'created_at' => "$year-$month-$date 12:00:00",
                     'updated_at' => "$year-$month-$date 12:00:00",
                 ];

@@ -36,6 +36,7 @@ class MimicController extends BaseAuthController
      */
     public function addMimic(AddMimicRequest $request, FileUpload $fileUpload)
     {
+
         DB::beginTransaction();
         try {
 
@@ -55,7 +56,7 @@ class MimicController extends BaseAuthController
 
             $file = $request->file('file');
             $mime = $file->getMimeType();
-
+            
             if (strpos($mime, "video") !== false) {
                 $type = Mimic::TYPE_VIDEO;
             } elseif (strpos($mime, "image") !== false) {
@@ -64,15 +65,20 @@ class MimicController extends BaseAuthController
                 abort(403, trans("validation.file_should_be_image_video"));
             }
 
+            //get file dimensions
+            $fileDimensions = $this->mimic->getFileDimensions($file, $mime);
+
             //upload mimic
-            //path: files/user/USER_ID/YEAR/
-            $file = $fileUpload->upload($file, $this->mimic->getFileOrPath($this->authUser), ['image', 'video'], 'server');
+            //path to upload do: files/user/USER_ID/YEAR/
+            $fileName = $fileUpload->upload($file, $this->mimic->getFileOrPath($this->authUser), ['image', 'video'], 'server');
 
             if ($mimic = $model->create(
                 array_merge([
-                    'file' => $file,
+                    'file' => $fileName,
                     'mimic_type' => $type,
-                    'user_id' => $this->authUser->id
+                    'user_id' => $this->authUser->id,
+                    'width' => $fileDimensions['width'],
+                    'height' => $fileDimensions['height']
                 ], $additionalFields))
             ) {
 

@@ -26,3 +26,6 @@ AWS_BUCKET=beyondi.test.perform365.bucket.com
 - How to get KEY and SECRET: 
 1) Go to https://console.aws.amazon.com/iam/home?region=us-west-2#/users and edit your user. Under Permissions tab click on Add Permission and add "AmazonS3FullAccess" permission. 
 2) Under Security Credentials tab click on "Create access key" button and reate new KEY and SECRET
+
+#Get file dimensions
+https://stackoverflow.com/questions/4847752/how-to-get-video-duration-dimension-and-size-in-php/25741135

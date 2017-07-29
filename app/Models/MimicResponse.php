@@ -14,7 +14,7 @@ class MimicResponse extends Model
      */
 
     protected $table = 'mimic_response';
-    protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id'];
+    protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id', 'width', 'height'];
     protected $casts =
         [
             'id' => 'int',
@@ -23,6 +23,8 @@ class MimicResponse extends Model
             'user_id' => 'int',
             'original_mimic_id' => 'int',
             'upvoted' => 'int', //this is to check if user upvoted mimic or not
+            'width' => 'int',
+            'height' => 'int',
         ];
 
     /**

@@ -29,7 +29,7 @@ class Mimic extends Model
      */
 
     protected $table = 'mimics';
-    protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id'];
+    protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id', 'width', 'height'];
     protected $casts =
         [
             'id' => 'int',
@@ -38,6 +38,8 @@ class Mimic extends Model
             'upvote' => 'int',
             'user_id' => 'int',
             'upvoted' => 'int', //this is to check if user upvoted mimic or not
+            'width' => 'int',
+            'height' => 'int',
         ];
 
     /**
