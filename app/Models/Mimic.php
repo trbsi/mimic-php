@@ -12,6 +12,7 @@ use App\Models\MimicResponseUpvote;
 use Illuminate\Support\Collection;
 use App\Helpers\Constants;
 use App\Helpers\SendPushNotification;
+use DB;
 
 class Mimic extends Model
 {
@@ -107,19 +108,21 @@ class Mimic extends Model
             $mimics = $mimics
                 ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
                 ->where('hashtag_id', $request->hashtag_id);
-        } //if this is not "following", get all "recent" mimics (->orderBy("$mimicsTable.id", 'DESC')), but also order following as recent
-        else if ($request->type && $request->type == "following") {
+        } 
+        //default is to get mimics from people you follow and then every other recent
+        else {
             $followTable = (new Follow)->getTable();
             $mimics = $mimics
-                ->join($followTable, "$followTable.following", '=', "$mimicsTable.user_id")
-                ->where('followed_by', $authUser->id);
-        } else if ($request->type && $request->type == "popular") {
-            //popular mimics
-            $query['orderColumn'] = "$mimicsTable.upvote";
+                ->leftJoin($followTable, function($join) use($followTable, $mimicsTable, $authUser) {
+                    $join->on("$followTable.following", '=', "$mimicsTable.user_id");
+                    $join->where('followed_by', $authUser->id);
+                });
+                
         }
 
         $mimics = $mimics->select("$mimicsTable.*")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
+            ->orderBy(DB::raw('ISNULL(follow.following)'), 'ASC')
             ->orderBy($query['orderColumn'], $query['orderType'])
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($query['offset'])
