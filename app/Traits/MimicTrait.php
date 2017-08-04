@@ -35,6 +35,7 @@ trait MimicTrait
      * Get file path for a mimic
      * @param  object $user Authenticated user model or User model
      * @param  object $model Mimic model
+     * @param  string $file Mimic file
      * @return string Path to a file or a folder of a mimic
      */
     public function getFileOrPath($user, $file = null, $model = null, $includeDomain = false)
@@ -157,6 +158,7 @@ trait MimicTrait
                 'mimic_type' => $mimic->mimic_type,
                 'upvote' => $mimic->upvote,
                 'file' => $mimic->file,
+                'file_url' => $mimic->file_url,
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
                 'height' => $mimic->height,

@@ -50,6 +50,7 @@ class FileUpload
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
+
             $file_name = (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension();
             $file->move($path, $file_name);
 
@@ -61,17 +62,30 @@ class FileUpload
 
     /**
      * Upload file to AWS
-     * @param  Object $file File object
+     * @param  Object $file File object or string path to a file
      * @param  $path string any path you want to for S3 or your server
      * @return string ULR to a file
      */
     private function uploadToAws($path, $file)
     {
         try {
+            //this is laravel's objec
+            if(is_object($file)) {
+                $extension = $file->getClientOriginalExtension();
+                $sourceFile = $file->getPathName();
+            } 
+            //this is string path to a file
+            else {
+                $extension = pathinfo($file, PATHINFO_EXTENSION);
+                $sourceFile = $file;
+            }
 
             $this->s3client = new S3Client([
                 'version' => 'latest',
-                'region' => 'us-west-2',
+                'region' => 'us-east-2',
+                'http'    => [
+                    'verify' => false
+                ],
                 'credentials' => [
                     'key' => env('AWS_KEY'),
                     'secret' => env('AWS_SECRET'),
@@ -80,14 +94,15 @@ class FileUpload
 
             $result = $this->s3client->putObject(array(
                 'Bucket' => env('AWS_BUCKET'),
-                'Key' => $path . (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension(),
-                'SourceFile' => $file->getPathName(),
+                'Key' => $path . (md5(time() . mt_rand())) . "." . $extension,
+                'SourceFile' => $sourceFile,
                 'ContentType' => 'text/plain',
                 'ACL' => 'public-read',
             ));
 
             return $result['ObjectURL'];
         } catch (S3Exception $e) {
+            abort(500, $e->getMessage());
             abort(500, trans('validation.error_upload_file'));
         }
     }

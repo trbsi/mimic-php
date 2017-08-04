@@ -48,9 +48,9 @@ class Mimic extends Model
      * @param  [type] $value [description]
      * @return [type]        [description]
      */
-    public function getFileAttribute($value)
+    public function getFileUrlAttribute($value)
     {
-        return $this->getFileOrPath($this->user, $value, $this, true);
+        return $this->getFileOrPath($this->user, $this->file, $this, true);
     }
 
     /**
