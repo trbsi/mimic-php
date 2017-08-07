@@ -39,8 +39,7 @@ class Mimic extends Model
             'upvote' => 'int',
             'user_id' => 'int',
             'upvoted' => 'int', //this is to check if user upvoted mimic or not
-            'width' => 'int',
-            'height' => 'int',
+            'mimic_responses_count' => 'int'
         ];
 
     /**
@@ -122,8 +121,9 @@ class Mimic extends Model
 
         $mimics = $mimics->select("$mimicsTable.*")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
-            ->orderBy(DB::raw('ISNULL(follow.following)'), 'ASC')
-            ->orderBy($query['orderColumn'], $query['orderType'])
+            ->selectRaw("(SELECT COUNT(*) FROM $mimicResponseTable WHERE original_mimic_id = $mimicsTable.id) AS mimic_responses_count")
+            ->orderBy(DB::raw('ISNULL(follow.following)'), 'ASC') //order by mimics from people you follow
+            ->orderBy($query['orderColumn'], $query['orderType']) //then order by other recent mimics
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($query['offset'])
             ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable) {
@@ -134,7 +134,7 @@ class Mimic extends Model
                 $query->with('user');
                 //load responses by upvotes
                 $query->orderBy("upvote", "DESC");
-            }, 'user', 'hashtags', 'mimicTagusers'])
+            }, 'user', 'hashtags', /*'mimicTagusers'*/])
             ->groupBy("$mimicsTable.id")
             ->get()
             ->map(function ($query) {

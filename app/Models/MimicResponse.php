@@ -23,8 +23,6 @@ class MimicResponse extends Model
             'user_id' => 'int',
             'original_mimic_id' => 'int',
             'upvoted' => 'int', //this is to check if user upvoted mimic or not
-            'width' => 'int',
-            'height' => 'int',
         ];
 
     /**

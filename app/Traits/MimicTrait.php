@@ -142,6 +142,7 @@ trait MimicTrait
                 'file_url' => $mimic->file_url,
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
+                'response_mimic_count' => $mimic->mimic_responses_count
             ];
     }
 }
