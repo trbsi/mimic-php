@@ -65,10 +65,6 @@ class MimicsTable extends Seeder
                 $fileName = md5(mt_rand()).'.'.$path_parts['extension'];
                 copy($rootDir.'/'.$dirName.'/'.$file, $path.'/'.$fileName);
 
-                //get file dimensions
-                $fileAttributes = $mimic->getFileAttributes($path.'/'.$fileName, $mime);
-                
-
                 //insert into database
                 $data = 
                 [
@@ -76,8 +72,6 @@ class MimicsTable extends Seeder
                     'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PIC : Mimic::TYPE_VIDEO,
                     'upvote' => rand(1, 35),
                     'user_id' => $userIdTmp,
-                    'width' => $fileAttributes['width'],
-                    'height' => $fileAttributes['height'],
                     'created_at' => "$year-$month-$date 12:00:00",
                     'updated_at' => "$year-$month-$date 12:00:00",
                 ];

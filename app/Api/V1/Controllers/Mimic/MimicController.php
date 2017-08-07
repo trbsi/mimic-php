@@ -65,9 +65,6 @@ class MimicController extends BaseAuthController
                 abort(403, trans("validation.file_should_be_image_video"));
             }
 
-            //get file dimensions
-            $fileAttributes = $this->mimic->getFileAttributes($file, $mime);
-
             //upload mimic
             //path to upload do: files/user/USER_ID/YEAR/
             $fileName = $fileUpload->upload($file, $this->mimic->getFileOrPath($this->authUser), ['image', 'video'], 'server');
@@ -76,9 +73,7 @@ class MimicController extends BaseAuthController
                 array_merge([
                     'file' => $fileName,
                     'mimic_type' => $type,
-                    'user_id' => $this->authUser->id,
-                    'width' => $fileAttributes['width'],
-                    'height' => $fileAttributes['height']
+                    'user_id' => $this->authUser->id
                 ], $additionalFields))
             ) {
 

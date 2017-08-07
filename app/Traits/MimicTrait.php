@@ -6,30 +6,6 @@ use App\Models\Mimic;
 
 trait MimicTrait
 {
-    /**
-     * Return file attribues like dimensions
-     * @param  string $file Path to a file
-     * @param  string $mime Mime type of a file
-     * @return array Widht and height of a file
-     */
-    public function getFileAttributes($file, $mime)
-    {
-        //image
-        if(strpos($mime, 'image') !== false) {
-            list($width, $height) = getimagesize($file);
-            $mimic_type = Mimic::TYPE_PIC;
-        }
-        //video
-        else {
-            $getID3 = new \getID3;
-            $fileAttributes = $getID3->analyze($file);
-            $width = $fileAttributes['video']['resolution_x'];
-            $height = $fileAttributes['video']['resolution_y'];
-            $mimic_type = Mimic::TYPE_VIDEO;
-        }
-
-        return ['width' => $width, 'height' => $height];
-    }
 
     /**
      * Get file path for a mimic
@@ -161,8 +137,6 @@ trait MimicTrait
                 'file_url' => $mimic->file_url,
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
-                'height' => $mimic->height,
-                'width' => $mimic->width,
             ];
     }
 }

@@ -22,8 +22,6 @@ class CreateMimicsTable extends Migration
             $table->tinyInteger('mimic_type'); //video/picture
             $table->tinyInteger('is_private')->default(0); //0/1 - is this mimic private or not
             $table->bigInteger('upvote')->default(1);
-            $table->integer('width');
-            $table->integer('height');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
         });
