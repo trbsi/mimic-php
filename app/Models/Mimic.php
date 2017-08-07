@@ -208,34 +208,39 @@ class Mimic extends Model
     /**
      * get mimic model and return response
      * @param  [type] $mimics [Mimic model]
+     * @param  boolean $direct If you want to access mimic structure directly without extra parameters
      * @return [array]        [generated mimic response]
      */
-    public function getMimicApiResponseContent($mimics)
+    public function getMimicApiResponseContent($mimics, $direct = false)
     {
-        $mimicsResponse = [];
+        $mimicsResponseContent = [];
 
         //check if this is collection of items get with get() method
         if ($mimics instanceof Collection && !$mimics->isEmpty()) {
             foreach ($mimics as $mimic) {
-                $mimicsResponse[] = $this->generateContentForMimicResponse
+                $mimicsResponseContent[] = $this->generateContentForMimicResponse
                 (
                     $mimic,
                     ($mimic->hashtags) ? $mimic->hashtags : [],
-                    ($mimic->mimicResponses) ? $mimic->mimicResponses : []
+                    ($mimic->mimicResponses) ? $mimic->mimicResponses : [],
+                    null,
+                    $direct
                 );
             }
         } //if this is single item taken with first()
         else if($mimics instanceof Collection == false && !empty($mimics)) {
 
-            $mimicsResponse[] = $this->generateContentForMimicResponse
+            $mimicsResponseContent[] = $this->generateContentForMimicResponse
             (
                 $mimics,
                 ($mimics->hashtags) ? $mimics->hashtags : [],
-                ($mimics->mimicResponses) ? $mimics->mimicResponses : []
+                ($mimics->mimicResponses) ? $mimics->mimicResponses : [],
+                null,
+                $direct
             );
         }
 
-        return $mimicsResponse;
+        return $mimicsResponseContent;
     }
 
     /**

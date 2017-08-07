@@ -53,11 +53,16 @@ trait MimicTrait
      * @param  [type] $hashtags    [array of hashtags in form: [hashtag id] => hashtag name ]
      * @param  [type] $taggedUsers [array of usernames in form: [user id] => username] @TODO-TagUsers (future feature and needs to be tested)
      * @param  [type] $mimicResponses [all responses of a specific origina mimic, ordered descending by upvotes]
+     * @param  boolean $direct If you want to access mimic structure directly without extra parameters
      * @return [type]              [description]
      */
-    private function generateContentForMimicResponse($mimic, $hashtags, $mimicResponses, $taggedUsers = null)
+    private function generateContentForMimicResponse($mimic, $hashtags, $mimicResponses, $taggedUsers = null, $direct = false)
     {
-        $mimic = $this->createMimicArraySructure($mimic);
+        $mimic = $this->createMimicArrayStructure($mimic);
+
+        if($direct == true) {
+            return $mimic;
+        }
 
         $hashTagsTmp = [];
 
@@ -106,7 +111,7 @@ trait MimicTrait
         $mimicResponsesTmp = [];
         //get all mimic responses
         foreach ($mimicResponses as $mimicResponse) {
-            $mimicResponsesTmp[] = $this->createMimicArraySructure($mimicResponse);
+            $mimicResponsesTmp[] = $this->createMimicArrayStructure($mimicResponse);
         }
 
         return
@@ -123,7 +128,7 @@ trait MimicTrait
      * @param  $mimic [Mimic model]
      * @return [array]        [structured array]
      */
-    private function createMimicArraySructure($mimic)
+    private function createMimicArrayStructure($mimic)
     {
         return
             [
