@@ -118,7 +118,7 @@ class MimicController extends BaseAuthController
 
         return response()->json(
         [
-            'count' => $mimics->count(),
+            'count' => $this->mimic->count(),
             'mimics' => $this->mimic->getMimicApiResponseContent($mimics),
         ]);
     }
