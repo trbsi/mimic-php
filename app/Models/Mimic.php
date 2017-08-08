@@ -22,8 +22,8 @@ class Mimic extends Model
     const TYPE_PIC = 2;
     const FILE_PATH = '/files/user/'; //user_id/year/month/file.mp4
     const MAX_TAG_LENGTH = 50;
-    const LIST_ORIGINAL_MIMICS_LIMIT = 50;
-    const LIST_RESPONSE_MIMICS_LIMIT = 20;
+    const LIST_ORIGINAL_MIMICS_LIMIT = 5;
+    const LIST_RESPONSE_MIMICS_LIMIT = 2;
 
     /**
      * Generated
@@ -222,9 +222,7 @@ class Mimic extends Model
                 (
                     $mimic,
                     ($mimic->hashtags) ? $mimic->hashtags : [],
-                    ($mimic->mimicResponses) ? $mimic->mimicResponses : [],
-                    null,
-                    $direct
+                    ($mimic->mimicResponses) ? $mimic->mimicResponses : []
                 );
             }
         } //if this is single item taken with first()
@@ -234,9 +232,7 @@ class Mimic extends Model
             (
                 $mimics,
                 ($mimics->hashtags) ? $mimics->hashtags : [],
-                ($mimics->mimicResponses) ? $mimics->mimicResponses : [],
-                null,
-                $direct
+                ($mimics->mimicResponses) ? $mimics->mimicResponses : []
             );
         }
 

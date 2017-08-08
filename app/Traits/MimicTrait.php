@@ -3,6 +3,7 @@ namespace App\Traits;
 
 use App\Helpers\SendPushNotification;
 use App\Models\Mimic;
+use App\Models\MimicResponse;
 
 trait MimicTrait
 {
@@ -53,23 +54,23 @@ trait MimicTrait
      * @param  [type] $hashtags    [array of hashtags in form: [hashtag id] => hashtag name ]
      * @param  [type] $taggedUsers [array of usernames in form: [user id] => username] @TODO-TagUsers (future feature and needs to be tested)
      * @param  [type] $mimicResponses [all responses of a specific origina mimic, ordered descending by upvotes]
-     * @param  boolean $direct If you want to access mimic structure directly without extra parameters
-     * @return [type]              [description]
+     * @return array Structured response
      */
-    private function generateContentForMimicResponse($mimic, $hashtags, $mimicResponses, $taggedUsers = null, $direct = false)
+    private function generateContentForMimicResponse($mimic, $hashtags, $mimicResponses, $taggedUsers = null)
     {
-        $mimic = $this->createMimicArrayStructure($mimic);
+        $mimicStructure = $this->createMimicArrayStructure($mimic);
 
-        if($direct == true) {
-            return $mimic;
+        //if this is mimic reponse just return that mimic without hashtags or mimic_responses
+        if($mimic instanceof MimicResponse) {
+            return $mimicStructure;
         }
 
-        $hashTagsTmp = [];
+        $hashtagsStructure = [];
 
         //it could be an array generated with  checkTags
         if (is_array($hashtags)) {
             foreach ($hashtags as $hashtag_id => $hashtag_name) {
-                $hashTagsTmp[] =
+                $hashtagsStructure[] =
                     [
                         "hashtag_id" => $hashtag_id,
                         "hashtag_name" => $hashtag_name
@@ -78,7 +79,7 @@ trait MimicTrait
         } //if it's object from database
         else if (is_object($hashtags)) {
             foreach ($hashtags as $hashtag) {
-                $hashTagsTmp[] =
+                $hashtagsStructure[] =
                     [
                         "hashtag_id" => $hashtag->id,
                         "hashtag_name" => $hashtag->name,
@@ -108,18 +109,18 @@ trait MimicTrait
             }
         }*/
 
-        $mimicResponsesTmp = [];
+        $mimicResponsesStructure = [];
         //get all mimic responses
         foreach ($mimicResponses as $mimicResponse) {
-            $mimicResponsesTmp[] = $this->createMimicArrayStructure($mimicResponse);
+            $mimicResponsesStructure[] = $this->createMimicArrayStructure($mimicResponse);
         }
 
         return
             [
-                'mimic' => $mimic,
-                'hashtags' => $hashTagsTmp,
+                'mimic' => $mimicStructure,
+                'hashtags' => $hashtagsStructure,
                 //'taggedUsers' => $taggedUsersTmp, @TODO-TagUsers (future feature and needs to be tested)
-                'mimic_responses' => $mimicResponsesTmp
+                'mimic_responses' => $mimicResponsesStructure
             ];
     }
 
@@ -130,8 +131,9 @@ trait MimicTrait
      */
     private function createMimicArrayStructure($mimic)
     {
-        return
-            [
+        $extraParams = [];
+        $standardResponse = 
+        [
                 'id' => $mimic->id,
                 'username' => $mimic->user->username,
                 'profile_picture' => $mimic->user->profile_picture,
@@ -142,7 +144,12 @@ trait MimicTrait
                 'file_url' => $mimic->file_url,
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
-                'responses_count' => $mimic->responses_count
-            ];
+        ];
+
+        if($mimic instanceof Mimic) {
+            $extraParams['responses_count'] = $mimic->responses_count;
+        }
+
+        return array_merge($standardResponse, $extraParams);
     }
 }
