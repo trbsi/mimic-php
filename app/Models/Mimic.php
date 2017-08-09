@@ -12,11 +12,12 @@ use App\Models\MimicResponseUpvote;
 use Illuminate\Support\Collection;
 use App\Helpers\Constants;
 use App\Helpers\SendPushNotification;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 class Mimic extends Model
 {
-    use MimicTrait;
+    use MimicTrait, SoftDeletes;
 
     const TYPE_VIDEO = 1;
     const TYPE_PIC = 2;
@@ -32,15 +33,22 @@ class Mimic extends Model
     protected $table = 'mimics';
     protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id', 'width', 'height'];
     protected $casts =
-        [
-            'id' => 'int',
-            'mimic_type' => 'int',
-            'is_private' => 'boolean',
-            'upvote' => 'int',
-            'user_id' => 'int',
-            'upvoted' => 'int', //this is to check if user upvoted mimic or not
-            'responses_count' => 'int'
-        ];
+    [
+        'id' => 'int',
+        'mimic_type' => 'int',
+        'is_private' => 'boolean',
+        'upvote' => 'int',
+        'user_id' => 'int',
+        'upvoted' => 'int', //this is to check if user upvoted mimic or not
+        'responses_count' => 'int'
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * Get file with full path and url

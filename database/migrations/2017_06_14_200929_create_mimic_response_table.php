@@ -22,6 +22,7 @@ class CreateMimicResponseTable extends Migration
             $table->string('aws_file', 255)->nullable();
             $table->tinyInteger('mimic_type'); //video/picture
             $table->bigInteger('upvote')->default(1);
+            $table->softDeletes();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
 

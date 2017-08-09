@@ -163,4 +163,22 @@ class MimicController extends BaseAuthController
             return response()->json(['type' => 'downvoted']);
         }
     }
+
+    /**
+     * Delete original or response mimic
+     * @param  Request $request
+     */
+    public function delete(Request $request)
+    {
+        if ($request->original_mimic_id) {
+            $model = $this->mimic;
+            $id = $request->original_mimic_id;
+        } else {
+            $model = $this->mimicResponse;
+            $id = $request->response_mimic_id;
+        }
+
+        $model->find($id)->delete();
+        return response()->json(['success' => true]);   
+    }
 }
