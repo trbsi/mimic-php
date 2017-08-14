@@ -67,7 +67,7 @@ class MimicController extends BaseAuthController
 
             //upload mimic
             //path to upload do: files/user/USER_ID/YEAR/
-            $fileName = $fileUpload->upload($file, $this->mimic->getFileOrPath($this->authUser), ['image', 'video'], 'server');
+            $fileName = $fileUpload->upload($file, $this->mimic->getFileOrPath($this->authUser->id), ['image', 'video'], 'server');
 
             if ($mimic = $model->create(
                 array_merge([

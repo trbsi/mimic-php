@@ -42,7 +42,7 @@ class MimicResponse extends Model
      */
     public function getFileUrlAttribute($value)
     {
-        return $this->getFileOrPath($this->user, $this->file, $this, true);
+        return $this->getFileOrPath($this->user_id, $this->file, $this, true);
     }
 
     /**

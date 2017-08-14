@@ -10,12 +10,12 @@ trait MimicTrait
 
     /**
      * Get file path for a mimic
-     * @param  object $user Authenticated user model or User model
+     * @param  object $user_id User id
      * @param  object $model Mimic model
      * @param  string $file Mimic file
      * @return string Path to a file or a folder of a mimic
      */
-    public function getFileOrPath($user, $file = null, $model = null, $includeDomain = false)
+    public function getFileOrPath($user_id, $file = null, $model = null, $includeDomain = false)
     {
         if ($includeDomain) {
             $includeDomain = env('APP_URL');
@@ -28,7 +28,8 @@ trait MimicTrait
             $Y = date("Y");
             $m = date("m");
         }
-        return $includeDomain . Mimic::FILE_PATH . $user->id . "/" . $Y . "/" . $m . "/" . $file;
+
+        return $includeDomain . Mimic::FILE_PATH . $user_id . "/" . $Y . "/" . $m . "/" . $file;
     }
 
     /**
