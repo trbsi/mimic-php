@@ -16,6 +16,8 @@ class MimicResponse extends Model
 
     protected $table = 'mimic_response';
     protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id', 'width', 'height'];
+
+    protected $appends = ['file_url'];
     protected $casts =
     [
         'id' => 'int',
@@ -38,9 +40,9 @@ class MimicResponse extends Model
      * @param  [type] $value [description]
      * @return [type]        [description]
      */
-    public function getFileAttribute($value)
+    public function getFileUrlAttribute($value)
     {
-        return $this->getFileOrPath($this->user, $value, $this, true);
+        return $this->getFileOrPath($this->user, $this->file, $this, true);
     }
 
     /**

@@ -23,6 +23,7 @@ $api->version('v1', function (Router $api) {
                 $api->get('load-responses', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@loadResponses']);
                 $api->post('upvote', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@upvote']);
                 $api->delete('delete', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@delete']);
+                $api->get('user-mimics', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@getUserMimics']);
             });
 
             $api->group(['prefix' => 'profile'], function (Router $api) {

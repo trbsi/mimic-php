@@ -23,8 +23,8 @@ class Mimic extends Model
     const TYPE_PIC = 2;
     const FILE_PATH = '/files/user/'; //user_id/year/month/file.mp4
     const MAX_TAG_LENGTH = 50;
-    const LIST_ORIGINAL_MIMICS_LIMIT = 5;
-    const LIST_RESPONSE_MIMICS_LIMIT = 2;
+    const LIST_ORIGINAL_MIMICS_LIMIT = 50;
+    const LIST_RESPONSE_MIMICS_LIMIT = 20;
 
     /**
      * Generated
@@ -32,6 +32,7 @@ class Mimic extends Model
 
     protected $table = 'mimics';
     protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id', 'width', 'height'];
+    protected $appends = ['file_url'];
     protected $casts =
     [
         'id' => 'int',
@@ -80,6 +81,28 @@ class Mimic extends Model
         return (int)($value == NULL ? 0 : $value);
     }
 
+    /**
+     * Get number of total mimics. This is used for pagination on phone
+     * @param  Request $request
+     * @return int Number of mimics
+     */
+    public function getMimicCount($request) 
+    {
+    	if ($request->user_id) {
+            $count = $this->where("user_id", $request->user_id)->count();
+        } //filter by hashtag
+        else if ($request->hashtag_id) {
+            $mimicHashtagTable = (new MimicHashtag)->getTable();
+            $mimicsTable = $this->getTable();
+            $count = $this
+                ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
+                ->where('hashtag_id', $request->hashtag_id)->count();
+        } else {
+            $count = $this->count();
+        }
+
+        return (int)$count;
+    }
 
     /**
      * get all original mimics (latest or from followers) from the database, with relations
@@ -123,14 +146,15 @@ class Mimic extends Model
                 ->leftJoin($followTable, function($join) use($followTable, $mimicsTable, $authUser) {
                     $join->on("$followTable.following", '=', "$mimicsTable.user_id");
                     $join->where('followed_by', $authUser->id);
-                });
+                })
+            	->orderBy(DB::raw('ISNULL(follow.following)'), 'ASC') //order by mimics from people you follow
+                ;
                 
         }
 
         $mimics = $mimics->select("$mimicsTable.*")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
             ->selectRaw("(SELECT COUNT(*) FROM $mimicResponseTable WHERE original_mimic_id = $mimicsTable.id) AS responses_count")
-            ->orderBy(DB::raw('ISNULL(follow.following)'), 'ASC') //order by mimics from people you follow
             ->orderBy($query['orderColumn'], $query['orderType']) //then order by other recent mimics
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($query['offset'])

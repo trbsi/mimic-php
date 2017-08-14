@@ -115,10 +115,10 @@ class MimicController extends BaseAuthController
     public function listMimics(Request $request)
     {
         $mimics = $this->mimic->getMimics($request, $this->authUser);
-
+        
         return response()->json(
         [
-            'count' => $this->mimic->count(),
+            'count' => $this->mimic->getMimicCount($request),
             'mimics' => $this->mimic->getMimicApiResponseContent($mimics),
         ]);
     }
@@ -180,5 +180,20 @@ class MimicController extends BaseAuthController
 
         $model->find($id)->delete();
         return response()->json(['success' => true]);   
+    }
+
+    /**
+     * Get user's mimics so he can list them and delete them
+     * @param  Request $request
+     */
+    public function getUserMimics(Request $request)
+    {
+        if($request->get_responses) {
+            $model = $this->mimicResponse;
+        } else {
+            $model = $this->mimic;
+        }
+
+        return response()->json(['mimics' => $model->where('user_id', $request->user_id)->orderBy('id', 'DESC')->get()]);   
     }
 }
