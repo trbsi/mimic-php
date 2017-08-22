@@ -16,5 +16,4 @@ Route::get('/', 'Controller@index');
 Route::get('legal', 'Controller@legal');
 
 Route::group(['namespace' => 'Cron', 'prefix' => 'cron'], function () {
-    Route::get('upload-to-aws', 'CronController@uploadToAws');
 });
