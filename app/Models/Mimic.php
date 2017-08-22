@@ -122,23 +122,28 @@ class Mimic extends Model
         $mimicsTable = $this->getTable();
         $mimicResponseTable = (new MimicResponse)->getTable();
 
-        $query = ['offset' => 0, 'orderColumn' => "$mimicsTable.id", 'orderType' => 'DESC'];
+        $queryData = ['offset' => 0, 'orderColumn' => "$mimicsTable.id", 'orderType' => 'DESC'];
         if ($request->page) {
-            $query['offset'] = Mimic::LIST_ORIGINAL_MIMICS_LIMIT * $request->page;
+            $queryData['offset'] = Mimic::LIST_ORIGINAL_MIMICS_LIMIT * $request->page;
         }
 
         $mimics = $this;
 
         //filter mimics by a specific user
         if ($request->user_id) {
+            //if a visitor clicks on user's profile and then on one of his mimics, get user's mimics but put the mimic he clicked on as the first in the list
+            if($request->mimic_id) {
+                $mimics = $mimics->orderBy(DB::raw("id=$request->mimic_id"), 'DESC');
+            }
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
-        } //filter by hashtag
+        } 
+        //filter by hashtag
         else if ($request->hashtag_id) {
             $mimicHashtagTable = (new MimicHashtag)->getTable();
             $mimics = $mimics
                 ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
                 ->where('hashtag_id', $request->hashtag_id);
-        } 
+        }    
         //default is to get mimics from people you follow and then every other recent
         else {
             $followTable = (new Follow)->getTable();
@@ -155,9 +160,9 @@ class Mimic extends Model
         $mimics = $mimics->select("$mimicsTable.*")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
             ->selectRaw("(SELECT COUNT(*) FROM $mimicResponseTable WHERE original_mimic_id = $mimicsTable.id) AS responses_count")
-            ->orderBy($query['orderColumn'], $query['orderType']) //then order by other recent mimics
+            ->orderBy($queryData['orderColumn'], $queryData['orderType']) //then order by other recent mimics
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
-            ->offset($query['offset'])
+            ->offset($queryData['offset'])
             ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable) {
                 $query->select("$mimicResponseTable.*");
                 //check if user upvoted this mimic response
