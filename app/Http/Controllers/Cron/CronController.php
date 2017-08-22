@@ -24,7 +24,7 @@ class CronController extends Controller
         foreach ($this->mimic->whereNull('aws_file')->limit(2)->get() as $model) {
             //remove "/" from the beginning of a string
             $path = $this->mimic->getFileOrPath($model->user_id, null, $model);
-            $url = $this->fileUpload->upload(public_path().$path.$model->file, ltrim($path, "/"), $allowType = null, 'aws');
+            $url = $this->fileUpload->upload(public_path().$path.$model->file, ltrim($path, "/"), null, 'aws');
 
             $model->update(['aws_file' => $url]);
         }
