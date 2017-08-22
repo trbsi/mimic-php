@@ -13,7 +13,7 @@ class UploadToAws
         $this->fileUpload = $fileUpload;
     }
 
-    public static function upload()
+    public function upload()
     {
         //get 2 mimics where aws_file is null
         foreach ($this->mimic->whereNull('aws_file')->limit(3)->get() as $model) {
