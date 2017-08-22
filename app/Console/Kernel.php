@@ -23,10 +23,10 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule, UploadToAws $uploadToAws)
+    protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
-            $uploadToAws->upload();
+            (new UploadToAws)->upload();
         })->everyTenMinutes();
     }
 

@@ -32,3 +32,7 @@ https://stackoverflow.com/questions/4847752/how-to-get-video-duration-dimension-
 
 #htaccess allow access to one file
 https://stackoverflow.com/questions/20978086/htaccess-allow-access-to-one-php-file
+
+#HOW to set CronJob
+https://laracasts.com/discuss/channels/laravel/invalid-argument-supplied-for-foreach-when-scheduling-task
+* * * * * /usr/bin/php-cli /home/thettaco/public_html/MIMIC.TEST.COM/artisan schedule:run >> /home/thettaco/public_html/my.log 2>&1
