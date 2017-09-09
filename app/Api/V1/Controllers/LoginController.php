@@ -65,6 +65,7 @@ class LoginController extends Controller
             ->json([
                 'username' => $user->username,
                 'token' => $token,
+                'user_id' => $user->id
             ]);
 
     }
