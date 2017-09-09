@@ -23,7 +23,7 @@ class AllowEntry
     public function handle($request, Closure $next, $guard = null)
     {
         $header = $request->header("AllowEntry");
-        if (isset($header) && !empty($header) && $header == base64_encode("little:chubby")) {
+        if (isset($header) && !empty($header) && $header == base64_encode("little:cute:chubby")) {
             return $next($request);
         }
 
