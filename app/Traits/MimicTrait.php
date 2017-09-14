@@ -120,6 +120,7 @@ trait MimicTrait
             [
                 'mimic' => $mimicStructure,
                 'hashtags' => $hashtagsStructure,
+                'hashtags_flat' => implode(" ", array_pluck($hashtagsStructure, 'hashtag_name')),
                 //'taggedUsers' => $taggedUsersTmp, @TODO-TagUsers (future feature and needs to be tested)
                 'mimic_responses' => $mimicResponsesStructure
             ];
