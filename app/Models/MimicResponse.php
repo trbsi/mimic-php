@@ -66,8 +66,7 @@ class MimicResponse extends Model
     {
         $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT; //starting offset so you don't show responses you are sending as part of original mimic
         if ($request->page) {
-            //+1 because you have starting offset(because of responses sent as a part of original mimic in listMimics()) which is actually page=0 so when page=1 comes it's actually page 2 otherwise it's gonna be the same response because starting offset is set and *1 is the same
-            $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT * ($request->page+1); 
+            $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT * ($request->page); 
         }
 
         return $this
