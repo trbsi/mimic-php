@@ -29,7 +29,7 @@ class SearchController extends BaseAuthController
             $match = $orderBy = 'username';
             $term = substr($request->term, 1);
         } else {
-            abort(400, trans('core.general.smth_went_wront_body'));
+            return [];
         }
 
         return DB::select("SELECT * FROM $table WHERE MATCH($match) AGAINST(? IN BOOLEAN MODE) ORDER BY $orderBy DESC", ["$term*"]);
