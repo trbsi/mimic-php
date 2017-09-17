@@ -133,7 +133,7 @@ class Mimic extends Model
         if ($request->user_id) {
             //if a visitor clicks on user's profile and then on one of his mimics, get user's mimics but put the mimic he clicked on as the first in the list
             if($request->mimic_id) {
-                $mimics = $mimics->orderBy(DB::raw("id=$request->mimic_id"), 'DESC');
+                $mimics = $mimics->orderBy(DB::raw("$mimicsTable.id=$request->mimic_id"), 'DESC');
             }
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
         } 
