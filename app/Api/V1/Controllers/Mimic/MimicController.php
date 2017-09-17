@@ -194,6 +194,12 @@ class MimicController extends BaseAuthController
             $model = $this->mimic;
         }
 
-        return response()->json(['mimics' => $model->where('user_id', $request->user_id)->orderBy('id', 'DESC')->get()]);   
+        if($request->user_id) {
+            $user_id = $request->user_id;
+        } else {
+            $user_id = $this->authUser->id;
+        }
+
+        return response()->json(['mimics' => $model->where('user_id', $user_id)->orderBy('id', 'DESC')->get()]);   
     }
 }
