@@ -38,6 +38,25 @@ class User extends Authenticatable
     ];
 
     /**
+     * Format "followers" attribute
+     * @param  integer $value "followers" attribute
+     */
+    public function getFollowersAttribute($value) 
+    {
+        return $this->customNumberFormat($value);
+    }
+
+    /**
+     * Format "following" attribute
+     * @param  integer $value "following" attribute
+     */
+    public function getFollowingAttribute($value) 
+    {
+        return $this->customNumberFormat($value);
+    }
+
+
+    /**
      * Automatically creates hash for the user password.
      *
      * @param  string $value
@@ -88,6 +107,29 @@ class User extends Authenticatable
 
         // the token is valid and we have found the user via the sub claim
         return $user;
+    }
+
+    /**
+     * Format numbers, shorten them to K/M/B
+     * @param  [type]  $n         [description]
+     * @param  integer $precision [description]
+     * @return [type]             [description]
+     */
+    private function customNumberFormat($n, $precision = 0) {
+        if ($n < 1000) {
+            // Anything less than a million
+            $n_format = number_format($n);
+        } else if ($n < 1000000) {
+            $n_format = number_format($n / 1000, $precision) . 'K';
+        } else if ($n < 1000000000) {
+            // Anything less than a billion
+            $n_format = number_format($n / 1000000, $precision) . 'M';
+        } else {
+            // At least a billion
+            $n_format = number_format($n / 1000000000, $precision) . 'B';
+        }
+
+        return $n_format;
     }
 
     /**
