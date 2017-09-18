@@ -169,13 +169,14 @@ class Mimic extends Model
                 $query->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
                 //get user info for mimicResponses
                 $query->with('user');
-                //load responses by upvotes
-                $query->orderBy("upvote", "DESC");
 
+                //first order by this specific id then by upvote
                 //if someone clicked on response mimic on user's profile make this response on the first place
                 if($request->response_mimic_id) {
-                	$query->orderBy(DB::raw("$mimicResponseTable.id=$request->response_mimic_id"), 'DESC');
-            	}
+                    $query->orderBy(DB::raw("$mimicResponseTable.id=$request->response_mimic_id"), 'DESC');
+                }
+                //load responses by upvotes
+                $query->orderBy("upvote", "DESC");
             }, 'user', 'hashtags', /*'mimicTagusers'*/])
             ->groupBy("$mimicsTable.id")
             ->get()
@@ -335,8 +336,7 @@ class Mimic extends Model
 
     public function mimicResponses()
     {
-        return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id')
-            ->orderBy("upvote", "DESC");
+        return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id');
 
     }
 
