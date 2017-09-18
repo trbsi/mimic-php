@@ -132,8 +132,8 @@ class Mimic extends Model
         //filter mimics by a specific user
         if ($request->user_id) {
             //if a visitor clicks on user's profile and then on one of his mimics, get user's mimics but put the mimic he clicked on as the first in the list
-            if($request->mimic_id) {
-                $mimics = $mimics->orderBy(DB::raw("$mimicsTable.id=$request->mimic_id"), 'DESC');
+            if($request->original_mimic_id) {
+                $mimics = $mimics->orderBy(DB::raw("$mimicsTable.id=$request->original_mimic_id"), 'DESC');
             }
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
         } 
@@ -163,7 +163,7 @@ class Mimic extends Model
             ->orderBy($queryData['orderColumn'], $queryData['orderType']) //then order by other recent mimics
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($queryData['offset'])
-            ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable) {
+            ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable, $request) {
                 $query->select("$mimicResponseTable.*");
                 //check if user upvoted this mimic response
                 $query->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
@@ -171,6 +171,11 @@ class Mimic extends Model
                 $query->with('user');
                 //load responses by upvotes
                 $query->orderBy("upvote", "DESC");
+
+                //if someone clicked on response mimic on user's profile make this response on the first place
+                if($request->response_mimic_id) {
+                	$query->orderBy(DB::raw("$mimicResponseTable.id=$request->response_mimic_id"), 'DESC');
+            	}
             }, 'user', 'hashtags', /*'mimicTagusers'*/])
             ->groupBy("$mimicsTable.id")
             ->get()

@@ -90,9 +90,20 @@ class User extends Authenticatable
         return $user;
     }
 
-    public function userFollowedBy()
+    /**
+     * Get all users who I'm following
+     */
+    public function following()
     {
         return $this->belongsToMany(\App\Models\User::class, 'follow', 'followed_by', 'following')->withTimestamps();
+    }
+
+    /**
+     * Get followers - users who are following me
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(\App\Models\User::class, 'follow', 'following', 'followed_by')->withTimestamps();
     }
 
     /*

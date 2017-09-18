@@ -38,4 +38,32 @@ class FollowController extends BaseAuthController
             return response()->json(['type' => 'unfollowed']);
         }
     }
+
+    /**
+     * Get all followers of a specific user
+     */
+    public function followers(Request $request, User $user)
+    {
+        if($request->user_id) {
+            $user_id = $request->user_id;
+        } else {
+            $user_id = $this->authUser->id;
+        }
+
+        return response()->json(['followers' => $user->find($user_id)->followers()->get()]);
+    }
+
+    /**
+     * Get all users that current user (user_id) is following
+     */
+    public function following(Request $request, User $user)
+    {
+        if($request->user_id) {
+            $user_id = $request->user_id;
+        } else {
+            $user_id = $this->authUser->id;
+        }
+
+        return response()->json(['following' => $user->find($user_id)->following()->get()]);
+    }
 }
