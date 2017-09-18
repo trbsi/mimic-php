@@ -129,7 +129,7 @@ class Mimic extends Model
 
         $mimics = $this;
 
-        //filter mimics by a specific user
+        //filter original mimics by a specific user
         if ($request->user_id) {
             //if a visitor clicks on user's profile and then on one of his mimics, get user's mimics but put the mimic he clicked on as the first in the list
             if($request->original_mimic_id) {

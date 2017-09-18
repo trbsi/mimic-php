@@ -81,7 +81,7 @@ class MimicResponse extends Model
 
     }
 
-    public function mimic()
+    public function originalMimic()
     {
         return $this->belongsTo(\App\Models\Mimic::class, 'original_mimic_id', 'id');
     }
