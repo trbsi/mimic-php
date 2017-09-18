@@ -24,7 +24,7 @@ class FollowController extends BaseAuthController
         //try to follow
         try {
             $user->increment('followers');
-            $this->authUser->userFollowedBy()->attach($user->id);
+            $this->authUser->following()->attach($user->id);
             $this->authUser->increment('following');
             DB::commit();
             return response()->json(['type' => 'followed']);
@@ -33,7 +33,7 @@ class FollowController extends BaseAuthController
             //rollback query in "try" block
             DB::rollBack();
             $user->decrement('followers');
-            $this->authUser->userFollowedBy()->detach($user->id);
+            $this->authUser->following()->detach($user->id);
             $this->authUser->decrement('following');
             return response()->json(['type' => 'unfollowed']);
         }
