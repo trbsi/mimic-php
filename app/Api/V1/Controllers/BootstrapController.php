@@ -14,7 +14,6 @@ class BootstrapController extends Controller
     {
         $this->user = $user;
         $this->PNT = $PNT;
-        $this->middleware('currentTimeFixer');
     }
 
 
@@ -50,5 +49,13 @@ class BootstrapController extends Controller
 
         return response()->json(['success' => false]);
 
+    }
+
+    /**
+     * Used bymobile phone to check internet connection, this always returns success
+     */
+    public function heartbeat()
+    {
+        return response()->json(['success' => true]);
     }
 }

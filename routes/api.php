@@ -8,6 +8,7 @@ $api = app(Router::class);
 $api->version('v1', function (Router $api) {
 
     $api->group(['middleware' => ['api.global']], function (Router $api) {
+        $api->get('heartbeat', ['uses' => 'App\Api\V1\Controllers\BootstrapController@heartbeat']);
 
         $api->group(['prefix' => 'auth'], function (Router $api) {
             $api->post('login', ['uses' => 'App\Api\V1\Controllers\LoginController@login']);
