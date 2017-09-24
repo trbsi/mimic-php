@@ -55,6 +55,15 @@ class User extends Authenticatable
         return $this->customNumberFormat($value);
     }
 
+    /**
+     * Format "number_of_mimics" attribute
+     * @param  integer $value "number_of_mimics" attribute
+     */
+    public function getNumberOfMimicsAttribute($value) 
+    {
+        return $this->customNumberFormat($value);
+    }
+
 
     /**
      * Automatically creates hash for the user password.
