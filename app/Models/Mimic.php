@@ -152,7 +152,7 @@ class Mimic extends Model
                     $join->on("$followTable.following", '=', "$mimicsTable.user_id");
                     $join->where('followed_by', $authUser->id);
                 })
-            	->orderBy(DB::raw('ISNULL(follow.following)'), 'ASC') //order by mimics from people you follow
+            	->orderBy(DB::raw("IF(ISNULL(follow.following) = 0 || user_id = $authUser->id, 0, 1)"), 'ASC') //I made this. Keep my mimics and mimics of people I follow in the first place ordered by most recent. After this just order by mimics.id DESC and it will order by most recent but it will keep my mimics and those of people I follow on the top 
                 ;
                 
         }
