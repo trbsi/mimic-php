@@ -52,6 +52,11 @@ class MimicController extends BaseAuthController
                 $additionalFields['original_mimic_id'] = $request->original_mimic_id;
                 $relations = ['user'];
                 $responseMimic = true;
+
+                //check if mimic has been deleted
+                if(!$this->mimic->find($request->original_mimic_id)) {
+                    abort(404, trans('validation.mimic_is_deleted'));
+                }
             }
 
             $file = $request->file('file');
