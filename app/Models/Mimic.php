@@ -177,6 +177,7 @@ class Mimic extends Model
                 }
                 //load responses by upvotes
                 $query->orderBy("upvote", "DESC");
+                $query->orderBy("$mimicResponseTabl.id", "DESC");
             }, 'user', 'hashtags', /*'mimicTagusers'*/])
             ->groupBy("$mimicsTable.id")
             ->get()

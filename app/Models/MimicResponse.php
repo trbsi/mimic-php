@@ -74,6 +74,7 @@ class MimicResponse extends Model
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = " . $this->getTable() . ".id), 1, 0) AS upvoted")
             ->where("original_mimic_id", $request->original_mimic_id)
             ->orderBy("upvote", "DESC")
+            ->orderBy("id", "DESC")
             ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT)
             ->offset($offset)
             ->with(['user'])
