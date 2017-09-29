@@ -72,7 +72,7 @@ use yii\helpers\Html;
                    role="button">Terms Of Use</a>
                 <a href="javascript:;" class="btn btn-default btn-pp"
                    role="button">Privacy Police</a>
-                <a href="javascript:;" class="btn btn-default btn-eula" role="button">EULA</a>
+                <?php /*<a href="javascript:;" class="btn btn-default btn-eula" role="button">EULA</a>*/ ?>
             </div>
         </div>
     </div>
@@ -86,11 +86,12 @@ use yii\helpers\Html;
             <?php echo view("public.legal.privacy-policy-content")->render() ?>
         </div>
     </div>
+    <?php /*
     <div class="row">
         <div class="col-sm-12" id="eula" style="display:none">
             <?php echo view("public.legal.eula-content")->render() ?>
         </div>
-    </div>
+    </div> */ ?>
 </div>
 </body>
 </html>

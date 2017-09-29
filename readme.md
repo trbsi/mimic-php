@@ -36,3 +36,6 @@ https://stackoverflow.com/questions/20978086/htaccess-allow-access-to-one-php-fi
 #HOW to set CronJob
 https://laracasts.com/discuss/channels/laravel/invalid-argument-supplied-for-foreach-when-scheduling-task
 * * * * * /usr/bin/php-cli /home/thettaco/public_html/MIMIC.TEST.COM/artisan schedule:run >> /home/thettaco/public_html/my.log 2>&1
+
+#LUCY Landing Page
+https://themewagon.com/themes/lucy-best-free-responsive-bootstrap-app-landing-page-template/

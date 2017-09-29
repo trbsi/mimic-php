@@ -1,285 +1,409 @@
-<section>
-    <div class="ti-privacy ti-section ti-short-intro">
-        <div id="page_1">
-            <h3><?= config("app.name") ?>, Privacy Policy</h3>
-            <h4>Last Updated: December 30, 2015</h4>
+<section style="padding-bottom: 20px;">
+    <P STYLE="margin-bottom: 0in"><FONT SIZE=4 STYLE="font-size: 15pt"><B>PRIVACY
+    POLICY</B></FONT></P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in"><FONT SIZE=3 STYLE="font-size: 13pt">Effective
+    Date: October 1, 2017</FONT></P>
+    <P STYLE="margin-bottom: 0in"><FONT SIZE=3 STYLE="font-size: 13pt">Last
+    Updated Date: October 1, 2017</FONT></P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">This Privacy Policy describes how and
+    when <?= config("app.name") ?> (“<?= config("app.name") ?>”, “we”, “us”, or “our”) collects,
+    uses, and shares your information when you use our Service (defined
+    below). <?= config("app.name") ?> receives your information through our Apps and/or
+    websites, to which this Privacy Policy is posted. By using our
+    Service you understand and agree that we are providing a platform for
+    you to post content, including photos, comments and other materials
+    (&quot;User Content&quot;), to the Service and to share User Content
+    publicly. This means that other Users may search for, see, use, or
+    share any of your User Content that you make publicly available
+    through the Service, consistent with the terms and conditions of this
+    Privacy Policy and our Terms of Use (which can be found at
+    <A HREF="http://www.gomimic.com/terms"><SPAN STYLE="">http://www.gomimic.com/legal</SPAN></A>).
+    Our Privacy Policy applies to all visitors, users, and others who
+    access the Service (&quot;Users&quot;).</P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <OL TYPE=I>
+        <LI><P STYLE="margin-bottom: 0in"><U><B>Information we collect</B></U></P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">We collect the following types of
+    information.</P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">Information you provide us
+        directly:</P>
+        <OL TYPE=a>
+            <LI><P STYLE="margin-bottom: 0in">Your username, password, e-mail
+            address and any other information provide when you register for an
+            <?= config("app.name") ?> account.</P>
+            <LI><P STYLE="margin-bottom: 0in">Profile information that you
+            provide for your user profile (e.g., first and last name, picture,
+            phone number). This information allows us to help you or others be
+            &quot;found&quot; on <?= config("app.name") ?>.</P>
+            <LI><P STYLE="margin-bottom: 0in">User Content (e.g., photos,
+            comments, and other materials) that you post to the Service.</P>
+            <LI><P STYLE="margin-bottom: 0in">Communications between you and
+            <?= config("app.name") ?>.</P>
+        </OL>
+        <LI><P STYLE="margin-bottom: 0in">Finding your friends on <?= config("app.name") ?>:</P>
+        <OL TYPE=a>
+            <LI><P STYLE="margin-bottom: 0in">If you choose, you can use our
+            &quot;Find friends&quot; feature to locate other people with <?= config("app.name") ?>
+            accounts either through (i) your contacts list, (ii) third-party
+            social media sites or (iii) through a search of names and usernames
+            on <?= config("app.name") ?>.</P>
+            <LI><P STYLE="margin-bottom: 0in">If you choose to find your
+            friends through (i) your device's contacts list, then <?= config("app.name") ?> will
+            access your contacts list to determine whether or not someone
+            associated with your contact is using <?= config("app.name") ?>.</P>
+            <LI><P STYLE="margin-bottom: 0in">If you choose to find your
+            friends through a (ii) third-party social media site, then you will
+            be prompted to set up a link to the third-party service and you
+            understand that any information that such service may provide to us
+            will be governed by this Privacy Policy.</P>
+            <LI><P STYLE="margin-bottom: 0in">If you choose to find your
+            friends (iii) through a search of names or usernames on <?= config("app.name") ?> then
+            simply type a name to search and we will perform a search on our
+            Service.</P>
+            <LI><P STYLE="margin-bottom: 0in">Note about &quot;Invite Friends&quot;
+            feature: If you choose to invite someone to the Service through our
+            &quot;Invite friends&quot; feature, you may select a person
+            directly from the contacts list on your device and send a text or
+            email from your personal account. You understand and agree that you
+            are responsible for any charges that apply to communications sent
+            from your device, and because this invitation is coming directly
+            from your personal account, <?= config("app.name") ?> does not have access to or
+            control this communication.</P>
+        </OL>
+        <LI><P STYLE="margin-bottom: 0in">Analytics information:</P>
+        <OL TYPE=a>
+            <LI><P STYLE="margin-bottom: 0in">We may use third-party analytics
+            tools to help us measure traffic and usage trends for the Service.
+            These tools may collect information sent by your device or our
+            Service, including the web pages you visit, add-ons, and other
+            information that assists us in improving the Service. We collect
+            and use this analytics information with analytics information from
+            other Users so that it cannot reasonably be used to identify any
+            particular individual User.</P>
+        </OL>
+        <LI><P STYLE="margin-bottom: 0in">Cookies and similar technologies:</P>
+        <OL TYPE=a>
+            <LI><P STYLE="margin-bottom: 0in">When you visit the Service, we
+            may use cookies and similar technologies like pixels, web beacons,
+            and local storage to collect information about how you use <?= config("app.name") ?>
+            and provide features to you.</P>
+            <LI><P STYLE="margin-bottom: 0in">We may ask advertisers or other
+            partners to serve ads or services to your devices, which may use
+            cookies or similar technologies placed by us or the third party.</P>
+        </OL>
+        <LI><P STYLE="margin-bottom: 0in">Log file information:</P>
+        <OL TYPE=a>
+            <LI><P STYLE="margin-bottom: 0in">Log file information is
+            automatically reported by your browser each time you make a request
+            to access (i.e., visit) a web page or app. It can also be provided
+            when the content of the webpage or app is downloaded to your
+            browser or device.</P>
+            <LI><P STYLE="margin-bottom: 0in">When you use our Service, our
+            servers automatically record certain log file information,
+            including your web request, Internet Protocol (&quot;IP&quot;)
+            address, browser type, referring / exit pages and URLs, number of
+            clicks and how you interact with links on the Service, domain
+            names, landing pages, pages viewed, and other such information. We
+            may also collect similar information from communications sent to
+            our Users which then help us track which communications are opened
+            and which links are clicked by recipients. The information allows
+            for more accurate reporting and improvement of the Service.</P>
+        </OL>
+        <LI><P STYLE="margin-bottom: 0in">Device identifiers:</P>
+        <OL TYPE=a>
+            <LI><P STYLE="margin-bottom: 0in">When you use a mobile device like
+            a tablet or phone to access our Service, we may access, collect,
+            monitor, store on your device, and/or remotely store one or more
+            &quot;device identifiers.&quot; Device identifiers are small data
+            files or similar data structures stored on or associated with your
+            mobile device, which uniquely identify your mobile device. A device
+            identifier may be data stored in connection with the device
+            hardware, data stored in connection with the device's operating
+            system or other software, or data sent to the device by <?= config("app.name") ?>.</P>
+            <LI><P STYLE="margin-bottom: 0in">A device identifier may deliver
+            information to us or to a third party partner about how you browse
+            and use the Service and may help us or others provide reports or
+            personalized content and ads. Some features of the Service may not
+            function properly if use or availability of device identifiers is
+            impaired or disabled.</P>
+        </OL>
+        <LI><P STYLE="margin-bottom: 0in">Metadata:</P>
+        <OL TYPE=a>
+            <LI><P STYLE="margin-bottom: 0in">Metadata is usually technical
+            data that is associated with User Content. For example, Metadata
+            can describe how, when and by whom a piece of User Content was
+            collected and how that content is formatted.</P>
+            <LI><P STYLE="margin-bottom: 0in">Users can add or may have
+            Metadata added to their User Content including a hashtag (e.g., to
+            mark keywords when you post a photo), geotag (e.g., to mark your
+            location to a photo), comments or other data. This makes your User
+            Content more searchable by others and more interactive. If you
+            geotag your User Content or tag your User Content using other's
+            APIs then, your latitude and longitude will be stored with the User
+            Content and searchable (e.g., through a location or map feature) if
+            your User Content is made public by you in accordance with your
+            privacy settings.</P>
+        </OL>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <OL TYPE=I START=2>
+        <LI><P STYLE="margin-bottom: 0in"><U><B>How we use your information</B></U></P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">In addition to some of the specific
+    uses of information we describe in this Privacy Policy, we may use
+    information that we receive to:</P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">help you efficiently access your
+        information after you sign in</P>
+        <LI><P STYLE="margin-bottom: 0in">remember information so you will
+        not have to re-enter it during your visit or the next time you visit
+        the Service;</P>
+        <LI><P STYLE="margin-bottom: 0in">provide personalized content and
+        information to you and others, which could include online ads or
+        other forms of marketing</P>
+        <LI><P STYLE="margin-bottom: 0in">provide, improve, test, and
+        monitor the effectiveness of our Service</P>
+        <LI><P STYLE="margin-bottom: 0in">develop and test new products and
+        features</P>
+        <LI><P STYLE="margin-bottom: 0in">monitor metrics such as total
+        number of visitors, traffic, and demographic patterns</P>
+        <LI><P STYLE="margin-bottom: 0in">diagnose or fix technology
+        problems</P>
+        <LI><P STYLE="margin-bottom: 0in">automatically update the <?= config("app.name") ?>
+        application on your device</P>
+        <LI><P STYLE="margin-bottom: 0in"><?= config("app.name") ?> or other Users may run
+        contests, special offers or other events or activities (&quot;Events&quot;)
+        on the Service. If you do not want to participate in an Event, do
+        not use the particular Metadata (i.e. hashtag or geotag) associated
+        with that Event.</P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <OL TYPE=I START=3>
+        <LI><P STYLE="margin-bottom: 0in"><U><B>Sharing of your information</B></U></P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">We will not rent or sell your
+    information to third parties outside <?= config("app.name") ?> without your consent,
+    except as noted in this Policy. 
+    </P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">Parties with whom we may share your
+    information:</P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">We may share User Content and your
+        information (including but not limited to, information from cookies,
+        log files, device identifiers, location data, and usage data) with
+        businesses that are legally part of the same group of companies that
+        <?= config("app.name") ?> is part of, or that become part of that group (&quot;Affiliates&quot;).
+        Affiliates may use this information to help provide, understand, and
+        improve the Service (including by providing analytics) and
+        Affiliates' own services (including by providing you with better and
+        more relevant experiences). But these Affiliates will honor the
+        choices you make about who can see your User Content.</P>
+        <LI><P STYLE="margin-bottom: 0in">We also may share your information
+        as well as information from tools like cookies, log files, and
+        device identifiers and location data, with third-party organizations
+        that help us provide the Service to you (&quot;Service Providers&quot;).
+        Our Service Providers will be given access to your information as is
+        reasonably necessary to provide the Service under reasonable
+        confidentiality terms.</P>
+        <LI><P STYLE="margin-bottom: 0in">We may also share certain
+        information such as cookie data with third-party advertising
+        partners. This information would allow third-party ad networks to,
+        among other things, deliver targeted advertisements that they
+        believe will be of most interest to you.</P>
+        <LI><P STYLE="margin-bottom: 0in">We may remove parts of data that
+        can identify you and share anonymized data with other parties. We
+        may also combine your information with other information in a way
+        that it is no longer associated with you and share that aggregated
+        information.</P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">Parties with whom you may choose to
+    share your User Content:</P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">Any information or content that
+        you voluntarily disclose for posting to the Service, such as User
+        Content, becomes available to the public, as controlled by any
+        applicable privacy settings that you set. Once you have shared User
+        Content or made it public, that User Content may be re-shared by
+        others.</P>
+        <LI><P STYLE="margin-bottom: 0in">Any User Content that you make
+        public is searchable by other Users and subject to use under our
+        <?= config("app.name") ?> API. 
+        </P>
+        <LI><P STYLE="margin-bottom: 0in">If you remove information that you
+        posted to the Service, copies may remain viewable in cached and
+        archived pages of the Service, or if other Users or third parties
+        using the <?= config("app.name") ?> API have copied or saved that information.</P>
+    </OL>
+    <P STYLE="margin-left: 0.25in; margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">What happens in the event of a change
+    of control:</P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">If we sell or otherwise transfer
+        part or the whole of <?= config("app.name") ?> or our assets to another organization
+        (e.g., in the course of a transaction like a merger, acquisition,
+        bankruptcy, dissolution, liquidation), your information such as name
+        and email address, User Content and any other information collected
+        through the Service may be among the items sold or transferred. You
+        will continue to own your User Content. The buyer or transferee will
+        have to honor the commitments we have made in this Privacy Policy.</P>
+    </OL>
+    <P STYLE="margin-left: 0.5in; margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">Responding to legal requests and
+    preventing harm:</P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">We may access, preserve and share
+        your information in response to a legal request (like a search
+        warrant, court order or subpoena) if we have a good faith belief
+        that the law requires us to do so. This may include responding to
+        legal requests from jurisdictions outside of the United States where
+        we have a good faith belief that the response is required by law in
+        that jurisdiction, affects users in that jurisdiction, and is
+        consistent with internationally recognized standards. We may also
+        access, preserve and share information when we have a good faith
+        belief it is necessary to: detect, prevent and address fraud and
+        other illegal activity; to protect ourselves, you and others,
+        including as part of investigations; and to prevent death or
+        imminent bodily harm. Information we receive about you may be
+        accessed, processed and retained for an extended period of time when
+        it is the subject of a legal request or obligation, governmental
+        investigation, or investigations concerning possible violations of
+        our terms or policies, or otherwise to prevent harm.</P>
+    </OL>
+    <P STYLE="margin-left: 0.5in; margin-bottom: 0in"><BR>
+    </P>
+    <OL TYPE=I START=4>
+        <LI><P STYLE="margin-bottom: 0in; page-break-after: avoid"><U><B>How
+        we store your information</B></U></P>
+    </OL>
+    <P STYLE="margin-bottom: 0in; page-break-after: avoid"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in; page-break-after: avoid">Storage and
+    Processing:</P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">Your information collected through
+        the Service may be stored and processed in the United States or any
+        other country in which <?= config("app.name") ?>, its Affiliates or Service Providers
+        maintain facilities.</P>
+        <LI><P STYLE="margin-bottom: 0in"><?= config("app.name") ?>, its Affiliates, or Service
+        Providers may transfer information that we collect about you,
+        including personal information across borders and from your country
+        or jurisdiction to other countries or jurisdictions around the
+        world. If you are located in the European Union or other regions
+        with laws governing data collection and use that may differ from
+        U.S. law, please note that we may transfer information, including
+        personal information, to a country and jurisdiction that does not
+        have the same data protection laws as your jurisdiction.</P>
+        <LI><P STYLE="margin-bottom: 0in">By registering for and using the
+        Service you consent to the transfer of information to the U.S. or to
+        any other country in which <?= config("app.name") ?>, its Affiliates or Service
+        Providers maintain facilities and the use and disclosure of
+        information about you as described in this Privacy Policy.</P>
+        <LI><P STYLE="margin-bottom: 0in">We use commercially reasonable
+        safeguards to help keep the information collected through the
+        Service secure and take reasonable steps (such as requesting a
+        unique password) to verify your identity before granting you access
+        to your account. However, <?= config("app.name") ?> cannot ensure the security of any
+        information you transmit to <?= config("app.name") ?> or guarantee that information on
+        the Service may not be accessed, disclosed, altered, or destroyed.</P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <OL TYPE=I START=5>
+        <LI><P STYLE="margin-bottom: 0in"><U><B>Your choices about your
+        information</B></U></P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">Your account information and
+    profile/privacy settings:</P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">Update your account at any time by
+        logging in and changing your profile settings.</P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">How long we keep your User Content:</P>
+    <OL>
+        <LI><P STYLE="margin-bottom: 0in">Following termination or
+        deactivation of your account, <?= config("app.name") ?>, its Affiliates, or its Service
+        Providers may retain information (including your profile
+        information) and User Content for a commercially reasonable time for
+        backup, archival, and/or audit purposes.</P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <OL TYPE=I START=6>
+        <LI><P STYLE="margin-bottom: 0in"><U><B>Children’s privacy</B></U></P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">The Service and its content are not
+    directed at children under the age of 13. In the event that we learn
+    that we have collected personal information from a child under age 13
+    without parental consent, we will delete that information as quickly
+    as possible. If you believe that we might have any information from
+    or about a child under 13, please contact us.</P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <OL TYPE=I START=7>
+        <LI><P STYLE="margin-bottom: 0in"><U><B>Other web sites and services</B></U></P>
+    </OL>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in">We are not responsible for the
+    practices employed by any websites or services linked to or from our
+    Service, including the information or content contained within them.
+    Please remember that when you use a link to go from our Service to
+    another website or service, our Privacy Policy does not apply to
+    those third-party websites or services. Your browsing and interaction
+    on any third-party website or service, including those that have a
+    link on our website, are subject to that third party's own rules and
+    policies. In addition, you agree that we are not responsible and do
+    not have control over any third-parties that you authorize to access
+    your User Content. If you are using a third-party website or service
+    and you allow them to access your User Content you do so at your own
+    risk.</P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in"><B>VIII.  </B><U><B>Changes to our
+    Privacy Policy</B></U></P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in"><?= config("app.name") ?> may modify or update this Privacy
+    Policy from time to time, so please review it periodically. We may
+    provide you additional forms of notice of modifications or updates as
+    appropriate under the circumstances. Your continued use of <?= config("app.name") ?> or
+    the Service after any modification to this Privacy Policy will
+    constitute your acceptance of such modification.</P>
+    <P STYLE="margin-bottom: 0in"><BR>
+    </P>
+    <P STYLE="margin-bottom: 0in"><A NAME="_GoBack"></A>QUESTIONS? 
+    Please contact us at <A HREF="mailto:hello@gomimic.com"><SPAN>hello@gomimic.com</SPAN></A>
+    if you have questions about our Privacy Policy</P>
 
-            <p class="p2 ft1"><?= config("app.name") ?>, ("<?= config("app.name") ?>,"
-                "we," and "us") respects the privacy of its users ("you") and has developed this Privacy Policy to
-                demonstrate its commitment to protecting your privacy. This Privacy Policy describes the information we
-                collect, how that information may be used, with whom it may be shared, and your choices about such uses
-                and disclosures. We encourage you to read this Privacy Policy carefully when using our application or
-                services or transacting business with us. By using our website or application (our "Service"), you are
-                accepting the practices described in this Privacy Policy.</p>
-
-            <p class="p3 ft2">If you have any questions about our privacy practices, please refer to the end of this
-                Privacy Policy for information on how to contact us.</p>
-
-            <p class="p4 bold">Information we collect about you</p>
-
-            <p class="p5 ft1"><span class="ft3">In General</span>. We may collect information that can identify you such
-                as your name and email address ("personal information") and other information that does not identify
-                you. We may collect this information through a website or a mobile application. By using the Service,
-                you are authorizing us to gather, parse and retain data related to the provision of the Service. When
-                you provide personal information through our Service, the information may be sent to servers located in
-                the Croatia and countries around the world.</p>
-
-            <p class="p6 ft6 list-item"><span class="ft5">Information you provide</span>. You will be asked to
-                allow <?= config("app.name") ?> to collect your location information from your device
-                when you download or use the Service. In addition, we may collect and store any personal information you
-                provide while using our Service or in some other manner. This may include identifying information, such
-                as your name, address, email address and telephone number, and, if you transact business with us,
-                financial information. You may also provide us photos, a personal description and information about your
-                gender and preferences for recommendations, such as search distance, age range and gender. If you chat
-                with other <?= config("app.name") ?> users, you provide us the content of your chats,
-                and if you contact us with a customer service or other inquiry, you provide us with the content of that
-                communication.</p>
-        </div>
-        <div id="page_2">
-            <p class="p8 ft2"><span class="ft9">Use of technologies to collect information</span>. We use various
-                technologies to collect information from your device and about your activities on our Service.</p>
-
-            <p class="p9 ft8 list-item"><span class="ft7">Information collected automatically</span>. We automatically
-                collect information from your browser or device when you visit our Service. This information could
-                include your IP address, device ID and type, your browser type and language, the operating system used
-                by your device, access times, your mobile device’s geographic location while our application is actively
-                running, and the referring website address.</p>
-
-            <p class="p10 ft1 list-item"><span class="ft10">Cookies and Use of Cookie Data</span>. When you visit our
-                Service, we may assign your device one or more cookies to facilitate access to our Service and to
-                personalize your experience. Through the use of a cookie, we also may automatically collect information
-                about your activity on our Service, such as the pages you visit, the time and date of your visits and
-                the links you click. If we advertise, we (or third parties) may use certain data collected on our
-                Service to show you <?= config("app.name") ?> advertisements on other sites or
-                applications.</p>
-
-            <p class="p11 ft1 list-item"><span class="ft10">Pixel tags</span>. We embed pixel tags (also called web
-                beacons or clear GIFs) on web pages, ads, and emails. These tiny, invisible graphics are used to access
-                cookies and track user activities (such as how many times a page is viewed). We use pixel tags to
-                measure the popularity of our features and services. Ad companies also use pixel tags to measure the
-                number of ads displayed and their performance (such as how many people clicked on an ad).</p>
-
-            <p class="p12 ft1 list-item"><span class="ft10">Mobile Device IDs</span>: If you're using our app, we use
-                mobile device IDs (the unique identifier assigned to a device by the manufacturer), or Advertising IDs
-                (for iOS 6 and later), instead of cookies, to recognize you. We do this to store your preferences and
-                track your use of our app. Unlike cookies, device IDs cannot be deleted, but Advertising IDs can be
-                reset in "Settings" on your iPhone. Ad companies also use device IDs or Advertising IDs to track your
-                use of the app, track the number of ads displayed, measure ad performance and display ads that are more
-                relevant to you. Analytics companies use device IDs to track information about app usage.</p>
-
-            <p class="p13 ft12 list-item">
-                <span class="ft10">Information collected by </span>
-                third-parties
-                for advertising purposes<span class="ft1">. We may allow service providers, advertising companies and ad networks, and other third parties to display advertisements on our Service. These companies may use tracking technologies, such as cookies or web beacons, to collect information about users who view or interact with their advertisements. We do not provide any </span>
-                <span class="ft1">non-anonymized</span>
-            <span class="ft1"> personal information to third parties.
-            </p>
-
-            <p class="p14 bold">How we use the information we collect</p>
-
-            <p class="p1 ft6"><span class="ft13">In General</span>. We may use information that we collect about you to:
-            </p>
-        </div>
-        <div id="page_3">
-            <p class="p15 ft6 list-item"><span class="ft14">deliver and improve our products and services, and manage our business;</span>
-            </p>
-
-            <p class="p16 ft6 list-item"><span
-                        class="ft14">manage your account and provide you with customer support;</span></p>
-
-            <p class="p17 ft16 list-item"><span class="ft15">perform research and analysis about your use of, or interest in, our or others’ products, services, or content;</span>
-            </p>
-
-            <p class="p18 ft16 list-item"><span class="ft15">communicate with you by email, postal mail, telephone and/or mobile devices about products or services that may be of interest to you either from us or other third parties;</span>
-            </p>
-
-            <p class="p19 ft18 list-item"><span class="ft17">develop, display, and track content and advertising tailored to your interests on our Service and other sites, including providing our advertisements to you when you visit other sites;</span>
-            </p>
-
-            <p class="p20 ft6 list-item"><span class="ft14">website or mobile application analytics;</span></p>
-
-            <p class="p21 ft6 list-item"><span class="ft14">verify your eligibility and deliver prizes in connection with contests and sweepstakes;</span>
-            </p>
-
-            <p class="p16 ft6 list-item"><span class="ft14">enforce or exercise any rights in our </span><span
-                        class="ft19">Terms of Use</span>; and</p>
-
-            <p class="p16 ft6 list-item"><span class="ft14">perform functions or services as otherwise described to you at the time of collection.</span>
-            </p>
-
-            <p class="p22 ft1">
-                <span class="ft3">Job applicants</span>. If your personal information is submitted through our website
-                when applying for a position with our company, the information will be used solely in connection with
-                considering and acting upon your application. We may retain your personal information, but only for the
-                purpose of considering your application for current or future available positions. This information,
-                which may include your name and contact information, prior education and experience, and other
-                information you provide to us, may be shared with
-                third-party
-                service providers retained by us to collect, maintain and analyze candidate submissions for job
-                postings.
-            </p>
-
-            <p class="p23 ft8">
-                In all circumstances, we may perform these functions directly or use a third party vendor to perform
-                these functions on our behalf who will be obligated to use your personal information only to perform
-                services for us.
-            </p>
-
-            <p class="p14 bold">With whom we share your information</p>
-
-            <p class="p24 ft1"><span class="ft3">Information Shared with Other Users</span>. When you register as a user
-                of <?= config("app.name") ?>, your <?= config("app.name") ?> profile
-                will be viewable by other users of the Service. Other users will be able to view information you have
-                provided to us, any additional photos you upload, your first name, your age, approximate number of miles
-                away, your personal description.</p>
-        </div>
-        <div id="page_4">
-            <p class="p26 ft21"><span class="ft20">Personal information</span>. We do not share your personal
-                information with others except as indicated in this Privacy Policy or when we inform you and give you an
-                opportunity to opt out of having your personal information shared. We may share personal information
-                with:</p>
-
-            <p class="p27 ft1 list-item"><span class="ft10">Service providers</span>: We may share information,
-                including personal and financial information, with third parties that perform certain services on our
-                behalf. These services may include fulfilling orders, providing customer service and marketing
-                assistance, performing business and sales analysis, ad tracking and analytics, member screenings,
-                supporting our Service functionality, and supporting contests, sweepstakes, surveys and other features
-                offered through our Service. These service providers may have access to personal information needed to
-                perform their functions but are not permitted to share or use such information for any other purposes.
-            </p>
-
-            <p class="p29 ft6 list-item"><span class="ft5">Other Situations</span>. We may disclose your information,
-                including personal information:</p>
-
-            <p class="p30 ft8 list-item double"><span class="ft23">In response to a subpoena or similar investigative demand, a court order, or a request for cooperation from a law enforcement or other government agency; to establish or exercise our legal rights; to defend against legal claims; or as otherwise required by law. In such cases, we may raise or waive any legal objection or right available to us.</span>
-            </p>
-
-            <p class="p31 ft1 list-item double"><span class="ft24">When we believe disclosure is appropriate in connection with efforts to investigate, prevent, or take other action regarding illegal activity, suspected fraud or other wrongdoing; to protect and defend the rights, property or safety of our company, our users, our employees, or others; to comply with applicable law or cooperate with law enforcement; or to enforce our </span><span
-                        class="ft11">Terms of Use </span>or other agreements or policies.</p>
-
-            <p class="p32 ft18 list-item double"><span class="ft25">In connection with a substantial corporate transaction, such as the sale of our business, a divestiture, merger, consolidation, or asset sale, or in the unlikely event of bankruptcy.</span>
-            </p>
-
-            <p class="p33 ft1">
-                <span class="ft3">Aggregated and/or </span>
-                <span class="ft3">non-personal</span>
-                <span class="ft3"> information</span>. We may use and share
-                non-personal
-                information we collect under any of the above circumstances. We may combine
-                non-personal
-                information we collect with additional
-                non-personal
-                information
-            </p>
-        </div>
-        <div id="page_5">
-            <p class="p34 ft6">
-                collected from other sources. We also may share aggregated,
-                non-personal
-                information, or personal information in hashed,
-                non-human
-                readable form, with third parties, including advisors, advertisers and investors, for the purpose of
-                conducting general business analysis or other business purposes. For example, we may engage a data
-                provider who may collect web log data from you (including IP address and information about your browser
-                or operating system), or place or recognize a unique cookie on your browser to enable you to receive
-                customized ads or content. The cookies may reﬂect
-                de-identified
-                demographic or other data linked to data you voluntarily have submitted to us (such as your email
-                address), that we may share with a data provider solely in hashed,
-                non-human
-                readable form.
-            </p>
-
-            <p class="p37 bold">Third Party Websites</p>
-
-            <p class="p38 ft6">
-                There are a number of places on our Service where you may click on a link to access other websites that
-                do not operate under this Privacy Policy. For example, if you click on an advertisement on our Service,
-                you may be taken to a website that we do not control. These third- party websites may independently
-                solicit and collect information, including personal information, from you and, in some instances,
-                provide us with information about your activities on those websites. We recommend that you consult the
-                privacy statements of all
-                third-party
-                websites you visit by clicking on the "privacy" link typically located at the bottom of the webpage you
-                are visiting.
-            </p>
-
-            <p class="p39 bold">How you can access your information</p>
-
-            <p class="p40 ft6">If you have a <?= config("app.name") ?> account, you have the ability to
-                review and update your personal information within the Service by opening your account and going to
-                settings. </p>
-
-            <p class="p35 bold">Your choices about collection and use of your information</p>
-        </div>
-        <div id="page_6">
-            <p class="p41 ft8 list-item"><span class="ft27">You can choose not to provide us with certain information, but that may result in you being unable to use certain features of our Service because such information may be required in order for you to register as user; purchase products or services; participate in a contest, promotion, survey, or sweepstakes; ask a question; or initiate other transactions.</span>
-            </p>
-
-            <p class="p42 ft18 list-item"><span class="ft17">Our Service may also deliver notifications to your phone or mobile device. You can disable these notifications by going into "App Settings" on the app or by changing the settings on your mobile device.</span>
-            </p>
-
-            <p class="p43 ft18 list-item"><span class="ft17">You can also control information collected by cookies. You can delete or decline cookies by changing your browser settings. Click "help" in the toolbar of most browsers for instructions.</span>
-            </p>
-
-            <p class="p44 bold">How we protect your personal information</p>
-
-            <p class="p45 ft1">We take security measures to help safeguard your personal information from unauthorized
-                access and disclosure. However, no system can be completely secure. Therefore, although we take steps to
-                secure your information, we do not promise, and you should not expect, that your personal information,
-                chats, or other communications will always remain secure. Users should also take care with how they
-                handle and disclose their personal information and should avoid sending personal information through
-                insecure email. Please refer to the Federal Trade Commission's website at <a
-                        href="http://www.ftc.gov/bcp/menus/consumer/data.shtm"><span class="ft11">http://www.ftc.gov/bcp/menus/consumer/data.shtm </span></a>for
-                information about how to protect yourself against identity theft.</p>
-
-            <p class="p46 bold">Information you provide about yourself while using our Service</p>
-
-            <p class="p47 ft1">
-                We provide areas on our Service where you can post information about yourself and others and communicate
-                with others. Such postings are governed by our <?= config("app.name") ?><span
-                        class="ft11">Terms of Use</span>. Also, whenever you voluntarily disclose personal information
-                on
-                publicly-viewable
-                pages, that information will be publicly available and can be collected and used by others. For example,
-                if you post your email address, you may receive unsolicited messages. We cannot control who reads your
-                posting or what other users may do with the information you voluntarily post, so we encourage you to
-                exercise discretion and caution with respect to your personal information.
-            </p>
-
-            <p class="p37 bold">Children's privacy</p>
-
-            <p class="p48 ft21">Although our Service is a general audience Service, we restrict the use of our service
-                to individuals age 18 and above. We do not knowingly collect, maintain, or use personal information from
-                children under the age of 18.</p>
-
-            <p class="p4 bold">Visiting our Service from outside the Croatia</p>
-
-            <p class="p49 ft21">If you are visiting our Service from outside the Croatia, please be aware that your
-                information may be transferred to, stored, and processed in the Croatia where our servers are located
-                and our central database is operated. By using our services, you understand and agree</p>
-        </div>
-        <div id="page_7">
-            <p class="p50 ft2">that your information may be transferred to our facilities and those third parties with
-                whom we share it as described in this privacy policy.</p>
-
-            <p class="p4 bold">No Rights of Third Parties</p>
-
-            <p class="p51 ft16">This Privacy Policy does not create rights enforceable by third parties or require
-                disclosure of any personal information relating to users of the website.</p>
-
-            <p class="p14 bold">Changes to this Privacy Policy</p>
-
-            <p class="p52 ft8">We will occasionally update this Privacy Policy. When we post changes to this Privacy
-                Policy, we will revise the "last updated" date at the top of this Privacy Policy. We recommend that you
-                check our Service from time to time to inform yourself of any changes in this Privacy Policy or any of
-                our other policies.</p>
-
-            <p class="p37 bold">How to contact us</p>
-
-            <p class="p53 ft16">If you have any questions about this Privacy Policy, please contact us by email or
-                postal mail as follows: info@blitzerapp.com</p>
-
-        </div>
-    </div>
 </section>

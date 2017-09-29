@@ -86,18 +86,18 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="banner-text">
                         <h2 class="animation-box wow bounceIn animated"><strong
-                                    class="strong"><?= config("app.name") ?></strong><br>Split your world</h2>
+                                    class="strong"><?= config("app.name") ?></strong><br>
+                            <span style="font-size: 0.5em;">Split screen visual posts and replies</span>
+                        </h2>
 
                         <p>
-                              Swipe through posts of short videos or pictures, or add your own.
-                              <br>
-                              See how people have responded with their own video or photo, or add you own and stand out from the crowd
+                              Want to challenge others to copy your moves? Have a funny response to a post? Mimic encourages top half, bottom half photo and video posts and replies. Swipe through, upvote and add your own.
                         </p>
-                        <a href="<?= env("GOOGLE_PLAY_LINK") ?>" target="_blank"
+                        <?php /*<a href="<?= env("GOOGLE_PLAY_LINK") ?>" target="_blank"
                            class="btn btn-download wow animated fadeInLeft">
                             <i class="fa fa-android pull-left"></i>
                             <strong>Get it on</strong>
-                            <br/>Google Play </a>
+                            <br/>Google Play </a>*/ ?>
                         <a href="<?= env("IOS_STORE_LINK") ?>" target="_blank"
                            class="btn btn-download wow animated fadeInRight">
                             <i class="fa fa-apple pull-left"></i>
@@ -114,8 +114,27 @@
 </section>
 <!-- /#header -->
 
+<section class="wrapper" style="background-color: #E7E7E7">
+    <div class="container">
+        <div style="text-align: left;">
+            <p>
+                <span style="font-size: 26px;">With Mimic, you can:</span><br>
+                <ul style="list-style: disc;">
+                    <li>Swipe through posts in the top half of the screen</li>
+                    <li>Swipe through responses to posts in the bottom half of the screen</li>
+                    <li>Add your own photo or video posts and responses</li>
+                    <li>Upvote others</li>
+                    <li>Get as many upvotes as you can and stand out from the crowd</li>
+                </ul>
+                <p>
+                    Use Mimic to show off your skills, ask and answer questions, make others laugh, challenge your friends and more!  Don’t forget to upvote your favorites.
+                </p>
+            </p>
+        </div>
+    </div>
+</section>
 <!-- HHHHHHHHHHHHHHHHHH        Video          HHHHHHHHHHHHHHHH -->
-<?php /*
+
 <div id="video" class="wrapper">
     <div class="container">
         <h2 class=""><?= config("app.name") ?> Video</h2>
@@ -127,7 +146,7 @@
         </div>
     </div>
     <!-- /.container -->
-</div>*/ ?>
+</div>
 <!-- /#video -->
 
 <!-- HHHHHHHHHHHHHHHHHH      Screenshots    HHHHHHHHHHHHHHHH -->
