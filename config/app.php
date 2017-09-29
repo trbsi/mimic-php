@@ -13,6 +13,7 @@ return [
     */
 
     'name' => 'Mimic',
+    'slogan' => 'Split screen visual posts and replies',
 
     /*
     |--------------------------------------------------------------------------

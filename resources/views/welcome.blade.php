@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <title><?= config("app.name") ?> - mimic people</title>
+    <title><?= config("app.name") ?> - <?= config("app.slogan") ?></title>
 
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -87,7 +87,7 @@
                     <div class="banner-text">
                         <h2 class="animation-box wow bounceIn animated"><strong
                                     class="strong"><?= config("app.name") ?></strong><br>
-                            <span style="font-size: 0.5em;">Split screen visual posts and replies</span>
+                            <span style="font-size: 0.5em;"><?= config("app.slogan") ?></span>
                         </h2>
 
                         <p>
