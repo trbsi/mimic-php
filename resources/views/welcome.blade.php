@@ -114,25 +114,6 @@
 </section>
 <!-- /#header -->
 
-<section class="wrapper" style="background-color: #E7E7E7">
-    <div class="container">
-        <div style="text-align: left;">
-            <p>
-                <span style="font-size: 26px;">With Mimic, you can:</span><br>
-                <ul style="list-style: disc;">
-                    <li>Swipe through posts in the top half of the screen</li>
-                    <li>Swipe through responses to posts in the bottom half of the screen</li>
-                    <li>Add your own photo or video posts and responses</li>
-                    <li>Upvote others</li>
-                    <li>Get as many upvotes as you can and stand out from the crowd</li>
-                </ul>
-                <p>
-                    Use Mimic to show off your skills, ask and answer questions, make others laugh, challenge your friends and more!  Don’t forget to upvote your favorites.
-                </p>
-            </p>
-        </div>
-    </div>
-</section>
 <!-- HHHHHHHHHHHHHHHHHH        Video          HHHHHHHHHHHHHHHH -->
 
 <div id="video" class="wrapper">
