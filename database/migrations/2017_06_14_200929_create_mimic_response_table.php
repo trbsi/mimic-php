@@ -20,6 +20,8 @@ class CreateMimicResponseTable extends Migration
             $table->bigInteger('original_mimic_id');
             $table->string('file', 255);
             $table->string('aws_file', 255)->nullable();
+            $table->string('video_thumb', 255)->nullable();
+            $table->string('aws_video_thumb', 255)->nullable();
             $table->tinyInteger('mimic_type'); //video/picture
             $table->bigInteger('upvote')->default(1);
             $table->softDeletes();

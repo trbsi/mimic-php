@@ -144,6 +144,7 @@ trait MimicTrait
                 'upvote' => $mimic->upvote,
                 'file' => $mimic->file,
                 'file_url' => $mimic->file_url,
+                'video_thumb_url' => $mimic->video_thumb_url,
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
         ];

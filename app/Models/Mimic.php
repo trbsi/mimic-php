@@ -32,7 +32,7 @@ class Mimic extends Model
 
     protected $table = 'mimics';
     protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id', 'width', 'height'];
-    protected $appends = ['file_url'];
+    protected $appends = ['file_url', 'video_thumb_url'];
     protected $casts =
     [
         'id' => 'int',
@@ -49,7 +49,7 @@ class Mimic extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     /**
      * Get file with full path and url
@@ -59,6 +59,20 @@ class Mimic extends Model
     public function getFileUrlAttribute($value)
     {
         return $this->getFileOrPath($this->user_id, $this->file, $this, true);
+    }
+
+    /**
+     * Get video thumb with full path and url
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
+    public function getVideoThumbUrlAttribute($value)
+    {
+        if($this->video_thumb) {
+            return $this->getFileOrPath($this->user_id, $this->video_thumb, $this, true);
+        }
+
+        return null;
     }
 
     /**
