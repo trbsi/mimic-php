@@ -15,7 +15,7 @@ class MimicResponse extends Model
      */
 
     protected $table = 'mimic_response';
-    protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id', 'width', 'height'];
+    protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id', 'width', 'height', 'aws_video_thumb'];
 
     protected $appends = ['file_url'. 'video_thumb_url'];
     protected $casts =

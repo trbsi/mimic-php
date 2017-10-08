@@ -25,9 +25,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $uploadToAws = new UploadToAws;
         $schedule->call(function () {
-            (new UploadToAws)->upload();
+            $uploadToAws->uploadOriginalMimicsToAws();
+            $uploadToAws->uploadResponseMimicsToAws();
         })->everyTenMinutes();
+
     }
 
     /**

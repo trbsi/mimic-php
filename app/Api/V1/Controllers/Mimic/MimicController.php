@@ -14,6 +14,7 @@ use App\Api\V1\Requests\Mimic\AddMimicRequest;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 use DB;
+use Validator;
 
 class MimicController extends BaseAuthController
 {
@@ -119,6 +120,15 @@ class MimicController extends BaseAuthController
      */
     public function uploadVideoThumb(Request $request, FileUpload $fileUpload)
     {
+     
+        $validator = Validator::make($request->all(), [
+            'video_thumb' => 'required|file',
+        ]);
+
+        if ($validator->fails()) {
+            abort(400, trans('validation.choose_image_or_video'));
+        }
+
         DB::beginTransaction();
         try {
 
@@ -145,7 +155,7 @@ class MimicController extends BaseAuthController
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             DB::rollBack();
-            abort(400, trans('validation.couldnt_upload_video_thumb'));
+            abort(400, $e->getMessage());
         }
     }
 

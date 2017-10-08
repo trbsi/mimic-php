@@ -69,7 +69,7 @@ class FileUpload
     private function uploadToAws($path, $file)
     {
         try {
-            //this is laravel's objec
+            //this is laravel's object
             if(is_object($file)) {
                 $extension = $file->getClientOriginalExtension();
                 $sourceFile = $file->getPathName();
