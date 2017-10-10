@@ -122,7 +122,7 @@ class MimicController extends BaseAuthController
     {
      
         $validator = Validator::make($request->all(), [
-            'video_thumb' => 'required|file',
+            'file' => 'required|file',
         ]);
 
         if ($validator->fails()) {
@@ -142,7 +142,7 @@ class MimicController extends BaseAuthController
             //upload mimic
             //path to upload do: files/user/USER_ID/YEAR/
             $fileName = $fileUpload->upload(
-                $request->file('video_thumb'), 
+                $request->file('file'), 
                 $this->mimic->getFileOrPath($model->user_id, null, $model), 
                 ['image'], 
                 'server'
