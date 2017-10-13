@@ -152,7 +152,7 @@ class MimicController extends BaseAuthController
             $model->save();
 
             DB::commit();
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'video_thumb_url' => $model->video_thumb_url]);
         } catch (\Exception $e) {
             DB::rollBack();
             abort(400, $e->getMessage());
