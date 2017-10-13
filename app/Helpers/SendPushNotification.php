@@ -12,7 +12,7 @@ class SendPushNotification
     // (Android)API access key from Google API's Console.
     private static $API_ACCESS_KEY = 'AIzaSyCl9lkXrA__C7fz9cIui-odn4TPkVsHqC0';
     // (iOS) Private key's passphrase.
-    private static $passphrase = '0000';
+    private static $passphrase = '';
     // (Windows Phone 8) The name of our push channel.
     //private static $channelName = "joashp";
     //------------CHANGED-------------------
@@ -60,10 +60,10 @@ class SendPushNotification
         //------------CHANGED-------------------
         if (App::isLocal()) {
             $applePushGateway = "ssl://gateway.sandbox.push.apple.com:2195";
-            $ckpem = "ios_sandbox.pem";
+            $ckpem = "development.pem";
         } else {
             $applePushGateway = "ssl://gateway.push.apple.com:2195";
-            $ckpem = "ios_production.pem";
+            $ckpem = "production.pem";
         }
         //------------CHANGED-------------------
 
