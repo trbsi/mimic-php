@@ -18,9 +18,10 @@ class MimicsTable extends Seeder
         $rootDir = public_path().'/files/seeds';
         $rii = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($rootDir));
 
-        $files = array(); 
+        $files = []; 
+        $thumb_string = '_video_thumb';
 
-        foreach ($rii as $key=>$file) {
+        foreach ($rii as $path=>$file) {
             if ($file->isDir() || $file->getFileName() == 'hashtags.txt'){ 
                 continue;
             }
@@ -29,8 +30,10 @@ class MimicsTable extends Seeder
             //for example: E:\xampp\htdocs\mimic\public/files/seeds/Beatbox/Beatbom.mp4, you take "Beatbox"
             preg_match('/(?<=\/files\/seeds\/)(.*)(?=\/)/', str_replace("\\", "/", $file->getPathname()), $matches);
 
-            $files[$matches[0]][] = $file->getFileName(); 
-
+            //if you don't fine "_video_thumb" in string include it in array
+            if(strpos($file->getFileName(), $thumb_string) === false ) {
+                $files[$matches[0]][] = $file->getFileName(); 
+            }
         }
 
         //before moving all files to a directore remove old directory
@@ -65,6 +68,14 @@ class MimicsTable extends Seeder
                 $fileName = md5(mt_rand()).'.'.$path_parts['extension'];
                 copy($rootDir.'/'.$dirName.'/'.$file, $path.'/'.$fileName);
 
+                //if this is video file get its thumb, move to another folder and save
+                $videoThumbFileName = null;
+                if($path_parts['extension'] === 'mp4') {
+                    $videoThumbFileName = md5(mt_rand()).'.jpg';
+                    $videoThumbFile = $path_parts['filename'].$thumb_string.".jpg";
+                    copy($rootDir.'/'.$dirName.'/'.$file, $path.'/'.$videoThumbFileName);
+                }
+
                 //insert into database
                 $data = 
                 [
@@ -74,6 +85,7 @@ class MimicsTable extends Seeder
                     'user_id' => $userIdTmp,
                     'created_at' => "$year-$month-$date 12:00:00",
                     'updated_at' => "$year-$month-$date 12:00:00",
+                    'video_thumb' => $videoThumbFileName
                 ];
 
                 if($arrayKey == 0) {
