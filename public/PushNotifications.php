@@ -5,7 +5,7 @@ class PushNotifications {
 	// (Android)API access key from Google API's Console.
 	private static $API_ACCESS_KEY = 'AAAAb8xj5LA:APA91bHa_cDIKzHwBLm3V9B9QJSIqAgX2Z-VbGjsN7quVa2Ve0K4bKJRuXYTwj4v-UbZ_xT0iTG_hesHQiCqtAByc3Kd7bR2GoA9e6aOCqC5_8RwNtm7hx0stCDouQiq-rI0oAFsjUht';
 	// (iOS) Private key's passphrase.
-	private static $passphrase = '0000';
+	private static $passphrase = '';
 	// (Windows Phone 8) The name of our push channel.
         private static $channelName = "joashp";
 	
@@ -89,9 +89,9 @@ class PushNotifications {
 		}
 
         if($sandbox == true)
-        {$gate="ssl://gateway.sandbox.push.apple.com:2195"; $ck='ios_sandbox.pem';}
+        {$gate="ssl://gateway.sandbox.push.apple.com:2195"; $ck='development.pem';}
         else
-        {$gate="ssl://gateway.push.apple.com:2195"; $ck='ios_production.pem';}
+        {$gate="ssl://gateway.push.apple.com:2195"; $ck='production.pem';}
 		$deviceToken = $devicetoken;
 
 		$ctx = stream_context_create();
@@ -117,7 +117,7 @@ class PushNotifications {
 			    'title' => $data['mtitle'],
                 'body' => $data['mdesc'],
 			],
-			'sound' => 'request.wav'
+			'sound' => 'default'
 		];
         $body["event"]="message";  
         $body["pin_id"] = isset($_GET["pin_id"]) ? (int)$_GET["pin_id"] : 0;

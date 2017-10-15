@@ -4,8 +4,8 @@ require_once('PushNotifications.php');
 
 // Message payload
 $msg_payload = array (
-'mtitle' => 'Test push notification title',
-'mdesc' => 'Test push notification body',
+'mtitle' => 'Dario',
+'mdesc' => 'Sta ima',
 );
 
 // For Android
