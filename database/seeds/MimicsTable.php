@@ -65,15 +65,15 @@ class MimicsTable extends Seeder
                 if(!file_exists($path)) {
                     mkdir($path, 0755, true);
                 }
-                $fileName = md5(mt_rand()).'.'.$path_parts['extension'];
+                $fileName = md5(time().mt_rand()).'.'.$path_parts['extension'];
                 copy($rootDir.'/'.$dirName.'/'.$file, $path.'/'.$fileName);
 
                 //if this is video file get its thumb, move to another folder and save
                 $videoThumbFileName = null;
-                if($path_parts['extension'] === 'mp4') {
-                    $videoThumbFileName = md5(mt_rand()).'.jpg';
+                if(strpos($mime, 'video') !== false) {
+                    $videoThumbFileName = md5(time().mt_rand()).'.jpg';
                     $videoThumbFile = $path_parts['filename'].$thumb_string.".jpg";
-                    copy($rootDir.'/'.$dirName.'/'.$file, $path.'/'.$videoThumbFileName);
+                    copy($rootDir.'/'.$dirName.'/'.$videoThumbFile, $path.'/'.$videoThumbFileName);
                 }
 
                 //insert into database
