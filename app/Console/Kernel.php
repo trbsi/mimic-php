@@ -5,6 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Helpers\Cron\UploadToAws;
+use App\Helpers\Cron\FakeUsername;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,10 +27,16 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $uploadToAws = new UploadToAws;
+        $fakeUsername = new FakeUsername;
+
         $schedule->call(function () {
             $uploadToAws->uploadOriginalMimicsToAws();
             $uploadToAws->uploadResponseMimicsToAws();
         })->everyTenMinutes();
+
+        $schedule->call(function () {
+            $fakeUsername->adjustMimicUpvoteAndUsername();
+        })->everyFiveMinutes();
 
     }
 
