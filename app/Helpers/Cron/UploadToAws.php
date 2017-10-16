@@ -7,6 +7,8 @@ use App\Helpers\FileUpload;
 
 class UploadToAws
 {
+    const LIMIT = 5;
+
     /**
      * Upload original mimic to aws
      */
@@ -16,7 +18,7 @@ class UploadToAws
         $fileUpload = new FileUpload;
 
         //get 2 mimics where aws_file is null
-        foreach (Mimic::whereNull('aws_file')->limit(3)->get() as $model) {
+        foreach (Mimic::whereNull('aws_file')->limit(self::LIMIT)->get() as $model) {
             $this->upload($model, $mimic, $fileUpload);
         }
     }
@@ -30,7 +32,7 @@ class UploadToAws
         $fileUpload = new FileUpload;
 
         //get 2 mimics where aws_file is null
-        foreach (MimicResponse::whereNull('aws_file')->limit(3)->get() as $model) {
+        foreach (MimicResponse::whereNull('aws_file')->limit(self::LIMIT)->get() as $model) {
             $this->upload($model, $mimic, $fileUpload);
         }
     }

@@ -181,6 +181,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +235,8 @@ return [
          * Package Facades...
          */
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

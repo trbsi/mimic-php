@@ -15,10 +15,13 @@ trait MimicTrait
      * @param  string $file Mimic file
      * @return string Path to a file or a folder of a mimic
      */
-    public function getFileOrPath($user_id, $file = null, $model = null, $includeDomain = false)
+    public function getFileOrPath($user_id, $file = null, $model = null, $includeDomain = false, $includeRoot = false)
     {
+        $prependPath = false;
         if ($includeDomain) {
-            $includeDomain = env('APP_URL');
+            $prependPath = env('APP_URL');
+        } else if ($includeRoot) {
+            $prependPath = public_path();
         }
 
         if ($model != null) {
@@ -29,7 +32,7 @@ trait MimicTrait
             $m = date("m");
         }
 
-        return $includeDomain . Mimic::FILE_PATH . $user_id . "/" . $Y . "/" . $m . "/" . $file;
+        return $prependPath . Mimic::FILE_PATH . $user_id . "/" . $Y . "/" . $m . "/" . $file;
     }
 
     /**

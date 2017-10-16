@@ -26,20 +26,22 @@ class FakeUsername
         $adminIDs = User::whereRaw($emailQuery)->pluck('id')->toArray();
         $adminIDs = implode(", ", $adminIDs);
 
+        $query = 'created_at >= DATE_SUB(NOW(), INTERVAL 1 HOUR) AND user_id IN ('.$adminIDs.')';
+
         //find all mimics where id is admin id and update user_id and upvote
-        $results = Mimic::whereRaw('created_at >= DATE_SUB(NOW(), INTERVAL 1 HOUR) AND user_id IN ('.$adminIDs.')')->get();
+        $results = Mimic::whereRaw($query)->get();
 
         foreach ($results as $result) {
-           $result->user_id = rand(1,95);
+           $result->user_id = rand(1, 95);
            $result->upvote = rand(1, 103);
            $result->save();
         }
 
         //find all mimic responses where id is admin id and update user_id and upvote
-        $results = MimicResponse::whereRaw('created_at >= DATE_SUB(NOW(), INTERVAL 1 HOUR) AND user_id IN ('.$adminIDs.')')->get();
+        $results = MimicResponse::whereRaw($query)->get();
 
         foreach ($results as $result) {
-           $result->user_id = rand(1,95);
+           $result->user_id = rand(1, 95);
            $result->upvote = rand(1, 103);
            $result->save();
         }

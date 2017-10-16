@@ -6,6 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Helpers\Cron\UploadToAws;
 use App\Helpers\Cron\FakeUsername;
+use App\Helpers\Cron\ResizeImages;
 
 class Kernel extends ConsoleKernel
 {
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $uploadToAws = new UploadToAws;
         $fakeUsername = new FakeUsername;
+        $resizeImages = new ResizeImages;
 
         $schedule->call(function () {
             $uploadToAws->uploadOriginalMimicsToAws();
@@ -36,6 +38,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
             $fakeUsername->adjustMimicUpvoteAndUsername();
+            $resizeImages->resizeImages();
         })->everyFiveMinutes();
 
     }
