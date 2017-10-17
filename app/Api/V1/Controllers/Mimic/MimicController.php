@@ -41,7 +41,7 @@ class MimicController extends BaseAuthController
         DB::beginTransaction();
         try {
             //@TODO REMOVE - fake user
-            if(!in_array($this->authUser->email, ["dario.trbovic@yahoo.com", "traksy_dt@yahoo.com"])) {
+            if(!in_array($this->authUser->email, ["dario.trbovic@yahoo.com"])) {
                 $user = $this->authUser;
             } else {
                 $user = $this->user->find(rand(1, 95));
