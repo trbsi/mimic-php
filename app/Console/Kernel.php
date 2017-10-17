@@ -26,16 +26,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $data1 = ['uploadToAws' => new UploadToAws];
-        $data2 = ['fakeMimicData' => new FakeMimicData];
-
+        $data1 = ['uploadToAws' => new UploadToAws, 'fakeMimicData' => new FakeMimicData];
+        
         $schedule->call(function () use ($data1) {
             $data1['uploadToAws']->uploadOriginalMimicsToAws();
             $data1['uploadToAws']->uploadResponseMimicsToAws();
-        })->everyTenMinutes();
-
-        $schedule->call(function () use ($data2) {
-            $data2['fakeMimicData']->adjustMimicData();
+            $data1['fakeMimicData']->adjustMimicData();
         })->everyFiveMinutes();
 
     }
