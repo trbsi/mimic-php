@@ -17,10 +17,9 @@ class ProfileController extends BaseAuthController
     {
         try {
             //if this is set user is accessing other user's profile
-            if($request->id) {
+            if ($request->id) {
                 $id = $request->id;
-            } 
-            //user is accessing his own profile
+            } //user is accessing his own profile
             else {
                 $id = $this->authUser->id;
             }

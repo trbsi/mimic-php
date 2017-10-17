@@ -41,7 +41,7 @@ class User extends Authenticatable
      * Format "followers" attribute
      * @param  integer $value "followers" attribute
      */
-    public function getFollowersAttribute($value) 
+    public function getFollowersAttribute($value)
     {
         return $this->customNumberFormat($value);
     }
@@ -50,7 +50,7 @@ class User extends Authenticatable
      * Format "following" attribute
      * @param  integer $value "following" attribute
      */
-    public function getFollowingAttribute($value) 
+    public function getFollowingAttribute($value)
     {
         return $this->customNumberFormat($value);
     }
@@ -59,7 +59,7 @@ class User extends Authenticatable
      * Format "number_of_mimics" attribute
      * @param  integer $value "number_of_mimics" attribute
      */
-    public function getNumberOfMimicsAttribute($value) 
+    public function getNumberOfMimicsAttribute($value)
     {
         return $this->customNumberFormat($value);
     }
@@ -102,7 +102,7 @@ class User extends Authenticatable
 
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
 
-            return abort(404, 'token_expired'); 
+            return abort(404, 'token_expired');
 
         } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
 
@@ -124,7 +124,8 @@ class User extends Authenticatable
      * @param  integer $precision [description]
      * @return [type]             [description]
      */
-    private function customNumberFormat($n, $precision = 0) {
+    private function customNumberFormat($n, $precision = 0)
+    {
         if ($n < 1000) {
             // Anything less than a million
             $n_format = number_format($n);

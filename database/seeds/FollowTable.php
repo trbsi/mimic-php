@@ -16,17 +16,14 @@ class FollowTable extends Seeder
         $numberOfUsers = $user->count();
         for ($i = 1; $i <= 200; $i++) {
             $insert =
-            [
-                'followed_by' => rand(1, $numberOfUsers),
-                'following' => rand(1, $numberOfUsers),
-            ];
+                [
+                    'followed_by' => rand(1, $numberOfUsers),
+                    'following' => rand(1, $numberOfUsers),
+                ];
 
-            try
-            {
+            try {
                 $follow->create($insert);
-            }
-            catch(\Exception $e)
-            {
+            } catch (\Exception $e) {
                 //var_dump($e->getMessage());
             }
         }
@@ -35,7 +32,7 @@ class FollowTable extends Seeder
         foreach ($user->all() as $user) {
             $followers = $follow->where('following', $user->id)->count();  //number of followers
             $following = $follow->where('followed_by', $user->id)->count(); //number of user I'm following
-       
+
             $user->update(['following' => $following, 'followers' => $followers]);
         }
     }

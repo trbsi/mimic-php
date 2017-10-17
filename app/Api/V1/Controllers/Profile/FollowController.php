@@ -44,7 +44,7 @@ class FollowController extends BaseAuthController
      */
     public function followers(Request $request, User $user)
     {
-        if($request->user_id) {
+        if ($request->user_id) {
             $user_id = $request->user_id;
         } else {
             $user_id = $this->authUser->id;
@@ -58,7 +58,7 @@ class FollowController extends BaseAuthController
      */
     public function following(Request $request, User $user)
     {
-        if($request->user_id) {
+        if ($request->user_id) {
             $user_id = $request->user_id;
         } else {
             $user_id = $this->authUser->id;

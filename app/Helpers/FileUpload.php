@@ -70,11 +70,10 @@ class FileUpload
     {
         try {
             //this is laravel's object
-            if(is_object($file)) {
+            if (is_object($file)) {
                 $extension = $file->getClientOriginalExtension();
                 $sourceFile = $file->getPathName();
-            } 
-            //this is string path to a file
+            } //this is string path to a file
             else {
                 $extension = pathinfo($file, PATHINFO_EXTENSION);
                 $sourceFile = $file;
@@ -83,7 +82,7 @@ class FileUpload
             $this->s3client = new S3Client([
                 'version' => 'latest',
                 'region' => 'us-east-2',
-                'http'    => [
+                'http' => [
                     'verify' => false
                 ],
                 'credentials' => [

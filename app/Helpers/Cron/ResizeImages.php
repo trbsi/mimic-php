@@ -6,7 +6,7 @@ use App\Models\Mimic;
 use App\Models\MimicResponse;
 
 class ResizeImages
-{   
+{
     /**
      * Fake mimic's user and upvote
      */
@@ -33,11 +33,11 @@ class ResizeImages
     /**
      * Resize and lower quality of an image
      * @param  object $model Mimic or MimicResponse model
-     * @param  string $file  This is name of an image to get path to
+     * @param  string $file This is name of an image to get path to
      */
     private function resizeAndLowerQuality($model, $file = null)
     {
-        if($file === null) {
+        if ($file === null) {
             $tmpFile = $model->file;
         } else {
             $tmpFile = $file;
@@ -56,7 +56,7 @@ class ResizeImages
         $img->save($imagePath, 60);
 
         //if there is video thumbnail for video, upload ti also
-        if($model->video_thumb && $file === null) {
+        if ($model->video_thumb && $file === null) {
             $this->resizeAndLowerQuality($model, $model->video_thumb);
         }
     }

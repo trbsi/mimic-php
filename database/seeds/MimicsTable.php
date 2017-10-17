@@ -15,14 +15,14 @@ class MimicsTable extends Seeder
     {
         $users = $user->count();
 
-        $rootDir = public_path().'/files/seeds';
+        $rootDir = public_path() . '/files/seeds';
         $rii = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($rootDir));
 
-        $files = []; 
+        $files = [];
         $thumb_string = '_video_thumb';
 
-        foreach ($rii as $path=>$file) {
-            if ($file->isDir() || $file->getFileName() == 'hashtags.txt'){ 
+        foreach ($rii as $path => $file) {
+            if ($file->isDir() || $file->getFileName() == 'hashtags.txt') {
                 continue;
             }
 
@@ -31,71 +31,69 @@ class MimicsTable extends Seeder
             preg_match('/(?<=\/files\/seeds\/)(.*)(?=\/)/', str_replace("\\", "/", $file->getPathname()), $matches);
 
             //if you don't fine "_video_thumb" in string include it in array
-            if(strpos($file->getFileName(), $thumb_string) === false ) {
-                $files[$matches[0]][] = $file->getFileName(); 
+            if (strpos($file->getFileName(), $thumb_string) === false) {
+                $files[$matches[0]][] = $file->getFileName();
             }
         }
 
         //before moving all files to a directore remove old directory
-        $this->delDir(public_path().'/files/user');
+        $this->delDir(public_path() . '/files/user');
 
         //main mimic and its creator
         $mainUserId = 1;
         //$dirName = Beatbox, HappyDogs, Muscles...
-        foreach ($files as $dirName => $filesTmp) { 
+        foreach ($files as $dirName => $filesTmp) {
             $mimicResponses = [];
             $year = "1970";
             $month = $date = "01";
             foreach ($filesTmp as $arrayKey => $file) {
                 //get file info
                 $path_parts = pathinfo($file);
-                $mime = mime_content_type($rootDir.'/'.$dirName.'/'.$file); 
+                $mime = mime_content_type($rootDir . '/' . $dirName . '/' . $file);
 
                 //main mimic
-                if($arrayKey == 0) {
+                if ($arrayKey == 0) {
                     $userIdTmp = $mainUserId;
-                } 
-                //response mimic
+                } //response mimic
                 else {
                     $userIdTmp = rand($mainUserId, $users);
                 }
 
                 //copy files to another directory
-                $path = public_path().'/files/user/'.$userIdTmp.'/'.$year.'/'.$month;
-                if(!file_exists($path)) {
+                $path = public_path() . '/files/user/' . $userIdTmp . '/' . $year . '/' . $month;
+                if (!file_exists($path)) {
                     mkdir($path, 0755, true);
                 }
-                $fileName = md5(time().mt_rand()).'.'.$path_parts['extension'];
-                copy($rootDir.'/'.$dirName.'/'.$file, $path.'/'.$fileName);
+                $fileName = md5(time() . mt_rand()) . '.' . $path_parts['extension'];
+                copy($rootDir . '/' . $dirName . '/' . $file, $path . '/' . $fileName);
 
                 //if this is video file get its thumb, move to another folder and save
                 $videoThumbFileName = null;
-                if(strpos($mime, 'video') !== false) {
-                    $videoThumbFileName = md5(time().mt_rand()).'.jpg';
-                    $videoThumbFile = $path_parts['filename'].$thumb_string.".jpg";
-                    copy($rootDir.'/'.$dirName.'/'.$videoThumbFile, $path.'/'.$videoThumbFileName);
+                if (strpos($mime, 'video') !== false) {
+                    $videoThumbFileName = md5(time() . mt_rand()) . '.jpg';
+                    $videoThumbFile = $path_parts['filename'] . $thumb_string . ".jpg";
+                    copy($rootDir . '/' . $dirName . '/' . $videoThumbFile, $path . '/' . $videoThumbFileName);
                 }
 
                 //insert into database
-                $data = 
-                [
-                    'file' => $fileName,
-                    'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PIC : Mimic::TYPE_VIDEO,
-                    'upvote' => rand(1, 35),
-                    'user_id' => $userIdTmp,
-                    'created_at' => "$year-$month-$date 12:00:00",
-                    'updated_at' => "$year-$month-$date 12:00:00",
-                    'video_thumb' => $videoThumbFileName
-                ];
+                $data =
+                    [
+                        'file' => $fileName,
+                        'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PIC : Mimic::TYPE_VIDEO,
+                        'upvote' => rand(1, 35),
+                        'user_id' => $userIdTmp,
+                        'created_at' => "$year-$month-$date 12:00:00",
+                        'updated_at' => "$year-$month-$date 12:00:00",
+                        'video_thumb' => $videoThumbFileName
+                    ];
 
-                if($arrayKey == 0) {
+                if ($arrayKey == 0) {
                     //create mimic
                     $mainMimic = $mimic->create($data);
                     //add hashtags for this mimic
-                    $mimic->checkHashtags(file_get_contents($rootDir.'/'.$dirName.'/'.'hashtags.txt'), $mainMimic);
-                    
-                } 
-                //response mimic
+                    $mimic->checkHashtags(file_get_contents($rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $mainMimic);
+
+                } //response mimic
                 else {
                     $mimicResponses[] = $data;
                 }
@@ -106,21 +104,22 @@ class MimicsTable extends Seeder
             $mainMimic->mimicResponses()->createMany($mimicResponses);
 
         }
-    
+
     }
 
     /**
-     * delete directory recursively 
+     * delete directory recursively
      * @param  string $dir Path to a directory
      * @return bool
      */
-    public function delDir($dir) { 
-        if(file_exists($dir)) {
-            $files = array_diff(scandir($dir), array('.','..')); 
-            foreach ($files as $file) { 
-                (is_dir("$dir/$file")) ? $this->delDir("$dir/$file") : unlink("$dir/$file"); 
-            } 
-            return rmdir($dir); 
+    public function delDir($dir)
+    {
+        if (file_exists($dir)) {
+            $files = array_diff(scandir($dir), array('.', '..'));
+            foreach ($files as $file) {
+                (is_dir("$dir/$file")) ? $this->delDir("$dir/$file") : unlink("$dir/$file");
+            }
+            return rmdir($dir);
         }
-    } 
+    }
 }

@@ -55,14 +55,14 @@ class MimicController extends BaseAuthController
                 $responseMimic = true;
 
                 //check if mimic has been deleted
-                if(!$this->mimic->find($request->original_mimic_id)) {
+                if (!$this->mimic->find($request->original_mimic_id)) {
                     abort(404, trans('validation.mimic_is_deleted'));
                 }
             }
 
             $file = $request->file('file');
             $mime = $file->getMimeType();
-            
+
             if (strpos($mime, "video") !== false) {
                 $type = Mimic::TYPE_VIDEO;
             } elseif (strpos($mime, "image") !== false) {
@@ -120,7 +120,7 @@ class MimicController extends BaseAuthController
      */
     public function uploadVideoThumb(Request $request, FileUpload $fileUpload)
     {
-     
+
         $validator = Validator::make($request->all(), [
             'file' => 'required|file',
         ]);
@@ -133,7 +133,7 @@ class MimicController extends BaseAuthController
         try {
 
             //get mimic
-            if($request->original_mimic_id) {
+            if ($request->original_mimic_id) {
                 $model = $this->mimic->find($request->original_mimic_id);
             } else {
                 $model = $this->mimicResponse->find($request->response_mimic_id);
@@ -142,9 +142,9 @@ class MimicController extends BaseAuthController
             //upload mimic
             //path to upload do: files/user/USER_ID/YEAR/
             $fileName = $fileUpload->upload(
-                $request->file('file'), 
-                $this->mimic->getFileOrPath($model->user_id, null, $model), 
-                ['image'], 
+                $request->file('file'),
+                $this->mimic->getFileOrPath($model->user_id, null, $model),
+                ['image'],
                 'server'
             );
 
@@ -166,12 +166,12 @@ class MimicController extends BaseAuthController
     public function listMimics(Request $request)
     {
         $mimics = $this->mimic->getMimics($request, $this->authUser);
-        
+
         return response()->json(
-        [
-            'count' => $this->mimic->getMimicCount($request),
-            'mimics' => $this->mimic->getMimicApiResponseContent($mimics),
-        ]);
+            [
+                'count' => $this->mimic->getMimicCount($request),
+                'mimics' => $this->mimic->getMimicApiResponseContent($mimics),
+            ]);
     }
 
     /**
@@ -230,7 +230,7 @@ class MimicController extends BaseAuthController
         }
 
         $model->find($id)->delete();
-        return response()->json(['success' => true]);   
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -239,18 +239,18 @@ class MimicController extends BaseAuthController
      */
     public function getUserMimics(Request $request)
     {
-        if($request->get_responses) {
+        if ($request->get_responses) {
             $model = $this->mimicResponse->with('originalMimic');
         } else {
             $model = $this->mimic;
         }
 
-        if($request->user_id) {
+        if ($request->user_id) {
             $user_id = $request->user_id;
         } else {
             $user_id = $this->authUser->id;
         }
 
-        return response()->json(['mimics' => $model->where('user_id', $user_id)->orderBy('id', 'DESC')->get()]);   
+        return response()->json(['mimics' => $model->where('user_id', $user_id)->orderBy('id', 'DESC')->get()]);
     }
 }

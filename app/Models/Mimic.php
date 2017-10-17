@@ -34,15 +34,15 @@ class Mimic extends Model
     protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id', 'width', 'height', 'aws_video_thumb'];
     protected $appends = ['file_url', 'video_thumb_url'];
     protected $casts =
-    [
-        'id' => 'int',
-        'mimic_type' => 'int',
-        'is_private' => 'boolean',
-        'upvote' => 'int',
-        'user_id' => 'int',
-        'upvoted' => 'int', //this is to check if user upvoted mimic or not
-        'responses_count' => 'int'
-    ];
+        [
+            'id' => 'int',
+            'mimic_type' => 'int',
+            'is_private' => 'boolean',
+            'upvote' => 'int',
+            'user_id' => 'int',
+            'upvoted' => 'int', //this is to check if user upvoted mimic or not
+            'responses_count' => 'int'
+        ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -68,7 +68,7 @@ class Mimic extends Model
      */
     public function getVideoThumbUrlAttribute($value)
     {
-        if($this->video_thumb) {
+        if ($this->video_thumb) {
             return $this->getFileOrPath($this->user_id, $this->video_thumb, $this, true);
         }
 
@@ -100,9 +100,9 @@ class Mimic extends Model
      * @param  Request $request
      * @return int Number of mimics
      */
-    public function getMimicCount($request) 
+    public function getMimicCount($request)
     {
-    	if ($request->user_id) {
+        if ($request->user_id) {
             $count = $this->where("user_id", $request->user_id)->count();
         } //filter by hashtag
         else if ($request->hashtag_id) {
@@ -124,8 +124,8 @@ class Mimic extends Model
      * https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
      * https://stackoverflow.com/questions/31700003/laravel-4-eloquent-relationship-hasmany-limit-records
      * Recent, All Posts on System
-        Following, User only Following, auto-sorted by most recent
-        Popular, All Posts on System, auto-sorted by most upvotes
+     * Following, User only Following, auto-sorted by most recent
+     * Popular, All Posts on System, auto-sorted by most upvotes
      * Order by recent mimics is default
      * @param  Request $request Laravel request
      * @param  Object $authUser Authenitacted user
@@ -146,35 +146,33 @@ class Mimic extends Model
         //filter original mimics by a specific user
         if ($request->user_id) {
             //if a visitor clicks on user's profile and then on one of his mimics, get user's mimics but put the mimic he clicked on as the first in the list
-            if($request->original_mimic_id) {
+            if ($request->original_mimic_id) {
                 $mimics = $mimics->orderBy(DB::raw("$mimicsTable.id=$request->original_mimic_id"), 'DESC');
             }
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
-        } 
-        //filter by hashtag
+        } //filter by hashtag
         else if ($request->hashtag_id) {
             $mimicHashtagTable = (new MimicHashtag)->getTable();
             $mimics = $mimics
                 ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
                 ->where('hashtag_id', $request->hashtag_id);
-        }    
-        //default is to get mimics from people you follow and then every other recent
+        } //default is to get mimics from people you follow and then every other recent
         else {
             $followTable = (new Follow)->getTable();
             $mimics = $mimics
-                ->leftJoin($followTable, function($join) use($followTable, $mimicsTable, $authUser) {
+                ->leftJoin($followTable, function ($join) use ($followTable, $mimicsTable, $authUser) {
                     $join->on("$followTable.following", '=', "$mimicsTable.user_id");
                     $join->where('followed_by', $authUser->id);
                 })
-            	->orderBy(DB::raw("IF(ISNULL(follow.following) = 0 || user_id = $authUser->id, 0, 1)"), 'ASC') //I made this. Keep my mimics and mimics of people I follow in the first place ordered by most recent. After this just order by mimics.id DESC and it will order by most recent but it will keep my mimics and those of people I follow on the top 
-                ;
-                
+                ->orderBy(DB::raw("IF(ISNULL(follow.following) = 0 || user_id = $authUser->id, 0, 1)"), 'ASC') //I made this. Keep my mimics and mimics of people I follow in the first place ordered by most recent. After this just order by mimics.id DESC and it will order by most recent but it will keep my mimics and those of people I follow on the top
+            ;
+
         }
 
         $mimics = $mimics->select("$mimicsTable.*")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
             ->selectRaw("(SELECT COUNT(*) FROM $mimicResponseTable WHERE original_mimic_id = $mimicsTable.id) AS responses_count")
-            ->orderBy($queryData['orderColumn'], $queryData['orderType']) //then order by other recent mimics
+            ->orderBy($queryData['orderColumn'], $queryData['orderType'])//then order by other recent mimics
             ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
             ->offset($queryData['offset'])
             ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable, $request) {
@@ -186,7 +184,7 @@ class Mimic extends Model
 
                 //first order by this specific id then by upvote
                 //if someone clicked on response mimic on user's profile make this response on the first place
-                if($request->response_mimic_id) {
+                if ($request->response_mimic_id) {
                     $query->orderBy(DB::raw("$mimicResponseTable.id=$request->response_mimic_id"), 'DESC');
                 }
                 //load responses by upvotes
@@ -215,10 +213,10 @@ class Mimic extends Model
         preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags);
         foreach ($hashtags[0] as $hashtag) {
             //if length of string is 1 continue becuase this regex catches string even it it's only "#"
-            if(strlen($hashtag) == 1) {
+            if (strlen($hashtag) == 1) {
                 continue;
             }
-            
+
             if (strlen($hashtag) > self::MAX_TAG_LENGTH) {
                 $hashtag = substr($hashtag, 0, self::MAX_TAG_LENGTH);
             }
@@ -289,7 +287,7 @@ class Mimic extends Model
                 );
             }
         } //if this is single item taken with first()
-        else if($mimics instanceof Collection == false && !empty($mimics)) {
+        else if ($mimics instanceof Collection == false && !empty($mimics)) {
 
             $mimicsResponseContent[] = $this->generateContentForMimicResponse
             (

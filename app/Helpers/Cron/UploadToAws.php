@@ -49,13 +49,13 @@ class UploadToAws
         $path = $mimic->getFileOrPath($model->user_id, null, $model);
 
         //ltrim($path, "/") - remove "/" from the beginning of a string. That's how upload to AWS works
-        $url = $fileUpload->upload(public_path().$path.$model->file, ltrim($path, "/"), null, 'aws');
+        $url = $fileUpload->upload(public_path() . $path . $model->file, ltrim($path, "/"), null, 'aws');
 
         //if there is video thumbnail for video, upload ti also
-        if($model->video_thumb) {
-            $videoThumbUrl = $fileUpload->upload(public_path().$path.$model->video_thumb, ltrim($path, "/"), null, 'aws');
+        if ($model->video_thumb) {
+            $videoThumbUrl = $fileUpload->upload(public_path() . $path . $model->video_thumb, ltrim($path, "/"), null, 'aws');
         }
-        
-        $model->update(['aws_file' => $url, 'aws_video_thumb' => $videoThumbUrl]);        
+
+        $model->update(['aws_file' => $url, 'aws_video_thumb' => $videoThumbUrl]);
     }
 }

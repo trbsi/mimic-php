@@ -65,7 +65,7 @@ trait MimicTrait
         $mimicStructure = $this->createMimicArrayStructure($mimic);
 
         //if this is mimic reponse just return that mimic without hashtags or mimic_responses
-        if($mimic instanceof MimicResponse) {
+        if ($mimic instanceof MimicResponse) {
             return $mimicStructure;
         }
 
@@ -137,8 +137,8 @@ trait MimicTrait
     private function createMimicArrayStructure($mimic)
     {
         $extraParams = [];
-        $standardResponse = 
-        [
+        $standardResponse =
+            [
                 'id' => $mimic->id,
                 'username' => $mimic->user->username,
                 'profile_picture' => $mimic->user->profile_picture,
@@ -150,9 +150,9 @@ trait MimicTrait
                 'video_thumb_url' => $mimic->video_thumb_url,
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
-        ];
+            ];
 
-        if($mimic instanceof Mimic) {
+        if ($mimic instanceof Mimic) {
             $extraParams['responses_count'] = $mimic->responses_count;
         }
 

@@ -19,14 +19,14 @@ class MimicResponse extends Model
 
     protected $appends = ['file_url', 'video_thumb_url'];
     protected $casts =
-    [
-        'id' => 'int',
-        'mimic_type' => 'int',
-        'upvote' => 'int',
-        'user_id' => 'int',
-        'original_mimic_id' => 'int',
-        'upvoted' => 'int', //this is to check if user upvoted mimic or not
-    ];
+        [
+            'id' => 'int',
+            'mimic_type' => 'int',
+            'upvote' => 'int',
+            'user_id' => 'int',
+            'original_mimic_id' => 'int',
+            'upvoted' => 'int', //this is to check if user upvoted mimic or not
+        ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -34,7 +34,7 @@ class MimicResponse extends Model
      * @var array
      */
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
-    
+
     /**
      * Get file with full path and url
      * @param  [type] $value [description]
@@ -52,7 +52,7 @@ class MimicResponse extends Model
      */
     public function getVideoThumbUrlAttribute($value)
     {
-        if($this->video_thumb) {
+        if ($this->video_thumb) {
             return $this->getFileOrPath($this->user_id, $this->video_thumb, $this, true);
         }
 
@@ -80,7 +80,7 @@ class MimicResponse extends Model
     {
         $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT; //starting offset so you don't show responses you are sending as part of original mimic
         if ($request->page) {
-            $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT * ($request->page); 
+            $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT * ($request->page);
         }
 
         return $this
