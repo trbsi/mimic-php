@@ -18,7 +18,6 @@ class FakeMimicData
         $results = Mimic::whereRaw($query)->get();
 
         foreach ($results as $result) {
-           $result->user_id = rand(1, 95);
            $result->upvote = rand(1, 103);
            $result->save();
         }
@@ -27,7 +26,6 @@ class FakeMimicData
         $results = MimicResponse::whereRaw($query)->get();
 
         foreach ($results as $result) {
-           $result->user_id = rand(1, 95);
            $result->upvote = rand(1, 103);
            $result->save();
         }
