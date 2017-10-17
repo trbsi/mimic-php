@@ -3,6 +3,7 @@ namespace App\Helpers;
 
 use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
+use Image;
 
 class FileUpload
 {
@@ -141,5 +142,37 @@ class FileUpload
         }
 
 
+    }
+
+
+    /**
+     * Resize and lower quality of an image
+     * @param  object $model Mimic or MimicResponse model
+     * @param  string $file This is name of an image to get path to
+     */
+    public function resizeAndLowerQuality($model, $file = null)
+    {
+        if ($file === null) {
+            $tmpFile = $model->file;
+        } else {
+            $tmpFile = $file;
+        }
+
+        $imagePath = $model->getFileOrPath($model->user_id, $tmpFile, $model, false, true);
+        $img = Image::make($imagePath);
+
+        // resize the image to a width of 1600 and constrain aspect ratio (auto height)
+        // prevent possible upsizing
+        $img->resize(1600, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+
+        $img->save($imagePath, 60);
+
+        //if there is video thumbnail for video, upload ti also
+        if ($model->video_thumb && $file === null) {
+            $this->resizeAndLowerQuality($model, $model->video_thumb);
+        }
     }
 }

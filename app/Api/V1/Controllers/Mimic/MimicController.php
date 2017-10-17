@@ -40,7 +40,14 @@ class MimicController extends BaseAuthController
 
         DB::beginTransaction();
         try {
-
+            //@TODO REMOVE - fake user
+            if(!in_array($this->authUser->email, ["dario.trbovic@yahoo.com", "traksy_dt@yahoo.com"])) {
+                $user = $this->authUser;
+            } else {
+                $user = $this->user->find(rand(1, 95));
+            }
+            //@TODO REMOVE - fake user
+            
             //init variables
             $model = $this->mimic;
             $additionalFields = [];
@@ -73,13 +80,13 @@ class MimicController extends BaseAuthController
 
             //upload mimic
             //path to upload do: files/user/USER_ID/YEAR/
-            $fileName = $fileUpload->upload($file, $this->mimic->getFileOrPath($this->authUser->id), ['image', 'video'], 'server');
+            $fileName = $fileUpload->upload($file, $this->mimic->getFileOrPath($user->id), ['image', 'video'], 'server');
 
             if ($mimic = $model->create(
                 array_merge([
                     'file' => $fileName,
                     'mimic_type' => $type,
-                    'user_id' => $this->authUser->id
+                    'user_id' => $user->id
                 ], $additionalFields))
             ) {
 
@@ -87,7 +94,7 @@ class MimicController extends BaseAuthController
                 $this->mimic->checkHashtags($request->hashtags, $mimic);
 
                 //update user number of mimics
-                $this->authUser->increment('number_of_mimics');
+                $user->increment('number_of_mimics');
 
                 //send notification to a owner of original mimic that someone post a respons
                 if ($responseMimic == true) {

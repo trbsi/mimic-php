@@ -46,6 +46,10 @@ class UploadToAws
     private function upload($model, $mimic, $fileUpload)
     {
         $videoThumbUrl = null;
+        
+        //resize all images include video thumb
+        $fileUpload->resizeAndLowerQuality($model);
+
         $path = $mimic->getFileOrPath($model->user_id, null, $model);
 
         //ltrim($path, "/") - remove "/" from the beginning of a string. That's how upload to AWS works
