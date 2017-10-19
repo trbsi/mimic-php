@@ -32,4 +32,14 @@ class ProfileController extends BaseAuthController
             abort(404, trans('core.user.user_not_found'));
         }
     }
+
+    /**
+     * Report user
+     * @param  Request $request [description]
+     */
+    public function blockUser(Request $request)
+    {
+        //$request->user_id -> who to block
+        return response()->json(['success' => true]);
+    }
 }

@@ -26,10 +26,12 @@ $api->version('v1', function (Router $api) {
                 $api->post('upvote', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@upvote']);
                 $api->delete('delete', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@delete']);
                 $api->get('user-mimics', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@getUserMimics']);
+                $api->post('report', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@reportMimic']);
             });
 
             $api->group(['prefix' => 'profile'], function (Router $api) {
                 $api->get('user', ['uses' => 'App\Api\V1\Controllers\Profile\ProfileController@userProfile']);
+                $api->post('block', ['uses' => 'App\Api\V1\Controllers\Profile\ProfileController@blockUser']);
                 $api->post('follow', ['uses' => 'App\Api\V1\Controllers\Profile\FollowController@followUser']);
                 $api->get('followers', ['uses' => 'App\Api\V1\Controllers\Profile\FollowController@followers']);
                 $api->get('following', ['uses' => 'App\Api\V1\Controllers\Profile\FollowController@following']);

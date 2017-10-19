@@ -260,4 +260,14 @@ class MimicController extends BaseAuthController
 
         return response()->json(['mimics' => $model->where('user_id', $user_id)->orderBy('id', 'DESC')->get()]);
     }
+
+    /**
+     * Report mimic
+     * @param  Request $request [description]
+     */
+    public function reportMimic(Request $request)
+    {
+        //$request->original_mimic_id
+        return response()->json(['success' => true]);
+    }
 }
