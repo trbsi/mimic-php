@@ -152,27 +152,37 @@ class FileUpload
      */
     public function resizeAndLowerQuality($model, $file = null)
     {
-        if ($file === null) {
+        
+        try{
+            if ($file === null) {
             $tmpFile = $model->file;
-        } else {
-            $tmpFile = $file;
+            } else {
+                $tmpFile = $file;
+            }
+
+            $imagePath = $model->getFileOrPath($model->user_id, $tmpFile, $model, false, true);
+            $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $imagePath);
+
+            if (strpos($mime, 'image') !== false) {
+                $img = Image::make($imagePath);
+
+                // resize the image to a width of 1600 and constrain aspect ratio (auto height)
+                // prevent possible upsizing
+                $img->resize(1600, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+
+                $img->save($imagePath, 60);
+            }
+
+            //if there is video thumbnail for video, upload it also
+            if ($model->video_thumb && $file === null) {
+                $this->resizeAndLowerQuality($model, $model->video_thumb);
+            }
+        } catch (\Exception $e) {
+            //do something here
         }
-
-        $imagePath = $model->getFileOrPath($model->user_id, $tmpFile, $model, false, true);
-        $img = Image::make($imagePath);
-
-        // resize the image to a width of 1600 and constrain aspect ratio (auto height)
-        // prevent possible upsizing
-        $img->resize(1600, null, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
-
-        $img->save($imagePath, 60);
-
-        //if there is video thumbnail for video, upload ti also
-        if ($model->video_thumb && $file === null) {
-            $this->resizeAndLowerQuality($model, $model->video_thumb);
-        }
+        
     }
 }
