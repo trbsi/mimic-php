@@ -155,7 +155,7 @@ class FileUpload
         
         try{
             if ($file === null) {
-            $tmpFile = $model->file;
+                $tmpFile = $model->file;
             } else {
                 $tmpFile = $file;
             }
