@@ -212,6 +212,7 @@ class MimicController extends BaseAuthController
             $model->increment('upvote');
             $model->userUpvotes()->attach($this->authUser->id);
             DB::commit();
+            $this->mimic->sendMimicNotification($model, Constants::PUSH_TYPE_UPVOTE, ['authUser' => $this->authUser]);
             return response()->json(['type' => 'upvoted']);
         } //downvote
         catch (\Exception $e) {

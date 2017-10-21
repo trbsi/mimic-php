@@ -23,6 +23,10 @@ return
         [
             'respond_to_mimic_title' => 'Respond to new mimic',
             'respond_to_mimic_body' => ':user come and respond to my mimic! - :owner',
+
+            'upvote_mimic_title' => 'New upvote',
+            'upvote_mimic_body' => ':user upvoted your Mimic!',
+
             'new_response_title' => 'New response',
             'new_response_body' => ':user has just responded to your Mimic. Check it out!'
         ],

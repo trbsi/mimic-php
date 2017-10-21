@@ -304,8 +304,9 @@ class Mimic extends Model
      * send various notification to a user
      * @param model $model Mimic/MimicResponse model
      * @param  string $type What kind of notification to send
+     * @param array $data Array of some extra data
      */
-    public function sendMimicNotification($model, $type)
+    public function sendMimicNotification($model, $type, $data = [])
     {
         $data =
             [
@@ -313,9 +314,13 @@ class Mimic extends Model
                 'sound' => 'default',
             ];
 
-        if ($type == Constants::PUSH_TYPE_NEW_RESPONSE) {
+        if ($type === Constants::PUSH_TYPE_NEW_RESPONSE) {
             $data['title'] = trans('core.notifications.new_response_title');
             $data['body'] = trans('core.notifications.new_response_body', ['user' => $model->user->username]);
+            $user_id = $model->user_id;
+        } else if($type === Constants::PUSH_TYPE_UPVOTE) {
+            $data['title'] = trans('core.notifications.upvote_mimic_title');
+            $data['body'] = trans('core.notifications.upvote_mimic_body', ['user' => $data['authUser']->username]);
             $user_id = $model->user_id;
         }
 
