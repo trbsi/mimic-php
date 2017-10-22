@@ -316,7 +316,7 @@ class Mimic extends Model
 
         if ($type === Constants::PUSH_TYPE_NEW_RESPONSE) {
             $data['title'] = trans('core.notifications.new_response_title');
-            $data['body'] = trans('core.notifications.new_response_body', ['user' => $model->user->username]);
+            $data['body'] = trans('core.notifications.new_response_body', ['user' => $extra['authUser']->username]);
             $user_id = $model->user_id;
         } else if($type === Constants::PUSH_TYPE_UPVOTE) {
             $data['title'] = trans('core.notifications.upvote_mimic_title');
