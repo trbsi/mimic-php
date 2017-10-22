@@ -91,14 +91,14 @@ class MimicController extends BaseAuthController
             ) {
 
                 //check for hashtags
-                $this->mimic->checkHashtags($request->hashtags, $mimic, ['authUser' => $this->authUser]);
+                $this->mimic->checkHashtags($request->hashtags, $mimic);
 
                 //update user number of mimics
                 $user->increment('number_of_mimics');
 
                 //send notification to a owner of original mimic that someone post a respons
                 if ($responseMimic == true) {
-                    $this->mimic->sendMimicNotification($mimic->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE);
+                    $this->mimic->sendMimicNotification($mimic->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, ['authUser' => $this->authUser]);
                 }
 
                 //@TODO-TagUsers (still in progress and needs to be tested)
