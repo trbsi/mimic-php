@@ -238,6 +238,10 @@ class MimicController extends BaseAuthController
         }
 
         $model->find($id)->delete();
+
+        //decrease number of mimics for this user
+        $this->authUser->decrement('number_of_mimics');
+        
         return response()->json(['success' => true]);
     }
 
