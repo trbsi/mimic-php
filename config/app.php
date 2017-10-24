@@ -13,7 +13,7 @@ return [
     */
 
     'name' => 'Mimic',
-    'slogan' => 'Split screen visual posts and replies',
+    'slogan' => 'Challenge people to copy your moves!', //'Split screen visual posts and replies',
 
     /*
     |--------------------------------------------------------------------------

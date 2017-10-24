@@ -35,10 +35,10 @@
     <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <meta property="og:image" content="<?= env('APP_URL') ?>/img/phone.png"/>
-    <meta property="og:title" content="<?= config("app.name") ?> - split your world"/>
+    <meta property="og:title" content="<?= config("app.name") ?> - split screen fn"/>
     <meta property="og:url" content="<?= env('APP_URL') ?>"/>
     <meta property="og:site_name" content="<?= config("app.name") ?>"/>
-    <meta property="og:description" content="Post your short video or a photo and watch other people respond to it"/>
+    <meta property="og:description" content="Challenge people to copy your moves!"/>
 
     <script src="js/modernizr.custom.js"></script>
 
