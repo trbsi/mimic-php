@@ -115,7 +115,7 @@
 <!-- /#header -->
 
 <!-- HHHHHHHHHHHHHHHHHH        Video          HHHHHHHHHHHHHHHH -->
-
+<?php /*
 <div id="video" class="wrapper">
     <div class="container">
         <h2 class=""><?= config("app.name") ?> Video</h2>
@@ -129,7 +129,7 @@
     <!-- /.container -->
 </div>
 <!-- /#video -->
-
+*/?>
 <!-- HHHHHHHHHHHHHHHHHH      Screenshots    HHHHHHHHHHHHHHHH -->
 
 <section id="gallery" class="wrapper">
