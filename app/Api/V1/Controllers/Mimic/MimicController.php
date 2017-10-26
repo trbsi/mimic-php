@@ -98,7 +98,7 @@ class MimicController extends BaseAuthController
 
                 //send notification to a owner of original mimic that someone post a respons
                 if ($responseMimic == true) {
-                    $this->mimic->sendMimicNotification($mimic->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, ['authUser' => $this->authUser]);
+                    $this->mimic->sendMimicNotification($mimic->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, ['authUser' => $user]);
                 }
 
                 //@TODO-TagUsers (still in progress and needs to be tested)
