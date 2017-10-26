@@ -41,11 +41,7 @@ class MimicController extends BaseAuthController
         DB::beginTransaction();
         try {
             //@TODO REMOVE - fake user
-            if(!in_array($this->authUser->email, ["dario.trbovic@yahoo.com"])) {
-                $user = $this->authUser;
-            } else {
-                $user = $this->user->find(rand(1, 95));
-            }
+            $user = $this->getUser();
             //@TODO REMOVE - fake user
             
             //init variables
@@ -198,6 +194,10 @@ class MimicController extends BaseAuthController
      */
     public function upvote(Request $request)
     {
+        //@TODO REMOVE - fake user
+        $user = $this->getUser();
+        //@TODO REMOVE - fake user
+        
         if ($request->original_mimic_id) {
             $model = $this->mimic;
             $id = $request->original_mimic_id;
@@ -205,20 +205,22 @@ class MimicController extends BaseAuthController
             $model = $this->mimicResponse;
             $id = $request->response_mimic_id;
         }
+
         DB::beginTransaction();
         $model = $model->find($id);
+
         //try to upvote
         try {
             $model->increment('upvote');
-            $model->userUpvotes()->attach($this->authUser->id);
+            $model->userUpvotes()->attach($user->id);
             DB::commit();
-            $this->mimic->sendMimicNotification($model, Constants::PUSH_TYPE_UPVOTE, ['authUser' => $this->authUser]);
+            $this->mimic->sendMimicNotification($model, Constants::PUSH_TYPE_UPVOTE, ['authUser' => $user]);
             return response()->json(['type' => 'upvoted']);
         } //downvote
         catch (\Exception $e) {
             DB::rollBack(); //rollback query inside "try"
             $model->decrement('upvote');
-            $model->userUpvotes()->detach($this->authUser->id);
+            $model->userUpvotes()->detach($user->id);
             return response()->json(['type' => 'downvoted']);
         }
     }
@@ -274,5 +276,19 @@ class MimicController extends BaseAuthController
     {
         //$request->original_mimic_id
         return response()->json(['success' => true]);
+    }
+
+    /**
+     * Fake user if this is my account
+     */
+    private function getUser()
+    {
+        if(!in_array($this->authUser->email, ["dario.trbovic@yahoo.com"])) {
+            $user = $this->authUser;
+        } else {
+            $user = $this->user->find(rand(1, 95));
+        }
+
+        return $user;
     }
 }
