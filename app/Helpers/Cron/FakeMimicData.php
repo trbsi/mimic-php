@@ -12,13 +12,14 @@ class FakeMimicData
      */
     public function adjustMimicData()
     {
-        $query = 'created_at >= DATE_SUB(NOW(), INTERVAL 5 MINUTE) AND (user_id >= 1 AND user_id <= 97)';
+        //$query = 'created_at >= DATE_SUB(NOW(), INTERVAL 5 MINUTE) AND (user_id >= 1 AND user_id <= 97)';
+        $query = 'created_at >= DATE_SUB(NOW(), INTERVAL 5 MINUTE)';
 
         //find all mimics where id is admin id and update user_id and upvote
         $results = Mimic::whereRaw($query)->get();
 
         foreach ($results as $result) {
-           $result->upvote = rand(1, 103);
+           $result->upvote = rand(1, 26);
            $result->save();
         }
 
@@ -26,7 +27,7 @@ class FakeMimicData
         $results = MimicResponse::whereRaw($query)->get();
 
         foreach ($results as $result) {
-           $result->upvote = rand(1, 103);
+           $result->upvote = rand(1, 26);
            $result->save();
         }
         
