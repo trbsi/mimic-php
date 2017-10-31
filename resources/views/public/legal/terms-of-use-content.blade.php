@@ -214,7 +214,7 @@
         hereby grant to <?= config("app.name") ?> a non-exclusive, fully paid and royalty-free,
         transferable, sub-licensable, worldwide license to use the Content
         that you post on or through the Service, subject to the Service's
-        Privacy Policy, available here <A HREF="http://www.gomimic.com/legal/"><SPAN>http://www.gomimic.com/legal/</SPAN></A>,
+        Privacy Policy, available here <A HREF="<?= config('app.official_url') ?>/legal/"><SPAN><?= config('app.official_url') ?>/legal/</SPAN></A>,
         including but not limited to sections 3 (&quot;Sharing of Your
         Information&quot;), 4 (&quot;How We Store Your Information&quot;),
         and 5 (&quot;Your Choices About Your Information&quot;). You can

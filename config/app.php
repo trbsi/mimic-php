@@ -15,6 +15,7 @@ return [
     'name' => 'Mimic',
     'slogan' => 'Challenge people to copy your moves!', //'Split screen visual posts and replies',
     'official_email' => 'hello@hellomimic.com',
+    'official_url' => 'http://www.hellomimic.com',
 
     /*
     |--------------------------------------------------------------------------

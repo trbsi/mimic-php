@@ -21,7 +21,7 @@
     share any of your User Content that you make publicly available
     through the Service, consistent with the terms and conditions of this
     Privacy Policy and our Terms of Use (which can be found at
-    <A HREF="http://www.gomimic.com/terms"><SPAN STYLE="">http://www.gomimic.com/legal</SPAN></A>).
+    <A HREF="<?= config('app.official_url') ?>/terms"><SPAN STYLE=""><?= config('app.official_url') ?>/legal</SPAN></A>).
     Our Privacy Policy applies to all visitors, users, and others who
     access the Service (&quot;Users&quot;).</P>
     <P STYLE="margin-bottom: 0in"><BR>
