@@ -177,7 +177,7 @@
             <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/MimicAppOfficial/" target="_blank"><i
                             class="fa fa-facebook"></i></a></li>
         </ul>
-        EMAIL: hello@gomimic.com
+        EMAIL: <?= config('app.official_email') ?>
     </div>
     <!-- container -->
 </section>

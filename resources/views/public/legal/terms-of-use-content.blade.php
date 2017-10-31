@@ -120,7 +120,7 @@
         terminate the Service or your access to the Service for any reason,
         without notice, at any time, and without liability to you. You can
         deactivate your <?= config("app.name") ?> account by contacting us  via email
-        hello@gomimic.com. If we terminate your access to the Service or you
+        <?= config('app.official_email') ?>. If we terminate your access to the Service or you
         use the form detailed above to deactivate your account, your photos,
         comments, likes, friendships, and all other data will no longer be
         accessible through your account (e.g., users will not be able to

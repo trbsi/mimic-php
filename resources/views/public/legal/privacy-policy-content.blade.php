@@ -403,7 +403,7 @@
     <P STYLE="margin-bottom: 0in"><BR>
     </P>
     <P STYLE="margin-bottom: 0in"><A NAME="_GoBack"></A>QUESTIONS? 
-    Please contact us at <A HREF="mailto:hello@gomimic.com"><SPAN>hello@gomimic.com</SPAN></A>
+    Please contact us at <A HREF="mailto:<?= config('app.official_email') ?>"><SPAN><?= config('app.official_email') ?></SPAN></A>
     if you have questions about our Privacy Policy</P>
 
 </section>
