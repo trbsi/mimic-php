@@ -94,7 +94,7 @@ use App\Helpers\Helper;
                 <div class="navigation" id="navigation-scroll">
                         <div class="row">
                             <div class="col-md-11 col-xs-10">
-                                <a href="index.html"><span id="logo"><strong class="strong">mimicoin</a>
+                                <a href="<?=url('ico')?>"><span id="logo"><strong class="strong">mimicoin</a>
                             </div>
                             <?php /*
                             <div class="col-md-1 col-xs-2">
@@ -133,7 +133,8 @@ use App\Helpers\Helper;
                             <a href="<?= env('IOS_STORE_LINK') ?>" target="_blank" class="btn btn-download wow animated fadeInRight">
                             <i class="fa fa-apple pull-left"></i>
                             <strong>Get it on</strong>
-                            <br/>App store </a>   
+                            <br/>App store </a>
+
                         </div> <!-- /.banner-text -->
                     </div>
                 </div>
@@ -143,6 +144,24 @@ use App\Helpers\Helper;
         <!-- /.container -->
     </section>
     <!-- /#header -->
+
+    <div id="speciality" class="wrapper">
+        <div class="container">
+            <h2 class="animation-box wow bounceIn animated">What is Mimic?</h2>
+            <div class="virticle-line"></div>
+            <div class="circle"></div>
+            <div class="row">
+                <div class="col-sm-12 wow animated fadeInLeft">
+                	Mimic is the first split screen app for teenagers and students <br>
+                	Mimic allows people to copy each other's moves, selfies or any other fun actions thus gaining popularity and followers
+                	<br><br>
+                    <a href="/"><img src="img/favicon/apple-icon-120x120.png" style="max-height: 70px"></a>
+                    <h3><a href="/">TAKE A LOOK</a></h3>
+                </div>
+
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </div> <!-- /#speciality -->
 
     <!-- HHHHHHHHHHHHHHHHHH        Video          HHHHHHHHHHHHHHHH -->
     <div id="video" class="wrapper">
