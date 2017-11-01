@@ -43,4 +43,28 @@ class Helper
                 ];
         }
     }
+    
+    /**
+     * Format numbers, shorten them to K/M/B
+     * @param  [type]  $n         [description]
+     * @param  integer $precision [description]
+     * @return [type]             [description]
+     */
+    public static function numberFormat($n, $precision = 0)
+    {
+        if ($n < 1000) {
+            // Anything less than a million
+            $n_format = number_format($n);
+        } else if ($n < 1000000) {
+            $n_format = number_format($n / 1000, $precision) . 'K';
+        } else if ($n < 1000000000) {
+            // Anything less than a billion
+            $n_format = number_format($n / 1000000, $precision) . 'M';
+        } else {
+            // At least a billion
+            $n_format = number_format($n / 1000000000, $precision) . 'B';
+        }
+
+        return $n_format;
+    }
 }

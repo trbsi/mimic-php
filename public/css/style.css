@@ -3,6 +3,16 @@ HH              Imports
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,100,300,500,700);
+
+@font-face {
+    font-family: 'typo_round_regular_demoRg';
+    src: url('../fonts/typo_round_regular_demo-webfont.woff2') format('woff2'),
+         url('../fonts/typo_round_regular_demo-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 :root {
     --company-color: #f9c21f;
     --gradient-color: #F8BE10;
@@ -20,7 +30,7 @@ body {
 
 .top {
     display: none;
-    background: rgb(81, 255, 182);
+    background: rgb(237, 152, 7);
     color: #fff;
     padding: 5px 10px;
     font-size: 22px;
@@ -227,6 +237,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     display: inline-block;
     padding: 0px;
     float: left;
+    font-family: 'typo_round_regular_demoRg';
 }
 
 a#logo:hover {

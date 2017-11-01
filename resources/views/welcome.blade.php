@@ -58,7 +58,7 @@
                         <a href="/">
                             <img src="img/logo.png" class="img-responsive"
                                  style="max-width: 35px; float: left;margin-right: 20px; padding-top: 10px;">
-                            <span id="logo"><?= config("app.name") ?></span>
+                            <span id="logo"><?= strtolower(config("app.name")) ?></span>
                         </a>
                     </div>
                     <div class="col-md-1 col-xs-2">
@@ -191,6 +191,7 @@
             <li class="hideit"><a href="#video">Video</a></li>
             <li class="hideit"><a href="#gallery">Screenshots</a></li>
             <li class="hideit"><a href="<?= url('legal') ?>">Legal</a></li>
+            <li class="hideit"><a href="<?= url('ico') ?>">ICO</a></li>
         </ul>
     </nav>
 </div>

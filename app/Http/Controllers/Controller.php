@@ -25,4 +25,9 @@ class Controller extends BaseController
     {
         return view("public.legal.legal");
     }
+
+    public function ico()
+    {
+        return view("ico");
+    }
 }
