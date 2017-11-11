@@ -402,7 +402,7 @@ use App\Helpers\Helper;
                 <div class="col-md-2 col-sm-4 col-md-offset-3 wow animated fadeInLeft">
                     <img src="ico-files/img/tonimir.png" alt="team">
                     <h3>Tonimir Kišasondi</h3>
-                    <p>@TODO</p>
+                    <p>Blockchain/Ethereum programmer</p>
                     <div class="img-hover">
                          <ul class="social-icon text-center">
                             <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/tonimir-kisasondi-4022b56/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
@@ -412,7 +412,7 @@ use App\Helpers\Helper;
                 <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">
                     <img src="ico-files/img/domagoj.png" alt="team">
                     <h3>Domagoj Cingula</h3>
-                    <p>@TODO</p>
+                    <p>ICO marketer</p>
                     <div class="img-hover">
                          <ul class="social-icon text-center">
                             <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/domagoj-cingula-b2125273/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
@@ -422,7 +422,7 @@ use App\Helpers\Helper;
                 <div class="col-md-2 col-sm-4 wow animated fadeInRight">
                     <img src="ico-files/img/velimir.png" alt="team">
                     <h3>Velimir Baksa</h3>
-                    <p>@TODOD</p>
+                    <p>Blockchain/Ethereum programmer</p>
                     <div class="img-hover">
                          <ul class="social-icon text-center">
                             <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/velimir-baksa-70382882/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
