@@ -1,9 +1,9 @@
 <?php
 namespace App\Helpers\Cron;
 
-use App\Models\User;
-use App\Models\Mimic;
-use App\Models\MimicResponse;
+use App\Api\V1\User\Models\User;
+use App\Api\V1\Mimic\Models\Mimic;
+use App\Api\V1\Mimic\Models\MimicResponse;
 
 class FakeMimicData
 {

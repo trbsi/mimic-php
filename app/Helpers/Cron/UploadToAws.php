@@ -1,8 +1,8 @@
 <?php
 namespace App\Helpers\Cron;
 
-use App\Models\Mimic;
-use App\Models\MimicResponse;
+use App\Api\V1\Mimic\Models\Mimic;
+use App\Api\V1\Mimic\Models\MimicResponse;
 use App\Helpers\FileUpload;
 
 class UploadToAws
