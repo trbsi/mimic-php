@@ -99,22 +99,22 @@ class MimicResponse extends Model
 
     public function originalMimic()
     {
-        return $this->belongsTo(\App\Models\Mimic::class, 'original_mimic_id', 'id');
+        return $this->belongsTo(\App\Api\V1\Mimic\Models\Mimic::class, 'original_mimic_id', 'id');
     }
 
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'user_id', 'id');
     }
 
     public function userUpvotes()
     {
-        return $this->belongsToMany(\App\Models\User::class, 'mimic_response_upvote', 'mimic_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(\App\Api\V1\User\Models\User::class, 'mimic_response_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
     public function upvotes()
     {
-        return $this->hasMany(\App\Models\MimicResponseUpvote::class, 'mimic_id', 'id');
+        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicResponseUpvote::class, 'mimic_id', 'id');
     }
 
 

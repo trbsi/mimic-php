@@ -4,7 +4,7 @@ namespace App\Api\V1\BaseController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Api\V1\Users\Models\User;
+use App\Api\V1\User\Models\User;
 
 class BaseAuthController extends Controller
 {

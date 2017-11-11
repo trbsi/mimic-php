@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\CoreUser;
 use Illuminate\Database\Seeder;
 
 class UsersTable extends Seeder
@@ -10,7 +10,7 @@ class UsersTable extends Seeder
      *
      * @return void
      */
-    public function run(User $user)
+    public function run(CoreUser $user)
     {
         //get number of folders
         $usernames = include __DIR__ . "/FakeUsernames.php";

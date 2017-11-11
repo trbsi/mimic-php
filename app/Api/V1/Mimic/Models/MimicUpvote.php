@@ -21,12 +21,12 @@ class MimicUpvote extends Model
 
     public function mimic()
     {
-        return $this->belongsTo(\App\Models\Mimic::class, 'mimic_id', 'id');
+        return $this->belongsTo(\App\Api\V1\Mimic\Models\Mimic::class, 'mimic_id', 'id');
     }
 
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'user_id', 'id');
     }
 
 

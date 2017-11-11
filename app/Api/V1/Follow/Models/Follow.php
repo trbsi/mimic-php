@@ -1,5 +1,5 @@
 <?php 
-namespace App\Api\V1\Follow\Models\Follow;
+namespace App\Api\V1\Follow\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,12 +21,12 @@ class Follow extends Model
 
     public function followedBy()
     {
-        return $this->belongsTo(\App\Models\User::class, 'followed_by', 'id');
+        return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'followed_by', 'id');
     }
 
     public function following()
     {
-        return $this->belongsTo(\App\Models\User::class, 'following', 'id');
+        return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'following', 'id');
     }
 
 

@@ -8,36 +8,36 @@ $api = app(Router::class);
 $api->version('v1', function (Router $api) {
 
     $api->group(['middleware' => ['api.global']], function (Router $api) {
-        $api->get('heartbeat', ['uses' => 'App\Api\V1\Controllers\BootstrapController@heartbeat']);
+        $api->get('heartbeat', ['uses' => 'App\Api\V1\BaseController\BootstrapController@heartbeat']);
 
         $api->group(['prefix' => 'auth'], function (Router $api) {
-            $api->post('login', ['uses' => 'App\Api\V1\Controllers\LoginController@login']);
+            $api->post('login', ['uses' => 'App\Api\V1\BaseController\LoginController@login']);
         });
 
         $api->group(['middleware' => ['jwt.auth']], function (Router $api) {
-            $api->post('save-push-token', ['uses' => 'App\Api\V1\Controllers\BootstrapController@updateNotificationToken']);
-            $api->post('set-username', ['uses' => 'App\Api\V1\Controllers\LoginController@setUsername']);
+            $api->post('save-push-token', ['uses' => 'App\Api\V1\BaseController\BootstrapController@updateNotificationToken']);
+            $api->post('set-username', ['uses' => 'App\Api\V1\BaseController\LoginController@setUsername']);
 
             $api->group(['prefix' => 'mimic'], function (Router $api) {
-                $api->post('add', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@addMimic']);
-                $api->post('upload-video-thumb', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@uploadVideoThumb']);
-                $api->get('list', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@listMimics']);
-                $api->get('load-responses', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@loadResponses']);
-                $api->post('upvote', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@upvote']);
-                $api->delete('delete', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@delete']);
-                $api->get('user-mimics', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@getUserMimics']);
-                $api->post('report', ['uses' => 'App\Api\V1\Controllers\Mimic\MimicController@reportMimic']);
+                $api->post('add', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@addMimic']);
+                $api->post('upload-video-thumb', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@uploadVideoThumb']);
+                $api->get('list', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@listMimics']);
+                $api->get('load-responses', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@loadResponses']);
+                $api->post('upvote', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@upvote']);
+                $api->delete('delete', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@delete']);
+                $api->get('user-mimics', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@getUserMimics']);
+                $api->post('report', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@reportMimic']);
             });
 
             $api->group(['prefix' => 'profile'], function (Router $api) {
-                $api->get('user', ['uses' => 'App\Api\V1\Controllers\Profile\ProfileController@userProfile']);
-                $api->post('block', ['uses' => 'App\Api\V1\Controllers\Profile\ProfileController@blockUser']);
-                $api->post('follow', ['uses' => 'App\Api\V1\Controllers\Profile\FollowController@followUser']);
-                $api->get('followers', ['uses' => 'App\Api\V1\Controllers\Profile\FollowController@followers']);
-                $api->get('following', ['uses' => 'App\Api\V1\Controllers\Profile\FollowController@following']);
+                $api->get('user', ['uses' => 'App\Api\V1\Profile\Controllers\ProfileController@userProfile']);
+                $api->post('block', ['uses' => 'App\Api\V1\Profile\Controllers\ProfileController@blockUser']);
+                $api->post('follow', ['uses' => 'App\Api\V1\Follow\Controllers\FollowController@followUser']);
+                $api->get('followers', ['uses' => 'App\Api\V1\Follow\Controllers\FollowController@followers']);
+                $api->get('following', ['uses' => 'App\Api\V1\Follow\Controllers\FollowController@following']);
             });
 
-            $api->get('search', ['uses' => 'App\Api\V1\Controllers\Search\SearchController@search']);
+            $api->get('search', ['uses' => 'App\Api\V1\Search\Controllers\SearchController@search']);
 
         });
     });

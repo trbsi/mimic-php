@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Follow;
+use App\Models\CoreUser;
+use App\Api\V1\Follow\Models\Follow;
 
 class FollowTable extends Seeder
 {
@@ -11,7 +11,7 @@ class FollowTable extends Seeder
      *
      * @return void
      */
-    public function run(User $user, Follow $follow)
+    public function run(CoreUser $user, Follow $follow)
     {
         $numberOfUsers = $user->count();
         for ($i = 1; $i <= 200; $i++) {

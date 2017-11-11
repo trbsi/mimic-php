@@ -330,43 +330,43 @@ class Mimic extends Model
 
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'user_id', 'id');
     }
 
     public function hashtags()
     {
-        return $this->belongsToMany(\App\Models\Hashtag::class, 'mimic_hashtag', 'mimic_id', 'hashtag_id');
+        return $this->belongsToMany(\App\Api\V1\Hashtag\Models\Hashtag::class, 'mimic_hashtag', 'mimic_id', 'hashtag_id');
     }
 
     /*public function users() {
-        return $this->belongsToMany(\App\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
+        return $this->belongsToMany(\App\Api\V1\User\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
     }
 
     public function mimicHashtags() {
-        return $this->hasMany(\App\Models\MimicHashtag::class, 'mimic_id', 'id');
+        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicHashtag::class, 'mimic_id', 'id');
     }
 
     */
 
     public function upvotes()
     {
-        return $this->hasMany(\App\Models\MimicUpvote::class, 'mimic_id', 'id');
+        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicUpvote::class, 'mimic_id', 'id');
     }
 
     public function userUpvotes()
     {
-        return $this->belongsToMany(\App\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(\App\Api\V1\User\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
     public function mimicResponses()
     {
-        return $this->hasMany(\App\Models\MimicResponse::class, 'original_mimic_id', 'id');
+        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicResponse::class, 'original_mimic_id', 'id');
 
     }
 
     public function mimicTagusers()
     {
-        return $this->hasMany(\App\Models\MimicTaguser::class, 'mimic_id', 'id');
+        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicTaguser::class, 'mimic_id', 'id');
     }
 
 }

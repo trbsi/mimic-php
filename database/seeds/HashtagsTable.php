@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Hashtag;
+use App\Api\V1\Hashtag\Models\Hashtag;
 
 class HashtagsTable extends Seeder
 {

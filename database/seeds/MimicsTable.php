@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Mimic;
-use App\Models\User;
+use App\Api\V1\Mimic\Models\Mimic;
+use App\Models\CoreUser;
 
 class MimicsTable extends Seeder
 {
@@ -11,7 +11,7 @@ class MimicsTable extends Seeder
      *
      * @return void
      */
-    public function run(Mimic $mimic, User $user)
+    public function run(Mimic $mimic, CoreUser $user)
     {
         $users = $user->count();
 

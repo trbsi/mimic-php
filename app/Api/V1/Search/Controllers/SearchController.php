@@ -2,7 +2,7 @@
 
 namespace App\Api\V1\Search\Controllers;
 
-use App\Api\V1\Controllers\BaseAuthController;
+use App\Api\V1\BaseController\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Api\V1\Hashtag\Models\Hashtag;
 use App\Api\V1\User\Models\User;
@@ -15,17 +15,17 @@ class SearchController extends BaseAuthController
      * @param  Request $requets
      * @return json Result
      */
-    public function search(Request $request)
+    public function search(Request $request, Hashtag $hashtag, User $user)
     {
         //search hashtags
         if (substr($request->term, 0, 1) == "#") {
-            $table = (new Hashtag)->getTable();
+            $table = $hashtag->getTable();
             $match = 'name';
             $orderBy = 'popularity';
             $term = $request->term;
         } //search users
         else if (substr($request->term, 0, 1) == "@") {
-            $table = (new User)->getTable();
+            $table = $user->getTable();
             $match = $orderBy = 'username';
             $term = substr($request->term, 1);
         } else {

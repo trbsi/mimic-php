@@ -19,12 +19,12 @@ class Hashtag extends Model
 
     public function mimics()
     {
-        return $this->belongsToMany(\App\Models\Mimic::class, 'mimic_hashtag', 'hashtag_id', 'mimic_id');
+        return $this->belongsToMany(\App\Api\V1\Mimic\Models\Mimic::class, 'mimic_hashtag', 'hashtag_id', 'mimic_id');
     }
 
     public function mimicHashtags()
     {
-        return $this->hasMany(\App\Models\MimicHashtag::class, 'hashtag_id', 'id');
+        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicHashtag::class, 'hashtag_id', 'id');
     }
 
 
