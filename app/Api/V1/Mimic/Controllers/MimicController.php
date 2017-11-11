@@ -2,7 +2,7 @@
 
 namespace App\Api\V1\Mimic\Controllers;
 
-use App\Api\V1\BaseController\BaseAuthController;
+use App\Api\V1\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Api\V1\User\Models\User;
 use App\Api\V1\Mimic\Models\Mimic;
