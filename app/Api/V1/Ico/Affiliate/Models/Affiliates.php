@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Api\V1\Ico\Affiliates;
+namespace App\Api\V1\Ico\Affiliate\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

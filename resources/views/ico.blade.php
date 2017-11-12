@@ -78,6 +78,14 @@ use App\Helpers\Helper;
             display: inline-block;
             width: auto;
         }
+
+        .overlay ul li {
+            height: auto;
+        }
+
+        .overlay nav  {
+            font-size: 34px;
+        }
     </style>
 
 </head>
@@ -96,7 +104,7 @@ use App\Helpers\Helper;
                             <div class="col-md-11 col-xs-10">
                                 <a href="<?=url('ico')?>"><span id="logo"><strong class="strong">mimicoin</a>
                             </div>
-                            <?php /*
+                            
                             <div class="col-md-1 col-xs-2">
                                 <p class="nav-button">
                                     <button id="trigger-overlay" type="button">
@@ -104,11 +112,13 @@ use App\Helpers\Helper;
                                     </button>
                                 </p>
                             </div>
-                            */?>
+                            
                         </div><!-- /.row -->
                     </div><!-- /.navigation -->
                 </div><!--/.container-->
             </div><!--/.top-bar-->
+
+
 
         <div class="container">
             <div class="starting vertical-align">
@@ -145,7 +155,41 @@ use App\Helpers\Helper;
     </section>
     <!-- /#header -->
 
-    <div id="speciality" class="wrapper">
+    <div id="redeem_code" class="wrapper">
+        <div class="container text-center">
+            <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Redeem a code</h2>
+            <div class="virticle-line"></div>
+            <div class="circle"></div>
+            <p>
+                Everytime someone invests in Mimic using your code, you'll get a piece of it, more precisely you'll get MimiCoins.
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <label class="sr-only" for="acc_number">Account number (address) e.g. 0x8826f335cEf6222xxxxxxxxxx673ba9B144d164b</label>
+                    <input type="text" class="form-control" id="acc_number" placeholder="Account number">
+                  </div>
+                  <button type="submit" class="btn btn-warning">Redeem a code</button>
+                </form>
+            </p>
+            <p>
+                <h3>Subscibe to newsletter</h3>
+                Don't worry, we'll only send you an email to remind you about when does our ICO start.
+                <br><br>
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                  </div>
+                  <div class="form-group">
+                    <label class="sr-only" for="first_name">Your name</label>
+                    <input type="text" class="form-control" id="first_name" placeholder="Your name">
+                  </div>
+                  <button type="submit" class="btn btn-default">Subscribe</button>
+                </form>
+            </p>
+        </div> <!-- /.container -->
+    </div> <!-- /#video -->
+
+    <div id="speciality2" class="wrapper">
         <div class="container">
             <h2 class="animation-box wow bounceIn animated">What is Mimic?</h2>
             <div class="virticle-line"></div>
@@ -582,9 +626,9 @@ use App\Helpers\Helper;
             </div>
             <ul class="social-icons text-center">
                 <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/HelloMimic/" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                <?php /*
-                <li class="wow animated fadeInRight twitter"><a href="#"><i class="fa fa-twitter"></i></a>
-                <li class="wow animated fadeInLeft linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+               
+                <li class="wow animated fadeInRight twitter"><a href="mailto:<?=config('app.official_email')?>"><i class="fa fa-envelope"></i></a>
+                 <?php /*<li class="wow animated fadeInLeft linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
                 <li class="wow animated fadeInRight googleplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
                 <li class="wow animated fadeInLeft github"><a href="#"><i class="fa fa-github"></i></a>
                 */?>
@@ -608,13 +652,13 @@ use App\Helpers\Helper;
         <button type="button" class="overlay-close">Close</button>
         <nav>
         <ul>
-            <li class="hideit"><a href="#header">Home</a></li>
-            <li class="hideit"><a href="#bigfeatures">Feature</a></li>
-            <li class="hideit"><a href="#speciality">Speciality</a></li>
-            <li class="hideit"><a href="#gallery">Gallery</a></li>
-            <li class="hideit"><a href="#testimonial">Testimonial</a></li>
-            <!-- <li class="hideit"><a href="#team">Team</a></li> -->
-            <li class="hideit"><a href="#contact">Contact Us</a></li>
+            <li class="hideit"><a href="#redeem_code">Reedem a code</a></li>
+            <li class="hideit"><a href="#redeem_code">Newsletter</a></li>
+            <li class="hideit"><a href="#speciality2">What is Mimic</a></li>
+            <li class="hideit"><a href="#video">Countdown</a></li>
+            <li class="hideit"><a href="#speciality">Money raised</a></li>
+            <li class="hideit"><a href="#team">Team</a></li>
+            <li class="hideit"><a href="#footer">Contact Us</a></li>
         </ul>
         </nav>
     </div>

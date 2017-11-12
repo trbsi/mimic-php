@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Api\V1\Ico\Investments;
+namespace App\Api\V1\Ico\Investment\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
