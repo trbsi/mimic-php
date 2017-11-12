@@ -38,8 +38,18 @@ $api->version('v1', function (Router $api) {
             });
 
             $api->get('search', ['uses' => 'App\Api\V1\Search\Controllers\SearchController@search']);
-
         });
+    });
+
+    //ICO
+    $api->group(['prefix' => 'ico'], function (Router $api) {
+        $api->post('generate-affiliate-code', [
+            'uses' => 'App\Api\V1\Ico\Affiliate\Controllers\AffiliateController@generateAffiliateCode', 
+            'as' => 'generate-affiliate-code']);
+        $api->post('save-investment', ['uses' => 'App\Api\V1\Ico\Investment\Controllers\InvestmentController@saveInvestment']);
+        $api->post('newsletter-subscribe', [
+            'uses' => 'App\Api\V1\Ico\Mailing\Controllers\MailingController@saveSubscribedMember', 
+            'as' => 'newsletter-subscribe']);
     });
 
 

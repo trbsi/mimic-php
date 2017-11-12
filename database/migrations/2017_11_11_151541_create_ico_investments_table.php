@@ -17,8 +17,9 @@ class CreateIcoInvestmentsTable extends Migration
             $table->increments('id');
             $table->string('first_name', 100);
             $table->string('last_name', 100);
-            $table->string('account_number', 100)->unique()->comment('Ether wallet account number');
+            $table->string('account_number', 100)->comment('Ether wallet account number');
             $table->string('amount_invested', 100)->comment('In Ethers'); //in ethers
+            $table->string('mimicoin_bought', 100);
             $table->timestamps();
         });
     }
