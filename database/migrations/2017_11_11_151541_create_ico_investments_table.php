@@ -25,8 +25,8 @@ class CreateIcoInvestmentsTable extends Migration
             $table->integer('phase')->nullable();
             $table->string('number_of_eth_to_pay', 100)->nullable()->comment('Amount we get');
             $table->string('other_account_number', 100)->nullable();
-            $table->string('amount_to_send_to_other_account', 100)->nullable();
-            $table->string('amount_to_send_to_investor', 100)->nullable();
+            $table->string('amount_to_send_to_other_account', 100)->nullable()->comment('mimicoins');
+            $table->string('amount_to_send_to_investor', 100)->nullable()->comment('mimicoins');
             $table->timestamps();
 
             $table->foreign('affiliate_id')->references('id')->on('ico_affiliates')->onUpdate('cascade')->onDelete('restrict');

@@ -32,9 +32,10 @@ class Investment extends Model
     		Cache::add('ethereum_price', $ethInfo, 1440); //24hrs
     	}
 
-    	$investedEth = Helper::numberFormat($this->sum('amount_invested'));
+    	$investedEth = $this->sum('number_of_eth_to_pay');
     	$investedUsd = Helper::numberFormat($investedEth * $ethInfo->price_usd);
     	$mimicoins = Helper::numberFormat($this->sum('mimicoins_bought'));
+        $investedEth = Helper::numberFormat($investedEth);
 
     	return compact('investedEth', 'investedUsd', 'mimicoins');
     }
@@ -69,7 +70,7 @@ class Investment extends Model
             $otherAccountNumber = $investmentModel->icoAffiliate->account_number;
         }
         
-        $data = compact('calculateInvestmentBasedOnPhase', 'otherAccountNumber', 'sendToInvestor', 'amountToSendToOtherAccount', 'amountToSendToInvestor');
+        $data = compact('calculateInvestmentBasedOnPhase', 'otherAccountNumber', 'amountToSendToOtherAccount', 'amountToSendToInvestor');
 
         return [
             'phase' => $data['calculateInvestmentBasedOnPhase']['phase'], 
