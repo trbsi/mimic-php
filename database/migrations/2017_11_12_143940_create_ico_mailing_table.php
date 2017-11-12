@@ -14,7 +14,7 @@ class CreateIcoMailingTable extends Migration
     public function up()
     {
         Schema::create('ico_mailings', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigInteger('id', true);
             $table->string('name', 100);
             $table->string('email', 100)->unique();
             $table->timestamps();

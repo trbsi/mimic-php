@@ -14,7 +14,7 @@ class CreateIcoAffiliatesTable extends Migration
     public function up()
     {
         Schema::create('ico_affiliates', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigInteger('id', true);
             $table->string('affiliate_code', 20)->unique();
             $table->string('account_number', 100)->unique()->comment('Ether wallet account number');
             $table->enum('affiliate_type', ['investor', 'guest']);

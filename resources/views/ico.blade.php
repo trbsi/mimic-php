@@ -134,18 +134,18 @@
         <!-- /#header -->
         <div id="redeem_code" class="wrapper">
             <div class="container text-center">
-                <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Redeem a code</h2>
+                <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Redeem affiliate code</h2>
                 <div class="virticle-line"></div>
                 <div class="circle"></div>
+                Everytime someone invests in Mimic using your code, you'll get a piece of action, more precisely you'll get MimiCoins.
                 <p>
-                    Everytime someone invests in Mimic using your code, you'll get a piece of action, more precisely you'll get MimiCoins.
-                <form class="form-inline" id="redeem_code_form" role="form">
-                    <label for="account_number" style="display: block;"><i>Your account number (address) e.g. 0x8826f335cEf6222xxxxxxxxxx673ba9B144d164b</i></label>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg" id="account_number" name="account_number" placeholder="Account number" required>
-                    </div>
-                    <button type="submit" id="redeem_code_btn" class="btn btn-warning btn-lg">Redeem a code</button>
-                </form>
+                    <form class="form-inline" id="redeem_code_form" role="form">
+                        <label for="account_number" style="display: block; font-weight: normal"><i>Your account number (address) e.g. 0x8826f335cEf6222xxxxxxxxxx673ba9B144d164b</i></label>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" id="account_number" name="account_number" placeholder="Account number" required>
+                        </div>
+                        <button type="submit" id="redeem_code_btn" class="btn btn-warning btn-lg">Redeem a code</button>
+                    </form>
                 </p>
                 <p>
                     <div class="alert alert-success" style="display: none" id="redeem_code_success"></div>
@@ -432,7 +432,7 @@
                 <div class="row">
                     <div class="col-md-2 col-sm-4 col-md-offset-3 wow animated fadeInLeft">
                         <img src="ico-files/img/tonimir.png" alt="team">
-                        <h3>Tonimir Kišasondi</h3>
+                        <h3>Tonimir Kisasondi</h3>
                         <p>Blockchain/Ethereum programmer</p>
                         <div class="img-hover">
                             <ul class="social-icon text-center">
