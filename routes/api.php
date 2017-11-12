@@ -50,6 +50,9 @@ $api->version('v1', function (Router $api) {
         $api->post('newsletter-subscribe', [
             'uses' => 'App\Api\V1\Ico\Mailing\Controllers\MailingController@saveSubscribedMember', 
             'as' => 'newsletter-subscribe']);
+        $api->post('save-transaction', ['uses' => 'App\Api\V1\Ico\Investment\Controllers\InvestmentController@saveTransactionId']);
+
+
     });
 
 

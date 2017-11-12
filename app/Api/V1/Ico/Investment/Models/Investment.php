@@ -48,7 +48,8 @@ class Investment extends Model
     public function calculateAffiliateCode($investmentModel)
     {
         $calculateInvestmentBasedOnPhase = $this->calculateInvestmentBasedOnPhase($investmentModel);
-        $otherAccountNumber  = $amountToSendToInvestor = $amountToSendToOtherAccount = null;
+        $amountToSendToInvestor = $investmentModel->mimicoins_bought; 
+        $otherAccountNumber = $amountToSendToOtherAccount = null;
 
         if($investmentModel->icoAffiliate) {
             //refer to: https://docs.google.com/spreadsheets/d/1j1KAHTvt4xMxLtx_pgGbcxYLypbpc62-kmINC1KDeH4/edit?usp=sharing

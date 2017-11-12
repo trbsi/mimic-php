@@ -10,6 +10,12 @@ use DB;
 
 class InvestmentController extends Controller
 {
+	/**
+	 * Save investment
+	 * @param  Request    $request    [description]
+	 * @param  Investment $investment [description]
+	 * @param  Affiliate  $affiliate  [description]
+	 */
 	public function saveInvestment(Request $request, Investment $investment, Affiliate $affiliate)
 	{
 		DB::beginTransaction();
@@ -46,4 +52,16 @@ class InvestmentController extends Controller
             abort(400, trans('core.general.smth_went_wront_body'));
 		}
 	} 
+
+	/**
+	 * Save transaction id
+	 * @param  Request $request
+	 */
+	public function saveTransactionId(Request $request, Investment $investment)
+	{
+		$investmentModel = $investment->find($request->id);
+		$investmentModel->transaction_id = $request->transaction_id;
+		$investmentModel->save();
+		return response()->json(['investment' => $investmentModel->fresh()]);
+	}
 }
