@@ -35,7 +35,7 @@ class InvestmentController extends Controller
 				]);
 			}
 
-			$investmentModel->update($investment->caluculateAffiliateCode($investmentModel));
+			$investmentModel->update($investment->calculateAffiliateCode($investmentModel));
 
 			//return data
 			DB::commit();

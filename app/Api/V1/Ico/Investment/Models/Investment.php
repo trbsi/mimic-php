@@ -45,7 +45,7 @@ class Investment extends Model
      * @param  Model $investmentModel Investment model
      * @return [type] [description]
      */
-    public function caluculateAffiliateCode($investmentModel)
+    public function calculateAffiliateCode($investmentModel)
     {
         $calculateInvestmentBasedOnPhase = $this->calculateInvestmentBasedOnPhase($investmentModel);
         $otherAccountNumber  = $amountToSendToInvestor = $amountToSendToOtherAccount = null;
