@@ -54,22 +54,26 @@ class Investment extends Model
             //refer to: https://docs.google.com/spreadsheets/d/1j1KAHTvt4xMxLtx_pgGbcxYLypbpc62-kmINC1KDeH4/edit?usp=sharing
             if($investmentModel->icoAffiliate->affiliate_type === Affiliate::GUEST) {
                 //send to investor
-                $amountToSendToInvestor = $investmentModel->mimicoins_bought;
+                $amountToSendToInvestor = $investmentModel->mimicoins_bought + $investmentModel->mimicoins_bought * env('ICO_GUEST_PERCENTAGE_SEND_TO_INVESTOR') / 100;
 
                 //send to guest (affiliate account - account who referred investor)
-                $amountToSendToOtherAccount = round($investmentModel->mimicoins_bought * env('ICO_GUEST_PERCENTAGE') / 100);
+                $amountToSendToOtherAccount = round($investmentModel->mimicoins_bought * env('ICO_GUEST_PERCENTAGE_SEND_TO_ANOTHER_ACCOUNT') / 100);
 
             } else if($investmentModel->icoAffiliate->affiliate_type === Affiliate::INVESTOR) {
                 //send to investor
-                $amountToSendToInvestor = $investmentModel->mimicoins_bought + round((env('ICO_INVESTOR_PERCENTAGE') / 100 * $investmentModel->mimicoins_bought));
+                $amountToSendToInvestor = $investmentModel->mimicoins_bought + round((env('ICO_INVESTOR_PERCENTAGE_SEND_TO_INVESTOR') / 100 * $investmentModel->mimicoins_bought));
 
                 //send to another investor
                 $amountToSendToOtherAccount = $investmentModel->mimicoins_bought;
             }
 
             $otherAccountNumber = $investmentModel->icoAffiliate->account_number;
+            $amountToSendToInvestor = round($amountToSendToInvestor);
+            $amountToSendToOtherAccount = round($amountToSendToOtherAccount);
+
         }
         
+
         $data = compact('calculateInvestmentBasedOnPhase', 'otherAccountNumber', 'amountToSendToOtherAccount', 'amountToSendToInvestor');
 
         return [
@@ -109,6 +113,8 @@ class Investment extends Model
             $numberOfEthToPay = $investmentModel->mimicoins_bought * env('ICO_PHASE_3_ETH'); 
             $phase = 3;
         }
+
+        $numberOfEthToPay = round($numberOfEthToPay);
 
         return compact('numberOfEthToPay', 'phase');
     }

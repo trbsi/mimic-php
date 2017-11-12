@@ -15,6 +15,7 @@ class InvestmentController extends Controller
 		DB::beginTransaction();
 		try {
 			//save investment
+			$request['mimicoins_bought'] = round($request->mimicoins_bought);
 			$investmentModel = $investment->create($request->all());
 
 			//check for affiliate code user entered (this is affiliate code of another user)
