@@ -19,6 +19,7 @@ class CreateIcoInvestmentsTable extends Migration
             $table->string('last_name', 100);
             $table->string('investor_account_number', 100)->comment('Ether wallet account number');
             $table->string('mimicoins_bought', 100);
+            $table->string('email', 100);
             $table->bigInteger('affiliate_id')->nullable();
 
             $table->string('transaction_id', 100)->nullable();

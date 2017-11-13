@@ -46,11 +46,17 @@ $api->version('v1', function (Router $api) {
         $api->post('generate-affiliate-code', [
             'uses' => 'App\Api\V1\Ico\Affiliate\Controllers\AffiliateController@generateAffiliateCode', 
             'as' => 'generate-affiliate-code']);
-        $api->post('save-investment', ['uses' => 'App\Api\V1\Ico\Investment\Controllers\InvestmentController@saveInvestment']);
+        $api->post('save-investment', [
+            'uses' => 'App\Api\V1\Ico\Investment\Controllers\InvestmentController@saveInvestment',
+            'as' => 'invest-in-mimic']);
         $api->post('newsletter-subscribe', [
             'uses' => 'App\Api\V1\Ico\Mailing\Controllers\MailingController@saveSubscribedMember', 
             'as' => 'newsletter-subscribe']);
-        $api->post('save-transaction', ['uses' => 'App\Api\V1\Ico\Investment\Controllers\InvestmentController@saveTransactionId']);
+        $api->post('save-transaction', ['uses' => 'App\Api\V1\Ico\Investment\Controllers\InvestmentController@saveTransactionId',]);
+
+        $api->post('calculate-investment', [
+            'uses' => 'App\Api\V1\Ico\Investment\Controllers\InvestmentController@calculateInvestment',
+            'as' => 'calculate-investment']);
 
 
     });
