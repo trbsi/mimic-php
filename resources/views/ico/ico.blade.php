@@ -203,7 +203,7 @@
             <hr>
 
             <p id="newsletter_subscribe">
-                <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Get notified! Don't miss our ICO!</h2>
+                <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Get notified! Don't miss out our ICO!</h2>
                 <div class="virticle-line"></div>
                 <div class="circle"></div>
 

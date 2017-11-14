@@ -100,17 +100,20 @@ class InvestmentController extends Controller
 			);
 
 			//send email to investor
-			Mail::send('ico.investment_email', ['investmentModel' => $investmentModel, 'affiliateInvestorModel' => $affiliateInvestorModel], function ($message) use ($investmentModel)
-	        {
+			if(env('APP_ENV') !== 'local') {
+				Mail::send('ico.investment_email', ['investmentModel' => $investmentModel, 'affiliateInvestorModel' => $affiliateInvestorModel], function ($message) use ($investmentModel)
+		        {
 
-	            //$message->from('me@gmail.com', 'Christian Nwamba');
+		            //$message->from('me@gmail.com', 'Christian Nwamba');
 
-	            $message->to($investmentModel->email);
+		            $message->to($investmentModel->email);
 
-	            //Add a subject
-	            $message->subject("Mimic ICO");
+		            //Add a subject
+		            $message->subject("Mimic ICO");
 
-	        });
+		        });
+			}
+			
 
 		    //get data from solidity and save transaction id
     		/*$investmentModel->transaction_id = $request->transaction_id;
