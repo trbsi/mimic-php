@@ -40,10 +40,10 @@ class InvestmentController extends Controller
 	public function saveInvestment(Request $request, Investment $investment, Affiliate $affiliate)
 	{
 		$messages = [
-		    'required' => 'The ":attribute" field is required.',
-		    'email' => 'The ":attribute" field should be an email.',
-		    'integer' => 'The ":attribute" field should be a number.',
-		    'min' => 'You should buy at least 15 MimiCoins.',
+		    'required' => 'The <b>":attribute"</b> field is required.',
+		    'email' => 'The <b>":attribute"</b> field should be a valid email.',
+		    'integer' => 'The <b>":attribute"</b> field should be a number.',
+		    'mimicoins_bought.min' => 'You should buy at least <b>15</b> MimiCoins.',
 		];
 
 	   $validator = Validator::make($request->all(), [
