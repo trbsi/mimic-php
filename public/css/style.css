@@ -559,17 +559,17 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
 HH              Speciality
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
 
-#speciality {
+#speciality, #speciality2 {
     background: #eee;
     text-align: center;
     color: #333;
 }
 
-#speciality h2 {
+#speciality h2, #speciality2 h2 {
     color: #333;
 }
 
-#speciality h3 {
+#speciality h3, #speciality2 h3 {
     text-transform: uppercase;
 }
 
@@ -584,7 +584,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     margin: 15px 0px;
 }
 
-#speciality .container .row .col-sm-4:nth-child(2) {
+#speciality .container .row .col-sm-4:nth-child(2), #speciality2 .container .row .col-sm-4:nth-child(2){
     border-right: 1px solid #888;
     border-left: 1px solid #888;
 }

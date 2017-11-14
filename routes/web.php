@@ -14,7 +14,10 @@
 Route::get('ajax-test', 'Controller@ajaxTest');
 Route::get('/', 'Controller@index');
 Route::get('legal', 'Controller@legal');
-Route::get('ico', 'Controller@ico');
 
 Route::group(['namespace' => 'Cron', 'prefix' => 'cron'], function () {
 });
+
+//ICO
+Route::get('ico', 'Ico\IcoController@ico')->name('ico');
+Route::get('invest', 'Ico\IcoController@invest')->name('ico-invest');

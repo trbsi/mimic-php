@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIcoAffiliatesTable extends Migration
+class CreateIcoMailingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateIcoAffiliatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ico_affiliates', function (Blueprint $table) {
+        Schema::create('ico_mailings', function (Blueprint $table) {
             $table->bigInteger('id', true);
-            $table->string('affiliate_code', 20)->unique();
-            $table->string('account_number', 100)->unique()->comment('Ether wallet account number');
-            $table->enum('affiliate_type', ['investor', 'guest']);
+            $table->string('name', 100);
+            $table->string('email', 100)->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateIcoAffiliatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ico_affiliates');
+        Schema::dropIfExists('ico_mailings');
     }
 }
