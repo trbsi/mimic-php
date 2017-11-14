@@ -100,7 +100,7 @@ class InvestmentController extends Controller
 			);
 
 			//send email to investor
-			Mail::send('ico.investment_email', ['investmentModel' => $investmentModel], function ($message) use ($investmentModel)
+			Mail::send('ico.investment_email', ['investmentModel' => $investmentModel, 'affiliateInvestorModel' => $affiliateInvestorModel], function ($message) use ($investmentModel)
 	        {
 
 	            //$message->from('me@gmail.com', 'Christian Nwamba');
@@ -119,7 +119,7 @@ class InvestmentController extends Controller
 			//return data
 			DB::commit();
 			return response()->json(['investment' => $investmentModel->fresh(), 'affiliate' => $affiliateInvestorModel]);
-		} catch(\Exception $e) {dd($e->getMessage());
+		} catch(\Exception $e) {
 			DB::rollBack();
             abort(400, trans('core.general.smth_went_wront_body'));
 		}

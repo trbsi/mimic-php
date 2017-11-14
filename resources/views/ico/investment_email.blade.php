@@ -160,7 +160,7 @@
                                         Thank you for your investment and thank you for trusting us! We won't let you down!
                                     </p>
                                     <p>
-                                        This is your affiliate number: <b>data.affiliate.affiliate_code</b>
+                                        This is your affiliate number: <b>{{$affiliateInvestorModel->affiliate_code}}</b>
                                         <br>
                                          Refer other investors and get extra MimiCoins.
                                     </p>
