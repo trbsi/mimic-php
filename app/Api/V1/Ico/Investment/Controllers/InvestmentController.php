@@ -115,7 +115,21 @@ class InvestmentController extends Controller
 			
 
 		    //get data from solidity and save transaction id
-    		/*$investmentModel->transaction_id = $request->transaction_id;
+		    //http://codular.com/curl-with-php
+		    /*$curl = curl_init();
+			// Set some options - we are passing in a useragent too here
+			curl_setopt_array($curl, array(
+			    CURLOPT_RETURNTRANSFER => 1,
+			    CURLOPT_URL => env('ICO_SOLIDITY_URL'),
+			    CURLOPT_POST => 1,
+			    CURLOPT_POSTFIELDS => $investmentModel->fresh()->toArray()
+			));
+			// Send the request & save response to $resp
+			$resp = curl_exec($curl);
+			// Close request to clear up some resources
+			curl_close($curl);
+
+    		$investmentModel->transaction_id = $request->transaction_id;
 			$investmentModel->save();*/
 
 			//return data
