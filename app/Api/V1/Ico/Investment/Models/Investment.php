@@ -93,24 +93,38 @@ class Investment extends Model
      */
     private function calculateInvestmentBasedOnPhase($investmentModel)
     {
-        $phase1 = strtotime(env('ICO_PHASE_1'));
-        $phase2 = strtotime(env('ICO_PHASE_2'));
-        $phase3 = strtotime(env('ICO_PHASE_3'));
-        $icoEnds = strtotime(env('ICO_ENDS'));
+        $start = env('ICO_START');
+
+        //phase 2
+        $date = new \DateTime($start);
+        $date->add(new \DateInterval('P'.env('ICO_PHASE_1').'D'));
+        $phase2Ends = strtotime($date->format('Y-m-d'));
+
+        //phase 3
+        $date = new \DateTime($start);
+        $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')).'D')); 
+        $phase3Ends = strtotime($date->format('Y-m-d'));
+
+        //ending
+        $date = new \DateTime($start);
+        $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')+env('ICO_PHASE_3')).'D')); 
+        $icoEnds = strtotime($date->format('Y-m-d'));
+
+        $start = strtotime($start);
         $currentDate = time();
 
         //phase 1
-        if($currentDate >= $phase1 && $currentDate < $phase2) {
+        if($currentDate >= $start && $currentDate < $phase2Ends) {
             $numberOfEthToPay = $investmentModel->mimicoins_bought * env('ICO_PHASE_1_ETH'); 
             $phase = 1;
         } 
         //phase 2
-        else if($currentDate >= $phase2 && $currentDate < $phase3) {
+        else if($currentDate >= $phase2Ends && $currentDate < $phase3Ends) {
             $numberOfEthToPay = $investmentModel->mimicoins_bought * env('ICO_PHASE_2_ETH'); 
             $phase = 2;
         } 
         //phase 3
-        else if($currentDate >= $phase3 && $currentDate <= $icoEnds) {
+        else if($currentDate >= $phase3Ends && $currentDate <= $icoEnds) {
             $numberOfEthToPay = $investmentModel->mimicoins_bought * env('ICO_PHASE_3_ETH'); 
             $phase = 3;
         }

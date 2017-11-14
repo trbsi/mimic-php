@@ -512,8 +512,10 @@
                         }
                         
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        $("#calculate_investment").fadeOut();
+                    error: function(error) {
+                        $("#calculate_investment").hide();
+                        showError(error.responseJSON.error.message);
+
                     }
                 });
             }, 1500);
@@ -612,14 +614,8 @@
                 $("#processing_investment").hide();
                 $("#invest-btn").prop('disabled', false);
 
-                if(data.message) {
-                   showError(data.message); 
-                } else {
-                    var msg = "Dear "+data.investment.first_name+" "+data.investment.last_name+", thank you for your investment. We won't let you down!<br><br>This is your affiliate number: <b>"+data.affiliate.affiliate_code+"</b> Refer other investors and get extra MimiCoins.";
-                    showSuccess(msg, true);
-                }
-                
-
+                var msg = "Dear "+data.investment.first_name+" "+data.investment.last_name+", thank you for your investment. We won't let you down!<br><br>This is your affiliate number: <b>"+data.affiliate.affiliate_code+"</b> Refer other investors and get extra MimiCoins.";
+                showSuccess(msg, true);
             },
             error: function(error) {
                 $("#processing_investment").hide();

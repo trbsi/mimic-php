@@ -11,6 +11,26 @@ use Validator;
 
 class InvestmentController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware(function ($request, $next) {
+		    if(time() <= strtotime(env('ICO_START'))) {
+				return abort(400, "ICO hasn't started yet. Be patient, it will soon :)");
+			}
+
+	        $date = new \DateTime(env('ICO_START'));
+	        $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')+env('ICO_PHASE_3')).'D')); 
+	        $icoEnds = strtotime($date->format('Y-m-d'));
+
+			if(time() > $icoEnds) {
+				return abort(400, "ICO is not longer active. Sorry, you're too late :(");
+			}
+
+		    return $next($request);
+		});
+		
+	}
+
 	/**
 	 * Save investment
 	 * @param  Request    $request    [description]
@@ -19,14 +39,6 @@ class InvestmentController extends Controller
 	 */
 	public function saveInvestment(Request $request, Investment $investment, Affiliate $affiliate)
 	{
-		if(time() <= strtotime(env('ICO_PHASE_1'))) {
-			return response()->json(['message' => "ICO hasn't started yet. Be patient, it will soon :)"]);
-		}
-
-		if(time() > strtotime(env('ICO_ENDS'))) {
-			return response()->json(['message' => "ICO is not longer active. Sorry, you're too late :("]);
-		}
-
 		$messages = [
 		    'required' => 'The ":attribute" field is required.',
 		    'email' => 'The ":attribute" field should be an email.',

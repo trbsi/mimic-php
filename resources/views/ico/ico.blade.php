@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="ico-files/css/flipclock.css">
     <script src="js/modernizr.custom.js"></script>
     <style type="text/css">
+        /*COUNTDOWNER*/
         .vertical-align {
             display: flex;
             flex-direction: column;
@@ -70,11 +71,20 @@
         .overlay nav {
             font-size: 34px;
         }
+
+        /*SECTIONS*/
         #testimonial {
             background: linear-gradient(50deg, #f9c21f, #FFDF7C);
             color: white;
             padding: 100px 0px;
             /*position: relative;*/
+        }
+        .gray-bg {
+            background: #eee!important;
+        }
+
+        .white-bg {
+            background: white!important;
         }
     </style>
 </head>
@@ -139,7 +149,7 @@
         </div>
         <!-- /.container -->
     </section>
-    <?php if(time() >= strtotime(env('ICO_PHASE_1'))): ?>
+    <?php if(time() >= strtotime(env('ICO_START'))): ?>
 
     <!-- HHHHHHHHHHHHHHHHHHHH    Testimonial    HHHHHHHHHHHHHHHHHHHHHH -->
     <section id="testimonial" class="wrapper">
@@ -154,10 +164,24 @@
             </div>
         </div>
     </section>
+    <?php else: ?>
+    <div id="video" class="wrapper white-bg">
+        <div class="container">
+            <h2 class="animation-box wow bounceIn animated">Countdown</h2>
+            <div class="virticle-line"></div>
+            <div class="circle"></div>
+            <p>
+                <div id="countdowner-container">
+                    <div id="countdowner" style="margin: 0 auto;"></div>
+                </div>
+            </p>
+        </div>
+        <!-- /.container -->
+    </div>
     <!-- clients -->
     <?php endif ?>
     <!-- /#header -->
-    <div id="redeem_code" class="wrapper">
+    <div id="redeem_code" class="wrapper gray-bg">
         <div class="container text-center">
             <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Redeem affiliate code</h2>
             <div class="virticle-line"></div>
@@ -179,7 +203,7 @@
             <hr>
 
             <p id="newsletter_subscribe">
-                <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Subscribe to newsletter</h2>
+                <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Get notified! Don't miss our ICO!</h2>
                 <div class="virticle-line"></div>
                 <div class="circle"></div>
 
@@ -206,7 +230,7 @@
         <!-- /.container -->
     </div>
     <!-- /#video -->
-    <div id="speciality2" class="wrapper">
+    <div id="speciality2" class="wrapper white-bg">
         <div class="container">
             <h2 class="animation-box wow bounceIn animated">What is Mimic?</h2>
             <div class="virticle-line"></div>
@@ -228,22 +252,10 @@
     </div>
     <!-- /#speciality -->
     <!-- HHHHHHHHHHHHHHHHHH        Video          HHHHHHHHHHHHHHHH -->
-    <div id="video" class="wrapper">
-        <div class="container">
-            <h2 class="animation-box wow bounceIn animated">Countdown</h2>
-            <div class="virticle-line"></div>
-            <div class="circle"></div>
-            <p>
-                <div id="countdowner-container">
-                    <div id="countdowner" style="margin: 0 auto;"></div>
-                </div>
-            </p>
-        </div>
-        <!-- /.container -->
-    </div>
+    
     <!-- /#video -->
     <!-- HHHHHHHHHHHHHHHHHH        Speciality         HHHHHHHHHHHHHHHH -->
-    <div id="speciality" class="wrapper">
+    <div id="speciality" class="wrapper gray-bg">
         <div class="container">
             <h2 class="animation-box wow bounceIn animated">Money raised</h2>
             <div class="virticle-line"></div>

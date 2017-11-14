@@ -42,6 +42,15 @@
 
     <script src="js/modernizr.custom.js"></script>
 
+    <style type="text/css">
+        #ico {
+            background: linear-gradient(50deg, #f9c21f, #FFDF7C);
+            color: white;
+            padding: 100px 0px;
+            /*position: relative;*/
+        }
+    </style>
+
 </head>
 
 <body>
@@ -112,7 +121,24 @@
     </div>
     <!-- /.container -->
 </section>
+
 <!-- /#header -->
+<?php if(time() >= strtotime(env('ICO_START'))): ?>
+    <!-- HHHHHHHHHHHHHHHHHHHH    Testimonial    HHHHHHHHHHHHHHHHHHHHHH -->
+    <section id="ico" class="wrapper">
+        <div class="container">
+            <div class="row main_content">
+                <div class="col-md-12 text-center">
+                    <h2>It's alive!</h2>
+                    <h1 style="font-weight: bold; font-size: 4em; text-decoration: underline;">
+                                <a href="<?=route('ico')?>" style="color: white;">JOIN ICO!</a>
+                            </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- clients -->
+<?php endif ?>
 
 <!-- HHHHHHHHHHHHHHHHHH        Video          HHHHHHHHHHHHHHHH -->
 <?php /*
