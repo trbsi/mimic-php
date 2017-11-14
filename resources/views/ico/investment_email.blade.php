@@ -110,11 +110,6 @@
 </head>
 <body style="margin: 0 !important; padding: 0 !important;">
 
-<!-- HIDDEN PREHEADER TEXT -->
-<div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-    Thank you for investing in Mimic!
-</div>
-
 <!-- HEADER -->
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
@@ -128,7 +123,7 @@
                 <tr>
                     <td align="center" valign="top" style="padding: 15px 0;" class="logo">
                         <a href="http://www.hellomimic.com" target="_blank">
-                            <img alt="Logo" src="http://www.hellomimic.com/img/logo.png" width="60" height="60" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;" border="0">
+                            <img src="http://www.hellomimic.com/img/logo.png" width="60" height="60" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;" border="0">
                         </a>
                     </td>
                 </tr>
