@@ -1,4 +1,4 @@
-var clock = $('#countdowner').FlipClock(new Date(2017,11,01), {
+var clock = $('#countdowner').FlipClock(new Date(ico_start), {
     countdown: true,
     clockFace: 'DailyCounter'
 });

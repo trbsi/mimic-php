@@ -123,7 +123,7 @@
 </section>
 
 <!-- /#header -->
-<?php if(time() >= strtotime(env('ICO_START'))): ?>
+<?php if($icoStatus === 'active'): ?>
     <!-- HHHHHHHHHHHHHHHHHHHH    Testimonial    HHHHHHHHHHHHHHHHHHHHHH -->
     <section id="ico" class="wrapper">
         <div class="container">

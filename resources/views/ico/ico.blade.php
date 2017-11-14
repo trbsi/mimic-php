@@ -149,8 +149,7 @@
         </div>
         <!-- /.container -->
     </section>
-    <?php if(time() >= strtotime(env('ICO_START'))): ?>
-
+    <?php if($icoStatus === 'active'): ?>
     <!-- HHHHHHHHHHHHHHHHHHHH    Testimonial    HHHHHHHHHHHHHHHHHHHHHH -->
     <section id="testimonial" class="wrapper">
         <div class="container">
@@ -160,6 +159,19 @@
                     <h1 style="font-weight: bold; font-size: 4em; text-decoration: underline;">
                                 <a href="<?=route('ico-invest')?>" style="color: white;">INVEST NOW!</a>
                             </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php elseif($icoStatus === 'ended'): ?>
+    <section id="testimonial" class="wrapper">
+        <div class="container">
+            <div class="row main_content">
+                <div class="col-md-12 text-center">
+                    <h2>Thank you for your investments!</h2>
+                    <h1 style="font-weight: bold; font-size: 4em;">
+                        ICO IS FINISHED
+                    </h1>
                 </div>
             </div>
         </div>
@@ -604,13 +616,17 @@
         <button type="button" class="overlay-close">Close</button>
         <nav>
             <ul>
+                <li class="hideit"><a href="/">Go home</a>
+                </li>
+                <?php if($icoStatus === 'not_started'): ?>
+                <li class="hideit"><a href="#video">Countdown</a>
+                </li>
+                <?php endif; ?>
                 <li class="hideit"><a href="#redeem_code">Reedem a code</a>
                 </li>
-                <li class="hideit"><a href="#newsletter_subscribe">Newsletter</a>
+                <li class="hideit"><a href="#newsletter_subscribe">Get notified about ICO</a>
                 </li>
                 <li class="hideit"><a href="#speciality2">What is Mimic</a>
-                </li>
-                <li class="hideit"><a href="#video">Countdown</a>
                 </li>
                 <li class="hideit"><a href="#speciality">Money raised</a>
                 </li>
@@ -635,6 +651,7 @@
         new WOW().init();
         var redeem_code_url = '<?=app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('generate-affiliate-code')?>';
         var newsletter_url = '<?=app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('newsletter-subscribe')?>';
+        var ico_start = '<?= env('ICO_START') ?>';
     </script>
     <script src="ico-files/js/ico.js"></script>
     <script>

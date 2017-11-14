@@ -25,7 +25,7 @@ class Investment extends Model
     {
         return "{$this->first_name} {$this->last_name}";
     }
-    
+
     /**
      * Get total investments we collected
      * @return  array
@@ -111,9 +111,7 @@ class Investment extends Model
         $phase3Ends = strtotime($date->format('Y-m-d'));
 
         //ending
-        $date = new \DateTime($start);
-        $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')+env('ICO_PHASE_3')).'D')); 
-        $icoEnds = strtotime($date->format('Y-m-d'));
+        $icoEnds = self::calculateEndIcoTime();
 
         $start = strtotime($start);
         $currentDate = time();
@@ -139,6 +137,33 @@ class Investment extends Model
         return compact('numberOfEthToPay', 'phase');
     }
 
+    /**
+     * Calculate when ICO ends
+     */
+    public static function calculateEndIcoTime()
+    {
+        $date = new \DateTime(env('ICO_START'));
+        $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')+env('ICO_PHASE_3')).'D')); 
+        return strtotime($date->format('Y-m-d'));
+    }
+
+    /**
+     * Get ico status
+     * @return string return: active, ended, not_started
+     */
+    public static function getIcoStatus()
+    {
+        $start = strtotime(env('ICO_START'));
+        $end = self::calculateEndIcoTime();
+
+        if(time() >= $start && time() <= $end) {
+            return 'active';
+        } else if (time() < $start) {
+            return 'not_started';
+        } else if(time() > $end) {
+            return 'ended';
+        }
+    }
 
     /**
      * Get all users who I'm following

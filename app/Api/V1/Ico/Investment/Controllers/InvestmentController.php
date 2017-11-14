@@ -15,15 +15,14 @@ class InvestmentController extends Controller
 	public function __construct()
 	{
 		$this->middleware(function ($request, $next) {
-		    if(time() <= strtotime(env('ICO_START'))) {
+			$icoStatus = Investment::getIcoStatus();
+		    if($icoStatus === 'not_started') {
 				return abort(400, trans('ico.hasnt_started'));
 			}
 
-	        $date = new \DateTime(env('ICO_START'));
-	        $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')+env('ICO_PHASE_3')).'D')); 
-	        $icoEnds = strtotime($date->format('Y-m-d'));
+	        $icoEnds = Investment::calculateEndIcoTime();
 
-			if(time() > $icoEnds) {
+			if($icoStatus === 'ended') {
 				return abort(400, trans('ico.ico_finished'));
 			}
 
