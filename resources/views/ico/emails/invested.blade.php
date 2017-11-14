@@ -122,8 +122,8 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="wrapper">
                 <tr>
                     <td align="center" valign="top" style="padding: 15px 0;" class="logo">
-                        <a href="http://www.hellomimic.com" target="_blank">
-                            <img src="http://www.hellomimic.com/img/logo.png" width="60" height="60" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;" border="0">
+                        <a href="<?=config('app.official_url')?>" target="_blank">
+                            <img src="<?=config('app.official_url')?>/img/logo.png" width="60" height="60" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;" border="0">
                         </a>
                     </td>
                 </tr>
@@ -148,7 +148,7 @@
                         <!-- HERO IMAGE -->
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td align="center" style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding">
+                                <td align="center" style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #333333;" class="padding">
                                     <p>
                                         Dear {{$investmentModel->full_name}}
                                         <br><br>
@@ -185,8 +185,8 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 500px;" class="responsive-table">
                 <tr>
                     <td align="center" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;">
-                        <a href="http://www.hellomimic.com" target="_blank">
-                            <img alt="Logo" src="http://www.hellomimic.com/img/logo.png" width="60" height="60" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;" border="0">
+                        <a href="<?=config('app.official_url')?>" target="_blank">
+                            <img alt="Logo" src="<?=config('app.official_url')?>/img/logo.png" width="60" height="60" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;" border="0">
                         </a>
 
                     </td>

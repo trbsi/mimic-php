@@ -58,6 +58,9 @@ $api->version('v1', function (Router $api) {
             'uses' => 'App\Api\V1\Ico\Investment\Controllers\InvestmentController@calculateInvestment',
             'as' => 'calculate-investment']);
 
+        $api->get('notify-subscribers', [
+            'uses' => 'App\Api\V1\Ico\Mailing\Controllers\MailingController@notifySubscribers']);
+
 
     });
 

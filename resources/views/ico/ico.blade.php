@@ -231,7 +231,7 @@
                         <label class="sr-only" for="name">Your name</label>
                         <input type="text" id="newsletter_name" class="form-control input-lg" id="first_name" placeholder="Your name" required>
                     </div>
-                    <button type="submit" id="newsletter_btn" class="btn btn-warning btn-lg">Subscribe</button>
+                    <button type="submit" id="newsletter_btn" class="btn btn-warning btn-lg">Notify me</button>
                 </form>
             </p>
             <p>

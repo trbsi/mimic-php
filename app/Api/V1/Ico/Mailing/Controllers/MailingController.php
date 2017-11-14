@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Api\V1\Ico\Mailing\Models\Mailing;
 use DB;
+use Mail;
 
 class MailingController extends Controller
 {	
@@ -27,4 +28,23 @@ class MailingController extends Controller
             abort(400);
         }
 	}	
+
+    /**
+     * Notify all subscribers when ICO starts
+     */
+    public function notifySubscribers(Request $request, Mailing $mailing)
+    {
+        foreach ($mailing->get() as $mailingModel) {
+            Mail::send('ico.emails.notify-subscribers', ['mailingModel' => $mailingModel, 'day' => $request->day], function ($message) use ($mailingModel, $request)
+            {
+
+                $message->to($mailingModel->email);
+
+                //Add a subject
+                $message->subject("Mimic ICO starts in ".$request->day." days");
+
+            });
+        }
+        
+    }
 }	

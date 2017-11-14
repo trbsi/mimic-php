@@ -50,7 +50,7 @@ class InvestmentController extends Controller
             'investor_account_number' => 'required',
 	        'first_name' => 'required',
 	        'last_name' => 'required',
-	        'mimicoins_bought' => 'required|integer|min:15',
+	        'mimicoins_bought' => 'required|integer|min:'.env('ICO_MIN_MIMCOINS'),
 	        'email' => 'required|email',
         ], $messages);
 
@@ -100,7 +100,7 @@ class InvestmentController extends Controller
 
 			//send email to investor
 			if(env('APP_ENV') !== 'local') {
-				Mail::send('ico.investment_email', ['investmentModel' => $investmentModel, 'affiliateInvestorModel' => $affiliateInvestorModel], function ($message) use ($investmentModel)
+				Mail::send('ico.emails.invested', ['investmentModel' => $investmentModel, 'affiliateInvestorModel' => $affiliateInvestorModel], function ($message) use ($investmentModel)
 		        {
 
 		            //$message->from('me@gmail.com', 'Christian Nwamba');
