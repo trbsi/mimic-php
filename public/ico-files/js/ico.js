@@ -58,7 +58,7 @@ $("#newsletter_form").submit(function(e)
         success:function(data, textStatus, jqXHR) 
         {
             newsletter_btn.prop('disabled', false);
-            newsletter_success.html("Thank you <b>"+data.name+"</b> (<b>"+data.email+"</b>) for subscribing :)").show();
+            newsletter_success.html("Thank you <b>"+data.name+"</b> (<b>"+data.email+"</b>). We'll notify you before ICO starts :)").show();
             newsletter_email.val('');
             newsletter_name.val('');
         },
