@@ -52,6 +52,11 @@ class Investment extends Model
      */
     public function calculateAffiliateCode($investmentModel)
     {
+        //check if user wants to use his affiliate code
+        if($investmentModel->icoAffiliate && $investmentModel->investor_account_number == $investmentModel->icoAffiliate->account_number) {
+            abort(403, trans('ico.you_cant_use_your_aff_code'));
+        }
+        
         $calculateInvestmentBasedOnPhase = $this->calculateInvestmentBasedOnPhase($investmentModel);
         $amountToSendToInvestor = $investmentModel->mimicoins_bought; 
         $otherAccountNumber = $amountToSendToOtherAccount = null;

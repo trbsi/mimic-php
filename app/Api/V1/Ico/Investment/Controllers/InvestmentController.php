@@ -123,7 +123,7 @@ class InvestmentController extends Controller
 			return response()->json(['investment' => $investmentModel->fresh(), 'affiliate' => $affiliateInvestorModel]);
 		} catch(\Exception $e) {
 			DB::rollBack();
-            abort(400, trans('core.general.smth_went_wront_body'));
+            abort(400, $e->getMessage());
 		}
 	} 
 
@@ -147,6 +147,7 @@ class InvestmentController extends Controller
 	{
 		$class = new \stdClass;
 		$class->mimicoins_bought = $request->mimicoins_bought;
+		$class->investor_account_number = $request->investor_account_number;
 		$class->icoAffiliate = $affiliate->where('affiliate_code', $request->affiliate_code)->first();
 		return $investment->calculateAffiliateCode($class);
 	}

@@ -37,7 +37,6 @@ class MailingController extends Controller
         foreach ($mailing->get() as $mailingModel) {
             Mail::send('ico.emails.notify-subscribers', ['mailingModel' => $mailingModel, 'day' => $request->day], function ($message) use ($mailingModel, $request)
             {
-
                 $message->to($mailingModel->email);
 
                 //Add a subject
@@ -46,5 +45,6 @@ class MailingController extends Controller
             });
         }
         
+        return response()->json(['status' => true]);
     }
 }	

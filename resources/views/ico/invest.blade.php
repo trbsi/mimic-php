@@ -432,7 +432,7 @@
             </label>
             <label>
                 <span class="label-text">Your account number</span>
-                <input type="text" id="investor_account_number" required="">
+                <input type="text" id="investor_account_number" required="" onkeyup="calculateInvestment()">
             </label>
             <label>
                 <span class="label-text">Affiliate code</span>
@@ -491,6 +491,7 @@
         var data = {
             mimicoins_bought: $("#mimicoins_bought").val(),
             affiliate_code: $("#affiliate_code").val(),
+            investor_account_number: $("#investor_account_number").val(),
         };
 
         if (data['mimicoins_bought'] != '' && data['affiliate_code'] != '' && data['mimicoins_bought'] >= minMimiCoins) {
@@ -501,18 +502,20 @@
                     type: "POST",
                     data: data,
                     success: function(data, textStatus, jqXHR) {
+                        $(".alert").hide();
                         $("#calculate_investment").hide();
 
                         if(data.amount_to_send_to_other_account === null) {
-                            var msg = "You get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
+                            var msg = "You'll get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
                             showInfo(msg, true);
                         } else {
-                            var msg = "You get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>Person who referred you gets <b>"+data.amount_to_send_to_other_account+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
+                            var msg = "You'll get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>Person who referred you will get <b>"+data.amount_to_send_to_other_account+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
                             showInfo(msg, true);
                         }
                         
                     },
                     error: function(error) {
+                        $(".alert").hide();
                         $("#calculate_investment").hide();
                         showError(error.responseJSON.error.message);
 
@@ -611,6 +614,7 @@
             type: "POST",
             data: data,
             success: function(data, textStatus, jqXHR) {
+                $(".alert").hide();
                 $("#processing_investment").hide();
                 $("#invest-btn").prop('disabled', false);
 
@@ -618,6 +622,7 @@
                 showSuccess(msg, true);
             },
             error: function(error) {
+                $(".alert").hide();
                 $("#processing_investment").hide();
                 $("#invest-btn").prop('disabled', false);
                 showError(error.responseJSON.error.message);
