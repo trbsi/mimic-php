@@ -411,95 +411,40 @@
             <div class="virticle-line"></div>
             <div class="circle"></div>
             <div class="row">
-                <div class="col-md-2 col-sm-4 col-md-offset-3 wow animated fadeInLeft">
+                <div class="col-md-2 col-sm-4 col-md-offset-3">
                     <img src="ico-files/img/dario.png" alt="team">
-                    <h3>Dario Begonja</h3>
-                    <p>CMO</p>
-                    <div class="img-hover">
-                        <ul class="social-icon text-center">
-                            <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/dario-begonja-232769108/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    <h3><a href="https://www.linkedin.com/in/dario-begonja-232769108/" target="_blank">Dario Begonja</a></h3>
+                    <p>CMO<br>Marketer</p>
                 </div>
-                <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">
+                <div class="col-md-2 col-sm-4 animation-box">
                     <img src="ico-files/img/davor.png" alt="team">
-                    <h3>Davor Kljajic</h3>
-                    <p>CFO</p>
-                    <div class="img-hover">
-                        <ul class="social-icon text-center">
-                            <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/davor-kljajic-a6133586/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    <h3><a href="https://www.linkedin.com/in/davor-kljajic-a6133586/" target="_blank">Davor Kljajic</a></h3>
+                    <p>CFO<br>MimiCoin creator</p>
                 </div>
                 <div class="col-md-2 col-sm-4 wow animated fadeInRight">
                     <img src="ico-files/img/aco.png" alt="team">
-                    <h3>Aleksandar Atanackovic</h3>
-                    <p>CTO</p>
-                    <div class="img-hover">
-                        <ul class="social-icon text-center">
-                            <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/aleksandar-atanackovic-136b7ba6/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    <h3><a href="https://www.linkedin.com/in/aleksandar-atanackovic-136b7ba6/" target="_blank">Aleksandar Atanackovic</a></h3>
+                    <p>CTO<br>iOS dev</p>
                 </div>
             </div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-md-2 col-sm-4 col-md-offset-3 wow animated fadeInLeft">
                     <img src="ico-files/img/tonimir.png" alt="team">
-                    <h3>Tonimir Kisasondi</h3>
-                    <p>Blockchain/Ethereum programmer</p>
-                    <div class="img-hover">
-                        <ul class="social-icon text-center">
-                            <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/tonimir-kisasondi-4022b56/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    <h3><a href="https://www.linkedin.com/in/tonimir-kisasondi-4022b56/" target="_blank">Tonimir Kisasondi</a></h3>
+                    <p>Blockchain<br>Ethereum programmer</p>
                 </div>
-                <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">
-                    <img src="ico-files/img/domagoj.png" alt="team">
-                    <h3>Domagoj Cingula</h3>
-                    <p>ICO marketer</p>
-                    <div class="img-hover">
-                        <ul class="social-icon text-center">
-                            <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/domagoj-cingula-b2125273/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">                    
+                    <img src="ico-files/img/dariot.png" alt="team">
+                    <h3><a href="https://www.linkedin.com/in/dariotrbovic/" target="_blank">Dario Trbovic</a></h3>
+                    <p>CEO<br>Web dev</p>
                 </div>
                 <div class="col-md-2 col-sm-4 wow animated fadeInRight">
                     <img src="ico-files/img/velimir.png" alt="team">
-                    <h3>Velimir Baksa</h3>
-                    <p>Blockchain/Ethereum programmer</p>
-                    <div class="img-hover">
-                        <ul class="social-icon text-center">
-                            <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/velimir-baksa-70382882/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
+                    <h3><a href="https://www.linkedin.com/in/velimir-baksa-70382882/" target="_blank">Velimir Baksa</a></h3>
+                    <p>Blockchain<br>Ethereum programmer</p>
                 </div>
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-md-2 col-sm-4 col-md-offset-3 wow animated fadeInLeft">
-                </div>
-                <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">
-                    <img src="ico-files/img/dariot.png" alt="team">
-                    <h3>Dario Trbovic</h3>
-                    <p>CEO</p>
-                    <div class="img-hover">
-                        <ul class="social-icon text-center">
-                            <li class="wow animated fadeInRight linkedin"><a href="https://www.linkedin.com/in/dariotrbovic/" target="_blank"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-4 wow animated fadeInRight">
-                </div>
-            </div>
-            <!-- /.row -->
         </div>
         <!-- /.container -->
         <div style="clear:both;"></div>

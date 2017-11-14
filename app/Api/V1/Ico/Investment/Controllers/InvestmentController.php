@@ -8,6 +8,7 @@ use App\Api\V1\Ico\Investment\Models\Investment;
 use App\Api\V1\Ico\Affiliate\Models\Affiliate;
 use DB;
 use Validator;
+use Mail;
 
 class InvestmentController extends Controller
 {
@@ -15,7 +16,7 @@ class InvestmentController extends Controller
 	{
 		$this->middleware(function ($request, $next) {
 		    if(time() <= strtotime(env('ICO_START'))) {
-				return abort(400, "ICO hasn't started yet. Be patient, it will soon :)");
+				return abort(400, trans('ico.hasnt_started'));
 			}
 
 	        $date = new \DateTime(env('ICO_START'));
@@ -23,7 +24,7 @@ class InvestmentController extends Controller
 	        $icoEnds = strtotime($date->format('Y-m-d'));
 
 			if(time() > $icoEnds) {
-				return abort(400, "ICO is not longer active. Sorry, you're too late :(");
+				return abort(400, trans('ico.ico_finished'));
 			}
 
 		    return $next($request);
@@ -98,10 +99,27 @@ class InvestmentController extends Controller
 				)
 			);
 
+			//send email to investor
+			Mail::send('ico.investment_email', ['investmentModel' => $investmentModel], function ($message) use ($investmentModel)
+	        {
+
+	            //$message->from('me@gmail.com', 'Christian Nwamba');
+
+	            $message->to($investmentModel->email);
+
+	            //Add a subject
+	            $message->subject("Mimic ICO");
+
+	        });
+
+		    //get data from solidity and save transaction id
+    		/*$investmentModel->transaction_id = $request->transaction_id;
+			$investmentModel->save();*/
+
 			//return data
 			DB::commit();
 			return response()->json(['investment' => $investmentModel->fresh(), 'affiliate' => $affiliateInvestorModel]);
-		} catch(\Exception $e) {
+		} catch(\Exception $e) {dd($e->getMessage());
 			DB::rollBack();
             abort(400, trans('core.general.smth_went_wront_body'));
 		}

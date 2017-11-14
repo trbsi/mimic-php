@@ -11,7 +11,7 @@ class Investment extends Model
 {
     protected $table = 'ico_investments';
     protected $fillable = [
-        'id', 'first_name', 'last_name', 'investor_account_number', 'mimicoins_bought', 'phase', 'number_of_eth_to_pay', 'other_account_number', 'send_to_investor', 'amount_to_send_to_other_account', 'amount_to_send_to_investor'
+        'id', 'first_name', 'last_name', 'investor_account_number', 'mimicoins_bought', 'phase', 'number_of_eth_to_pay', 'other_account_number', 'send_to_investor', 'amount_to_send_to_other_account', 'amount_to_send_to_investor', 'email'
     ];
 
     protected $casts =
@@ -21,6 +21,11 @@ class Investment extends Model
         'affiliate_id' => 'int',
     ];
 
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+    
     /**
      * Get total investments we collected
      * @return  array
@@ -34,7 +39,7 @@ class Investment extends Model
 
     	$investedEth = $this->sum('number_of_eth_to_pay');
     	$investedUsd = Helper::numberFormat($investedEth * $ethInfo->price_usd);
-    	$mimicoins = Helper::numberFormat($this->sum('mimicoins_bought'));
+    	$mimicoins = Helper::numberFormat($this->sum('mimicoins_bought')+$this->sum('amount_to_send_to_other_account')+$this->sum('amount_to_send_to_investor'));
         $investedEth = Helper::numberFormat($investedEth);
 
     	return compact('investedEth', 'investedUsd', 'mimicoins');

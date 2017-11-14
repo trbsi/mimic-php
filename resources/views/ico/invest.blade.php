@@ -594,7 +594,7 @@
         }
 
         if (data['mimicoins_bought'] < minMimiCoins) {
-            showError("Miminum amount of MimiCoins to buy is "+minMimiCoins+"!");
+            showError("Miminum amount of MimiCoins you're able to buy is "+minMimiCoins+"!");
             return;
         }
 
