@@ -34,7 +34,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <meta property="og:image" content="<?= env('APP_URL') ?>/img/mimic2.png"/>
+    <meta property="og:image" content="<?= env('APP_URL') ?>/img/facebook_share_img.jpg"/>
     <meta property="og:title" content="<?= config("app.name") ?> - <?=config('app.slogan')?>"/>
     <meta property="og:url" content="<?= env('APP_URL') ?>"/>
     <meta property="og:site_name" content="<?= config("app.name") ?>"/>
