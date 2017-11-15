@@ -500,7 +500,7 @@
             investor_account_number: $("#investor_account_number").val(),
         };
 
-        if (data['mimicoins_bought'] != '' && data['affiliate_code'] != '' && data['mimicoins_bought'] >= minMimiCoins) {
+        if (data['mimicoins_bought'] != '' && data['mimicoins_bought'] >= minMimiCoins) {
             $("#calculate_investment").fadeIn();
             calculateInvestmentTimer = setTimeout(function() {
                 $.ajax({
