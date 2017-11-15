@@ -436,7 +436,12 @@
             </label>
             <label>
                 <span class="label-text">Affiliate code</span>
-                <input type="text" id="affiliate_code" onkeyup="calculateInvestment()">
+                <input 
+                type="text" 
+                id="affiliate_code" 
+                onkeyup="calculateInvestment()" 
+                value="@if ($affiliate) {{$affiliate}} @endif" 
+                @if($affiliate) readonly @endif>
             </label>
             <div id="calculate_investment" style="display: none; text-align: center">
                 Calculating investment...
@@ -485,6 +490,7 @@
 <script>
     var calculateInvestmentTimer;
     var minMimiCoins = <?=env('ICO_MIN_MIMCOINS')?>;
+    var affiliateUrl = '<?=route('ico-invest')?>?affiliate='
 
     function calculateInvestment() {
         clearTimeout(calculateInvestmentTimer);
@@ -618,7 +624,10 @@
                 $("#processing_investment").hide();
                 $("#invest-btn").prop('disabled', false);
 
-                var msg = "Dear "+data.investment.first_name+" "+data.investment.last_name+", thank you for your investment. We won't let you down!<br><br>This is your affiliate number: <b>"+data.affiliate.affiliate_code+"</b> Refer other investors and get extra MimiCoins.";
+                var msg = "Dear "+data.investment.first_name+" "+data.investment.last_name+", thank you for your investment. We won't let you down!<br><br>"+
+                    "This is your affiliate number: <b>"+data.affiliate.affiliate_code+"</b><br>"+
+                    "This is your affiliate url: <a href='"+affiliateUrl+data.affiliate.affiliate_code+"'>"+affiliateUrl+data.affiliate.affiliate_code+"</a><br>"+
+                    "Refer other investors and get extra MimiCoins.";
                 showSuccess(msg, true);
             },
             error: function(error) {

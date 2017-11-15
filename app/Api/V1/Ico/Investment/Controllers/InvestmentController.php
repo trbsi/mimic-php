@@ -26,6 +26,11 @@ class InvestmentController extends Controller
 				return abort(400, trans('ico.ico_finished'));
 			}
 
+	        //trim affiliate_code
+	        if($request->has('affiliate_code')) {
+	        	$request['affiliate_code'] = trim($request->affiliate_code);
+	        }
+
 		    return $next($request);
 		});
 		
@@ -100,7 +105,12 @@ class InvestmentController extends Controller
 
 			//send email to investor
 			if(env('APP_ENV') !== 'local') {
-				Mail::send('ico.emails.invested', ['investmentModel' => $investmentModel, 'affiliateInvestorModel' => $affiliateInvestorModel], function ($message) use ($investmentModel)
+				Mail::send('ico.emails.invested', 
+					[
+						'investmentModel' => $investmentModel, 
+						'affiliateInvestorModel' => $affiliateInvestorModel,
+						'affiliateUrl' => route('ico-invest', ['affiliate' => $affiliateInvestorModel->affiliate_code]),
+					], function ($message) use ($investmentModel)
 		        {
 
 		            //$message->from('me@gmail.com', 'Christian Nwamba');

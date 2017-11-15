@@ -16,6 +16,7 @@ return [
     'slogan' => 'Challenge people to copy your moves!', //'Split screen visual posts and replies',
     'official_email' => 'hello@hellomimic.com',
     'official_url' => 'http://www.hellomimic.com',
+    'app_description' => 'Want to challenge others to copy your moves or your selfies? Have a funny response to a post? Mimic encourages top half, bottom half photo and video posts and replies. Swipe through, upvote and add your own.',
 
     /*
     |--------------------------------------------------------------------------

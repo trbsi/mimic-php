@@ -157,6 +157,8 @@
                                     <p>
                                         This is your affiliate number: <b>{{$affiliateInvestorModel->affiliate_code}}</b>
                                         <br>
+                                        Your affiliate URL is: <a href="{{$affiliateUrl}}"> {{$affiliateUrl}} </a>
+                                        <br>
                                          Refer other investors and get extra MimiCoins.
                                     </p>
 
