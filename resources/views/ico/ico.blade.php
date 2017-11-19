@@ -73,10 +73,10 @@
         }
 
         /*SECTIONS*/
-        #testimonial {
-            background: linear-gradient(50deg, #f9c21f, #FFDF7C);
+        #invest-now {
+            background: linear-gradient(180deg, #f9c21f, #FFDF7C);
             color: white;
-            padding: 100px 0px;
+            padding: 20px 0px;
             /*position: relative;*/
         }
         .gray-bg {
@@ -91,6 +91,21 @@
 
 <body>
     <a href="#header" id="back-to-top" class="top"><i class="fa fa-chevron-up"></i></a>
+    <?php if($icoStatus === 'active'): ?>
+    <!-- HHHHHHHHHHHHHHHHHHHH    Testimonial    HHHHHHHHHHHHHHHHHHHHHH -->
+    <section id="invest-now" class="wrapper">
+        <div class="container">
+            <div class="row main_content">
+                <div class="col-md-12 text-center">
+                    <h2>It's alive!</h2>
+                    <h1 style="font-weight: bold; text-decoration: underline;">
+                                <a href="<?=route('ico-invest')?>" style="color: white;">INVEST NOW!</a>
+                            </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php endif ?>
     <!-- HHHHHHHHHHHHHHHHHH        Preloader          HHHHHHHHHHHHHHHH -->
     <!-- <div id="preloader"></div> -->
     <!-- HHHHHHHHHHHHHHHHHH        Header          HHHHHHHHHHHHHHHH -->
@@ -149,22 +164,8 @@
         </div>
         <!-- /.container -->
     </section>
-    <?php if($icoStatus === 'active'): ?>
-    <!-- HHHHHHHHHHHHHHHHHHHH    Testimonial    HHHHHHHHHHHHHHHHHHHHHH -->
-    <section id="testimonial" class="wrapper">
-        <div class="container">
-            <div class="row main_content">
-                <div class="col-md-12 text-center">
-                    <h2>It's alive!</h2>
-                    <h1 style="font-weight: bold; font-size: 4em; text-decoration: underline;">
-                                <a href="<?=route('ico-invest')?>" style="color: white;">INVEST NOW!</a>
-                            </h1>
-                </div>
-            </div>
-        </div>
-    </section>
-    <?php elseif($icoStatus === 'ended'): ?>
-    <section id="testimonial" class="wrapper">
+    <?php if($icoStatus === 'ended'): ?>
+    <section id="invest-now" class="wrapper">
         <div class="container">
             <div class="row main_content">
                 <div class="col-md-12 text-center">
@@ -176,7 +177,7 @@
             </div>
         </div>
     </section>
-    <?php else: ?>
+    <?php elseif($icoStatus === 'not_started'): ?>
     <div id="video" class="wrapper white-bg">
         <div class="container">
             <h2 class="animation-box wow bounceIn animated">Countdown</h2>
@@ -442,19 +443,30 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-md-2 col-sm-4 col-md-offset-3 wow animated fadeInLeft">
-                    <img src="ico-files/img/tonimir.png" alt="team">
-                    <h3><a href="https://www.linkedin.com/in/tonimir-kisasondi-4022b56/" target="_blank">Tonimir Kisasondi</a></h3>
-                    <p>Blockchain<br>Ethereum programmer</p>
-                </div>
-                <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">                    
                     <img src="ico-files/img/dariot.png" alt="team">
                     <h3><a href="https://www.linkedin.com/in/dariotrbovic/" target="_blank">Dario Trbovic</a></h3>
                     <p>CEO<br>Web dev</p>
+                </div>
+                <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">                    
+                    <img src="ico-files/img/tonimir.png" alt="team">
+                    <h3><a href="https://www.linkedin.com/in/tonimir-kisasondi-4022b56/" target="_blank">Tonimir Kisasondi</a></h3>
+                    <p>Blockchain<br>Ethereum programmer</p>
                 </div>
                 <div class="col-md-2 col-sm-4 wow animated fadeInRight">
                     <img src="ico-files/img/velimir.png" alt="team">
                     <h3><a href="https://www.linkedin.com/in/velimir-baksa-70382882/" target="_blank">Velimir Baksa</a></h3>
                     <p>Blockchain<br>Ethereum programmer</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-sm-4 col-md-offset-3 wow animated fadeInLeft">
+                </div>
+                <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">                    
+                    <img src="ico-files/img/domagoj.png" alt="team">
+                    <h3><a href="https://www.linkedin.com/in/domagoj-miri%C4%87-47357893/" target="_blank">Domagoj Mirić</a></h3>
+                    <p>ICO marketing</p>
+                </div>
+                <div class="col-md-2 col-sm-4 wow animated fadeInRight">
                 </div>
             </div>
         </div>
