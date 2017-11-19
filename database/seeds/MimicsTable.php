@@ -26,7 +26,7 @@ class MimicsTable extends Seeder
                 continue;
             }
 
-            //replace all "\" with "/" and take string betweeb "/files/seeds/" and "/"
+            //replace all "\" with "/" and take string between "/files/seeds/" and "/"
             //for example: E:\xampp\htdocs\mimic\public/files/seeds/Beatbox/Beatbom.mp4, you take "Beatbox"
             preg_match('/(?<=\/files\/seeds\/)(.*)(?=\/)/', str_replace("\\", "/", $file->getPathname()), $matches);
 

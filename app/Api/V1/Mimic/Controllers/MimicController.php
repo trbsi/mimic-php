@@ -286,7 +286,13 @@ class MimicController extends BaseAuthController
         if(!in_array($this->authUser->email, ["dario.trbovic@yahoo.com"])) {
             $user = $this->authUser;
         } else {
-            $user = $this->user->find(rand(1, 95));
+            if(env('APP_ENV') === 'live') {
+                $findUser = (rand(0, 1) === 0) ? rand(1, 95) : rand(119, 225);
+            } else {
+                $findUser = rand(1, 95);
+            }
+
+            $user = $this->user->find($findUser);
         }
 
         return $user;
