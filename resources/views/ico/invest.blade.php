@@ -510,12 +510,13 @@
                     success: function(data, textStatus, jqXHR) {
                         $(".alert").hide();
                         $("#calculate_investment").hide();
+                        var msg = "<b>Phase "+data.phase+"</b><br>";
 
                         if(data.amount_to_send_to_other_account == 0) {
-                            var msg = "You'll get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
+                            msg+= "You'll get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
                             showInfo(msg, true);
                         } else {
-                            var msg = "You'll get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>Person who referred you will get <b>"+data.amount_to_send_to_other_account+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
+                            msg+= "You'll get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>Person who referred you will get <b>"+data.amount_to_send_to_other_account+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
                             showInfo(msg, true);
                         }
                         
