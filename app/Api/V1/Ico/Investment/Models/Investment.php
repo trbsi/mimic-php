@@ -89,10 +89,10 @@ class Investment extends Model
 
         return [
             'phase' => $data['calculateInvestmentBasedOnPhase']['phase'], 
-            'number_of_eth_to_pay' => $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay'], 
+            'number_of_eth_to_pay' => number_format($data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']), 
             'other_account_number' => $data['otherAccountNumber'], 
-            'amount_to_send_to_other_account' => $data['amountToSendToOtherAccount'],  
-            'amount_to_send_to_investor' => $data['amountToSendToInvestor'], 
+            'amount_to_send_to_other_account' => number_format($data['amountToSendToOtherAccount']),  
+            'amount_to_send_to_investor' => number_format($data['amountToSendToInvestor']), 
         ];
     }
 
