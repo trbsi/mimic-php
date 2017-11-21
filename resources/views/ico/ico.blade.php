@@ -448,25 +448,14 @@
                     <p>CEO<br>Web dev</p>
                 </div>
                 <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">                    
-                    <img src="ico-files/img/tonimir.png" alt="team">
-                    <h3><a href="https://www.linkedin.com/in/tonimir-kisasondi-4022b56/" target="_blank">Tonimir Kisasondi</a></h3>
-                    <p>Blockchain<br>Ethereum programmer</p>
-                </div>
-                <div class="col-md-2 col-sm-4 wow animated fadeInRight">
-                    <img src="ico-files/img/velimir.png" alt="team">
-                    <h3><a href="https://www.linkedin.com/in/velimir-baksa-70382882/" target="_blank">Velimir Baksa</a></h3>
-                    <p>Blockchain<br>Ethereum programmer</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-sm-4 col-md-offset-3 wow animated fadeInLeft">
-                </div>
-                <div class="col-md-2 col-sm-4 animation-box wow bounceIn animated">                    
                     <img src="ico-files/img/domagoj.png" alt="team">
                     <h3><a href="https://www.linkedin.com/in/domagoj-miri%C4%87-47357893/" target="_blank">Domagoj Mirić</a></h3>
                     <p>ICO marketing</p>
                 </div>
                 <div class="col-md-2 col-sm-4 wow animated fadeInRight">
+                    <img src="ico-files/img/velimir.png" alt="team">
+                    <h3><a href="https://www.linkedin.com/in/velimir-baksa-70382882/" target="_blank">Velimir Baksa</a></h3>
+                    <p>Blockchain<br>Ethereum programmer</p>
                 </div>
             </div>
         </div>
