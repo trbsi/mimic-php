@@ -17,11 +17,11 @@ class InvestmentController extends Controller
 		$this->middleware(function ($request, $next) {
 			$icoStatus = Investment::getIcoStatus();
 		    if($icoStatus === 'not_started') {
-				return abort(400, trans('ico.hasnt_started'));
+				abort(400, trans('ico.hasnt_started'));
 			}
 
 			if($icoStatus === 'ended') {
-				return abort(400, trans('ico.ico_finished'));
+				abort(400, trans('ico.ico_finished'));
 			}
 
 	        //trim affiliate_code
