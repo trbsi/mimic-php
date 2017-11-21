@@ -20,8 +20,6 @@ class InvestmentController extends Controller
 				return abort(400, trans('ico.hasnt_started'));
 			}
 
-	        $icoEnds = Investment::calculateEndIcoTime();
-
 			if($icoStatus === 'ended') {
 				return abort(400, trans('ico.ico_finished'));
 			}
