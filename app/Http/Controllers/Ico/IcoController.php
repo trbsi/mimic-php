@@ -10,11 +10,17 @@ class IcoController extends BaseController
 {
     public function ico(Investment $investment)
     {
-        return view("ico.ico", ['investment' => $investment->getTotalInvestment(), 'icoStatus' => Investment::getIcoStatus()]);
+        return view("ico.ico", [
+        	'investment' => $investment->getTotalInvestment(), 
+        	'icoStatus' => Investment::getIcoStatus()
+        ]);
     }
 
-    public function invest(Request $request)
+    public function invest(Request $request, Investment $investment)
     {
-        return view("ico.invest", ['affiliate' => $request->affiliate]);
+        return view("ico.invest", [
+        	'affiliate' => $request->affiliate, 
+        	'minInvestment' => $investment->getMinInvestment()
+        ]);
     }
 }

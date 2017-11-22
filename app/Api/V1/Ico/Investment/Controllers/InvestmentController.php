@@ -46,14 +46,14 @@ class InvestmentController extends Controller
 		    'required' => trans('ico.validation_required'),
 		    'email' => trans('ico.validation_email'),
 		    'numeric' => trans('ico.validation_numeric'),
-		    'mimicoins_bought.min' => trans('ico.num_of_coins', ['num_of_coins' => env('ICO_MIN_MIMCOINS')]),
+		    'mimicoins_bought.min' => trans('ico.num_of_coins', ['num_of_coins' => $investment->getMinInvestment()]),
 		];
 
 	   $validator = Validator::make($request->all(), [
             'investor_account_number' => 'required',
 	        'first_name' => 'required',
 	        'last_name' => 'required',
-	        'mimicoins_bought' => 'required|numeric|min:'.env('ICO_MIN_MIMCOINS'),
+	        'mimicoins_bought' => 'required|numeric|min:'.$investment->getMinInvestment(),
 	        'email' => 'required|email',
         ], $messages);
 

@@ -489,7 +489,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     var calculateInvestmentTimer;
-    var minMimiCoins = <?=env('ICO_MIN_MIMCOINS')?>;
+    var minMimiCoins = <?=$minInvestment?>;
     var affiliateUrl = '<?=route('ico-invest')?>?affiliate='
 
     function calculateInvestment() {

@@ -27,15 +27,45 @@ class Investment extends Model
     }
 
     /**
+     * Get ethereum price from API
+     * @return 
+     * [
+            {
+                "id": "ethereum", 
+                "name": "Ethereum", 
+                "symbol": "ETH", 
+                "rank": "2", 
+                "price_usd": "365.422", 
+                "price_btc": "0.0450405", 
+                "24h_volume_usd": "648471000.0", 
+                "market_cap_usd": "35039752088.0", 
+                "available_supply": "95888458.0", 
+                "total_supply": "95888458.0", 
+                "max_supply": null, 
+                "percent_change_1h": "0.06", 
+                "percent_change_24h": "-0.53", 
+                "percent_change_7d": "9.76", 
+                "last_updated": "1511376254"
+            }
+        ]
+     */
+    public function getEthPrice()
+    {
+        if(!$ethInfo = Cache::get('ethereum_price')) {
+            $ethInfo = json_decode(file_get_contents("https://api.coinmarketcap.com/v1/ticker/ethereum/"))[0];
+            Cache::add('ethereum_price', $ethInfo, 1440); //24hrs
+        }
+
+        return $ethInfo;
+    }
+
+    /**
      * Get total investments we collected
      * @return  array
      */
     public function getTotalInvestment()
     {
-    	if(!$ethInfo = Cache::get('ethereum_price')) {
-    		$ethInfo = json_decode(file_get_contents("https://api.coinmarketcap.com/v1/ticker/ethereum/"))[0];
-    		Cache::add('ethereum_price', $ethInfo, 1440); //24hrs
-    	}
+        $ethInfo = $this->getEthPrice();
 
     	$investedEth = $this->sum('number_of_eth_to_pay');
     	$investedUsd = Helper::numberFormat($investedEth * $ethInfo->price_usd);
@@ -123,17 +153,17 @@ class Investment extends Model
 
         //phase 1
         if($currentDate >= $start && $currentDate < $phase2Ends) {
-            $numberOfEthToPay = $investmentModel->mimicoins_bought * env('ICO_PHASE_1_ETH'); 
+            $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * env('ICO_PHASE_1_ETH'); 
             $phase = 1;
         } 
         //phase 2
         else if($currentDate >= $phase2Ends && $currentDate < $phase3Ends) {
-            $numberOfEthToPay = $investmentModel->mimicoins_bought * env('ICO_PHASE_2_ETH'); 
+            $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * env('ICO_PHASE_2_ETH'); 
             $phase = 2;
         } 
         //phase 3
         else if($currentDate >= $phase3Ends && $currentDate <= $icoEnds) {
-            $numberOfEthToPay = $investmentModel->mimicoins_bought * env('ICO_PHASE_3_ETH'); 
+            $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * env('ICO_PHASE_3_ETH'); 
             $phase = 3;
         }
 
@@ -186,6 +216,17 @@ class Investment extends Model
     public function roundNumber($value)
     {
         return round($value, 5);
+    }
+
+    /**
+     * Calculate mi investment in MimiCoins
+     * @return [type] [description]
+     */
+    public function getMinInvestment()
+    {
+        $ethInfo = $this->getEthPrice();
+        //1ETH = 370$ / 370
+        return $this->roundNumber(env('ICO_ETH_TO_MIM') * (1 / $ethInfo->price_usd));
     }
 
 }
