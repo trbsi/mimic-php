@@ -428,7 +428,7 @@
             </label>
             <label>
                 <span class="label-text">MimiCoins</span>
-                <input type="number" id="mimicoins_bought" required="" onkeyup="calculateInvestment()">
+                <input type="number" id="mimicoins_bought" required="" step="0.00001" onkeyup="calculateInvestment()">
             </label>
             <label>
                 <span class="label-text">Your account number</span>
