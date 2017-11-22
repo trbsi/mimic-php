@@ -105,7 +105,7 @@ class Investment extends Model
                 $amountToSendToInvestor = $investmentModel->mimicoins_bought + $this->roundNumber((env('ICO_INVESTOR_PERCENTAGE_SEND_TO_INVESTOR') / 100 * $investmentModel->mimicoins_bought));
 
                 //send to another investor
-                $amountToSendToOtherAccount = $investmentModel->mimicoins_bought;
+                $amountToSendToOtherAccount = $investmentModel->mimicoins_bought * env('ICO_INVESTOR_PERCENTAGE_SEND_TO_INVESTOR') / 100;
             }
 
             $otherAccountNumber = $investmentModel->icoAffiliate->account_number;
