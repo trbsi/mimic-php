@@ -584,6 +584,13 @@
         return re.test(email);
     }
 
+    function emptyForm()
+    {
+        $('input[type=number], input[type=text], input[type=email]').each(function(){
+            $(this).val("");
+        });
+    }
+
     $("#invest-form").submit(function(e) {
 
         e.preventDefault(); //STOP default action
@@ -621,6 +628,7 @@
             type: "POST",
             data: data,
             success: function(data, textStatus, jqXHR) {
+                emptyForm();
                 $(".alert").hide();
                 $("#processing_investment").hide();
                 $("#invest-btn").prop('disabled', false);
