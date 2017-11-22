@@ -68,19 +68,19 @@ class Investment extends Model
                 $amountToSendToInvestor = $investmentModel->mimicoins_bought + $investmentModel->mimicoins_bought * env('ICO_GUEST_PERCENTAGE_SEND_TO_INVESTOR') / 100;
 
                 //send to guest (affiliate account - account who referred investor)
-                $amountToSendToOtherAccount = round($investmentModel->mimicoins_bought * env('ICO_GUEST_PERCENTAGE_SEND_TO_ANOTHER_ACCOUNT') / 100);
+                $amountToSendToOtherAccount = $this->roundNumber($investmentModel->mimicoins_bought * env('ICO_GUEST_PERCENTAGE_SEND_TO_ANOTHER_ACCOUNT') / 100);
 
             } else if($investmentModel->icoAffiliate->affiliate_type === Affiliate::INVESTOR) {
                 //send to investor
-                $amountToSendToInvestor = $investmentModel->mimicoins_bought + round((env('ICO_INVESTOR_PERCENTAGE_SEND_TO_INVESTOR') / 100 * $investmentModel->mimicoins_bought));
+                $amountToSendToInvestor = $investmentModel->mimicoins_bought + $this->roundNumber((env('ICO_INVESTOR_PERCENTAGE_SEND_TO_INVESTOR') / 100 * $investmentModel->mimicoins_bought));
 
                 //send to another investor
                 $amountToSendToOtherAccount = $investmentModel->mimicoins_bought;
             }
 
             $otherAccountNumber = $investmentModel->icoAffiliate->account_number;
-            $amountToSendToInvestor = round($amountToSendToInvestor);
-            $amountToSendToOtherAccount = round($amountToSendToOtherAccount);
+            $amountToSendToInvestor = $this->roundNumber($amountToSendToInvestor);
+            $amountToSendToOtherAccount = $this->roundNumber($amountToSendToOtherAccount);
 
         }
         
@@ -89,10 +89,10 @@ class Investment extends Model
 
         return [
             'phase' => $data['calculateInvestmentBasedOnPhase']['phase'], 
-            'number_of_eth_to_pay' => number_format($data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']), 
+            'number_of_eth_to_pay' => $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay'], 
             'other_account_number' => $data['otherAccountNumber'], 
-            'amount_to_send_to_other_account' => number_format($data['amountToSendToOtherAccount']),  
-            'amount_to_send_to_investor' => number_format($data['amountToSendToInvestor']), 
+            'amount_to_send_to_other_account' => $data['amountToSendToOtherAccount'],  
+            'amount_to_send_to_investor' => $data['amountToSendToInvestor'], 
         ];
     }
 
@@ -137,7 +137,7 @@ class Investment extends Model
             $phase = 3;
         }
 
-        $numberOfEthToPay = round($numberOfEthToPay);
+        $numberOfEthToPay = $this->roundNumber($numberOfEthToPay);
 
         return compact('numberOfEthToPay', 'phase');
     }
@@ -176,6 +176,16 @@ class Investment extends Model
     public function icoAffiliate()
     {
         return $this->belongsTo(\App\Api\V1\Ico\Affiliate\Models\Affiliate::class, 'affiliate_id');
+    }
+
+    /**
+     * Round numbe
+     * @param  string|number $value Number of string-number
+     * @return number        Rounded number
+     */
+    public function roundNumber($value)
+    {
+        return round($value, 5);
     }
 
 }

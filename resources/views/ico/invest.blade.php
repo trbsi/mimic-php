@@ -428,7 +428,7 @@
             </label>
             <label>
                 <span class="label-text">MimiCoins</span>
-                <input type="number" id="mimicoins_bought" required="" min="15" onkeyup="calculateInvestment()">
+                <input type="number" id="mimicoins_bought" required="" onkeyup="calculateInvestment()">
             </label>
             <label>
                 <span class="label-text">Your account number</span>
@@ -494,15 +494,31 @@
 
     function calculateInvestment() {
         clearTimeout(calculateInvestmentTimer);
+
+        var mimicoins_bought = $("#mimicoins_bought");
         var data = {
-            mimicoins_bought: $("#mimicoins_bought").val(),
+            mimicoins_bought: parseFloat($("#mimicoins_bought").val()).toFixed(5),
             affiliate_code: $("#affiliate_code").val(),
             investor_account_number: $("#investor_account_number").val(),
         };
 
-        if (data['mimicoins_bought'] != '' && data['mimicoins_bought'] >= minMimiCoins) {
+        
+
+        if (data['mimicoins_bought'] != '') {
             $("#calculate_investment").fadeIn();
-            calculateInvestmentTimer = setTimeout(function() {
+            calculateInvestmentTimer = setTimeout(function() {   
+                //round mimicpoins to 5 decimals
+                if(mimicoins_bought.val()) {
+                    mimicoins_bought.val(parseFloat(mimicoins_bought.val()).toFixed(5));
+                }
+
+                //min number of mimcoins msg
+                if(mimicoins_bought.val() < minMimiCoins) {
+                    showError("Miminum amount of MimiCoins you're able to buy is "+minMimiCoins+"!");
+                    $("#calculate_investment").hide();
+                    return;
+                }
+
                 $.ajax({
                     url: '<?=app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('calculate-investment')?>',
                     type: "POST",
@@ -512,7 +528,7 @@
                         $("#calculate_investment").hide();
                         var msg = "<b>Phase "+data.phase+"</b><br>";
 
-                        if(data.amount_to_send_to_other_account == 0) {
+                        if(data.amount_to_send_to_other_account == 0 || data.amount_to_send_to_other_account == null) {
                             msg+= "You'll get <b>"+data.amount_to_send_to_investor+"</b> MimiCoins<br>You need to pay <b>"+data.number_of_eth_to_pay+"</b> ETH"; 
                             showInfo(msg, true);
                         } else {
@@ -634,8 +650,9 @@
                 $("#invest-btn").prop('disabled', false);
 
                 var msg = "Dear "+data.investment.first_name+" "+data.investment.last_name+", thank you for your investment. We won't let you down!<br><br>"+
+                    "Transaction ID: <b>"+data.investment.transaction_id+"</b><br>"+
                     "This is your affiliate number: <b>"+data.affiliate.affiliate_code+"</b><br>"+
-                    "This is your affiliate url: <a href='"+affiliateUrl+data.affiliate.affiliate_code+"'>"+affiliateUrl+data.affiliate.affiliate_code+"</a><br>"+
+                    "This is your affiliate url: <a href='"+affiliateUrl+data.affiliate.affiliate_code+"'>"+affiliateUrl+data.affiliate.affiliate_code+"</a><br><br>"+
                     "Refer other investors and get extra MimiCoins.";
                 showSuccess(msg, true);
             },

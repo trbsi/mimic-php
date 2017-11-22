@@ -156,6 +156,8 @@
                                     </p>
                                     <p>
                                         Thank you for purchasing <b>{{$investmentModel->mimicoins_bought}}</b> MimiCoins. 
+                                        <br>
+                                        Transaction ID: <b>{{$investmentModel->transaction_id}}</b>
                                         @if ($investmentModel->amount_to_send_to_investor-$investmentModel->mimicoins_bought != 0)
                                             <br>
                                             Number of extra MimiCoins you received: <b>{{$investmentModel->amount_to_send_to_investor-$investmentModel->mimicoins_bought}}</b>

@@ -43,17 +43,17 @@ class InvestmentController extends Controller
 	public function saveInvestment(Request $request, Investment $investment, Affiliate $affiliate)
 	{
 		$messages = [
-		    'required' => 'The <b>":attribute"</b> field is required.',
-		    'email' => 'The <b>":attribute"</b> field should be a valid email.',
-		    'integer' => 'The <b>":attribute"</b> field should be a number.',
-		    'mimicoins_bought.min' => 'You should buy at least <b>15</b> MimiCoins.',
+		    'required' => trans('ico.validation_required'),
+		    'email' => trans('ico.validation_email'),
+		    'numeric' => trans('ico.validation_numeric'),
+		    'mimicoins_bought.min' => trans('ico.num_of_coins', ['num_of_coins' => env('ICO_MIN_MIMCOINS')]),
 		];
 
 	   $validator = Validator::make($request->all(), [
             'investor_account_number' => 'required',
 	        'first_name' => 'required',
 	        'last_name' => 'required',
-	        'mimicoins_bought' => 'required|integer|min:'.env('ICO_MIN_MIMCOINS'),
+	        'mimicoins_bought' => 'required|numeric|min:'.env('ICO_MIN_MIMCOINS'),
 	        'email' => 'required|email',
         ], $messages);
 
@@ -72,7 +72,7 @@ class InvestmentController extends Controller
 		DB::beginTransaction();
 		try {
 			//save investment
-			$request['mimicoins_bought'] = round($request->mimicoins_bought);
+			$request['mimicoins_bought'] = $investment->roundNumber($request->mimicoins_bought);
 			$investmentModel = $investment->create($request->all());
 
 			//check for affiliate code user entered (this is affiliate code of another user)
@@ -101,6 +101,26 @@ class InvestmentController extends Controller
 				)
 			);
 
+
+		    //get data from solidity and save transaction id
+		    //http://codular.com/curl-with-php
+		    /*$curl = curl_init();
+			// Set some options - we are passing in a useragent too here
+			curl_setopt_array($curl, array(
+			    CURLOPT_RETURNTRANSFER => 1,
+			    CURLOPT_URL => env('ICO_SOLIDITY_URL'),
+			    CURLOPT_POST => 1,
+			    CURLOPT_POSTFIELDS => $investmentModel->fresh()->toArray()
+			));
+			// Send the request & save response to $resp
+			$resp = curl_exec($curl);
+			// Close request to clear up some resources
+			curl_close($curl);
+			*/
+    		$investmentModel->transaction_id = mt_rand();
+			$investmentModel->save();
+
+
 			//send email to investor
 			if(env('APP_ENV') !== 'local') {
 				Mail::send('ico.emails.invested', 
@@ -120,25 +140,6 @@ class InvestmentController extends Controller
 
 		        });
 			}
-			
-
-		    //get data from solidity and save transaction id
-		    //http://codular.com/curl-with-php
-		    /*$curl = curl_init();
-			// Set some options - we are passing in a useragent too here
-			curl_setopt_array($curl, array(
-			    CURLOPT_RETURNTRANSFER => 1,
-			    CURLOPT_URL => env('ICO_SOLIDITY_URL'),
-			    CURLOPT_POST => 1,
-			    CURLOPT_POSTFIELDS => $investmentModel->fresh()->toArray()
-			));
-			// Send the request & save response to $resp
-			$resp = curl_exec($curl);
-			// Close request to clear up some resources
-			curl_close($curl);
-
-    		$investmentModel->transaction_id = $request->transaction_id;
-			$investmentModel->save();*/
 
 			//return data
 			DB::commit();
