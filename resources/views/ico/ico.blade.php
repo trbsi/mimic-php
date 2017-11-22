@@ -278,21 +278,21 @@
                     <img src="ico-files/img/mimic-eth-icon.png" style="max-height: 50px">
                     <h3>MimiCoin</h3>
                     <p>
-                        <?=$investment[ 'mimicoins']?>
+                        <?=$investment['mimicoins']?>
                     </p>
                 </div>
                 <div class="col-sm-4 animation-box wow bounceIn animated">
                     <img src="ico-files/img/eth.png" style="max-height: 50px">
                     <h3>Ethereum</h3>
                     <p>
-                        <?=$investment[ 'investedEth']?>
+                        <?=$investment['investedEth']?>
                     </p>
                 </div>
                 <div class="col-sm-4 wow animated fadeInRight">
                     <img src="ico-files/img/dollar.png" style="max-height: 50px">
                     <h3>Dollar</h3>
                     <p>
-                        <?=$investment[ 'investedUsd']?>
+                        <?=$investment['investedUsd']?>
                     </p>
                 </div>
             </div>

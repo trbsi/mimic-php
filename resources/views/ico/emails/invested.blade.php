@@ -155,6 +155,14 @@
                                         Thank you for your investment and thank you for trusting us! We won't let you down!
                                     </p>
                                     <p>
+                                        Thank you for purchasing <b>{{$investmentModel->mimicoins_bought}}</b> MimiCoins. 
+                                        @if ($investmentModel->amount_to_send_to_investor)
+                                            <br>
+                                            Number of extra MimiCoins you received: <b>{{$investmentModel->amount_to_send_to_investor}}</b>
+                                        @endif
+                                               
+                                    </p>
+                                    <p>
                                         This is your affiliate number: <b>{{$affiliateInvestorModel->affiliate_code}}</b>
                                         <br>
                                         Your affiliate URL is: <a href="{{$affiliateUrl}}"> {{$affiliateUrl}} </a>
