@@ -649,7 +649,7 @@
                 $("#processing_investment").hide();
                 $("#invest-btn").prop('disabled', false);
 
-                var msg = "Dear "+data.investment.first_name+" "+data.investment.last_name+", thank you for your investment. We won't let you down!<br><br>"+
+                var msg = "Dear "+data.investment.first_name+" "+data.investment.last_name+", thank you for your investment. We won't let you down!<br>Check your email for detailed report of your investment.<br>"+
                     "Transaction ID: <b>"+data.investment.transaction_id+"</b><br>"+
                     "This is your affiliate number: <b>"+data.affiliate.affiliate_code+"</b><br>"+
                     "This is your affiliate url: <a href='"+affiliateUrl+data.affiliate.affiliate_code+"'>"+affiliateUrl+data.affiliate.affiliate_code+"</a><br><br>"+
