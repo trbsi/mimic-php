@@ -58,9 +58,11 @@ $("#newsletter_form").submit(function(e)
         success:function(data, textStatus, jqXHR) 
         {
             newsletter_btn.prop('disabled', false);
-            newsletter_success.html("Thank you <b>"+data.name+"</b> (<b>"+data.email+"</b>). We'll notify you before ICO starts :)").show();
+            newsletter_success.html("Thank you <b>"+data.name+"</b> (<b>"+data.email+"</b>) :)").show();
             newsletter_email.val('');
             newsletter_name.val('');
+
+            setTimeout(function(){ newsletter_success.fadeOut(); }, 3000);
         },
         error: function(jqXHR, textStatus, errorThrown) 
         {
@@ -68,6 +70,8 @@ $("#newsletter_form").submit(function(e)
             newsletter_warning.html("Email <b>"+newsletter_email.val()+"</b> is already in our database :)").show();
             newsletter_email.val('');
             newsletter_name.val('');
+
+            setTimeout(function(){ newsletter_warning.fadeOut(); }, 3000);
         }
     });
     e.preventDefault(); //STOP default action

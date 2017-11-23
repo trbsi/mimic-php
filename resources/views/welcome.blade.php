@@ -191,6 +191,62 @@
     </div>
 </section>
 
+
+<div id="team" class="wrapper">
+    <div class="container-fluid">
+        <h2 class="animation-box wow bounceIn animated">Wall of fame</h2>
+        <br>
+        Investors who supported Mimic in early days
+        <div class="virticle-line"></div>
+        <div class="circle"></div>
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+            <div class="col-md-2 col-sm-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+        </div> <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6  col-sm-offset-2 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
+                <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
+                <h3>John Doe</h3>
+            </div>
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</div> <!-- /#team -->
+
+
 <!-- HHHHHHHHHHHHHHHHHH        Footer          HHHHHHHHHHHHHHHH -->
 
 <section id="footer" class="wrapper">
@@ -215,6 +271,7 @@
             <li class="hideit"><a href="#header">Home</a></li>
             <li class="hideit"><a href="#video">Video</a></li>
             <li class="hideit"><a href="#gallery">Screenshots</a></li>
+            <li class="hideit"><a href="/blog">Blog</a></li>
             <li class="hideit"><a href="<?= url('legal') ?>">Legal</a></li>
             <li class="hideit"><a href="<?= url('ico') ?>">ICO</a></li>
         </ul>

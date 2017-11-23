@@ -147,7 +147,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
 .overlay ul li {
     display: block;
     height: 20%;
-    height: calc(100% / 5);
+    height: calc(100% / 7);
     min-height: 54px;
 }
 
@@ -157,6 +157,7 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH*/
     color: #fff;
     -webkit-transition: color 0.2s;
     transition: color 0.2s;
+    font-size: 0.7em;
 }
 
 .overlay ul li a:hover, .overlay ul li a:focus {

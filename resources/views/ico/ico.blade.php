@@ -45,6 +45,10 @@
                 zoom: 0.5;
                 -moz-transform: scale(0.5)
             }
+
+            #newsletter_form {
+                margin-bottom: 15px;
+            }
         }
         @media (min-width: 992px) {
             #countdowner {
@@ -142,19 +146,44 @@
                     </div>
                     <div class="col-md-6">
                         <div class="banner-text">
-                            <h2 class="animation-box wow bounceIn animated">Mimic ICO</h2>
+                            <div>
+                                <h3 style="color: white; font-size: 2.5em">Newsletter</h3>
+                                <form  id="newsletter_form" role="form">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                                <input type="email" id="newsletter_email" class="form-control input-lg" id="exampleInputEmail2" placeholder="Enter email" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="first_name">Your name</label>
+                                                <input type="text" id="newsletter_name" class="form-control input-lg" id="first_name" placeholder="Your name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-xs-12">
+                                            <button type="submit" id="newsletter_btn" class="btn btn-default btn-lg">Subscribe</button>
+                                        </div>                                
+                                    </div>
+                                </form>
+                                <div class="alert alert-success" style="display: none" id="newsletter_success"></div>
+                                <div class="alert alert-warning" style="display: none" id="newsletter_warning"></div>
+                            </div>
+                            <hr>
                             <p style="font-size: 2em;">
                                 MimiCoin
                                 <br> First social cryptocurrency
                             </p>
-                            <a href="ico-files/mimic-white-paper.pdf" class="btn btn-download wow animated fadeInLeft">
+                            <a href="ico-files/MimicWhitePaper.pdf" class="btn btn-download wow animated fadeInLeft">
                                 <i class="fa fa-file-pdf-o pull-left"></i>
                                 <strong>Mimic</strong>
                                 <br/>White paper</a>
                             <a href="<?= env('IOS_STORE_LINK') ?>" target="_blank" class="btn btn-download wow animated fadeInRight">
                                 <i class="fa fa-apple pull-left"></i>
                                 <strong>Get it on</strong>
-                                <br/>App store </a>
+                                <br/>App store 
+                            </a>
                         </div>
                         <!-- /.banner-text -->
                     </div>
@@ -212,32 +241,6 @@
             </p>
             <p>
                 <div class="alert alert-success" style="display: none" id="redeem_code_success"></div>
-            </p>
-            <hr>
-
-            <p id="newsletter_subscribe">
-                <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Get notified! Don't miss out our ICO!</h2>
-                <div class="virticle-line"></div>
-                <div class="circle"></div>
-
-                Don't worry, we'll only send you an email to remind you about the start of our ICO.
-                <br>
-                <br>
-                <form class="form-inline" id="newsletter_form" role="form">
-                    <div class="form-group">
-                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                        <input type="email" id="newsletter_email" class="form-control input-lg" id="exampleInputEmail2" placeholder="Enter email" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="name">Your name</label>
-                        <input type="text" id="newsletter_name" class="form-control input-lg" id="first_name" placeholder="Your name" required>
-                    </div>
-                    <button type="submit" id="newsletter_btn" class="btn btn-warning btn-lg">Notify me</button>
-                </form>
-            </p>
-            <p>
-                <div class="alert alert-success" style="display: none" id="newsletter_success"></div>
-                <div class="alert alert-warning" style="display: none" id="newsletter_warning"></div>
             </p>
         </div>
         <!-- /.container -->
@@ -598,6 +601,16 @@
             <ul class="social-icons text-center">
                 <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/HelloMimic/" target="_blank"><i class="fa fa-facebook"></i></a>
                 </li>
+                <li class="wow animated fadeInLeft twitter"><a href="https://twitter.com/Mimic_app_" target="_blank"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft googleplus"><a href="https://www.reddit.com/r/Mimic_app/" target="_blank"><i class="fa fa-reddit"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft github"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft linkedin"><a href="#" target="_blank"><i class="fa fa-paper-plane"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft linkedin"><a href="https://steemit.com/@dariot/feed" target="_blank"><i class="fa fa-book"></i></a>
+                </li>
                 <li class="wow animated fadeInRight twitter"><a href="mailto:<?=config('app.official_email')?>"><i class="fa fa-envelope"></i></a>
                     <?php /*<li class="wow animated fadeInLeft linkedin"><a href="#"><i class="fa fa-linkedin"></i></a>
                 </li>
@@ -619,13 +632,12 @@
             <ul>
                 <li class="hideit"><a href="/">Go home</a>
                 </li>
+                <li class="hideit"><a href="/blog">Blog</a></li>
                 <?php if($icoStatus === 'not_started'): ?>
                 <li class="hideit"><a href="#video">Countdown</a>
                 </li>
                 <?php endif; ?>
                 <li class="hideit"><a href="#redeem_code">Reedem a code</a>
-                </li>
-                <li class="hideit"><a href="#newsletter_subscribe">Get notified about ICO</a>
                 </li>
                 <li class="hideit"><a href="#speciality2">What is Mimic</a>
                 </li>
