@@ -12,3 +12,10 @@ https://stackoverflow.com/questions/18236294/how-do-i-get-the-query-builder-to-o
  
 log all queries
 https://stackoverflow.com/questions/41163199/laravel-5-3-how-to-log-all-queries-on-a-page
+
+Order deny,allow
+Deny from all
+<Files ~ "\.(jpe?g|png|gif|mp4|3gp|avi|m4v|nov|mpg|mpeg|mov|MOV)$">
+  Allow from all
+</Files>
+https://stackoverflow.com/questions/20978086/htaccess-allow-access-to-one-php-file
