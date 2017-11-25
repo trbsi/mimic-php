@@ -15,6 +15,7 @@ class Affiliate extends Model
     [
         'id' => 'int',
     ];
+    protected $appends = ['affiliate_url'];
 
 	public static function boot()
     {
@@ -23,6 +24,11 @@ class Affiliate extends Model
         self::creating(function($model){
             $model->affiliate_code = $model->generateAffiliateCode();
         });
+    }
+
+    public function getAffiliateUrlAttribute()
+    {
+        return route('ico-invest', ['affiliate' => $this->affiliate_code]);
     }
 
     /**

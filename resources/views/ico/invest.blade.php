@@ -37,7 +37,7 @@
         }
         
         body {
-            background: url('ico-files/img/investbg.jpg') center no-repeat;
+            background: url('/ico-files/img/investbg.jpg') center no-repeat;
             background-size: cover;
             color: #333;
             font-size: 18px;
@@ -62,7 +62,7 @@
         }
         
         .container:before {
-            background: url('ico-files/img/investbg.jpg') center no-repeat;
+            background: url('/ico-files/img/investbg.jpg') center no-repeat;
             background-size: cover;
             content: '';
             -webkit-filter: blur(10px);
@@ -405,9 +405,9 @@
         <header>
             <h1>
                <a href="<?=route('ico')?>" style="">
-               <img src="ico-files/img/mimic-eth.png" style="max-height: 30px; width: auto;"> 
+               <img src="/ico-files/img/mimic-eth.png" style="max-height: 30px; width: auto;"> 
                <span style="font-size: 0.8em; color: var(--main-color); text-decoration: underline">ICO Info</span>
-               <img src="ico-files/img/mimic-eth.png" style="max-height: 30px; width: auto;">
+               <img src="/ico-files/img/mimic-eth.png" style="max-height: 30px; width: auto;">
                </a>
             </h1>
         </header>
@@ -440,8 +440,8 @@
                 type="text" 
                 id="affiliate_code" 
                 onkeyup="calculateInvestment()" 
-                value="@if ($affiliate) {{$affiliate}} @endif" 
-                @if($affiliate) readonly @endif>
+                value="@if ($affiliate_code) {{$affiliate_code}} @endif" 
+                @if($affiliate_code) readonly @endif>
             </label>
             <div id="calculate_investment" style="display: none; text-align: center">
                 Calculating investment...
@@ -490,7 +490,7 @@
 <script>
     var calculateInvestmentTimer;
     var minMimiCoins = <?=$minInvestment?>;
-    var affiliateUrl = '<?=route('ico-invest')?>?affiliate='
+    var affiliateUrl = '<?=route('ico-invest')?>/'
 
     function calculateInvestment() {
         clearTimeout(calculateInvestmentTimer);

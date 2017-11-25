@@ -23,18 +23,24 @@ $("#redeem_code_form").submit(function(e)
         {
             affiliateData = data.affiliate;
             redeem_code_btn.prop('disabled', false);
-            redeem_code_success.html("Code for account <b>"+affiliateData.account_number+"</b> is <b>"+affiliateData.affiliate_code+"</b>").show();
+            redeem_code_success.html(redeemCodeMsg(affiliateData)).show();
             account_number.val('');
         },
         error: function(jqXHR, textStatus, errorThrown) 
         {
             affiliateData = data.affiliate;
             redeem_code_btn.prop('disabled', false);
-            redeem_code_success.html("Code for account <b>"+affiliateData.account_number+"</b> is <b>"+affiliateData.affiliate_code+"</b>").show();
+            redeem_code_success.html(redeemCodeMsg(affiliateData)).show();
             account_number.val('');
         }
     });
     e.preventDefault(); //STOP default action
+
+    function redeemCodeMsg(affiliateData)
+    {
+        return "Code for account <b>"+affiliateData.account_number+"</b> is <b>"+affiliateData.affiliate_code+"</b><br><br>"+
+                "Your affiliate url is <b><a href='"+affiliateData.affiliate_url+"'>"+affiliateData.affiliate_url+"</a></b>"
+    }
 });
 
 $("#newsletter_form").submit(function(e)

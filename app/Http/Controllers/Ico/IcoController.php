@@ -19,7 +19,7 @@ class IcoController extends BaseController
     public function invest(Request $request, Investment $investment)
     {
         return view("ico.invest", [
-        	'affiliate' => $request->affiliate, 
+        	'affiliate_code' => $request->affiliate_code, 
         	'minInvestment' => $investment->getMinInvestment()
         ]);
     }
