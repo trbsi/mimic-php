@@ -175,7 +175,7 @@
                                 MimiCoin
                                 <br> First social cryptocurrency
                             </p>
-                            <a href="ico-files/MimicWhitePaper.pdf" class="btn btn-download wow animated fadeInLeft">
+                            <a href="<?= route('whitepaper-url') ?>" class="btn btn-download wow animated fadeInLeft">
                                 <i class="fa fa-file-pdf-o pull-left"></i>
                                 <strong>Mimic</strong>
                                 <br/>White paper</a>

@@ -8,6 +8,6 @@ Homestead.yaml
 .env
 /public/files/*
 !/public/files/.htaccess
-/public/ico-files/MimicWhitePaper.pdf
+/storage/MimicWhitePaper.pdf
 /public/blog/
 /public/google88dfe09525f52bca.html
