@@ -20,4 +20,5 @@ Route::group(['namespace' => 'Cron', 'prefix' => 'cron'], function () {
 
 //ICO
 Route::get('ico', 'Ico\IcoController@ico')->name('ico');
+Route::get('whitepaper', 'Ico\IcoController@whitePaper');
 Route::get('invest/{affiliate_code?}', 'Ico\IcoController@invest')->name('ico-invest');

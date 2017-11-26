@@ -24,4 +24,9 @@ class IcoController extends BaseController
         	'minInvestment' => $investment->getMinInvestment()
         ]);
     }
+
+    public function whitePaper()
+    {
+         return redirect('/ico-files/MimicWhitePaper.pdf');
+    }
 }
