@@ -9,3 +9,5 @@ Homestead.yaml
 /public/files/*
 !/public/files/.htaccess
 /public/ico-files/MimicWhitePaper.pdf
+/public/blog/
+/public/google88dfe09525f52bca.html
