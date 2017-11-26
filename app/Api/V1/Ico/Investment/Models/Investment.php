@@ -9,6 +9,9 @@ use App\Api\V1\Ico\Affiliate\Models\Affiliate;
 
 class Investment extends Model
 {
+    private $discounts;
+    private $currentDate;
+
     protected $table = 'ico_investments';
     protected $fillable = [
         'id', 'first_name', 'last_name', 'investor_account_number', 'mimicoins_bought', 'phase', 'number_of_eth_to_pay', 'other_account_number', 'send_to_investor', 'amount_to_send_to_other_account', 'amount_to_send_to_investor', 'email'
@@ -24,6 +27,19 @@ class Investment extends Model
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function __construct(array $attributes = array())
+    {
+        parent::__construct($attributes);
+
+        $this->discounts = [
+            ['start' => date("Y-12-24"), 'end' => date('Y-12-25'), 'discount_amount' => 50, 'name' => 'Christmas'],
+            ['start' => date("2017-12-30"), 'end' => date('2018-01-01'), 'discount_amount' => 75, 'name' => 'New Year'],
+        ];
+
+
+        $this->currentDate = date('Y-m-d');
     }
 
     /**
@@ -78,9 +94,10 @@ class Investment extends Model
     /**
      * Calculate number of ethers investor and user with affiliate code needs to get
      * @param  Model $investmentModel Investment model
+     * @param  boolean $zeroEth Is this investment going to cost zero ETH or not
      * @return [type] [description]
      */
-    public function calculateAffiliateCode($investmentModel)
+    public function calculateAffiliateCode($investmentModel, $zeroEth = false)
     {
         //check if user wants to use his affiliate code
         if($investmentModel->icoAffiliate && $investmentModel->investor_account_number == $investmentModel->icoAffiliate->account_number) {
@@ -109,20 +126,23 @@ class Investment extends Model
             }
 
             $otherAccountNumber = $investmentModel->icoAffiliate->account_number;
-            $amountToSendToInvestor = $this->roundNumber($amountToSendToInvestor);
-            $amountToSendToOtherAccount = $this->roundNumber($amountToSendToOtherAccount);
-
         }
-        
 
         $data = compact('calculateInvestmentBasedOnPhase', 'otherAccountNumber', 'amountToSendToOtherAccount', 'amountToSendToInvestor');
 
+        //make discounts if there is any
+        if($discount = $this->checkForDiscount()) {
+            $data['amountToSendToInvestor']+= $data['amountToSendToInvestor'] * $discount['discount_amount'] / 100;
+            $data['amountToSendToOtherAccount']+= $data['amountToSendToOtherAccount'] * $discount['discount_amount'] / 100;
+            $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']-= $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay'] * $discount['discount_amount'] / 100;
+        }
+        
         return [
             'phase' => $data['calculateInvestmentBasedOnPhase']['phase'], 
-            'number_of_eth_to_pay' => $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay'], 
+            'number_of_eth_to_pay' => ($zeroEth) ? 0 : $this->roundNumber($data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']), 
             'other_account_number' => $data['otherAccountNumber'], 
-            'amount_to_send_to_other_account' => $data['amountToSendToOtherAccount'],  
-            'amount_to_send_to_investor' => $data['amountToSendToInvestor'], 
+            'amount_to_send_to_other_account' => $this->roundNumber($data['amountToSendToOtherAccount']),  
+            'amount_to_send_to_investor' => $this->roundNumber($data['amountToSendToInvestor']), 
         ];
     }
 
@@ -166,8 +186,6 @@ class Investment extends Model
             $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * env('ICO_PHASE_3_ETH'); 
             $phase = 3;
         }
-
-        $numberOfEthToPay = $this->roundNumber($numberOfEthToPay);
 
         return compact('numberOfEthToPay', 'phase');
     }
@@ -219,14 +237,31 @@ class Investment extends Model
     }
 
     /**
-     * Calculate mi investment in MimiCoins
+     * Calculate min investment in MimiCoins. Min investment is 1$ worth of MimiCoins
      * @return [type] [description]
      */
     public function getMinInvestment()
     {
         $ethInfo = $this->getEthPrice();
-        //1ETH = 370$ / 370
-        return $this->roundNumber(env('ICO_ETH_TO_MIM') * (1 / $ethInfo->price_usd));
+        //1ETH = 370$ / 370         => 0.0027 ETH = 1$
+        //1ETH = 15 MIM /*0.0027    => 0.0027 ETH = 0.0405 MIM = 1$
+        return $this->roundNumber(env('ICO_ETH_TO_MIM') / $ethInfo->price_usd);
+    }
+
+    /**
+     * Check if there's any discount and if there is, return discount data
+     * @return array|false Discount data or boolean
+     */
+    public function checkForDiscount()
+    {
+        foreach ($this->discounts as $key => $value) {
+            if(strtotime($this->currentDate) >= strtotime($value['start']) && strtotime($this->currentDate) <= strtotime($value['end'])) {
+                return $value;
+                break;
+            }
+        }
+
+        return false;
     }
 
 }

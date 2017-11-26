@@ -42,6 +42,11 @@ class InvestmentController extends Controller
 	 */
 	public function saveInvestment(Request $request, Investment $investment, Affiliate $affiliate)
 	{
+		$zeroEth = false;
+		if($request->nula_eth == true) {
+			$zeroEth = true;
+		}
+
 		$messages = [
 		    'required' => trans('ico.validation_required'),
 		    'email' => trans('ico.validation_email'),
@@ -96,7 +101,7 @@ class InvestmentController extends Controller
 			$investmentModel->update(
 				array_only
 				(
-					$investment->calculateAffiliateCode($investmentModel), 
+					$investment->calculateAffiliateCode($investmentModel, $zeroEth), 
 					['phase', 'number_of_eth_to_pay', 'other_account_number', 'amount_to_send_to_other_account', 'amount_to_send_to_investor']
 				)
 			);

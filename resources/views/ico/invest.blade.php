@@ -402,6 +402,9 @@
 
 <body>
     <div class="container">
+        @if($discount)
+        <span style="color:#F12A2A; font-size: 0.8em;"><h1>*** {{$discount['name']}} discount! ***</h1></span>
+        @endif
         <header>
             <h1>
                <a href="<?=route('ico')?>" style="">
@@ -412,7 +415,7 @@
             </h1>
         </header>
         
-        <h1 class="text-center">Invest now</h1>
+        <h1 class="text-center">Invest now!</h1>
         <form id="invest-form">
             <label class="col-one-half">
                 <span class="label-text">First Name</span>
