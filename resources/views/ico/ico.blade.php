@@ -719,6 +719,18 @@
         });
     </script>
     <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a1db9b363750b0012e6bb1d&product=inline-share-buttons' async='async'></script>
+    <script type="text/javascript">
+        (function(p,u,s,h){
+            p._pcq=p._pcq||[];
+            p._pcq.push(['_currentTime',Date.now()]);
+            s=u.createElement('script');
+            s.type='text/javascript';
+            s.async=true;
+            s.src='https://cdn.pushcrew.com/js/d35695207738284b714c96cc03272aee.js';
+            h=u.getElementsByTagName('script')[0];
+            h.parentNode.insertBefore(s,h);
+        })(window,document);
+    </script>
 </body>
 
 </html>
