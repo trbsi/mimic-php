@@ -476,7 +476,8 @@
 
             <div class="alert alert-success fade in">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close" onclick="fadeOutAlert(this)">×</a>
-                <div class="content"></div>
+                <div class="content" style="padding-bottom: 15px;"></div>
+                <div class="sharethis-inline-share-buttons"></div>
             </div>
 
             <div class="alert alert-error fade in">
@@ -494,12 +495,13 @@
         </form>
         
     </div>
-</body>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     var calculateInvestmentTimer;
     var minMimiCoins = <?=$minInvestment?>;
-    var affiliateUrl = '<?=route('ico-invest')?>/'
+    var affiliateUrl = '<?=route('ico-invest')?>';
+    var domain_url = '<?=env('APP_URL')?>';
 
     function calculateInvestment() {
         clearTimeout(calculateInvestmentTimer);
@@ -628,6 +630,7 @@
             investor_account_number: $("#investor_account_number").val(),
             affiliate_code: $("#affiliate_code").val(),
         };
+        var shareThis = $(".sharethis-inline-share-buttons");
 
         //validate
         if (data['first_name'] == '' || data['last_name'] == '' || data['email'] == '' || data['mimicoins_bought'] == '' || data['investor_account_number'] == '') {
@@ -658,11 +661,18 @@
                 $("#processing_investment").hide();
                 $("#invest-btn").prop('disabled', false);
 
-                var msg = "Dear "+data.investment.first_name+" "+data.investment.last_name+", thank you for your investment. We won't let you down!<br>Check your email for detailed report of your investment.<br>"+
+                var msg = "Dear <b>"+data.investment.first_name+" "+data.investment.last_name+"</b>, thank you for your investment. We won't let you down!<br>Check your email for detailed report of your investment.<br><br>"+
                     "Transaction ID: <b>"+data.investment.transaction_id+"</b><br>"+
                     "This is your affiliate number: <b>"+data.affiliate.affiliate_code+"</b><br>"+
-                    "This is your affiliate url: <a href='"+affiliateUrl+data.affiliate.affiliate_code+"'>"+affiliateUrl+data.affiliate.affiliate_code+"</a><br><br>"+
+                    "This is your affiliate url: <a href='"+data.affiliate.affiliate_url+"'>"+data.affiliate.affiliate_url+"</a><br><br>"+
                     "Refer other investors and get extra MimiCoins.";
+
+                shareThis.attr('data-url', data.affiliate.affiliate_url);
+                shareThis.attr('data-title', 'Invest in Mimic and get extra MimiCoins :D');
+                shareThis.attr('data-image', domain_url+'/img/facebook_share_img.jpg');
+                shareThis.attr('data-description', 'This is my affiliate code for Mimic ICO. Go ahead, invest and get some extra MimiCoins :D');
+                $(".sharethis-inline-share-buttons .st-btn").css("display", "inline-block");
+
                 showSuccess(msg, true);
             },
             error: function(error) {
@@ -674,5 +684,6 @@
         });
     });
 </script>
-
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a1db9b363750b0012e6bb1d&product=inline-share-buttons' async='async'></script>
+</body>
 </html>
