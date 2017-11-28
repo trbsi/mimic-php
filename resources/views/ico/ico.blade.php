@@ -33,6 +33,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="ico-files/css/flipclock.css">
     <script src="js/modernizr.custom.js"></script>
+
+    <meta property="og:image" content="<?=env('APP_URL')?>/img/facebook_share_img.jpg"/>
+    <meta property="og:title" content="Mimic ICO | Invest in Mimic & MimiCoin"/>
+    <meta property="og:url" content="<?=route('ico')?>"/>
+    <meta property="og:site_name" content="Mimic"/>
+    <meta property="og:description" content="Mimic - Challenge people to copy your moves! Want to challenge others to copy your moves or your selfies? Mimic encourages top half, bottom half photo and video posts and replies. Swipe through, upvote and add your own."/>
+
     <style type="text/css">
         /*COUNTDOWNER*/
         .vertical-align {
