@@ -409,7 +409,7 @@
 <body>
     <div class="container">
         @if($discount)
-        <span style="color:#F12A2A; font-size: 0.8em;"><h1>*** {{$discount['name']}} discount! ***</h1></span>
+        <span style="color:#F12A2A; font-size: 0.8em;"><h1>{{$discount['name']}} discount! {{$discount['discount_amount']}}% OFF</h1></span>
         @endif
         <header>
             <h1>

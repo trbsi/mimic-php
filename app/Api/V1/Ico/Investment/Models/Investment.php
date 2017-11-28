@@ -39,7 +39,7 @@ class Investment extends Model
         ];
 
 
-        $this->currentDate = date('Y-m-d');
+        $this->currentDate = date('Y-12-24');
     }
 
     /**
@@ -132,8 +132,6 @@ class Investment extends Model
 
         //make discounts if there is any
         if($discount = $this->checkForDiscount()) {
-            $data['amountToSendToInvestor']+= $data['amountToSendToInvestor'] * $discount['discount_amount'] / 100;
-            $data['amountToSendToOtherAccount']+= $data['amountToSendToOtherAccount'] * $discount['discount_amount'] / 100;
             $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']-= $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay'] * $discount['discount_amount'] / 100;
         }
         
@@ -153,39 +151,21 @@ class Investment extends Model
      */
     private function calculateInvestmentBasedOnPhase($investmentModel)
     {
-        $start = env('ICO_START');
+        $phase = $this->getIcoPhase();
+        switch ($phase) {
+            case 1:
+                $icoPhaseEth = env('ICO_PHASE_1_ETH'); 
+                break;
+            case 2:
+                $icoPhaseEth = env('ICO_PHASE_2_ETH'); 
+                break;
+            case 3:
+                $icoPhaseEth = env('ICO_PHASE_3_ETH');
+                break;
 
-        //phase 2
-        $date = new \DateTime($start);
-        $date->add(new \DateInterval('P'.env('ICO_PHASE_1').'D'));
-        $phase2Ends = strtotime($date->format('Y-m-d'));
-
-        //phase 3
-        $date = new \DateTime($start);
-        $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')).'D')); 
-        $phase3Ends = strtotime($date->format('Y-m-d'));
-
-        //ending
-        $icoEnds = self::calculateEndIcoTime();
-
-        $start = strtotime($start);
-        $currentDate = time();
-
-        //phase 1
-        if($currentDate >= $start && $currentDate < $phase2Ends) {
-            $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * env('ICO_PHASE_1_ETH'); 
-            $phase = 1;
-        } 
-        //phase 2
-        else if($currentDate >= $phase2Ends && $currentDate < $phase3Ends) {
-            $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * env('ICO_PHASE_2_ETH'); 
-            $phase = 2;
-        } 
-        //phase 3
-        else if($currentDate >= $phase3Ends && $currentDate <= $icoEnds) {
-            $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * env('ICO_PHASE_3_ETH'); 
-            $phase = 3;
         }
+
+        $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * $icoPhaseEth; 
 
         return compact('numberOfEthToPay', 'phase');
     }
@@ -256,12 +236,62 @@ class Investment extends Model
     {
         foreach ($this->discounts as $key => $value) {
             if(strtotime($this->currentDate) >= strtotime($value['start']) && strtotime($this->currentDate) <= strtotime($value['end'])) {
+
+                switch ($this->getIcoPhase()) {
+                    case 1:
+                        $value['discount_amount'] = 25;
+                        break;
+                    case 2:
+                        $value['discount_amount'] = 50;
+                        break;
+                    case 3:
+                        $value['discount_amount'] = 75;
+                        break;
+                }
                 return $value;
                 break;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Get current phase of ICO
+     * @return integer Return ICO phase
+     */
+    private function getIcoPhase()
+    {
+        $start = env('ICO_START');
+
+        //phase 2
+        $date = new \DateTime($start);
+        $date->add(new \DateInterval('P'.env('ICO_PHASE_1').'D'));
+        $phase2Ends = strtotime($date->format('Y-m-d'));
+
+        //phase 3
+        $date = new \DateTime($start);
+        $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')).'D')); 
+        $phase3Ends = strtotime($date->format('Y-m-d'));
+
+        //ending
+        $icoEnds = self::calculateEndIcoTime();
+
+        $start = strtotime($start);
+        $currentDate = time();
+
+        //phase 1
+        if($currentDate >= $start && $currentDate < $phase2Ends) {
+            return 1;
+        } 
+        //phase 2
+        else if($currentDate >= $phase2Ends && $currentDate < $phase3Ends) {
+            return 2;
+        } 
+        //phase 3
+        else if($currentDate >= $phase3Ends && $currentDate <= $icoEnds) {
+            return 3;
+        }
     }
 
 }
