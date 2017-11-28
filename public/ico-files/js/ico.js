@@ -7,9 +7,11 @@ $("#redeem_code_form").submit(function(e)
 {
     var account_number = $("#account_number");
     var redeem_code_success = $("#redeem_code_success");
+    var redeem_code_success_content = $("#redeem_code_success_content");
     var redeem_code_btn = $("#redeem_code_btn");
     var postData = {account_number: account_number.val()};
     var affiliateData;
+    var shareThis = $(".sharethis-inline-share-buttons");
 
     redeem_code_success.hide();
     redeem_code_btn.prop('disabled', true);
@@ -23,14 +25,21 @@ $("#redeem_code_form").submit(function(e)
         {
             affiliateData = data.affiliate;
             redeem_code_btn.prop('disabled', false);
-            redeem_code_success.html(redeemCodeMsg(affiliateData)).show();
+            redeem_code_success.show();
+            redeem_code_success_content.html(redeemCodeMsg(affiliateData));
+            shareThis.attr('data-url', affiliateData.affiliate_url);
+            shareThis.attr('data-title', 'Invest in Mimic and get extra MimiCoins :D');
+            shareThis.attr('data-image', domain_url+'/img/facebook_share_img.jpg');
+            shareThis.attr('data-description', 'This is my affiliate code for Mimic ICO. Go ahead, invest and get some extra MimiCoins :D');
+            $(".sharethis-inline-share-buttons .st-btn").css("display", "inline-block");
             account_number.val('');
         },
         error: function(jqXHR, textStatus, errorThrown) 
         {
             affiliateData = data.affiliate;
             redeem_code_btn.prop('disabled', false);
-            redeem_code_success.html(redeemCodeMsg(affiliateData)).show();
+            redeem_code_success.show();
+            redeem_code_success_content.html(redeemCodeMsg(affiliateData));
             account_number.val('');
         }
     });
@@ -39,7 +48,7 @@ $("#redeem_code_form").submit(function(e)
     function redeemCodeMsg(affiliateData)
     {
         return "Code for account <b>"+affiliateData.account_number+"</b> is <b>"+affiliateData.affiliate_code+"</b><br><br>"+
-                "Your affiliate url is <b><a href='"+affiliateData.affiliate_url+"'>"+affiliateData.affiliate_url+"</a></b>"
+                "Your affiliate url is <b><a href='"+affiliateData.affiliate_url+"'>"+affiliateData.affiliate_url+"</a></b>";
     }
 });
 

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Invest in Mimic</title>
+    <title>Invest in Mimic & MimiCoin</title>
     <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
@@ -23,6 +23,12 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <meta property="og:image" content="<?=env('APP_URL')?>/img/facebook_share_img.jpg"/>
+    <meta property="og:title" content="Invest in Mimic & MimiCoin!"/>
+    <meta property="og:url" content="<?=env('APP_URL')?>/invest"/>
+    <meta property="og:site_name" content="Mimic"/>
+    <meta property="og:description" content="Mimic - Challenge people to copy your moves! Want to challenge others to copy your moves or your selfies? Mimic encourages top half, bottom half photo and video posts and replies. Swipe through, upvote and add your own."/>
+
     <style>
         @import url(https://fonts.googleapis.com/css?family=Cookie|Raleway:300,700,400);
         :root {

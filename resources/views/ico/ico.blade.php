@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mimic ICO</title>
+    <title>Mimic ICO | Invest in Mimic & MimiCoin</title>
     <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
@@ -240,7 +240,10 @@
                 </form>
             </p>
             <p>
-                <div class="alert alert-success" style="display: none" id="redeem_code_success"></div>
+                <div class="alert alert-success" style="display: none" id="redeem_code_success">
+                    <div id="redeem_code_success_content" style="margin-bottom: 15px;"></div>
+                    <div class="sharethis-inline-share-buttons"></div>
+                </div>
             </p>
         </div>
         <!-- /.container -->
@@ -665,6 +668,7 @@
         var redeem_code_url = '<?=app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('generate-affiliate-code')?>';
         var newsletter_url = '<?=app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('newsletter-subscribe')?>';
         var ico_start = '<?= env('ICO_START') ?>';
+        var domain_url = '<?= env('APP_URL') ?>';
     </script>
     <script src="ico-files/js/ico.js"></script>
     <script>
@@ -714,6 +718,7 @@
             });
         });
     </script>
+    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a1db9b363750b0012e6bb1d&product=inline-share-buttons' async='async'></script>
 </body>
 
 </html>
