@@ -39,7 +39,7 @@ class Investment extends Model
         ];
 
 
-        $this->currentDate = date('Y-12-24');
+        $this->currentDate = date('Y-m-d');
     }
 
     /**
