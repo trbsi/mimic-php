@@ -224,6 +224,15 @@
                     <div id="countdowner" style="margin: 0 auto;"></div>
                 </div>
             </p>
+            <p>
+                <div title="Add to Calendar" class="addeventatc" style="background: black;color: white!important;font-weight: bold;">
+                    Add to Calendar
+                    <span class="start">2017-12-10</span>
+                    <span class="timezone">UTC</span>
+                    <span class="title">Mimic ICO</span>
+                    <span class="description">This is Mimic and MimiCoins ICO</span>
+                </div>
+            </p>
         </div>
         <!-- /.container -->
     </div>
