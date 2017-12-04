@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mimic ICO</title>
+    <title>Mimic ICO | Invest in Mimic & MimiCoin</title>
     <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
@@ -33,6 +33,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="ico-files/css/flipclock.css">
     <script src="js/modernizr.custom.js"></script>
+
+    <meta property="og:image" content="<?=env('APP_URL')?>/img/facebook_share_img.jpg"/>
+    <meta property="og:title" content="Mimic ICO | Invest in Mimic & MimiCoin"/>
+    <meta property="og:url" content="<?=route('ico')?>"/>
+    <meta property="og:site_name" content="Mimic"/>
+    <meta property="og:description" content="Mimic - Challenge people to copy your moves! Want to challenge others to copy your moves or your selfies? Mimic encourages top half, bottom half photo and video posts and replies. Swipe through, upvote and add your own."/>
+
     <style type="text/css">
         /*COUNTDOWNER*/
         .vertical-align {
@@ -175,7 +182,7 @@
                                 MimiCoin
                                 <br> First social cryptocurrency
                             </p>
-                            <a href="ico-files/MimicWhitePaper.pdf" class="btn btn-download wow animated fadeInLeft">
+                            <a href="<?= route('whitepaper-url') ?>" class="btn btn-download wow animated fadeInLeft">
                                 <i class="fa fa-file-pdf-o pull-left"></i>
                                 <strong>Mimic</strong>
                                 <br/>White paper</a>
@@ -217,6 +224,15 @@
                     <div id="countdowner" style="margin: 0 auto;"></div>
                 </div>
             </p>
+            <p>
+                <div title="Add to Calendar" class="addeventatc" style="background: black;color: white!important;font-weight: bold;">
+                    Add to Calendar
+                    <span class="start">2017-12-10</span>
+                    <span class="timezone">UTC</span>
+                    <span class="title">Mimic ICO</span>
+                    <span class="description">This is Mimic and MimiCoins ICO</span>
+                </div>
+            </p>
         </div>
         <!-- /.container -->
     </div>
@@ -240,7 +256,10 @@
                 </form>
             </p>
             <p>
-                <div class="alert alert-success" style="display: none" id="redeem_code_success"></div>
+                <div class="alert alert-success" style="display: none" id="redeem_code_success">
+                    <div id="redeem_code_success_content" style="margin-bottom: 15px;"></div>
+                    <div class="sharethis-inline-share-buttons"></div>
+                </div>
             </p>
         </div>
         <!-- /.container -->
@@ -665,6 +684,7 @@
         var redeem_code_url = '<?=app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('generate-affiliate-code')?>';
         var newsletter_url = '<?=app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('newsletter-subscribe')?>';
         var ico_start = '<?= env('ICO_START') ?>';
+        var domain_url = '<?= env('APP_URL') ?>';
     </script>
     <script src="ico-files/js/ico.js"></script>
     <script>
@@ -714,6 +734,21 @@
             });
         });
     </script>
+    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a1db9b363750b0012e6bb1d&product=inline-share-buttons' async='async'></script>
+    <script type="text/javascript">
+        (function(p,u,s,h){
+            p._pcq=p._pcq||[];
+            p._pcq.push(['_currentTime',Date.now()]);
+            s=u.createElement('script');
+            s.type='text/javascript';
+            s.async=true;
+            s.src='https://cdn.pushcrew.com/js/d35695207738284b714c96cc03272aee.js';
+            h=u.getElementsByTagName('script')[0];
+            h.parentNode.insertBefore(s,h);
+        })(window,document);
+    </script>
+    <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+
 </body>
 
 </html>
