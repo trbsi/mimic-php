@@ -53,8 +53,7 @@ return
 		        </tr>
 		    </tbody>
 		</table>',
-	'bounty_info_infographic' => "ANN topic manager will be responsible for the moderation of ANN topic. The manager must keep the topic active by translation of official announcements, news, posts and infographic. <br><br> You can translate infographics directly in PSD (find our PSD file and our font here: <a href='https://drive.google.com/file/d/1I8x3GicrZOsS9xyHi4PV0cVvtMj6Ka48/view?usp=sharing' target='_blank'>PSD file</a>) or you can just supply raw text referencing the text on our infographic. <br><br>
-Direct link to our infographic: <a href='http://hellomimic.com/ico-files/img/marketing/infographics.jpg' target='_blank'>Infographic</a>",
+	'bounty_info_infographic' => "ANN topic manager will be responsible for the moderation of ANN topic. The manager must keep the topic active by translation of official announcements, news, posts and infographic. <br><br> You can translate infographics directly in PSD (find our PSD file and our font here: <a href='https://drive.google.com/file/d/1I8x3GicrZOsS9xyHi4PV0cVvtMj6Ka48/view?usp=sharing' target='_blank'>PSD file</a>) or you can just supply raw text referencing the text on our infographic. <br><br>Direct link to our infographic: <a href='http://hellomimic.com/ico-files/img/marketing/infographics.jpg' target='_blank'>Infographic</a>",
 	'bounty_info_white_paper' => "Link to the white paper (use MS Word): <a href='https://drive.google.com/file/d/0B1lZZT4uUNk4eW1EVjBiNWtYMGM/view?usp=sharing' target='_blank'>Mimic white paper</a>",
 	'bounty_info_article' => "Maximum of 50 article bounties will be accepted. All articles must be written in English.",
 	'thank_you_for_contributing' => "Thank you. We'll contact you as soon as we make a decision. We'll list all contributors on this page.",
