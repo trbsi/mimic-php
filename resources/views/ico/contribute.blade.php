@@ -1,6 +1,6 @@
 @extends('ico.templates.form.ico-form')
 
-@section('title', 'Invest in Mimic & MimiCoin')
+@section('title', 'Contribute to Mimic')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
