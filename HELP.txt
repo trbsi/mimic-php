@@ -19,3 +19,6 @@ Deny from all
   Allow from all
 </Files>
 https://stackoverflow.com/questions/20978086/htaccess-allow-access-to-one-php-file
+
+Contact form template
+https://codepen.io/tylernj42/pen/BoxzaQ
