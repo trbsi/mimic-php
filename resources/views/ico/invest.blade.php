@@ -232,7 +232,7 @@
             if(forever === false) {
                 setTimeout(function() {
                     error_div.fadeOut();
-                }, 5000);
+                }, 7000);
             }
         }
 
@@ -245,7 +245,7 @@
             if(forever === false) {
                 setTimeout(function() {
                     info_div.fadeOut();
-                }, 5000);
+                }, 7000);
             }
         }
 

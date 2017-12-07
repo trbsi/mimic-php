@@ -57,6 +57,11 @@ return
 	'bounty_info_white_paper' => "Link to the white paper (use MS Word): <a href='https://drive.google.com/file/d/0B1lZZT4uUNk4eW1EVjBiNWtYMGM/view?usp=sharing' target='_blank'>Mimic white paper</a>",
 	'bounty_info_article' => "Maximum of 50 article bounties will be accepted. All articles must be written in English.",
 	'thank_you_for_contributing' => "Thank you. We'll contact you as soon as we make a decision. We'll list all contributors on this page.",
+	'account_balance_small' => "Your account doesn't have enough funds!",
+	'no_enough_mimic_coin' => "There is no enough MimiCoin left for this transaction. MimiCoin left: <b>:leftMIM</b>. <br>Try to remove affiliate code.",
+	'' => "",
+	'' => "",
+	'' => "",
 	'' => "",
 ];
 
