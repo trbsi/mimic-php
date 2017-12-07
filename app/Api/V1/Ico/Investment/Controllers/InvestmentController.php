@@ -173,6 +173,9 @@ class InvestmentController extends Controller
 	 */
 	public function calculateInvestment(Request $request, Investment $investment, Affiliate $affiliate)
 	{
+		if($request->mimicoins_bought < $investment->getMinInvestment()) {
+			abort(403, trans('ico.num_of_coins', ['num_of_coins' => $investment->getMinInvestment()]));
+		}
 		$class = new \stdClass;
 		$class->mimicoins_bought = $request->mimicoins_bought;
 		$class->investor_account_number = $request->investor_account_number;

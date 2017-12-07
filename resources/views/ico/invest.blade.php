@@ -187,7 +187,7 @@
 
                     //min number of mimcoins msg
                     if(mimicoins_bought.val() < minMimiCoins) {
-                        showError("Miminum amount of MimiCoins you're able to buy is "+minMimiCoins+"!");
+                        showError("Miminum amount of MimiCoins you're able to buy is <b>"+minMimiCoins+"</b>!");
                         $("#calculate_investment").hide();
                         return;
                     }
