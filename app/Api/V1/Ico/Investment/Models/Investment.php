@@ -9,6 +9,7 @@ use App\Api\V1\Ico\Affiliate\Models\Affiliate;
 
 class Investment extends Model
 {
+    const INTEGER_256 = 1000000000000000000;
     private $discounts;
     private $currentDate;
 
@@ -40,6 +41,29 @@ class Investment extends Model
 
 
         $this->currentDate = date('Y-m-d');
+    }
+
+    /**
+     * Get ethereum account balance
+     * @param  string $account_address Ethereum account balance
+     * @return object {"status":"1","message":"OK","result":"39609523809523809540000000"}
+     */
+    public function ethAccountBalance($account_address)
+    {
+        $balance = json_decode(file_get_contents("https://api.etherscan.io/api?module=account&action=balance&address=".$account_address."&tag=latest&apikey=".env('ICO_ETHERSCAN_API_KEY')));
+
+        return $balance->result / self::INTEGER_256;
+    }
+
+    /**
+     * Get contract balance
+     * @return object {"status":"1","message":"OK","result":"39609523809523809540000000"}
+     */
+    public function ethContractBalance()
+    {
+        $balance = json_decode(file_get_contents("https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=".env('ICO_CONTRACT_ADDRESS')."&apikey=".env('ICO_ETHERSCAN_API_KEY')));
+
+        return $balance->result / self::INTEGER_256;
     }
 
     /**
@@ -134,14 +158,31 @@ class Investment extends Model
         if($discount = $this->checkForDiscount()) {
             $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']-= $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay'] * $discount['discount_amount'] / 100;
         }
-        
-        return [
+
+        $data = [
             'phase' => $data['calculateInvestmentBasedOnPhase']['phase'], 
             'number_of_eth_to_pay' => ($zeroEth) ? 0 : $this->roundNumber($data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']), 
             'other_account_number' => $data['otherAccountNumber'], 
             'amount_to_send_to_other_account' => $this->roundNumber($data['amountToSendToOtherAccount']),  
             'amount_to_send_to_investor' => $this->roundNumber($data['amountToSendToInvestor']), 
         ];
+
+
+        //check if user has enough balance
+        if($investmentModel->investor_account_number && $balance = $this->ethAccountBalance($investmentModel->investor_account_number)) {
+            if($balance < $data['number_of_eth_to_pay']) {
+                abort(403, trans('ico.account_balance_small'));
+            }
+        }
+
+        //check if our contract has enough coins
+        if($balance = $this->ethContractBalance()) {
+            if($balance < ($data['amount_to_send_to_investor'] + $data['amount_to_send_to_other_account'])) {
+                abort(403, trans('ico.no_enough_mimic_coin', ['leftMIM' => $balance]));
+            }
+        }
+
+        return $data;
     }
 
     /**
