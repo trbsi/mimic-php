@@ -239,6 +239,7 @@
     <!-- clients -->
     <?php endif ?>
     <!-- /#header -->
+    <?php /*
     <div id="redeem_code" class="wrapper gray-bg">
         <div class="container text-center">
             <h2 class="animation-box wow bounceIn animated text-center" style="color:black;">Redeem affiliate code</h2>
@@ -263,7 +264,7 @@
             </p>
         </div>
         <!-- /.container -->
-    </div>
+    </div> */ ?>
     <!-- /#video -->
     <div id="speciality2" class="wrapper white-bg">
         <div class="container">
@@ -618,24 +619,20 @@
                 <h1 class="text-center animation-box wow bounceIn animated">Mimic</h1>
             </div>
             <ul class="social-icons text-center">
-                <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/HelloMimic/" target="_blank"><i class="fa fa-facebook"></i></a>
+                <li class="wow animated fadeInLeft facebook"><a href="<?=$socialAccounts['facebook']?>" target="_blank"><i class="fa fa-facebook"></i></a>
                 </li>
-                <li class="wow animated fadeInLeft twitter"><a href="https://twitter.com/Mimic_app_" target="_blank"><i class="fa fa-twitter"></i></a>
+                <li class="wow animated fadeInLeft twitter"><a href="<?=$socialAccounts['twitter']?>" target="_blank"><i class="fa fa-twitter"></i></a>
                 </li>
-                <li class="wow animated fadeInLeft googleplus"><a href="https://www.reddit.com/r/Mimic_app/" target="_blank"><i class="fa fa-reddit"></i></a>
+                <li class="wow animated fadeInLeft googleplus"><a href="<?=$socialAccounts['reddit']?>" target="_blank"><i class="fa fa-reddit"></i></a>
                 </li>
-                <li class="wow animated fadeInLeft github"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a>
+                <li class="wow animated fadeInLeft github"><a href="<?=$socialAccounts['instagram']?>" target="_blank"><i class="fa fa-instagram"></i></a>
                 </li>
-                <li class="wow animated fadeInLeft linkedin"><a href="#" target="_blank"><i class="fa fa-paper-plane"></i></a>
+                <li class="wow animated fadeInLeft linkedin"><a href="<?=$socialAccounts['telegram']?>" target="_blank"><i class="fa fa-paper-plane"></i></a>
                 </li>
-                <li class="wow animated fadeInLeft linkedin"><a href="https://steemit.com/@dariot/feed" target="_blank"><i class="fa fa-book"></i></a>
+                <li class="wow animated fadeInLeft linkedin"><a href="<?=$socialAccounts['steemit']?>" target="_blank"><i class="fa fa-book"></i></a>
                 </li>
                 <li class="wow animated fadeInRight twitter"><a href="mailto:<?=config('app.official_email')?>"><i class="fa fa-envelope"></i></a>
-                    <?php /*<li class="wow animated fadeInLeft linkedin"><a href="#"><i class="fa fa-linkedin"></i></a>
                 </li>
-                <li class="wow animated fadeInRight googleplus"><a href="#"><i class="fa fa-google-plus"></i></a>
-                </li>
-                <li class="wow animated fadeInLeft github"><a href="#"><i class="fa fa-github"></i></a> */?>
             </ul>
             <div class="copyright">
                 <div>
@@ -656,8 +653,8 @@
                 <li class="hideit"><a href="#video">Countdown</a>
                 </li>
                 <?php endif; ?>
-                <li class="hideit"><a href="#redeem_code">Reedem a code</a>
-                </li>
+                <?php /* <li class="hideit"><a href="#redeem_code">Reedem a code</a>
+                </li>*/ ?>
                 <li class="hideit"><a href="#speciality2">What is Mimic</a>
                 </li>
                 <li class="hideit"><a href="#speciality">Money raised</a>

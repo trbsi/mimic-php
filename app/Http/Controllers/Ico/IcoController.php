@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Ico;
 
+use Validator;
 use App\Api\V1\Ico\Investment\Models\Investment;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Api\V1\Ico\BountyHunter\Models\BountyHunter;
-use Validator;
+use App\Helpers\Constants;
 
 class IcoController extends BaseController
 {
@@ -14,7 +15,8 @@ class IcoController extends BaseController
     {
         return view("ico.ico", [
         	'investment' => $investment->getTotalInvestment(), 
-        	'icoStatus' => Investment::getIcoStatus()
+        	'icoStatus' => Investment::getIcoStatus(),
+            'socialAccounts' => Constants::socialAccounts(),
         ]);
     }
 

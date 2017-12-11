@@ -199,6 +199,9 @@
         Investors who supported Mimic in early days
         <div class="virticle-line"></div>
         <div class="circle"></div>
+        <h1 style="color:#F9C21F; font-weight: bold;">Carve your name on our Wall of Fame!</h1>
+        Invest in Mimic and find your name here among legends... forever!
+        <?php /*
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 wow animated">
                 <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
@@ -225,6 +228,7 @@
                 <h3>John Doe</h3>
             </div>
         </div> <!-- /.row -->
+        
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6  col-sm-offset-2 wow animated">
                 <img src="img/logo_stroke.png" style="max-height: 50px; width: auto;" alt="team">
@@ -243,6 +247,7 @@
                 <h3>John Doe</h3>
             </div>
         </div> <!-- /.row -->
+        */ ?>
     </div> <!-- /.container -->
 </div> <!-- /#team -->
 
@@ -255,10 +260,21 @@
             <h1 class="text-center animation-box wow bounceIn animated"><?= config("app.name") ?></h1>
         </div>
         <ul class="social-icons text-center">
-            <li class="wow animated fadeInLeft facebook"><a href="https://www.facebook.com/MimicAppOfficial/" target="_blank"><i
-                            class="fa fa-facebook"></i></a></li>
+            <li class="wow animated fadeInLeft facebook"><a href="<?=$socialAccounts['facebook']?>" target="_blank"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft twitter"><a href="<?=$socialAccounts['twitter']?>" target="_blank"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft googleplus"><a href="<?=$socialAccounts['reddit']?>" target="_blank"><i class="fa fa-reddit"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft github"><a href="<?=$socialAccounts['instagram']?>" target="_blank"><i class="fa fa-instagram"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft linkedin"><a href="<?=$socialAccounts['telegram']?>" target="_blank"><i class="fa fa-paper-plane"></i></a>
+                </li>
+                <li class="wow animated fadeInLeft linkedin"><a href="<?=$socialAccounts['steemit']?>" target="_blank"><i class="fa fa-book"></i></a>
+                </li>
+                <li class="wow animated fadeInRight twitter"><a href="mailto:<?=config('app.official_email')?>"><i class="fa fa-envelope"></i></a>
+                </li>
         </ul>
-        EMAIL: <?= config('app.official_email') ?>
     </div>
     <!-- container -->
 </section>

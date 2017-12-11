@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Api\V1\Ico\Investment\Models\Investment;
+use App\Helpers\Constants;
 
 class Controller extends BaseController
 {
@@ -19,12 +20,20 @@ class Controller extends BaseController
 
     public function index()
     {
-        return view("welcome", ['icoStatus' => Investment::getIcoStatus()]);
+        return view("welcome", [
+            'icoStatus' => Investment::getIcoStatus(),
+            'socialAccounts' => Constants::socialAccounts(),
+        ]);
     }
 
     public function legal()
     {
         return view("public.legal.legal");
+    }
+
+    public function appStore()
+    {
+        return redirect(env('IOS_STORE_LINK'));
     }
 
 }
