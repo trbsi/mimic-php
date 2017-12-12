@@ -8,6 +8,7 @@ return
 	'validation_email' => 'The <b>":attribute"</b> field should be a valid email.',
 	'validation_numeric' => '<b>MimiCoins</b> field should be a number.',
 	'num_of_coins' => 'Miminum amount of MimiCoins you\'re able to buy is  <b>:num_of_coins</b>.',
+	'num_of_eth' => 'Miminum investment is <b>:min_investment</b>.',
 	'bounty_rules_conditions' => '
 		<ul style="margin-top: 0pt; margin-bottom: 0pt;">
 		<li><span>Translations must be original, using any kind of tools such as Google are not allowed. If found the translator will be blacklisted.</span></li>
@@ -58,7 +59,7 @@ return
 	'bounty_info_article' => "Maximum of 50 article bounties will be accepted. All articles must be written in English.",
 	'thank_you_for_contributing' => "Thank you. We'll contact you as soon as we make a decision. We'll list all contributors on this page.",
 	'account_balance_small' => "Your account doesn't have enough funds!",
-	'no_enough_mimic_coin' => "There is no enough MimiCoin left for this transaction. MimiCoin left: <b>:leftMIM</b>. <br>Try to remove affiliate code.",
+	'no_enough_mimic_coin' => "There is no enough MimiCoin left for this transaction. MimiCoin left: <b>:leftMIM</b>.",
 	'' => "",
 	'' => "",
 	'' => "",

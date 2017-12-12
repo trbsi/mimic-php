@@ -51,15 +51,17 @@ class InvestmentController extends Controller
 		    'required' => trans('ico.validation_required'),
 		    'email' => trans('ico.validation_email'),
 		    'numeric' => trans('ico.validation_numeric'),
-		    'mimicoins_bought.min' => trans('ico.num_of_coins', ['num_of_coins' => $investment->getMinInvestment()]),
+		    //'mimicoins_bought.min' => trans('ico.num_of_coins', ['num_of_coins' => $investment->getMinInvestment()]),
+		    'number_of_eth_to_pay.min' => trans('ico.num_of_eth', ['min_investment' => $investment->getMinInvestment()]),
 		];
 
 	   $validator = Validator::make($request->all(), [
             'investor_account_number' => 'required',
 	        'first_name' => 'required',
 	        'last_name' => 'required',
-	        'mimicoins_bought' => 'required|numeric|min:'.$investment->getMinInvestment(),
+	        //'mimicoins_bought' => 'required|numeric|min:'.$investment->getMinInvestment(),
 	        'email' => 'required|email',
+	        'number_of_eth_to_pay' => 'required|min:'.$investment->getMinInvestment(),
         ], $messages);
 
         if ($validator->fails()) {
@@ -77,11 +79,15 @@ class InvestmentController extends Controller
 		DB::beginTransaction();
 		try {
 			//save investment
-			$request['mimicoins_bought'] = $investment->roundNumber($request->mimicoins_bought);
+			//$request['mimicoins_bought'] = $investment->roundNumber($request->mimicoins_bought);
+			//$investment->calculateAffiliateCode($investmentModel, $zeroEth);
+			$request['mimicoins_bought'] = 0;
 			$investmentModel = $investment->create($request->all());
+			$calculateInvestment = $investment->calculateAffiliateCode($investmentModel, $zeroEth);
+			$investmentModel->update(['mimicoins_bought' => $calculateInvestment['number_of_mim']]);
 
 			//check for affiliate code user entered (this is affiliate code of another user)
-			$affiliateCodeModel = NULL;
+			/*$affiliateCodeModel = NULL;
 			if($request->affiliate_code) {
 				if($affiliateCodeModel = $affiliate->where('affiliate_code', $request->affiliate_code)->first()) {
 					$investmentModel->affiliate_id = $affiliateCodeModel->id;
@@ -104,35 +110,15 @@ class InvestmentController extends Controller
 					$investment->calculateAffiliateCode($investmentModel, $zeroEth), 
 					['phase', 'number_of_eth_to_pay', 'other_account_number', 'amount_to_send_to_other_account', 'amount_to_send_to_investor']
 				)
-			);
-
-
-		    //get data from solidity and save transaction id
-		    //http://codular.com/curl-with-php
-		    /*$curl = curl_init();
-			// Set some options - we are passing in a useragent too here
-			curl_setopt_array($curl, array(
-			    CURLOPT_RETURNTRANSFER => 1,
-			    CURLOPT_URL => env('ICO_SOLIDITY_URL'),
-			    CURLOPT_POST => 1,
-			    CURLOPT_POSTFIELDS => $investmentModel->fresh()->toArray()
-			));
-			// Send the request & save response to $resp
-			$resp = curl_exec($curl);
-			// Close request to clear up some resources
-			curl_close($curl);
-			*/
-    		$investmentModel->transaction_id = mt_rand();
-			$investmentModel->save();
-
+			);*/
 
 			//send email to investor
 			if(env('APP_ENV') !== 'local') {
 				Mail::send('ico.emails.invested', 
 					[
 						'investmentModel' => $investmentModel, 
-						'affiliateInvestorModel' => $affiliateInvestorModel,
-						'affiliateUrl' => route('ico-invest', ['affiliate' => $affiliateInvestorModel->affiliate_code]),
+						//'affiliateInvestorModel' => $affiliateInvestorModel,
+						//'affiliateUrl' => route('ico-invest', ['affiliate' => $affiliateInvestorModel->affiliate_code]),
 					], function ($message) use ($investmentModel)
 		        {
 
@@ -148,7 +134,7 @@ class InvestmentController extends Controller
 
 			//return data
 			DB::commit();
-			return response()->json(['investment' => $investmentModel->fresh(), 'affiliate' => $affiliateInvestorModel]);
+			return response()->json(['investment' => $investmentModel->fresh(), /*'affiliate' => $affiliateInvestorModel*/]);
 		} catch(\Exception $e) {
 			DB::rollBack();
             abort(400, $e->getMessage());
@@ -173,11 +159,13 @@ class InvestmentController extends Controller
 	 */
 	public function calculateInvestment(Request $request, Investment $investment, Affiliate $affiliate)
 	{
-		if($request->mimicoins_bought < $investment->getMinInvestment()) {
-			abort(403, trans('ico.num_of_coins', ['num_of_coins' => $investment->getMinInvestment()]));
+		if($request->number_of_eth_to_pay < $investment->getMinInvestment()) {
+			abort(403, trans('ico.num_of_eth', ['min_investment' => $investment->getMinInvestment()]));
 		}
+
 		$class = new \stdClass;
 		$class->mimicoins_bought = $request->mimicoins_bought;
+		$class->number_of_eth_to_pay = $request->number_of_eth_to_pay;
 		$class->investor_account_number = $request->investor_account_number;
 		$class->icoAffiliate = $affiliate->where('affiliate_code', $request->affiliate_code)->first();
 		return $investment->calculateAffiliateCode($class);

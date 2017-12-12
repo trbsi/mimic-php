@@ -294,12 +294,14 @@
     <div id="speciality" class="wrapper gray-bg">
         <div class="container">
             <h2 class="animation-box wow bounceIn animated">Money raised</h2>
+            <br>
+            Updated every hour
             <div class="virticle-line"></div>
             <div class="circle"></div>
             <div class="row">
                 <div class="col-sm-4 wow animated fadeInLeft">
                     <img src="ico-files/img/mimic-eth-icon.png" style="max-height: 50px">
-                    <h3>MimiCoin</h3>
+                    <h3>MimiCoin sold</h3>
                     <p>
                         <?=$investment['mimicoins']?>
                     </p>

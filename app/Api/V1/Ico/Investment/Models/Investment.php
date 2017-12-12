@@ -35,8 +35,8 @@ class Investment extends Model
         parent::__construct($attributes);
 
         $this->discounts = [
-            ['start' => date("Y-12-24"), 'end' => date('Y-12-25'), 'discount_amount' => 50, 'name' => 'Christmas'],
-            ['start' => date("2017-12-30"), 'end' => date('2018-01-01'), 'discount_amount' => 75, 'name' => 'New Year'],
+            ['start' => date("Y-12-25 00:00:00"), 'end' => date('Y-12-25 23:59:59'), 'discount_amount' => 50, 'name' => 'Christmas'],
+            ['start' => date("2018-01-01 00:00:00"), 'end' => date('2018-01-01 23:59:59'), 'discount_amount' => 50, 'name' => 'New Year'],
         ];
 
 
@@ -107,10 +107,17 @@ class Investment extends Model
     {
         $ethInfo = $this->getEthPrice();
 
-    	$investedEth = $this->sum('number_of_eth_to_pay');
-    	$investedUsd = Helper::numberFormat($investedEth * $ethInfo->price_usd);
-    	$mimicoins = Helper::numberFormat($this->sum('mimicoins_bought')+$this->sum('amount_to_send_to_other_account')+$this->sum('amount_to_send_to_investor'));
-        $investedEth = Helper::numberFormat($investedEth);
+        if(!$investedEth = Cache::get('invested_eth')) {
+            $investedEth = $this->ethAccountBalance(env('ICO_OWNER_ADDRESS'));
+            Cache::add('invested_eth', $investedEth, 3600); //1h
+        }
+    	
+        if(!$mimicoins = Cache::get('mimicoins')) {
+            $mimicoins = env('ICO_NUMBER_OF_COINS') - $this->ethContractBalance();
+            Cache::add('mimicoins', $mimicoins, 3600); //1h
+        }
+
+    	$investedUsd = $investedEth * $ethInfo->price_usd;
 
     	return compact('investedEth', 'investedUsd', 'mimicoins');
     }
@@ -124,15 +131,15 @@ class Investment extends Model
     public function calculateAffiliateCode($investmentModel, $zeroEth = false)
     {
         //check if user wants to use his affiliate code
-        if($investmentModel->icoAffiliate && $investmentModel->investor_account_number == $investmentModel->icoAffiliate->account_number) {
+        /*if($investmentModel->icoAffiliate && $investmentModel->investor_account_number == $investmentModel->icoAffiliate->account_number) {
             abort(403, trans('ico.you_cant_use_your_aff_code'));
-        }
+        }*/
         
         $calculateInvestmentBasedOnPhase = $this->calculateInvestmentBasedOnPhase($investmentModel);
         $amountToSendToInvestor = $investmentModel->mimicoins_bought; 
         $otherAccountNumber = $amountToSendToOtherAccount = null;
 
-        if($investmentModel->icoAffiliate) {
+        /*if($investmentModel->icoAffiliate) {
             //refer to: https://docs.google.com/spreadsheets/d/1j1KAHTvt4xMxLtx_pgGbcxYLypbpc62-kmINC1KDeH4/edit?usp=sharing
             if($investmentModel->icoAffiliate->affiliate_type === Affiliate::GUEST) {
                 //send to investor
@@ -151,17 +158,18 @@ class Investment extends Model
 
             $otherAccountNumber = $investmentModel->icoAffiliate->account_number;
         }
-
+        */
+       
         $data = compact('calculateInvestmentBasedOnPhase', 'otherAccountNumber', 'amountToSendToOtherAccount', 'amountToSendToInvestor');
 
         //make discounts if there is any
         if($discount = $this->checkForDiscount()) {
-            $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']-= $data['calculateInvestmentBasedOnPhase']['numberOfEthToPay'] * $discount['discount_amount'] / 100;
+            $data['calculateInvestmentBasedOnPhase']['numberOfMim']+= $data['calculateInvestmentBasedOnPhase']['numberOfMim'] * $discount['discount_amount'] / 100;
         }
 
         $data = [
             'phase' => $data['calculateInvestmentBasedOnPhase']['phase'], 
-            'number_of_eth_to_pay' => ($zeroEth) ? 0 : $this->roundNumber($data['calculateInvestmentBasedOnPhase']['numberOfEthToPay']), 
+            'number_of_mim' => ($zeroEth) ? 0 : $this->roundNumber($data['calculateInvestmentBasedOnPhase']['numberOfMim']), 
             'other_account_number' => $data['otherAccountNumber'], 
             'amount_to_send_to_other_account' => $this->roundNumber($data['amountToSendToOtherAccount']),  
             'amount_to_send_to_investor' => $this->roundNumber($data['amountToSendToInvestor']), 
@@ -170,14 +178,14 @@ class Investment extends Model
 
         //check if user has enough balance
         if($investmentModel->investor_account_number && $balance = $this->ethAccountBalance($investmentModel->investor_account_number)) {
-            if($balance < $data['number_of_eth_to_pay']) {
+            if($balance < $investmentModel->number_of_eth_to_pay) {
                 abort(403, trans('ico.account_balance_small'));
             }
         }
 
         //check if our contract has enough coins
         if($balance = $this->ethContractBalance()) {
-            if($balance < ($data['amount_to_send_to_investor'] + $data['amount_to_send_to_other_account'])) {
+            if($balance < $data['number_of_mim']) {
                 abort(403, trans('ico.no_enough_mimic_coin', ['leftMIM' => $balance]));
             }
         }
@@ -206,9 +214,10 @@ class Investment extends Model
 
         }
 
-        $numberOfEthToPay = $investmentModel->mimicoins_bought / env('ICO_ETH_TO_MIM') * $icoPhaseEth; 
+        $numberOfMim = $investmentModel->number_of_eth_to_pay * env('ICO_ETH_TO_MIM');
+        $numberOfMim = $numberOfMim + $numberOfMim*$icoPhaseEth/100; 
 
-        return compact('numberOfEthToPay', 'phase');
+        return compact('numberOfMim', 'phase');
     }
 
     /**
@@ -263,10 +272,10 @@ class Investment extends Model
      */
     public function getMinInvestment()
     {
-        $ethInfo = $this->getEthPrice();
+        //$ethInfo = $this->getEthPrice();
         //1ETH = 370$ / 370         => 0.0027 ETH = 1$
         //1ETH = 15 MIM /*0.0027    => 0.0027 ETH = 0.0405 MIM = 1$
-        return $this->roundNumber(env('ICO_ETH_TO_MIM') / $ethInfo->price_usd);
+        return $this->roundNumber(1 / env('ICO_ETH_TO_MIM'));
     }
 
     /**
@@ -278,7 +287,7 @@ class Investment extends Model
         foreach ($this->discounts as $key => $value) {
             if(strtotime($this->currentDate) >= strtotime($value['start']) && strtotime($this->currentDate) <= strtotime($value['end'])) {
 
-                switch ($this->getIcoPhase()) {
+                /*switch ($this->getIcoPhase()) {
                     case 1:
                         $value['discount_amount'] = 25;
                         break;
@@ -288,7 +297,7 @@ class Investment extends Model
                     case 3:
                         $value['discount_amount'] = 75;
                         break;
-                }
+                }*/
                 return $value;
                 break;
             }

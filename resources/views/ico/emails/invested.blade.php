@@ -152,9 +152,11 @@
                                     <p>
                                         Dear {{$investmentModel->full_name}}
                                         <br><br>
-                                        Thank you for your investment and thank you for trusting us! We won't let you down!
+                                        Thank you for being interested into Mimic and thank you for trusting us! We won't let you down!
+                                        <br><br>
+                                        In order to invest, send ETH to this address: <b><?=env('ICO_CONTRACT_ADDRESS')?> </b>
                                     </p>
-                                    <p>
+                                    <?php /*<p>
                                         Thank you for purchasing <b>{{$investmentModel->mimicoins_bought}}</b> MimiCoins. 
                                         <br>
                                         Transaction ID: <b>{{$investmentModel->transaction_id}}</b>
@@ -170,7 +172,7 @@
                                         Your affiliate URL is: <a href="{{$affiliateUrl}}"> {{$affiliateUrl}} </a>
                                         <br><br>
                                          Refer other investors and get extra MimiCoins.
-                                    </p>
+                                    </p>*/ ?>
 
                                 </td>
                             </tr>
