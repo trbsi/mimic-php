@@ -155,6 +155,7 @@
                                         Thank you for being interested into Mimic and thank you for trusting us! We won't let you down!
                                         <br><br>
                                         In order to invest, send ETH to this address: <b><?=env('ICO_CONTRACT_ADDRESS')?> </b>
+                                        <br><br>Recommended number of gas to use is <b>200 000</b>
                                     </p>
                                     <?php /*<p>
                                         Thank you for purchasing <b>{{$investmentModel->mimicoins_bought}}</b> MimiCoins. 
