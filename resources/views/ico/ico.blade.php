@@ -97,12 +97,24 @@
         .white-bg {
             background: white!important;
         }
+
+        #invest_floating_btn {
+            display: none;
+            background: rgb(237, 152, 7);
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 22px;
+            position: fixed;
+            bottom: 45px;
+            left: 35px;
+        }
     </style>
 </head>
 
 <body>
     <a href="#header" id="back-to-top" class="top"><i class="fa fa-chevron-up"></i></a>
     <?php if($icoStatus === 'active'): ?>
+    <a href="/invest" id="invest_floating_btn"><i class="fa fa-btc"></i> Invest now!</a>
     <!-- HHHHHHHHHHHHHHHHHHHH    Testimonial    HHHHHHHHHHHHHHHHHHHHHH -->
     <section id="invest-now" class="wrapper">
         <div class="container">
@@ -442,6 +454,17 @@
     </section>
     */ ?>
 
+    <div id="roadmap" class="wrapper">
+        <div class="container-fluid" style="text-align: center;">
+            <h2 class="animation-box wow bounceIn animated" style="color:black">Roadmap</h2>
+            <div class="virticle-line"></div>
+            <div class="circle"></div>
+            <img src="/ico-files/img/roadmap.png" style="max-width: 600px;">
+        </div>
+        <!-- /.container -->
+        <div style="clear:both;"></div>
+    </div>
+
     <!-- HHHHHHHHHHHHHHHHHH      Development Team      HHHHHHHHHHHHHHHH -->
     <div id="team" class="wrapper">
         <div class="container-fluid">
@@ -621,6 +644,8 @@
                 <h1 class="text-center animation-box wow bounceIn animated">Mimic</h1>
             </div>
             <ul class="social-icons text-center">
+                <li class="wow animated fadeInLeft googleplus"><a href="https://bitcointalk.org/" target="_blank"><i class="fa fa-btc"></i></a>
+
                 <li class="wow animated fadeInLeft facebook"><a href="<?=$socialAccounts['facebook']?>" target="_blank"><i class="fa fa-facebook"></i></a>
                 </li>
                 <li class="wow animated fadeInLeft twitter"><a href="<?=$socialAccounts['twitter']?>" target="_blank"><i class="fa fa-twitter"></i></a>
@@ -660,6 +685,8 @@
                 <li class="hideit"><a href="#speciality2">What is Mimic</a>
                 </li>
                 <li class="hideit"><a href="#speciality">Money raised</a>
+                </li>
+                <li class="hideit"><a href="#roadmap">Roadmap</a>
                 </li>
                 <li class="hideit"><a href="#team">Team</a>
                 </li>
@@ -701,15 +728,20 @@
 
             var kawa = $('.top-bar');
             var back = $('#back-to-top');
+            var invest_floating_btn = $('#invest_floating_btn');
 
             function scroll() {
                 if ($(window).scrollTop() > 700) {
                     kawa.addClass('fixed');
                     back.addClass('show-top');
+                    invest_floating_btn.addClass('show-top');
+                    invest_floating_btn.show();
 
                 } else {
                     kawa.removeClass('fixed');
                     back.removeClass('show-top');
+                    invest_floating_btn.removeClass('show-top');
+                    invest_floating_btn.hide();
                 }
             }
 
