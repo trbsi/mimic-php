@@ -108,6 +108,10 @@
             bottom: 45px;
             left: 35px;
         }
+
+        .addeventatc_icon {
+            display: none;
+        }
     </style>
 </head>
 
@@ -166,7 +170,7 @@
                     <div class="col-md-6">
                         <div class="banner-text">
                             <div>
-                                <h3 style="color: white; font-size: 2.5em">Newsletter</h3>
+                                <h3 style="color: white; font-size: 2.5em">Get notified when ICO starts</h3>
                                 <form  id="newsletter_form" role="form">
                                     <div class="row">
                                         <div class="col-sm-4 col-xs-12">
@@ -182,7 +186,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4 col-xs-12">
-                                            <button type="submit" id="newsletter_btn" class="btn btn-default btn-lg">Subscribe</button>
+                                            <button type="submit" id="newsletter_btn" class="btn btn-default btn-lg">Notify me</button>
                                         </div>                                
                                     </div>
                                 </form>
@@ -228,7 +232,7 @@
     <?php elseif($icoStatus === 'not_started'): ?>
     <div id="video" class="wrapper white-bg">
         <div class="container">
-            <h2 class="animation-box wow bounceIn animated">Countdown</h2>
+            <h2 class="animation-box wow bounceIn animated">ICO starts in:</h2>
             <div class="virticle-line"></div>
             <div class="circle"></div>
             <p>
@@ -237,13 +241,15 @@
                 </div>
             </p>
             <p>
-                <div title="Add to Calendar" class="addeventatc" style="background: black;color: white!important;font-weight: bold;">
+                <div title="Add to Calendar" class="addeventatc" style="background: #F9C21E;color: white!important;font-weight: bold; padding: 13px 12px 12px 13px;">
                     Add to Calendar
                     <span class="start">2017-12-10</span>
                     <span class="timezone">UTC</span>
                     <span class="title">Mimic ICO</span>
                     <span class="description">This is Mimic and MimiCoins ICO</span>
-                </div>
+                </div> 
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                <a href="#header" class="btn btn-default btn-lg" style="background: #F9C21E;color: white!important;font-weight: bold; border-radius: 3px; padding: 10px 16px; font-size:15px; "> Get notified when ICO starts</a>
             </p>
         </div>
         <!-- /.container -->
@@ -779,7 +785,6 @@
         })(window,document);
     </script>
     <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
-
 </body>
 
 </html>
