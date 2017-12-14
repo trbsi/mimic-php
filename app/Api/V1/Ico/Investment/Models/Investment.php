@@ -314,15 +314,15 @@ class Investment extends Model
     {
         $start = env('ICO_START');
 
-        //phase 2
+        //phase 1
         $date = new \DateTime($start);
         $date->add(new \DateInterval('P'.env('ICO_PHASE_1').'D'));
-        $phase2Ends = strtotime($date->format('Y-m-d'));
+        $phase1Ends = strtotime($date->format('Y-m-d'));
 
-        //phase 3
+        //phase 1
         $date = new \DateTime($start);
         $date->add(new \DateInterval('P'.(env('ICO_PHASE_1')+env('ICO_PHASE_2')).'D')); 
-        $phase3Ends = strtotime($date->format('Y-m-d'));
+        $phase2Ends = strtotime($date->format('Y-m-d'));
 
         //ending
         $icoEnds = self::calculateEndIcoTime();
@@ -331,15 +331,15 @@ class Investment extends Model
         $currentDate = time();
 
         //phase 1
-        if($currentDate >= $start && $currentDate < $phase2Ends) {
+        if($currentDate >= $start && $currentDate < $phase1Ends) {
             return 1;
         } 
         //phase 2
-        else if($currentDate >= $phase2Ends && $currentDate < $phase3Ends) {
+        else if($currentDate >= $phase1Ends && $currentDate < $phase2Ends) {
             return 2;
         } 
         //phase 3
-        else if($currentDate >= $phase3Ends && $currentDate <= $icoEnds) {
+        else if($currentDate >= $phase2Ends && $currentDate <= $icoEnds) {
             return 3;
         }
     }
