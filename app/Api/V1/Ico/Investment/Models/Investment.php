@@ -119,6 +119,10 @@ class Investment extends Model
 
     	$investedUsd = $investedEth * $ethInfo->price_usd;
 
+        if(strtotime(env('ICO_START')) > time()) {
+            $investedEth = $investedUsd = $mimicoins = 0;
+        }
+
     	return compact('investedEth', 'investedUsd', 'mimicoins');
     }
 
