@@ -8,7 +8,7 @@ return
 	'validation_email' => 'The <b>":attribute"</b> field should be a valid email.',
 	'validation_numeric' => '<b>MimiCoins</b> field should be a number.',
 	'num_of_coins' => 'Miminum amount of MimiCoins you\'re able to buy is  <b>:num_of_coins</b>.',
-	'num_of_eth' => 'Miminum investment is <b>:min_investment</b>.',
+	'num_of_eth' => 'Miminum investment is <b>:min_investment</b> ETH.',
 	'bounty_rules_conditions' => '
 		<ul style="margin-top: 0pt; margin-bottom: 0pt;">
 		<li><span>Translations must be original, using any kind of tools such as Google are not allowed. If found the translator will be blacklisted.</span></li>
