@@ -31,7 +31,7 @@ class IcoController extends BaseController
 
     public function whitePaper()
     {
-         return response()->download(storage_path().'/MimicWhitePaper.pdf');
+        return redirect('/ico-files/img/marketing/MimicWhitePaper.pdf');
     }
 
 
