@@ -650,7 +650,7 @@
                 <h1 class="text-center animation-box wow bounceIn animated">Mimic</h1>
             </div>
             <ul class="social-icons text-center">
-                <li class="wow animated fadeInLeft googleplus"><a href="https://bitcointalk.org/index.php?topic=2586789.new#new" target="_blank"><i class="fa fa-btc"></i></a>
+                <li class="wow animated fadeInLeft googleplus"><a href="https://bitcointalk.org/index.php?topic=2615592.0" target="_blank"><i class="fa fa-btc"></i></a>
 
                 <li class="wow animated fadeInLeft facebook"><a href="<?=$socialAccounts['facebook']?>" target="_blank"><i class="fa fa-facebook"></i></a>
                 </li>
