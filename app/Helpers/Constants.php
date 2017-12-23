@@ -20,7 +20,7 @@ class Constants
             'twitter' => 'https://twitter.com/Mimic_app_',
             'reddit' => 'https://www.reddit.com/r/Mimic_app/',
             'steemit' => 'https://steemit.com/@dariot/feed',
-            'telegram' => 'https://t.me/joinchat/AAAAAET5gHBW8fvTfL1oAg',
+            'telegram' => 'https://t.me/joinchat/Gw8zPA_0YttHagXJeBwbsw',
             'instagram' => 'https://www.instagram.com/app_mimic/',
         ];
     }
