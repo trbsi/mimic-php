@@ -51,7 +51,11 @@ class Investment extends Model
     public function ethAccountBalance($account_address)
     {
         $balance = json_decode(file_get_contents("https://api.etherscan.io/api?module=account&action=balance&address=".$account_address."&tag=latest&apikey=".env('ICO_ETHERSCAN_API_KEY')));
-
+        
+        if($balance->message === 'NOTOK') {
+            return 0;
+        }
+        
         return $balance->result / self::INTEGER_256;
     }
 
@@ -62,7 +66,11 @@ class Investment extends Model
     public function ethContractBalance()
     {
         $balance = json_decode(file_get_contents("https://api.etherscan.io/api?module=stats&action=tokensupply&contractaddress=".env('ICO_CONTRACT_ADDRESS')."&apikey=".env('ICO_ETHERSCAN_API_KEY')));
-
+       
+        if($balance->message === 'NOTOK') {
+            return 0;
+        }
+        
         return $balance->result / self::INTEGER_256;
     }
 
