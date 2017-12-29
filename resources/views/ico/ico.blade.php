@@ -669,7 +669,7 @@
             </ul>
             <h1>As seen on...</h1>
             <a href="https://icopanic.com/mimicoin/" target="_blank"><img src="https://icopanic.com/wp-content/uploads/2017/11/logo.png" style="max-width: 200px; margin-right: 40px"></a>
-            <a href="https://coindelite.com" target="_blank"><img src=" https://coindelite.com/assets/img/dark-logo-coindelite.png " style="max-height: 80px"></a>
+            <a href="https://coindelite.com/ico-list/mimicoin-mim/" target="_blank"><img src=" https://coindelite.com/assets/img/dark-logo-coindelite.png " style="max-height: 80px"></a>
 
             <div class="copyright">
                 <div>
