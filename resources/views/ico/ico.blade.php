@@ -68,6 +68,11 @@
                 zoom: 1;
                 -moz-transform: scale(1)
             }
+
+            .roadmap_img {
+                max-width: 600px;
+                margin: 0 auto;
+            }
         }
         #countdowner-container {
             text-align: center;
@@ -128,6 +133,9 @@
                     <h1 style="font-weight: bold; text-decoration: underline;">
                                 <a href="<?=route('ico-invest')?>" style="color: white;">INVEST NOW!</a>
                             </h1>
+                    <h1 style="word-break: break-word;">
+                     send ethers to <?= env('ICO_CONTRACT_ADDRESS')?>
+                    </h1>
                 </div>
             </div>
         </div>
@@ -465,7 +473,7 @@
             <h2 class="animation-box wow bounceIn animated" style="color:black">Roadmap</h2>
             <div class="virticle-line"></div>
             <div class="circle"></div>
-            <img src="/ico-files/img/roadmap.png" style="max-width: 600px;">
+            <img src="/ico-files/img/roadmap.png" class="roadmap_img img-responsive">
         </div>
         <!-- /.container -->
         <div style="clear:both;"></div>

@@ -87,7 +87,7 @@
         </header>
         
         <h1 class="text-center">Invest now!</h1>
-        <form id="invest-form">
+        <?php /*<form id="invest-form">
             <label class="col-one-half">
                 <span class="label-text">First Name</span>
                 <input type="text" id="first_name" required="">
@@ -109,7 +109,7 @@
                 <span class="label-text">How much do you plan to invest (ETH)</span>
                 <input type="number" id="number_of_eth_to_pay" required="" step="0.00001" onkeyup="calculateInvestment()">
             </label>
-            <?php /*
+            <!--
             <label>
                 <span class="label-text">Affiliate code</span>
                 <input 
@@ -118,7 +118,7 @@
                 onkeyup="calculateInvestment()" 
                 value="@if ($affiliate_code) {{$affiliate_code}} @endif" 
                 @if($affiliate_code) readonly @endif>
-            </label>*/ ?>
+            </label> -->
 
             <div id="calculate_investment" style="display: none; text-align: center">
                 Calculating investment...
@@ -161,7 +161,11 @@
             <div class="text-center">
                 <button class="submit" id="invest-btn">Invest</button>
             </div>
-        </form>
+        </form>*/ ?>
+        <br>
+        <h2 style="text-align: center">
+            Send ethers to contract address: <br><?=env('ICO_CONTRACT_ADDRESS')?>
+        </h2>
         
     </div>
 @stop
