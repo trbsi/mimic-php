@@ -134,7 +134,8 @@
                                 <a href="<?=route('ico-invest')?>" style="color: white;">INVEST NOW!</a>
                             </h1>
                     <h1 style="word-break: break-word;">
-                     send ethers to <?= env('ICO_CONTRACT_ADDRESS')?>
+                     send ethers to contract address:
+                     <br> <b><?= env('ICO_CONTRACT_ADDRESS')?></b>
                     </h1>
                 </div>
             </div>

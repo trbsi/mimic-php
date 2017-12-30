@@ -64,6 +64,10 @@
                     <h1 style="font-weight: bold; text-decoration: underline;">
                                 <a href="<?=route('ico')?>" style="color: white;">JOIN ICO!</a>
                             </h1>
+                    <h1 style="word-break: break-word;">
+                     send ethers to contract address:
+                     <br> <b><?= env('ICO_CONTRACT_ADDRESS')?></b>
+                    </h1>
                 </div>
             </div>
         </div>

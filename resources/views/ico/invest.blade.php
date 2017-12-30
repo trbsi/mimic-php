@@ -164,7 +164,7 @@
         </form>*/ ?>
         <br>
         <h2 style="text-align: center">
-            Send ethers to contract address: <br><?=env('ICO_CONTRACT_ADDRESS')?>
+            Send ethers to contract address: <br><b><?=env('ICO_CONTRACT_ADDRESS')?></b>
         </h2>
         
     </div>
