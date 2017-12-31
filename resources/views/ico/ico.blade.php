@@ -349,6 +349,27 @@
                     </p>
                 </div>
             </div>
+            <div style="margin-top: 50px;">
+                <b>Role of Coin/Token</b><br>  Used to buy goods, services, ad spaces, in-app-purchaces and paying influencers on social networks worldwide
+                <br>
+                <b>Symbol</b><br> MIM
+                <br>
+                <b>Maximum supply (hard cap)</b><br>  50,000,000 MIM
+                <br>
+                <b>Available for purchase</b><br>  45,000,000 MIM
+                <br>
+                <b>Emission rate</b><br>  No new coins will ever be created
+                <br>
+                <b>Accepted currencies</b><br>  ETH only
+                <br>
+                <b>Price</b><br> 1 ETH = 500 MIM
+                <br>
+                <b>Minimum transaction amount</b><br>  0.002 ETH
+                <br>
+                <b>Main ICO sale period</b><br> December 29, 2017 - Februrary 12, 2018
+                <br>
+                <b>Coin distribution</b><br> Contract will distribute coins/tokens instantly upon receiving ETH
+            </div>
             <!-- /.row -->
         </div>
         <!-- /.container -->
