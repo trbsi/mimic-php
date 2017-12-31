@@ -166,6 +166,9 @@
         <h2 style="text-align: center">
             Send ethers to contract address: <br><b><?=env('ICO_CONTRACT_ADDRESS')?></b>
         </h2>
+        <br>
+        <?=trans('ico.invest_terms')?>
+        
         
     </div>
 @stop

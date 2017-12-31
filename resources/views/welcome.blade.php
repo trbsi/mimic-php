@@ -68,6 +68,8 @@
                      send ethers to contract address:
                      <br> <b><?= env('ICO_CONTRACT_ADDRESS')?></b>
                     </h1>
+                    <?=trans('ico.invest_terms')?>
+
                 </div>
             </div>
         </div>

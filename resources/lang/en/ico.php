@@ -60,7 +60,14 @@ return
 	'thank_you_for_contributing' => "Thank you. We'll contact you as soon as we make a decision. We'll list all contributors on this page.",
 	'account_balance_small' => "Your account doesn't have enough funds!",
 	'no_enough_mimic_coin' => "There is no enough MimiCoin left for this transaction. MimiCoin left: <b>:leftMIM</b>.",
-	'' => "",
+	'invest_terms' => "<ul>
+                <li>Our token is ERC20</li>
+                <li>We accept only Ethers</li>
+                <li>To invest (send ethers) you need to use Ethereum wallet</li>
+                <li>Safest way to send ethers is via hardware wallet like Trezor, Ledger Nano S</li>
+                <li>Also you may use Mist, MyEtherWallet.com</li>
+                <li>If you want to use something else be careful which site or payment gateway you use</li>
+        </ul>",
 	'' => "",
 	'' => "",
 	'' => "",
