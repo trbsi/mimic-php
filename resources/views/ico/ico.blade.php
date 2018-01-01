@@ -180,28 +180,8 @@
                     <div class="col-md-6">
                         <div class="banner-text">
                             <div>
-                                <h3 style="color: white; font-size: 2.5em">Get notified when ICO starts</h3>
-                                <form  id="newsletter_form" role="form">
-                                    <div class="row">
-                                        <div class="col-sm-4 col-xs-12">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                                <input type="email" id="newsletter_email" class="form-control input-lg" id="exampleInputEmail2" placeholder="Enter email" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 col-xs-12">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="first_name">Your name</label>
-                                                <input type="text" id="newsletter_name" class="form-control input-lg" id="first_name" placeholder="Your name" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 col-xs-12">
-                                            <button type="submit" id="newsletter_btn" class="btn btn-default btn-lg">Notify me</button>
-                                        </div>                                
-                                    </div>
-                                </form>
-                                <div class="alert alert-success" style="display: none" id="newsletter_success"></div>
-                                <div class="alert alert-warning" style="display: none" id="newsletter_warning"></div>
+                                <h3 style="color: white; font-size: 2.5em">Subscribe to our newsletter</h3>
+                                <a href="http://eepurl.com/dfEAY5" target="_blank" class="btn btn-success btn-lg btn-block">Open subscription form</a>                           
                             </div>
                             <hr>
                             <p style="font-size: 2em;">
@@ -820,6 +800,7 @@
         })(window,document);
     </script>
     <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+
 </body>
 
 </html>
