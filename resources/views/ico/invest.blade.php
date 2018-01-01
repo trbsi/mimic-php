@@ -74,7 +74,7 @@
 @section('content')
     <div>
         @if($discount)
-        <span style="color:#F12A2A; font-size: 0.8em;"><h1>{{$discount['name']}} discount! {{$discount['discount_amount']}}% MORE</h1></span>
+        <span style="color:#F12A2A; font-size: 0.8em;"><h1>{{$discount['name']}}! {{$discount['discount_amount']}}% MORE MimiCoins</h1></span>
         @endif
         <header>
             <h1>

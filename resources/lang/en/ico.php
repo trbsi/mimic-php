@@ -61,17 +61,17 @@ return
 	'account_balance_small' => "Your account doesn't have enough funds!",
 	'no_enough_mimic_coin' => "There is no enough MimiCoin left for this transaction. MimiCoin left: <b>:leftMIM</b>.",
 	'invest_terms' => "<ul>
-				<li>Send ETH from one of supported wallets</li>
-				<li>Set Gas Limit to 200,000</li>
-				<li>Do not send funds from exchanges like Coinbase, Poloniex etc</li>
-				<li>Do not send your funds before the crowdsale has begun</li>
-				<li>MIM will be sent immediately to the wallet from which the ETH arrived</li>
-                <li>Our token is ERC20</li>
-                <li>We accept only Ethers</li>
-                <li>To invest (send ethers) you need to use Ethereum wallet</li>
-                <li>Safest way to send ethers is via hardware wallet like Trezor, Ledger Nano S</li>
-                <li>Also you may use Mist, MyEtherWallet.com</li>
-                <li>If you want to use something else be careful which site or payment gateway you use</li>
+				<li>&#9899; Send ETH from one of supported wallets</li>
+				<li>&#9899; Set Gas Limit to 200,000</li>
+				<li>&#9899; Do not send funds from exchanges like Coinbase, Poloniex etc</li>
+				<li>&#9899; Do not send your funds before the crowdsale has begun</li>
+				<li>&#9899; MIM will be sent immediately to the wallet from which the ETH arrived</li>
+                <li>&#9899; Our token is ERC20</li>
+                <li>&#9899; We accept only Ethers</li>
+                <li>&#9899; To invest (send ethers) you need to use Ethereum wallet</li>
+                <li>&#9899; Safest way to send ethers is via hardware wallet like Trezor, Ledger Nano S</li>
+                <li>&#9899; Also you may use Mist, MyEtherWallet.com</li>
+                <li>&#9899; If you want to use something else be careful which site or payment gateway you use</li>
         </ul>",
 	'' => "",
 	'' => "",
