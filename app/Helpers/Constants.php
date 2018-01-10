@@ -18,9 +18,9 @@ class Constants
         return [
             'facebook' => 'https://www.facebook.com/HelloMimic/',
             'twitter' => 'https://twitter.com/Mimic_app_',
-            'reddit' => 'https://www.reddit.com/r/Mimic_app/',
+            //'reddit' => 'https://www.reddit.com/r/Mimic_app/',
             'steemit' => 'https://steemit.com/@dariot/feed',
-            'telegram' => 'https://t.me/joinchat/Gw8zPA_0YttHagXJeBwbsw',
+            //'telegram' => 'https://t.me/joinchat/Gw8zPA_0YttHagXJeBwbsw',
             'instagram' => 'https://www.instagram.com/app_mimic/',
         ];
     }
