@@ -295,7 +295,6 @@
             <li class="hideit"><a href="#gallery">Screenshots</a></li>
             <li class="hideit"><a href="/blog">Blog</a></li>
             <li class="hideit"><a href="<?= url('legal') ?>">Legal</a></li>
-            <li class="hideit"><a href="<?= url('ico') ?>">ICO</a></li>
         </ul>
     </nav>
 </div>
