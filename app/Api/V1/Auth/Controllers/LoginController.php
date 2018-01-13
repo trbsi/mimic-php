@@ -74,21 +74,32 @@ class LoginController extends Controller
      * Set username
      * @param Request $request
      */
-    public function setUsername(Request $request)
+    public function setUsernameAndEmail(Request $request)
     {
+        $this->authUser = $this->user->getAuthenticatedUser();
+
         //check if username exists
         if (empty($request->username)) {
             abort(403, trans('core.login.username_empty'));
         }
 
+        //check username 
         if (!preg_match('/^[a-zA-Z0-9_.-]{4,}$/', $request->username)) {
             abort(403, trans('core.login.username_contain'));
         }
 
+        //check if email exists
+        if ($request->email) {
+            //check if email exists
+            if($this->user->where('email', $request->email)->where('id', '!=', $this->authUser->id)->count()) {
+                abort(403, trans('core.login.email_exists'));
+            }
+        }
+        
+
         //username doesn't exist, create it
-        if (!$this->user->where('username', $request->username)->first()) {
-            $this->authUser = $this->user->getAuthenticatedUser();
-            $this->authUser->update(['username' => $request->username]);
+        if (!$this->user->where('username', $request->username)->count()) {
+            $this->authUser->update(['username' => $request->username, 'email' => $request->email]);
 
             return response()
                 ->json([

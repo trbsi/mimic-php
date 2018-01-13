@@ -16,7 +16,7 @@ $api->version('v1', function (Router $api) {
 
         $api->group(['middleware' => ['jwt.auth']], function (Router $api) {
             $api->post('save-push-token', ['uses' => 'App\Api\V1\Bootstrap\Controllers\BootstrapController@updateNotificationToken']);
-            $api->post('set-username', ['uses' => 'App\Api\V1\Auth\Controllers\LoginController@setUsername']);
+            $api->post('set-username', ['uses' => 'App\Api\V1\Auth\Controllers\LoginController@setUsernameAndEmail']);
 
             $api->group(['prefix' => 'mimic'], function (Router $api) {
                 $api->post('add', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@addMimic']);
