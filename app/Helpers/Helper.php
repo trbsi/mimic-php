@@ -28,8 +28,8 @@ class Helper
                 [
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
-                    'email' => (!isset($provider_data["email"]) || empty($provider_data["email"])) ? NULL : $provider_data["email"],
-                    'profile_picture' => $provider_data["picture"]["data"]["url"],
+                    'email' => (array_key_exists('email', $provider_data)) ? $provider_data["email"] : null,
+                    'profile_picture' => isset($provider_data["picture"]["data"]["url"]) ? $provider_data["picture"]["data"]["url"] : null,
                 ];
         }
 
@@ -38,8 +38,8 @@ class Helper
                 [
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
-                    'email' => (!isset($provider_data["email"]) || empty($provider_data["email"])) ? NULL : $provider_data["email"],
-                    'profile_picture' => $provider_data["profile_image_url"],
+                    'email' => (array_key_exists('email', $provider_data)) ? $provider_data["email"] : null,
+                    'profile_picture' => array_key_exists('profile_image_url', $provider_data) ? $provider_data["profile_image_url"] : null,
                 ];
         }
     }

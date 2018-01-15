@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
      *
      * @var string
      */
-    protected $baseUrl = 'http://localhost';
+    protected $baseUrl = 'http://mimic.loc';
 
     /**
      * Creates the application.
@@ -26,5 +26,12 @@ abstract class TestCase extends BaseTestCase
         $app->make(Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->allow_entry = base64_encode("almasi:slatkasi");
     }
 }
