@@ -253,7 +253,7 @@ class MimicController extends BaseAuthController
      */
     public function getUserMimics(Request $request)
     {
-        if ($request->get_responses) {
+        if ($request->get_responses && ($request->get_responses === 'true' || $request->get_responses === true)) {
             $model = $this->mimicResponse->with('originalMimic');
         } else {
             $model = $this->mimic;
