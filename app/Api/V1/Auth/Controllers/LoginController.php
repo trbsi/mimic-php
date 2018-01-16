@@ -41,9 +41,16 @@ class LoginController extends Controller
                 DB::rollBack();
                 abort(400, trans('core.login.login_failed_body'));
             }
-        } //update user
+        } 
+        //update user
         else {
-            $user->update(array_only($provider_data, ['email', 'profile_picture']));
+
+            $updateData = array_only($provider_data, ['email', 'profile_picture']);
+            if(array_get($provider_data, 'email') === null) {
+                $updateData = array_only($provider_data, ['profile_picture']);
+            }
+
+            $user->update($updateData);
             DB::commit();
         }
 
@@ -100,7 +107,13 @@ class LoginController extends Controller
 
         //username doesn't exist, create it
         if (!$this->user->where('username', $request->username)->count()) {
-            $this->authUser->update(['username' => $request->username, 'email' => $request->email]);
+
+            $updateData = ['username' => $request->username];
+            if ($request->email) {
+                $updateData = array_merge($updateData, ['email' => $request->email]);
+            }
+
+            $this->authUser->update($updateData);
 
             return response()
                 ->json([
