@@ -21,7 +21,7 @@ class BootstrapController extends Controller
      */
     public function updateNotificationToken(Request $request)
     {
-        if (isset($request->push_token) && !empty($request->push_token) && isset($request->device_id)) {
+        if (isset($request->push_token) && !empty($request->push_token) && isset($request->device_id) && isset($request->device)) {
 
             $user = $this->user->getAuthenticatedUser();
 
@@ -46,7 +46,7 @@ class BootstrapController extends Controller
 
         }
 
-        return response()->json(['success' => false]);
+        return abort(400, trans('core.push_token.parameters_not_set'));
 
     }
 

@@ -36,4 +36,8 @@ return
             'cant_upload_mimic_title' => "Mimic couldn't be added",
             'cant_upload_mimic_body' => "We're too hot right now, keep trying!",
         ],
+        'push_token' => 
+        [
+            'parameters_not_set' => 'Some parameters are missing!',
+        ]
     ];
