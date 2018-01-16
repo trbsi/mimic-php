@@ -229,7 +229,8 @@ class LoginControllerTest extends TestCase
             'error' => [
                 'message' => trans('core.login.username_empty')
             ]
-        ])->assertStatus(403);
+        ])
+        ->assertStatus(403);
     }
 
     public function testUsernameMinFourLetters()
@@ -250,7 +251,8 @@ class LoginControllerTest extends TestCase
             'error' => [
                 'message' => trans('core.login.username_contain')
             ]
-        ])->assertStatus(403);
+        ])
+        ->assertStatus(403);
     }
 
     public function testUsernameOnlyNumbersAndLetters()
@@ -271,7 +273,8 @@ class LoginControllerTest extends TestCase
             'error' => [
                 'message' => trans('core.login.username_contain')
             ]
-        ])->assertStatus(403);
+        ])
+        ->assertStatus(403);
     }
 
     public function testUsernameExists()
@@ -292,7 +295,8 @@ class LoginControllerTest extends TestCase
             'error' => [
                 'message' => trans('core.login.username_exists')
             ]
-        ])->assertStatus(403);
+        ])
+        ->assertStatus(403);
     }
 
 
@@ -316,7 +320,8 @@ class LoginControllerTest extends TestCase
             'error' => [
                 'message' => trans('core.login.email_exists')
             ]
-        ])->assertStatus(403);
+        ])
+        ->assertStatus(403);
     }
 
     //Success save username/password
@@ -334,7 +339,8 @@ class LoginControllerTest extends TestCase
         ])
         ->assertJson([
             'status' => true
-        ])->assertStatus(200);
+        ])
+        ->assertStatus(200);
     }
 
 
@@ -353,7 +359,8 @@ class LoginControllerTest extends TestCase
         ])
         ->assertJson([
             'status' => true
-        ])->assertStatus(200);
+        ])
+        ->assertStatus(200);
     }
 }
 
