@@ -3,7 +3,6 @@
 namespace App\Functional\Api\V1\Controllers;
 
 use Hash;
-use App\Models\CoreUser as User;
 use App\TestCase;
 
 class BootstrapControllerTest extends TestCase

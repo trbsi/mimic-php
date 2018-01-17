@@ -14,13 +14,13 @@ class HashtagsTable extends Seeder
     {
         $data =
             [
-                '#jumping', '#playingaround', '#kissing', '#comewithme', '#playingsport', '#meandmycrew', '#dance', '#swim', '#yolo', '#swag',
+                '#jumping', '#jump','#playingaround', '#kissing', '#comewithme', '#playingsport', '#meandmycrew', '#dance', '#swim', '#yolo', '#swag',
             ];
 
         foreach ($data as $key => $value) {
             $insert =
                 [
-                    'popularity' => rand(1, 100),
+                    'popularity' => 123456789,
                     'name' => $value
                 ];
 

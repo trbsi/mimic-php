@@ -46,7 +46,11 @@ class User extends Authenticatable
      */
     public function getFollowersAttribute($value)
     {
-        return $this->customNumberFormat($value);
+        if($this->preventMutation) {
+            return $value;
+        } else {
+            return $this->customNumberFormat($value);
+        }
     }
 
     /**
@@ -55,7 +59,11 @@ class User extends Authenticatable
      */
     public function getFollowingAttribute($value)
     {
-        return $this->customNumberFormat($value);
+        if($this->preventMutation) {
+            return $value;
+        } else {
+            return $this->customNumberFormat($value);
+        }
     }
 
     /**
@@ -64,7 +72,11 @@ class User extends Authenticatable
      */
     public function getNumberOfMimicsAttribute($value)
     {
-        return $this->customNumberFormat($value);
+        if($this->preventMutation) {
+            return $value;
+        } else {
+            return $this->customNumberFormat($value);
+        }
     }
 
 

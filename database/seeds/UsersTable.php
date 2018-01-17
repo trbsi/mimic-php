@@ -18,13 +18,24 @@ class UsersTable extends Seeder
         for ($i = 1; $i < count($usernames); $i++) {
 
             $gender = (rand(0, 1) % 2 == 0) ? 'male' : 'female';
+
+            //because of functional testing
+            switch($usernames[$i]) {
+                case 'beachdude':
+                    $gender = 'female';
+                    break;
+                case 'AndrewCG':
+                    $gender = 'male';
+                    break;
+            }
+            
             $insert =
                 [
                     'email' => 'user' . $i . '@mail.com',
                     'username' => $usernames[$i],
-                    'following' => 0,
-                    'followers' => 0,
-                    'number_of_mimics' => rand(5, 15),
+                    'following' => 123456789,
+                    'followers' => 123456789,
+                    'number_of_mimics' => 123456789,
                     'profile_picture' => env('APP_URL') . '/files/hr/' . $gender . '/' . $i . '.jpg',
                 ];
 
