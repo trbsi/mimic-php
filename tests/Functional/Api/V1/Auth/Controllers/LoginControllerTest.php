@@ -14,7 +14,7 @@ class LoginControllerTest extends TestCase
         parent::setUp();
     }
 
-    //FACEBOOK
+    //Facebook
     public function testFacebookFirstLoginSuccessfullyWithEmailIncluded()
     {
     	$data = [
@@ -115,7 +115,7 @@ class LoginControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    //TWITTER
+    //Twitter
     public function testTwitterFirstLoginSuccessfullyWithEmailIncluded()
     {
 
@@ -222,7 +222,8 @@ class LoginControllerTest extends TestCase
         $response 
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([
@@ -244,7 +245,8 @@ class LoginControllerTest extends TestCase
         $response 
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([
@@ -266,7 +268,8 @@ class LoginControllerTest extends TestCase
         $response 
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([
@@ -288,7 +291,8 @@ class LoginControllerTest extends TestCase
         $response 
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([
@@ -313,7 +317,8 @@ class LoginControllerTest extends TestCase
         $response 
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([

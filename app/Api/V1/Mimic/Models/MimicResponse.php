@@ -6,6 +6,7 @@ use App\Api\V1\Mimic\Models\Mimic;
 use App\Api\V1\Mimic\Traits\MimicTrait;
 use App\Api\V1\Mimic\Models\MimicResponseUpvote;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Helpers\Helper;
 
 class MimicResponse extends Model
 {
@@ -68,6 +69,20 @@ class MimicResponse extends Model
     public function getMimicTypeAttribute($value)
     {
         return $this->getMimicType($value);
+    }
+
+    /**
+     * Format upvote attribute to be nicer like: 12k, 369M...
+     * @param  integer $value A number of upvotes
+     * @return string
+     */
+    public function getUpvoteAttribute($value)
+    {
+        if($this->preventMutation) {
+            return $value;
+        } else {
+            return Helper::numberFormat($value);
+        }
     }
 
     /**

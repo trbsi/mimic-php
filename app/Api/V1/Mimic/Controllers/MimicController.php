@@ -208,6 +208,7 @@ class MimicController extends BaseAuthController
 
         DB::beginTransaction();
         $model = $model->find($id);
+        $model->preventMutation = true;
 
         //try to upvote
         try {
@@ -239,12 +240,17 @@ class MimicController extends BaseAuthController
             $id = $request->response_mimic_id;
         }
 
-        $model->find($id)->delete();
+        $result = $model->find($id);
 
-        //decrease number of mimics for this user
-        $this->authUser->decrement('number_of_mimics');
-        
-        return response()->json(['success' => true]);
+        if($result && $result->user_id === $this->authUser->id) {
+             //decrease number of mimics for this user
+            $this->authUser->decrement('number_of_mimics');
+            return response()->json(['success' => true]);
+   
+        } else {
+            abort(403, trans('mimic.delete.mimic_not_yours'));
+        }
+
     }
 
     /**

@@ -12,6 +12,7 @@ class BootstrapControllerTest extends TestCase
         parent::setUp();
     }
 
+    //Push notifications
     public function testPushTokenNotSet()
     {
     	$data = [];
@@ -21,7 +22,8 @@ class BootstrapControllerTest extends TestCase
         $response
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([
@@ -41,7 +43,8 @@ class BootstrapControllerTest extends TestCase
         $response
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([
@@ -61,7 +64,8 @@ class BootstrapControllerTest extends TestCase
         $response
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([
@@ -81,7 +85,8 @@ class BootstrapControllerTest extends TestCase
         $response
         ->assertJsonStructure([
             'error' => [
-                'message'
+                'message',
+                'status_code'
             ]
         ])
         ->assertJson([

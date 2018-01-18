@@ -33,6 +33,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         $this->allow_entry = base64_encode("almasi:slatkasi");
+        //user id: 96, original email: dario_facebook@yahoo.com
         $this->token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk2LCJpc3MiOiJodHRwOi8vbWltaWMubG9jL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNTE2MTI5NjYyLCJleHAiOjIxNDc0ODM2NDcsIm5iZiI6MTUxNjEyOTY2MiwianRpIjoiNmxablRWSUxuZWw5azh6ViJ9.HVnkL2xZJY5H2cEOLEfmU-Yq5Z4_84sgMSzQ6A_cr6Q';
     }
 
@@ -60,6 +61,21 @@ abstract class TestCase extends BaseTestCase
     public function doGet($url, $data)
     {
         return $this->json('GET', 'api/'.$url, $data,
+        [
+            'AllowEntry' => $this->allow_entry,
+            'Authorization' => $this->token,
+        ]);
+    }
+
+    /**
+     *
+     * @param  string $url  URL to send data to
+     * @param  array $data Array of data to post
+     * @return response
+     */
+    public function doDelete($url, $data)
+    {
+        return $this->json('DELETE', 'api/'.$url, $data,
         [
             'AllowEntry' => $this->allow_entry,
             'Authorization' => $this->token,

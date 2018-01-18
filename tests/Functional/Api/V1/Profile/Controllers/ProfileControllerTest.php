@@ -12,6 +12,7 @@ class ProfileControllerTest extends TestCase
         parent::setUp();
     }
 
+    //Get profile
     public function testGetUserProfileSuccessfully()
     {
     	$data = [];
@@ -41,6 +42,23 @@ class ProfileControllerTest extends TestCase
             'number_of_mimics' => '123M',
             'i_am_following_you' => false
 	    ])
+        ->assertStatus(200);
+    }
+
+    //Block profile
+    public function testSuccessfullyBlockUser()
+    {
+        $data = ['user_id' => 5];
+
+        $response = $this->doPost('profile/block', $data);
+
+        $response
+        ->assertJsonStructure([
+            'success'
+        ])
+        ->assertJson([
+            'success' => true
+        ])
         ->assertStatus(200);
     }
 }

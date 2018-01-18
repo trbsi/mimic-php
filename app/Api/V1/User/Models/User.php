@@ -49,7 +49,7 @@ class User extends Authenticatable
         if($this->preventMutation) {
             return $value;
         } else {
-            return $this->customNumberFormat($value);
+            return Helper::numberFormat($value);
         }
     }
 
@@ -62,7 +62,7 @@ class User extends Authenticatable
         if($this->preventMutation) {
             return $value;
         } else {
-            return $this->customNumberFormat($value);
+            return Helper::numberFormat($value);
         }
     }
 
@@ -75,7 +75,7 @@ class User extends Authenticatable
         if($this->preventMutation) {
             return $value;
         } else {
-            return $this->customNumberFormat($value);
+            return Helper::numberFormat($value);
         }
     }
 
@@ -133,16 +133,6 @@ class User extends Authenticatable
         return $user;
     }
 
-    /**
-     * Format numbers, shorten them to K/M/B
-     * @param  [type]  $n         [description]
-     * @param  integer $precision [description]
-     * @return [type]             [description]
-     */
-    private function customNumberFormat($n, $precision = 0)
-    {
-        return Helper::numberFormat($n, $precision = 0);
-    }
 
     /**
      * Get all users who I'm following

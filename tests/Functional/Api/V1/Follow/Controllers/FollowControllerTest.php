@@ -7,7 +7,8 @@ use App\TestCase;
 
 class FollowControllerTest extends TestCase
 {
-    public function testUserHasFollowers()
+    //Listings
+    public function testListUsersFollowers()
     {
         $data = [];
 
@@ -55,7 +56,7 @@ class FollowControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    public function testUserHasNoFollowers()
+    public function testListIfUserHasNoFollowers()
     {
         $data = [];
 
@@ -71,7 +72,7 @@ class FollowControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    public function testUserIsFollowingOtherPeople()
+    public function testListAllPeopleThatLoggedinUserIsFollowing()
     {
         $data = [];
 
@@ -119,7 +120,7 @@ class FollowControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    public function testUserIsFollowingNoOne()
+    public function testListIfUserIsFollowingNoOne()
     {
         $data = [];
 
@@ -135,6 +136,7 @@ class FollowControllerTest extends TestCase
         ->assertStatus(200);
     }
 
+    //Follow/unfollow
     public function testUserSuccessfullyFollowedAnotherUser()
     {
         $data = ['id' => 5];

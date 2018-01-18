@@ -1,6 +1,7 @@
 <?php 
 namespace App\Api\V1\Mimic\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Api\V1\Hashtag\Models\Hashtag;
 use App\Api\V1\Mimic\Models\MimicHashtag;
@@ -14,7 +15,7 @@ use Illuminate\Support\Collection;
 use App\Helpers\Constants;
 use App\Helpers\SendPushNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use DB;
+use App\Helpers\Helper;
 
 class Mimic extends Model
 {
@@ -94,6 +95,20 @@ class Mimic extends Model
     public function getUpvotedAttribute($value)
     {
         return (int)($value == NULL ? 0 : $value);
+    }
+
+    /**
+     * Format upvote attribute to be nicer like: 12k, 369M...
+     * @param  integer $value A number of upvotes
+     * @return string
+     */
+    public function getUpvoteAttribute($value)
+    {
+        if($this->preventMutation) {
+            return $value;
+        } else {
+            return Helper::numberFormat($value);
+        }
     }
 
     /**
