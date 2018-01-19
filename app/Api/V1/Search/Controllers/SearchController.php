@@ -23,24 +23,21 @@ class SearchController extends BaseAuthController
             $match = 'name';
             $orderBy = 'popularity';
             $term = $request->term;
-
-            return Hashtag::whereRaw("(MATCH($match) AGAINST(? IN BOOLEAN MODE))", ["$term*"])
-            ->orderBy($orderBy, 'DESC')
-            ->get();
+            $model = $hashtag;
 
         } //search users
         else if (substr($request->term, 0, 1) == "@") {
             $table = $user->getTable();
             $match = $orderBy = 'username';
             $term = substr($request->term, 1);
-
-            return User::whereRaw("(MATCH($match) AGAINST(? IN BOOLEAN MODE))", ["$term*"])
-            ->orderBy($orderBy, 'DESC')
-            ->get();
+            $model = $user;
+            
         } else {
             return [];
         }
 
-
+        return $model->whereRaw("(MATCH($match) AGAINST(? IN BOOLEAN MODE))", ["$term*"])
+            ->orderBy($orderBy, 'DESC')
+            ->get();
     }
 }
