@@ -112,29 +112,6 @@ class Mimic extends Model
     }
 
     /**
-     * Get number of total mimics. This is used for pagination on phone
-     * @param  Request $request
-     * @return int Number of mimics
-     */
-    public function getMimicCount($request)
-    {
-        if ($request->user_id) {
-            $count = $this->where("user_id", $request->user_id)->count();
-        } //filter by hashtag
-        else if ($request->hashtag_id) {
-            $mimicHashtagTable = (new MimicHashtag)->getTable();
-            $mimicsTable = $this->getTable();
-            $count = $this
-                ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
-                ->where('hashtag_id', $request->hashtag_id)->count();
-        } else {
-            $count = $this->count();
-        }
-
-        return (int)$count;
-    }
-
-    /**
      * get all original mimics (latest or from followers) from the database, with relations
      * See this for help on how to get only X items from relation table using map()
      * https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post

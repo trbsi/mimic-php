@@ -6,6 +6,7 @@ use App\TestCase;
 use App\Api\V1\Mimic\Models\Mimic;
 use App\Api\V1\Mimic\Models\MimicResponse;
 use JWTAuth;
+use Illuminate\Http\UploadedFile;
 
 class MimicControllerTest extends TestCase
 {
@@ -56,7 +57,6 @@ class MimicControllerTest extends TestCase
                         'upvote' => "123M",
                         'deleted_at' => null,
                         'created_at' => '1970-01-01 12:00:00',
-                        'updated_at' => '1970-01-01 12:00:00',
                         'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
                         'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg'
                     ]
@@ -141,7 +141,6 @@ class MimicControllerTest extends TestCase
                     'upvote' => '123M',
                     'deleted_at' => null,
                     'created_at' => '1970-01-01 12:00:00',
-                    'updated_at' => '1970-01-01 12:00:00',
                     'file_url' => 'http://mimic.loc/files/user/2/1970/01/46bcd7f8cc3373caea6b0efd888a5c2d.jpg',
                     'video_thumb_url' => null,
                     'original_mimic' => [
@@ -156,7 +155,6 @@ class MimicControllerTest extends TestCase
                         'upvote' => '123M',
                         'deleted_at' => null,
                         'created_at' => '1970-01-01 12:00:00',
-                        'updated_at' => '1970-01-01 12:00:00',
                         'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
                         'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg'
                     ]
@@ -281,6 +279,354 @@ class MimicControllerTest extends TestCase
     }
  
 
+    //List mimics
+    public function testListMimicsOnMainScreenPageZero()
+    {
+        $data = [];
+
+        $response = $this->doGet('mimic/list?page=0', $data);
+
+        $response
+        ->assertJsonStructure([
+            'count',
+            'mimics' =>
+            [
+                '*' => [
+                    'mimic' => [
+                        'id',
+                        'username',
+                        'profile_picture',
+                        'user_id',
+                        'mimic_type',
+                        'upvote',
+                        'file',
+                        'file_url',
+                        'video_thumb_url',
+                        'aws_file',
+                        'upvoted',
+                        'responses_count'
+                    ],
+                    'hashtags' => [
+                        '*' => [
+                            'hashtag_id',
+                            'hashtag_name'
+                        ],
+    
+                    ],
+                    'hashtags_flat',
+                    'mimic_responses' => [
+                        '*' => [
+                            'id',
+                            'username',
+                            'profile_picture',
+                            'user_id',
+                            'mimic_type',
+                            'upvote',
+                            'file',
+                            'file_url',
+                            'video_thumb_url',
+                            'aws_file',
+                            'upvoted'
+                        ]
+                    ]
+                ]
+            ]   
+        ])
+        ->assertJson([
+            'count' => 9,
+            'mimics' => [
+                [
+                    'mimic' => [
+                        'id' => 9,
+                        'username' => 'Desynchronized',
+                        'profile_picture' => 'http://mimic.loc/files/hr/female/9.jpg',
+                        'user_id' => 9,
+                        'mimic_type' => 'picture',
+                        'upvote' => '123M',
+                        'file' => 'd71934d20a65fd1ef32e914c0ad48c77.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/9/1970/01/d71934d20a65fd1ef32e914c0ad48c77.jpg',
+                        'video_thumb_url' => null,
+                        'aws_file' => null,
+                        'upvoted' => 0,
+                        'responses_count' => 10
+                    ],
+                    'hashtags' => [
+                        [
+                            'hashtag_id' => 43,
+                            'hashtag_name' => '#videogame'
+                        ],
+                        [
+                            'hashtag_id' => 44,
+                            'hashtag_name' => '#shoot'
+                        ]
+                    ],
+                    'hashtags_flat' => '#videogame #shoot',
+                    'mimic_responses' => [
+                        [
+                            'id' => 80,
+                            'username' => 'piperpilot32',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/19.jpg',
+                            'user_id' => 19,
+                            'mimic_type' => 'video',
+                            'upvote' => '123M',
+                            'file' => '0ad52c7c64e23d527a4c907c7deb211e.mp4',
+                            'file_url' => 'http://mimic.loc/files/user/19/1970/01/0ad52c7c64e23d527a4c907c7deb211e.mp4',
+                            'video_thumb_url' => 'http://mimic.loc/files/user/19/1970/01/f319af632ddaaedd97a79f01e958fb04.jpg',
+                            'aws_file' => null,
+                            'upvoted' => 0
+                        ]
+                    ]
+                ]
+            ]
+        ])
+        ->assertStatus(200); 
+    }
+
+    public function testIfThereIsntAnyMimicsOnMainScreen()
+    {
+        $data = [];
+
+        $response = $this->doGet('mimic/list?page=10', $data);
+
+        $response
+        ->assertJsonStructure([
+            'count',
+            'mimics'
+        ])
+        ->assertJson([
+            'count' => 0,
+            'mimics' => []
+        ])
+        ->assertStatus(200); 
+    }
+
+    public function testListOriginalMimicsOnMainScreenOfSpecificUser()
+    {
+        $data = [];
+
+        $response = $this->doGet('mimic/list?page=0&user_id=1&original_mimic_id=2', $data);
+
+        $response
+        ->assertJsonStructure([
+            'count',
+            'mimics' => [
+                '*' => [
+                    'mimic' => [
+                        'id',
+                        'username',
+                        'profile_picture',
+                        'user_id',
+                        'mimic_type',
+                        'upvote',
+                        'file',
+                        'file_url',
+                        'video_thumb_url',
+                        'aws_file',
+                        'upvoted',
+                        'responses_count',
+                    ],
+                    'hashtags' => [
+                        '*' => [
+                            'hashtag_id',
+                            'hashtag_name',
+                        ]
+                    ],
+                    'hashtags_flat',
+                    'mimic_responses' => [
+                        '*' => [
+                            'id',
+                            'username',
+                            'profile_picture',
+                            'user_id',
+                            'mimic_type',
+                            'upvote',
+                            'file',
+                            'file_url',
+                            'video_thumb_url',
+                            'aws_file',
+                            'upvoted',
+                        ]
+                    ]
+                ]
+            ]
+        ])
+        ->assertJson([
+            'count' => 1,
+            'mimics' => [
+                [
+                    'mimic' => [
+                        'id' => 1,
+                        'username' => 'AndrewCG',
+                        'profile_picture' => 'http://mimic.loc/files/hr/male/1.jpg',
+                        'user_id' => 1,
+                        'mimic_type' => 'video',
+                        'upvote' => '123M',
+                        'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                        'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                        'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg',
+                        'aws_file' => null,
+                        'upvoted' => 0,
+                        'responses_count' => 11
+                    ],
+                    'hashtags' => [
+                        [
+                            'hashtag_id' => 12,
+                            'hashtag_name' => '#beatbox'
+                        ],
+                        [
+                            'hashtag_id' => 13,
+                            'hashtag_name' => '#box'
+                        ],
+                        [
+                            'hashtag_id' => 14,
+                            'hashtag_name' => '#beat'
+                        ],
+                        [
+                            'hashtag_id' => 15,
+                            'hashtag_name' => '#music'
+                        ]
+                    ],
+                    'hashtags_flat' => '#beatbox #box #beat #music',
+                    'mimic_responses' => [
+                        [
+                            'id' => 11,
+                            'username' => 'hogwartsthestral',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/12.jpg',
+                            'user_id' => 12,
+                            'mimic_type' => 'video',
+                            'upvote' => '123M',
+                            'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                            'file_url' => 'http://mimic.loc/files/user/12/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                            'video_thumb_url' => 'http://mimic.loc/files/user/12/1970/01/c7a2baecad36742d9cfdd40a52c7e6f5.jpg',
+                            'aws_file' => null,
+                            'upvoted' => 0
+                        ]
+                    ]
+                ]
+            ]
+        ])
+        ->assertStatus(200); 
+    }
+
+    public function testDisplayResponseMimicOfSpecificUserWithItsOriginalMimicOnMainScreen()
+    {
+        $data = [];
+
+        $response = $this->doGet('mimic/list?page=0&user_id=1&response_mimic_id=1&original_mimic_id=1', $data);
+
+        $response
+        ->assertJsonStructure([
+            'count',
+            'mimics' => [
+                '*' => [
+                    'mimic' => [
+                        'id',
+                        'username',
+                        'profile_picture',
+                        'user_id',
+                        'mimic_type',
+                        'upvote',
+                        'file',
+                        'file_url',
+                        'video_thumb_url',
+                        'aws_file',
+                        'upvoted',
+                        'responses_count',
+                    ],
+                    'hashtags' => [
+                        '*' => [
+                            'hashtag_id',
+                            'hashtag_name',
+                        ]
+                    ],
+                    'hashtags_flat',
+                    'mimic_responses' => [
+                        '*' => [
+                            'id',
+                            'username',
+                            'profile_picture',
+                            'user_id',
+                            'mimic_type',
+                            'upvote',
+                            'file',
+                            'file_url',
+                            'video_thumb_url',
+                            'aws_file',
+                            'upvoted',
+                        ]
+                    ]
+                ]
+            ]
+
+        ])
+        ->assertJson([
+            'count' => 1,
+            'mimics' => [
+                [
+                    'mimic' => [
+                        'id' => 1,
+                        'username' => 'AndrewCG',
+                        'profile_picture' => 'http://mimic.loc/files/hr/male/1.jpg',
+                        'user_id' => 1,
+                        'mimic_type' => 'video',
+                        'upvote' => '123M',
+                        'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                        'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                        'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg',
+                        'aws_file' => null,
+                        'upvoted' => 0,
+                        'responses_count' => 11
+                    ],
+                    'hashtags' => [
+                        [
+                            'hashtag_id' => 12,
+                            'hashtag_name' => '#beatbox'
+                        ],
+                        [
+                            'hashtag_id' => 13,
+                            'hashtag_name' => '#box'
+                        ],
+                        [
+                            'hashtag_id' => 14,
+                            'hashtag_name' => '#beat'
+                        ],
+                        [
+                            'hashtag_id' => 15,
+                            'hashtag_name' => '#music'
+                        ]
+                    ],
+                    'hashtags_flat' => '#beatbox #box #beat #music',
+                    'mimic_responses' => [
+                        [
+                            'id' => 1,
+                            'username' => 'beachdude',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                            'user_id' => 2,
+                            'mimic_type' => 'picture',
+                            'upvote' => '123M',
+                            'file' => '46bcd7f8cc3373caea6b0efd888a5c2d.jpg',
+                            'file_url' => 'http://mimic.loc/files/user/2/1970/01/46bcd7f8cc3373caea6b0efd888a5c2d.jpg',
+                            'video_thumb_url' => null,
+                            'aws_file' => null,
+                            'upvoted' => 0
+                        ]
+                    ]
+                ]
+            ]
+
+        ])
+        ->assertStatus(200);
+    }
+
+    //@TODO - Original mimic responses - not tested because of LIST_RESPONSE_MIMICS_LIMIT
+
+    //Upload mimics
+    public function testSuccessfullyUploadImageOriginalMimic()
+    {
+
+    }
+
+
     //Delete mimics
     public function testDeleteOriginalMimicSuccessfully()
     {
@@ -357,5 +703,4 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(403); 
     }
-
 }

@@ -17,7 +17,7 @@ class UsersTable extends Seeder
 
         for ($i = 1; $i < count($usernames); $i++) {
 
-            $gender = (rand(0, 1) % 2 == 0) ? 'male' : 'female';
+            $gender = 'female';
 
             //because of functional testing
             switch($usernames[$i]) {
