@@ -618,7 +618,103 @@ class MimicControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    //@TODO - Original mimic responses - not tested because of LIST_RESPONSE_MIMICS_LIMIT
+    //Load more original mimic's responses
+    public function testLoadMoreResponsesForOriginalMimicOnMainScreen()
+    {
+        for($i = 0; $i < 50; $i++) {
+            MimicResponse::create([
+                'user_id' => 2,
+                'original_mimic_id' => 1,
+                'file' => 'xyz.jpg',
+                'mimic_type' => 2,
+                'upvote' => 123456789
+            ]);
+        }
+        
+        $data = [];
+
+        $response = $this->doGet('mimic/load-responses?page=1&original_mimic_id=1', $data);
+
+        $response
+        ->assertJsonStructure([
+            'mimics' => [
+                '*' => [
+                    'id',
+                    'username',
+                    'profile_picture',
+                    'user_id',
+                    'mimic_type',
+                    'upvote',
+                    'file',
+                    'file_url',
+                    'video_thumb_url',
+                    'aws_file',
+                    'upvoted',
+                ]
+            ]
+        ])
+        ->assertJson([
+            'mimics' => [
+                [
+                    'id' => 100,
+                    'username' => 'beachdude',
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                    'user_id' => 2,
+                    'mimic_type' => 'picture',
+                    'upvote' => '123M',
+                    'file' => 'xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/2018/01/xyz.jpg',
+                    'video_thumb_url' => null,
+                    'aws_file' => null,
+                    'upvoted' => 0
+                ],
+                [
+                    'id' => 99,
+                    'username' => 'beachdude',
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                    'user_id' => 2,
+                    'mimic_type' => 'picture',
+                    'upvote' => '123M',
+                    'file' => 'xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/2018/01/xyz.jpg',
+                    'video_thumb_url' => null,
+                    'aws_file' => null,
+                    'upvoted' => 0
+                ],
+                [
+                    'id' => 98,
+                    'username' => 'beachdude',
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                    'user_id' => 2,
+                    'mimic_type' => 'picture',
+                    'upvote' => '123M',
+                    'file' => 'xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/2018/01/xyz.jpg',
+                    'video_thumb_url' => null,
+                    'aws_file' => null,
+                    'upvoted' => 0
+                ]
+            ]
+        ])
+        ->assertStatus(200); 
+    }
+
+    public function testLoadMoreResponsesForOriginalMimicOnMainScreenNoMoreResponses()
+    {
+
+        $data = [];
+
+        $response = $this->doGet('mimic/load-responses?page=10&original_mimic_id=1', $data);
+
+        $response
+        ->assertJsonStructure([
+            'mimics'
+        ])
+        ->assertJson([
+            'mimics' => []
+        ])
+        ->assertStatus(200); 
+    }
 
     //Upload mimics
     public function testSuccessfullyUploadImageOriginalMimic()
