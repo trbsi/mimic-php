@@ -7,6 +7,7 @@ use App\Api\V1\Mimic\Models\Mimic;
 use App\Api\V1\Mimic\Models\MimicResponse;
 use JWTAuth;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class MimicControllerTest extends TestCase
 {
@@ -719,17 +720,19 @@ class MimicControllerTest extends TestCase
     //Upload video thumb
     public function testSuccessfullyUploadVideoThumbForOriginalMimic()
     {
+        $path = public_path().'/files/user/3/1970/01/24d23a82eb859b7832205fd83ce83a5c.jpg';
         $file = new UploadedFile(
-            public_path().'/files/user/3/1970/01/24d23a82eb859b7832205fd83ce83a5c.jpg', 
+            $path, 
             "24d23a82eb859b7832205fd83ce83a5c.jpg", 
             'image/png', 
-            filesize(public_path().'/files/user/3/1970/01/24d23a82eb859b7832205fd83ce83a5c.jpg'), 
+            filesize($path), 
             null, 
             true);
 
         $data = ['original_mimic_id' => 1, 'file' => $file];
 
         $response = $this->doPost('mimic/upload-video-thumb', $data);
+        $responseJSON = json_decode($response->getContent(), true);
 
         $response
         ->assertJsonStructure([
@@ -740,21 +743,27 @@ class MimicControllerTest extends TestCase
             'success' => true,
         ])
         ->assertStatus(200);
+        
+        $array = explode("/", $responseJSON['video_thumb_url']);
+        $videoThumbFileName = end($array);
+        Storage::disk('public')->assertExists('files/user/1/1970/01/'.$videoThumbFileName);
     }
 
     public function testSuccessfullyUploadVideoThumbForResponseMimic()
     {
+        $path = public_path().'/files/user/3/1970/01/254b169c6d3b87af59515398e4b17b4f.jpg';
         $file = new UploadedFile(
-            public_path().'/files/user/3/1970/01/254b169c6d3b87af59515398e4b17b4f.jpg', 
+            $path, 
             "254b169c6d3b87af59515398e4b17b4f.jpg", 
             'image/png', 
-            filesize(public_path().'/files/user/3/1970/01/254b169c6d3b87af59515398e4b17b4f.jpg'), 
+            filesize($path), 
             null, 
             true);
 
         $data = ['response_mimic_id' => 1, 'file' => $file];
 
         $response = $this->doPost('mimic/upload-video-thumb', $data);
+        $responseJSON = json_decode($response->getContent(), true);
 
         $response
         ->assertJsonStructure([
@@ -765,6 +774,10 @@ class MimicControllerTest extends TestCase
             'success' => true,
         ])
         ->assertStatus(200);
+
+        $array = explode("/", $responseJSON['video_thumb_url']);
+        $videoThumbFileName = end($array);
+        Storage::disk('public')->assertExists('files/user/2/1970/01/'.$videoThumbFileName);
     }
 
     public function testUploadVideoThumbForOriginalMimicFailedFileWasntSent()
@@ -809,11 +822,12 @@ class MimicControllerTest extends TestCase
 
     public function testUploadVideoThumbButFileIsNotPicture()
     {
+        $path = public_path().'/files/user/3/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4';
         $file = new UploadedFile(
-            public_path().'/files/user/3/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 
+            $path, 
             "0cf4aa302cea84e9a15f2fe8a58a2f43.mp4", 
             'video/mp4', 
-            filesize(public_path().'/files/user/3/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4'), 
+            filesize($path), 
             null, 
             true);
 
@@ -838,17 +852,19 @@ class MimicControllerTest extends TestCase
     //Upload mimics
     public function testSuccessfullyUploadImageOriginalMimic()
     {
-
     }
 
 
     //Delete mimics
     public function testDeleteOriginalMimicSuccessfully()
     {
-        Mimic::find(1)->update(['user_id' => 96]);
+        $mimicId = 3;
+        $model = Mimic::find($mimicId);
+        $oldModel = $model->replicate();
+        $model->update(['user_id' => 96]);
         $data = [];
 
-        $response = $this->doDelete('mimic/delete?original_mimic_id=1', $data);
+        $response = $this->doDelete('mimic/delete?original_mimic_id='.$mimicId, $data);
 
         $response
         ->assertJsonStructure([
@@ -858,14 +874,19 @@ class MimicControllerTest extends TestCase
             'success' => true
         ])
         ->assertStatus(200); 
+
+        $model->update(['user_id' => $oldModel->user_id]);
     }
 
     public function testDeleteResponseMimicSuccessfully()
     {
-        MimicResponse::find(1)->update(['user_id' => 96]);
+        $mimicId = 3;
+        $model = MimicResponse::find($mimicId);
+        $oldModel = $model->replicate();
+        $model->update(['user_id' => 96]);
         $data = [];
 
-        $response = $this->doDelete('mimic/delete?response_mimic_id=1', $data);
+        $response = $this->doDelete('mimic/delete?response_mimic_id='.$mimicId, $data);
 
         $response
         ->assertJsonStructure([
@@ -875,6 +896,8 @@ class MimicControllerTest extends TestCase
             'success' => true
         ])
         ->assertStatus(200); 
+
+        $model->update(['user_id' => $oldModel->user_id]);
     }
 
     public function testUserTriesToDeleteSomeoneElsesOriginalMimic()

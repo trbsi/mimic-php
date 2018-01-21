@@ -244,7 +244,8 @@ class MimicController extends BaseAuthController
         $result = $model->find($id);
 
         if($result && $result->user_id === $this->authUser->id) {
-             //decrease number of mimics for this user
+            $result->delete();
+            //decrease number of mimics for this user
             $this->authUser->decrement('number_of_mimics');
             return response()->json(['success' => true]);
    
