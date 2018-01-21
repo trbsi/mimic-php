@@ -202,9 +202,9 @@ class SendPushNotification
         $iOStokens = $Androidtokens = [];
         foreach ($tokens as $token) {
             if (!empty($token->token)) {
-                if ($token->device == "android") {
+                if ($token->device === "android") {
                     $Androidtokens[] = $token->token;
-                } else if ($token->device == "ios") {
+                } else if ($token->device === "ios") {
                     $iOStokens[] = $token->token;
                 }
             }

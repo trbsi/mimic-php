@@ -4,7 +4,7 @@ namespace App\Functional\Api\V1\Controllers;
 
 use Hash;
 use App\Models\CoreUser as User;
-use App\TestCase;
+use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {

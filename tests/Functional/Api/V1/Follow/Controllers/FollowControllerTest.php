@@ -3,7 +3,7 @@
 namespace App\Functional\Api\V1\Controllers;
 
 use Hash;
-use App\TestCase;
+use Tests\TestCase;
 
 class FollowControllerTest extends TestCase
 {
