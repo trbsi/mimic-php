@@ -101,11 +101,7 @@ class MimicController extends BaseAuthController
                 //$this->mimic->checkTaggedUser($request->usernames, $mimic);
 
                 DB::commit();
-                return response()->json(
-                    [
-                        'mimics' => $this->mimic->getMimicApiResponseContent($model->where('id', $mimic->id)->with($relations)->first())
-                    ]
-                );
+                return response()->json($this->mimic->getMimicApiResponseContent($model->where('id', $mimic->id)->with($relations)->first())[0]);
             }
 
             DB::rollBack();

@@ -664,7 +664,7 @@ class MimicControllerTest extends TestCase
                     'mimic_type' => 'picture',
                     'upvote' => '123M',
                     'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/2018/01/xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/01/xyz.jpg',
                     'video_thumb_url' => null,
                     'aws_file' => null,
                     'upvoted' => 0
@@ -677,7 +677,7 @@ class MimicControllerTest extends TestCase
                     'mimic_type' => 'picture',
                     'upvote' => '123M',
                     'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/2018/01/xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/01/xyz.jpg',
                     'video_thumb_url' => null,
                     'aws_file' => null,
                     'upvoted' => 0
@@ -690,7 +690,7 @@ class MimicControllerTest extends TestCase
                     'mimic_type' => 'picture',
                     'upvote' => '123M',
                     'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/2018/01/xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/01/xyz.jpg',
                     'video_thumb_url' => null,
                     'aws_file' => null,
                     'upvoted' => 0
@@ -841,78 +841,69 @@ class MimicControllerTest extends TestCase
 
         $response = $this->doPost('mimic/add', $data);
         $responseJSON = TestCaseHelper::decodeResponse($response);
-        $fileName = $responseJSON['mimics'][0]['mimic']['file'];
+        $fileName = $responseJSON['mimic']['file'];
 
         $response
         ->assertJsonStructure([
-            'mimics' => [
+            'mimic' => [
+                'id',
+                'username',
+                'profile_picture',
+                'user_id',
+                'mimic_type',
+                'upvote',
+                'file',
+                'file_url',
+                'video_thumb_url',
+                'aws_file',
+                'upvoted',
+                'responses_count',
+            ],
+            'hashtags' => [
+                '*' => 
                 [
-                    'mimic' => [
-                        'id',
-                        'username',
-                        'profile_picture',
-                        'user_id',
-                        'mimic_type',
-                        'upvote',
-                        'file',
-                        'file_url',
-                        'video_thumb_url',
-                        'aws_file',
-                        'upvoted',
-                        'responses_count',
-                    ],
-                    'hashtags' => [
-                        '*' => 
-                        [
-                            'hashtag_id',
-                            'hashtag_name',
-                        ]
-                    ],
-                    'hashtags_flat',
-                    'mimic_responses',
+                    'hashtag_id',
+                    'hashtag_name',
                 ]
-            ]
+            ],
+            'hashtags_flat',
+            'mimic_responses',
         ])
         ->assertJson([
-            'mimics' => [
+            'mimic' => [
+                'id' => 10,
+                'username' => 'xyz1234',
+                'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                'user_id' => 96,
+                'mimic_type' => 'picture',
+                'upvote' => '1',
+                'file' => $fileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/01/'.$fileName,
+                'video_thumb_url' => null,
+                'aws_file' => null,
+                'upvoted' => 0,
+                'responses_count' => null
+            ],
+            'hashtags' => [
                 [
-                    'mimic' => [
-                        'id' => 10,
-                        'username' => 'xyz1234',
-                        'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
-                        'user_id' => 96,
-                        'mimic_type' => 'picture',
-                        'upvote' => '1',
-                        'file' => $fileName,
-                        'file_url' => 'http://mimic.loc/files/user/96/2018/01/'.$fileName,
-                        'video_thumb_url' => null,
-                        'aws_file' => null,
-                        'upvoted' => 0,
-                        'responses_count' => null
-                    ],
-                    'hashtags' => [
-                        [
-                            'hashtag_id' => 45,
-                            'hashtag_name' => '#skate'
-                        ],
-                        [
-                            'hashtag_id' => 46,
-                            'hashtag_name' => '#backflip'
-                        ],
-                        [
-                            'hashtag_id' => 47,
-                            'hashtag_name' => '#frontflip'
-                        ]
-                    ],
-                    'hashtags_flat' => '#skate #backflip #frontflip',
-                    'mimic_responses' => []
+                    'hashtag_id' => 45,
+                    'hashtag_name' => '#skate'
+                ],
+                [
+                    'hashtag_id' => 46,
+                    'hashtag_name' => '#backflip'
+                ],
+                [
+                    'hashtag_id' => 47,
+                    'hashtag_name' => '#frontflip'
                 ]
-            ]
-            
+            ],
+            'hashtags_flat' => '#skate #backflip #frontflip',
+            'mimic_responses' => []
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/2018/01/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
     }
 
     public function testSuccessfullyUploadVideoOriginalMimic()
@@ -924,88 +915,155 @@ class MimicControllerTest extends TestCase
 
         $response = $this->doPost('mimic/add', $data);
         $responseJSON = TestCaseHelper::decodeResponse($response);
-        $fileName = $responseJSON['mimics'][0]['mimic']['file'];
+        $fileName = $responseJSON['mimic']['file'];
 
         $response
         ->assertJsonStructure([
-            'mimics' => [
+            'mimic' => [
+                'id',
+                'username',
+                'profile_picture',
+                'user_id',
+                'mimic_type',
+                'upvote',
+                'file',
+                'file_url',
+                'video_thumb_url',
+                'aws_file',
+                'upvoted',
+                'responses_count',
+            ],
+            'hashtags' => [
+                '*' => 
                 [
-                    'mimic' => [
-                        'id',
-                        'username',
-                        'profile_picture',
-                        'user_id',
-                        'mimic_type',
-                        'upvote',
-                        'file',
-                        'file_url',
-                        'video_thumb_url',
-                        'aws_file',
-                        'upvoted',
-                        'responses_count',
-                    ],
-                    'hashtags' => [
-                        '*' => 
-                        [
-                            'hashtag_id',
-                            'hashtag_name',
-                        ]
-                    ],
-                    'hashtags_flat',
-                    'mimic_responses',
+                    'hashtag_id',
+                    'hashtag_name',
                 ]
-            ]
+            ],
+            'hashtags_flat',
+            'mimic_responses',
         ])
         ->assertJson([
-            'mimics' => [
+            'mimic' => [
+                'id' => 11,
+                'username' => 'xyz1234',
+                'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                'user_id' => 96,
+                'mimic_type' => 'video',
+                'upvote' => '1',
+                'file' => $fileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/01/'.$fileName,
+                'video_thumb_url' => null,
+                'aws_file' => null,
+                'upvoted' => 0,
+                'responses_count' => null
+            ],
+            'hashtags' => [
                 [
-                    'mimic' => [
-                        'id' => 11,
-                        'username' => 'xyz1234',
-                        'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
-                        'user_id' => 96,
-                        'mimic_type' => 'video',
-                        'upvote' => '1',
-                        'file' => $fileName,
-                        'file_url' => 'http://mimic.loc/files/user/96/2018/01/'.$fileName,
-                        'video_thumb_url' => null,
-                        'aws_file' => null,
-                        'upvoted' => 0,
-                        'responses_count' => null
-                    ],
-                    'hashtags' => [
-                        [
-                            'hashtag_id' => 45,
-                            'hashtag_name' => '#skate'
-                        ],
-                        [
-                            'hashtag_id' => 46,
-                            'hashtag_name' => '#backflip'
-                        ],
-                        [
-                            'hashtag_id' => 47,
-                            'hashtag_name' => '#frontflip'
-                        ]
-                    ],
-                    'hashtags_flat' => '#skate #backflip #frontflip',
-                    'mimic_responses' => []
+                    'hashtag_id' => 45,
+                    'hashtag_name' => '#skate'
+                ],
+                [
+                    'hashtag_id' => 46,
+                    'hashtag_name' => '#backflip'
+                ],
+                [
+                    'hashtag_id' => 47,
+                    'hashtag_name' => '#frontflip'
                 ]
-            ]
-            
+            ],
+            'hashtags_flat' => '#skate #backflip #frontflip',
+            'mimic_responses' => []
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/2018/01/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
     }
 
     public function testSuccessfullyUploadImageResponseMimic()
     {
+        $path = public_path().'/files/user/5/1970/01/';
+        $file = TestCaseHelper::returnNewUploadedFile($path, '0cf7dbb25cd97f09e826e36ec178e135.jpg', 'image/jpg');
 
+        $data = ['file' => $file, 'original_mimic_id' => 1];
+
+        $response = $this->doPost('mimic/add', $data);
+        $responseJSON = TestCaseHelper::decodeResponse($response);
+        $fileName = $responseJSON['file'];
+
+        $response
+        ->assertJsonStructure([
+            'id',
+            'username',
+            'profile_picture',
+            'user_id',
+            'mimic_type',
+            'upvote',
+            'file',
+            'file_url',
+            'video_thumb_url',
+            'aws_file',
+            'upvoted',
+        ])
+        ->assertJson([
+            'id' => 131,
+            'username' => 'xyz1234',
+            'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+            'user_id' => 96,
+            'mimic_type' => 'picture',
+            'upvote' => '1',
+            'file' => $fileName,
+            'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/01/'.$fileName,
+            'video_thumb_url' => null,
+            'aws_file' => null,
+            'upvoted' => null
+        ])
+        ->assertStatus(200);
+
+        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
     }
 
     public function testSuccessfullyUploadVideoResponseMimic()
     {
+        $path = public_path().'/files/user/5/1970/01/';
+        $file = TestCaseHelper::returnNewUploadedFile($path, '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 'video/mp4');
 
+        $data = ['file' => $file, 'original_mimic_id' => 1];
+
+        $response = $this->doPost('mimic/add', $data);
+        $responseJSON = TestCaseHelper::decodeResponse($response);
+        $fileName = $responseJSON['file'];
+
+        $response
+        ->assertJsonStructure([
+            'id',
+            'username',
+            'profile_picture',
+            'user_id',
+            'mimic_type',
+            'upvote',
+            'file',
+            'file_url',
+            'video_thumb_url',
+            'aws_file',
+            'upvoted',
+        ])
+        ->assertJson([
+            'id' => 132,
+            'username' => 'xyz1234',
+            'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+            'user_id' => 96,
+            'mimic_type' => 'video',
+            'upvote' => '1',
+            'file' => $fileName,
+            'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/01/'.$fileName,
+            'video_thumb_url' => null,
+            'aws_file' => null,
+            'upvoted' => null
+        ])
+        ->assertStatus(200);
+
+        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
     }
 
     public function testUploadedMimicIsNotVideoOrImage()
