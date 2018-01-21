@@ -125,11 +125,11 @@ class MimicController extends BaseAuthController
     {
 
         $validator = Validator::make($request->all(), [
-            'file' => 'required|file',
+            'file' => 'required|file|image',
         ]);
 
         if ($validator->fails()) {
-            abort(400, trans('validation.choose_image_or_video'));
+            abort(400, trans('validation.file_should_be_image'));
         }
 
         DB::beginTransaction();

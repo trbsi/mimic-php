@@ -716,6 +716,125 @@ class MimicControllerTest extends TestCase
         ->assertStatus(200); 
     }
 
+    //Upload video thumb
+    public function testSuccessfullyUploadVideoThumbForOriginalMimic()
+    {
+        $file = new UploadedFile(
+            public_path().'/files/user/3/1970/01/24d23a82eb859b7832205fd83ce83a5c.jpg', 
+            "24d23a82eb859b7832205fd83ce83a5c.jpg", 
+            'image/png', 
+            filesize(public_path().'/files/user/3/1970/01/24d23a82eb859b7832205fd83ce83a5c.jpg'), 
+            null, 
+            true);
+
+        $data = ['original_mimic_id' => 1, 'file' => $file];
+
+        $response = $this->doPost('mimic/upload-video-thumb', $data);
+
+        $response
+        ->assertJsonStructure([
+            'success',
+            'video_thumb_url'
+        ])
+        ->assertJson([
+            'success' => true,
+        ])
+        ->assertStatus(200);
+    }
+
+    public function testSuccessfullyUploadVideoThumbForResponseMimic()
+    {
+        $file = new UploadedFile(
+            public_path().'/files/user/3/1970/01/254b169c6d3b87af59515398e4b17b4f.jpg', 
+            "254b169c6d3b87af59515398e4b17b4f.jpg", 
+            'image/png', 
+            filesize(public_path().'/files/user/3/1970/01/254b169c6d3b87af59515398e4b17b4f.jpg'), 
+            null, 
+            true);
+
+        $data = ['response_mimic_id' => 1, 'file' => $file];
+
+        $response = $this->doPost('mimic/upload-video-thumb', $data);
+
+        $response
+        ->assertJsonStructure([
+            'success',
+            'video_thumb_url'
+        ])
+        ->assertJson([
+            'success' => true,
+        ])
+        ->assertStatus(200);
+    }
+
+    public function testUploadVideoThumbForOriginalMimicFailedFileWasntSent()
+    {
+        $data = ['original_mimic_id' => 1];
+
+        $response = $this->doPost('mimic/upload-video-thumb', $data);
+
+        $response
+        ->assertJsonStructure([
+            'error'=> [
+                'message',
+            ]
+        ])
+        ->assertJson([
+            'error'=> [
+                'message'=> 'File should be an image',
+            ]
+        ])
+        ->assertStatus(400);
+    }
+
+    public function testUploadVideoThumbForResponseMimicFailedFileWasntSent()
+    {
+        $data = ['response_mimic_id' => 1];
+
+        $response = $this->doPost('mimic/upload-video-thumb', $data);
+
+        $response
+        ->assertJsonStructure([
+            'error'=> [
+                'message',
+            ]
+        ])
+        ->assertJson([
+            'error'=> [
+                'message'=> 'File should be an image',
+            ]
+        ])
+        ->assertStatus(400);
+    }
+
+    public function testUploadVideoThumbButFileIsNotPicture()
+    {
+        $file = new UploadedFile(
+            public_path().'/files/user/3/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 
+            "0cf4aa302cea84e9a15f2fe8a58a2f43.mp4", 
+            'video/mp4', 
+            filesize(public_path().'/files/user/3/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4'), 
+            null, 
+            true);
+
+        $data = ['original_mimic_id' => 1, 'file' => $file];
+
+        $response = $this->doPost('mimic/upload-video-thumb', $data);
+
+        $response
+        ->assertJsonStructure([
+            'error'=> [
+                'message',
+            ]
+        ])
+        ->assertJson([
+            'error'=> [
+                'message'=> 'File should be an image',
+            ]
+        ])
+        ->assertStatus(400);
+    }
+
     //Upload mimics
     public function testSuccessfullyUploadImageOriginalMimic()
     {
