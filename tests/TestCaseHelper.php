@@ -20,4 +20,9 @@ class TestCaseHelper
             null, 
             true);
 	}
+
+	public static function returnFakeFile($name)
+	{
+		return UploadedFile::fake()->create($name, 100);
+	}
 }

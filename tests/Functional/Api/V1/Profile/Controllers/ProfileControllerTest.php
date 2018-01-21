@@ -12,7 +12,7 @@ class ProfileControllerTest extends TestCase
         parent::setUp();
     }
 
-    //Get profile
+    //--------------------------------Get profile--------------------------------
     public function testGetUserProfileSuccessfully()
     {
     	$data = [];
@@ -45,7 +45,7 @@ class ProfileControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    //Block profile
+    //--------------------------------Block profile--------------------------------
     public function testSuccessfullyBlockUser()
     {
         $data = ['user_id' => 5];

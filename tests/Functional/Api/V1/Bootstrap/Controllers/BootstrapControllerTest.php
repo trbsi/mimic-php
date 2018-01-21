@@ -12,7 +12,7 @@ class BootstrapControllerTest extends TestCase
         parent::setUp();
     }
 
-    //Push notifications
+    //--------------------------------Push notifications--------------------------------
     public function testPushTokenNotSet()
     {
     	$data = [];

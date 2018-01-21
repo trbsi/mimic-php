@@ -71,7 +71,7 @@ class MimicController extends BaseAuthController
             } elseif (strpos($mime, "image") !== false) {
                 $type = Mimic::TYPE_PIC;
             } else {
-                abort(403, trans("validation.file_should_be_image_video"));
+                abort(400, trans("validation.file_should_be_image_video"));
             }
 
             //upload mimic

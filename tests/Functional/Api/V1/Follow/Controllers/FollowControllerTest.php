@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class FollowControllerTest extends TestCase
 {
-    //Listings
+    //--------------------------------Listings--------------------------------
     public function testListUsersFollowers()
     {
         $data = [];
@@ -136,7 +136,7 @@ class FollowControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    //Follow/unfollow
+    //--------------------------------Follow/unfollow--------------------------------
     public function testUserSuccessfullyFollowedAnotherUser()
     {
         $data = ['id' => 5];

@@ -14,7 +14,7 @@ class LoginControllerTest extends TestCase
         parent::setUp();
     }
 
-    //Facebook
+    //--------------------------------Facebook--------------------------------
     public function testFacebookFirstLoginSuccessfullyWithEmailIncluded()
     {
     	$data = [
@@ -115,7 +115,7 @@ class LoginControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    //Twitter
+    //--------------------------------Twitter--------------------------------
     public function testTwitterFirstLoginSuccessfullyWithEmailIncluded()
     {
 
@@ -210,7 +210,7 @@ class LoginControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    //Username set
+    //--------------------------------Username set--------------------------------
     public function testSetUsernameWhereUsernameEmpty()
     {
     	$data = [
@@ -304,7 +304,7 @@ class LoginControllerTest extends TestCase
     }
 
 
-    //Email set
+    //--------------------------------Email set--------------------------------
     public function testEmailExists()
     {
     	$data = [
@@ -329,7 +329,7 @@ class LoginControllerTest extends TestCase
         ->assertStatus(403);
     }
 
-    //Success save username/password
+    //--------------------------------Success save username/password--------------------------------
     public function testSuccessSaveUsername()
     {
     	$data = [

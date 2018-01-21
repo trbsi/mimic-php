@@ -16,7 +16,7 @@ class MimicControllerTest extends TestCase
         parent::setUp();
     }
 
-    //Get mimics from a specific user
+    //--------------------------------Get mimics from a specific user--------------------------------
     public function testListMimicsFromUser()
     {
         $data = [];
@@ -181,7 +181,7 @@ class MimicControllerTest extends TestCase
         ->assertStatus(200); 
     }
 
-    //Upvote/downvote
+    //--------------------------------Upvote/downvote--------------------------------
     public function testUpvoteOriginalMimicSuccessfully()
     {
         $data = ['original_mimic_id' => 1];
@@ -246,7 +246,7 @@ class MimicControllerTest extends TestCase
         ->assertStatus(200); 
     }
 
-    //Report
+    //--------------------------------Report--------------------------------
     public function testReportOriginalMimicSuccessfully()
     {
         $data = ['original_mimic_id' => 1];
@@ -280,7 +280,7 @@ class MimicControllerTest extends TestCase
     }
  
 
-    //List mimics
+    //--------------------------------List mimics--------------------------------
     public function testListMimicsOnMainScreenPageZero()
     {
         $data = [];
@@ -619,7 +619,7 @@ class MimicControllerTest extends TestCase
         ->assertStatus(200);
     }
 
-    //Load more original mimic's responses
+    //--------------------------------Load more original mimic's responses--------------------------------
     public function testLoadMoreResponsesForOriginalMimicOnMainScreen()
     {
         for($i = 0; $i < 50; $i++) {
@@ -717,7 +717,7 @@ class MimicControllerTest extends TestCase
         ->assertStatus(200); 
     }
 
-    //Upload video thumb
+    //--------------------------------Upload video thumb--------------------------------
     public function testSuccessfullyUploadVideoThumbForOriginalMimic()
     {
         $path = public_path().'/files/user/3/1970/01/';
@@ -810,11 +810,9 @@ class MimicControllerTest extends TestCase
 
     public function testUploadVideoThumbButFileIsNotPicture()
     {
-        $path = public_path().'/files/user/3/1970/01/';
-        $file = TestCaseHelper::returnNewUploadedFile($path, '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 'video/mp4');
+        $file = TestCaseHelper::returnFakeFile("test.pdf");
 
         $data = ['original_mimic_id' => 1, 'file' => $file];
-
         $response = $this->doPost('mimic/upload-video-thumb', $data);
 
         $response
@@ -831,7 +829,7 @@ class MimicControllerTest extends TestCase
         ->assertStatus(400);
     }
 
-    //Upload mimics
+    //--------------------------------Upload mimics--------------------------------
     public function testSuccessfullyUploadImageOriginalMimic()
     {
         $path = public_path().'/files/user/4/1970/01/';
@@ -1066,19 +1064,53 @@ class MimicControllerTest extends TestCase
         Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
     }
 
-    public function testUploadedMimicIsNotVideoOrImage()
+    public function testUploadedOriginalOrResponseMimicIsNotVideoOrImage()
     {
+        $file = TestCaseHelper::returnFakeFile("test.pdf");
 
+        $data = ['file' => $file, 'original_mimic_id' => 1];
+        $response = $this->doPost('mimic/add', $data);
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+              'message',
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+              'message' => "File should be an image or a video",
+            ]
+        ])
+        ->assertStatus(400);
     }
 
     public function testTryToUploadResponseButOriginalMimicIsDeleted()
     {
+        $mimicId = 4;
+        Mimic::find($mimicId)->delete();
+        $file = TestCaseHelper::returnFakeFile("test.jpg");
 
+        $data = ['file' => $file, 'original_mimic_id' => $mimicId];
+        $response = $this->doPost('mimic/add', $data);
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+              'message',
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+              'message' => "This Mimic has been deleted, you can't respond to this Mimic anymore",
+            ]
+        ])
+        ->assertStatus(400);
     }
 
 
 
-    //Delete mimics
+    //--------------------------------Delete mimics--------------------------------
     public function testDeleteOriginalMimicSuccessfully()
     {
         $mimicId = 3;
