@@ -664,7 +664,7 @@ class MimicControllerTest extends TestCase
                     'mimic_type' => 'picture',
                     'upvote' => '123M',
                     'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/01/xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
                     'video_thumb_url' => null,
                     'aws_file' => null,
                     'upvoted' => 0
@@ -677,7 +677,7 @@ class MimicControllerTest extends TestCase
                     'mimic_type' => 'picture',
                     'upvote' => '123M',
                     'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/01/xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
                     'video_thumb_url' => null,
                     'aws_file' => null,
                     'upvoted' => 0
@@ -690,7 +690,7 @@ class MimicControllerTest extends TestCase
                     'mimic_type' => 'picture',
                     'upvote' => '123M',
                     'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/01/xyz.jpg',
+                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
                     'video_thumb_url' => null,
                     'aws_file' => null,
                     'upvoted' => 0
@@ -876,7 +876,7 @@ class MimicControllerTest extends TestCase
                 'mimic_type' => 'picture',
                 'upvote' => '1',
                 'file' => $fileName,
-                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/01/'.$fileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
                 'video_thumb_url' => null,
                 'aws_file' => null,
                 'upvoted' => 0,
@@ -901,7 +901,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
     }
 
     public function testSuccessfullyUploadVideoOriginalMimic()
@@ -950,7 +950,7 @@ class MimicControllerTest extends TestCase
                 'mimic_type' => 'video',
                 'upvote' => '1',
                 'file' => $fileName,
-                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/01/'.$fileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
                 'video_thumb_url' => null,
                 'aws_file' => null,
                 'upvoted' => 0,
@@ -975,7 +975,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
     }
 
     public function testSuccessfullyUploadImageResponseMimic()
@@ -1011,14 +1011,14 @@ class MimicControllerTest extends TestCase
             'mimic_type' => 'picture',
             'upvote' => '1',
             'file' => $fileName,
-            'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/01/'.$fileName,
+            'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
             'video_thumb_url' => null,
             'aws_file' => null,
             'upvoted' => null
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
     }
 
     public function testSuccessfullyUploadVideoResponseMimic()
@@ -1054,14 +1054,14 @@ class MimicControllerTest extends TestCase
             'mimic_type' => 'video',
             'upvote' => '1',
             'file' => $fileName,
-            'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/01/'.$fileName,
+            'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
             'video_thumb_url' => null,
             'aws_file' => null,
             'upvoted' => null
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/01/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
     }
 
     public function testUploadedOriginalOrResponseMimicIsNotVideoOrImage()
@@ -1105,7 +1105,7 @@ class MimicControllerTest extends TestCase
               'message' => "This Mimic has been deleted, you can't respond to this Mimic anymore",
             ]
         ])
-        ->assertStatus(400);
+        ->assertStatus(404);
     }
 
 

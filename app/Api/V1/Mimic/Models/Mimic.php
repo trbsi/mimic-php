@@ -196,8 +196,8 @@ class Mimic extends Model
 
     /**
      * @TODO - check if tags exists, put in redis as key => value and check in that way
-     * @param  [string] $tags [list of tags: "#tag1 #tag2"]
-     * @param $mimicModel - created mimic model
+     * @param string $tags List of tags: "#tag1 #tag2"
+     * @param Mimic $mimicModel Created mimic model
      * @return array
      */
     public function checkHashtags($tags, $mimicModel)
@@ -260,10 +260,11 @@ class Mimic extends Model
     }
 
     /**
-     * get mimic model and return response
-     * @param  [type] $mimics [Mimic model]
+     * Get mimic model and return response
+     * 
+     * @param  Mimic|MimicResponse $mimics Mimic or MimicResponse loaded result
      * @param  boolean $direct If you want to access mimic structure directly without extra parameters
-     * @return [array]        [generated mimic response]
+     * @return array Generated mimic response
      */
     public function getMimicApiResponseContent($mimics, $direct = false)
     {
@@ -318,6 +319,29 @@ class Mimic extends Model
         }
 
         SendPushNotification::sendNotification($user_id, $data);
+    }
+
+    /**
+     * Fake user if this is my account
+     *
+     * @param User $authUser Authenticated user
+     * @param User $user Empty User model
+     */
+    public function getUser($authUser, $user)
+    {
+        if(!in_array($authUser->email, ["dario.trbovic@yahoo.com"])) {
+            $user = $authUser;
+        } else {
+            if(env('APP_ENV') === 'live') {
+                $findUser = (rand(0, 1) === 0) ? rand(1, 95) : rand(119, 225);
+            } else {
+                $findUser = rand(1, 95);
+            }
+
+            $user = $this->user->find($findUser);
+        }
+
+        return $user;
     }
 
     public function user()

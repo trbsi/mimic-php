@@ -13,6 +13,8 @@ trait MimicTrait
      * @param  object $user_id User id
      * @param  object $model Mimic model
      * @param  string $file Mimic file
+     * @param  boolean $includeDomain Whether to include domain in front of path or not
+     * @param  boolean $includeRoot Whether to made path absolute or not
      * @return string Path to a file or a folder of a mimic
      */
     public function getFileOrPath($user_id, $file = null, $model = null, $includeDomain = false, $includeRoot = false)
