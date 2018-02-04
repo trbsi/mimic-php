@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\Api\V1\Bootstrap\Controllers;
+namespace Tests\Functional\Api\V2\Bootstrap\Controllers;
 
 use Hash;
 use Tests\TestCase;
@@ -17,7 +17,7 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doPost('save-push-token', $data, 'v1');
+        $response = $this->doPost('save-push-token', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -38,7 +38,7 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = ['push_token' => ''];
 
-        $response = $this->doPost('save-push-token', $data, 'v1');
+        $response = $this->doPost('save-push-token', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -59,7 +59,7 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = ['push_token' => 'xxxyyyzzz'];
 
-        $response = $this->doPost('save-push-token', $data, 'v1');
+        $response = $this->doPost('save-push-token', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -80,7 +80,7 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = ['push_token' => 'xxxyyyzzz', 'device_id' => '111222333'];
 
-        $response = $this->doPost('save-push-token', $data, 'v1');
+        $response = $this->doPost('save-push-token', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -101,7 +101,7 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = ['push_token' => 'xxxyyyzzz', 'device_id' => '111222333', 'device' => 'ios'];
 
-        $response = $this->doPost('save-push-token', $data, 'v1');
+        $response = $this->doPost('save-push-token', $data, 'v2');
 
         $response
         ->assertJsonStructure([

@@ -1,16 +1,16 @@
 <?php 
-namespace App\Api\V1\Mimic\Models;
+namespace App\Api\V2\Mimic\Models;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
-use App\Api\V1\Hashtag\Models\Hashtag;
-use App\Api\V1\Mimic\Models\MimicHashtag;
-use App\Api\V1\User\Models\User;
-use App\Api\V1\Mimic\Traits\MimicTrait;
-use App\Api\V1\Follow\Models\Follow;
-use App\Api\V1\Mimic\Models\MimicResponse;
-use App\Api\V1\Mimic\Models\MimicUpvote;
-use App\Api\V1\Mimic\Models\MimicResponseUpvote;
+use App\Api\V2\Hashtag\Models\Hashtag;
+use App\Api\V2\Mimic\Models\MimicHashtag;
+use App\Api\V2\User\Models\User;
+use App\Api\V2\Mimic\Traits\MimicTrait;
+use App\Api\V2\Follow\Models\Follow;
+use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Models\MimicUpvote;
+use App\Api\V2\Mimic\Models\MimicResponseUpvote;
 use Illuminate\Support\Collection;
 use App\Helpers\Constants;
 use App\Helpers\SendPushNotification;
@@ -349,43 +349,43 @@ class Mimic extends Model
 
     public function user()
     {
-        return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(\App\Api\V2\User\Models\User::class, 'user_id', 'id');
     }
 
     public function hashtags()
     {
-        return $this->belongsToMany(\App\Api\V1\Hashtag\Models\Hashtag::class, 'mimic_hashtag', 'mimic_id', 'hashtag_id');
+        return $this->belongsToMany(\App\Api\V2\Hashtag\Models\Hashtag::class, 'mimic_hashtag', 'mimic_id', 'hashtag_id');
     }
 
     /*public function users() {
-        return $this->belongsToMany(\App\Api\V1\User\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
     }
 
     public function mimicHashtags() {
-        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicHashtag::class, 'mimic_id', 'id');
+        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicHashtag::class, 'mimic_id', 'id');
     }
 
     */
 
     public function upvotes()
     {
-        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicUpvote::class, 'mimic_id', 'id');
+        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicUpvote::class, 'mimic_id', 'id');
     }
 
     public function userUpvotes()
     {
-        return $this->belongsToMany(\App\Api\V1\User\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
     public function mimicResponses()
     {
-        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicResponse::class, 'original_mimic_id', 'id');
+        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicResponse::class, 'original_mimic_id', 'id');
 
     }
 
     public function mimicTagusers()
     {
-        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicTaguser::class, 'mimic_id', 'id');
+        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicTaguser::class, 'mimic_id', 'id');
     }
 
 }

@@ -1,9 +1,9 @@
 <?php
-namespace App\Api\V1\Mimic\Traits;
+namespace App\Api\V2\Mimic\Traits;
 
 use App\Helpers\SendPushNotification;
-use App\Api\V1\Mimic\Models\Mimic;
-use App\Api\V1\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Models\MimicResponse;
 
 trait MimicTrait
 {

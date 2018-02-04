@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\Api\V1\Auth\Controllers;
+namespace Tests\Functional\Api\V2\Auth\Controllers;
 
 use Hash;
 use App\Models\CoreUser as User;
@@ -33,7 +33,7 @@ class LoginControllerTest extends TestCase
               ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v1');
+        $response = $this->doPost('auth/login', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -66,7 +66,7 @@ class LoginControllerTest extends TestCase
               ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v1');
+        $response = $this->doPost('auth/login', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -99,7 +99,7 @@ class LoginControllerTest extends TestCase
               ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v1');
+        $response = $this->doPost('auth/login', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -132,7 +132,7 @@ class LoginControllerTest extends TestCase
             ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v1');
+        $response = $this->doPost('auth/login', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -163,7 +163,7 @@ class LoginControllerTest extends TestCase
             ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v1');
+        $response = $this->doPost('auth/login', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -194,7 +194,7 @@ class LoginControllerTest extends TestCase
             ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v1');
+        $response = $this->doPost('auth/login', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -217,7 +217,7 @@ class LoginControllerTest extends TestCase
             'username' => '',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v1');
+        $response = $this->doPost('set-username', $data, 'v2');
 
         $response 
         ->assertJsonStructure([
@@ -240,7 +240,7 @@ class LoginControllerTest extends TestCase
             'username' => 'xyz',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v1');
+        $response = $this->doPost('set-username', $data, 'v2');
 
         $response 
         ->assertJsonStructure([
@@ -263,7 +263,7 @@ class LoginControllerTest extends TestCase
             'username' => 'xyz123&',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v1');
+        $response = $this->doPost('set-username', $data, 'v2');
 
         $response 
         ->assertJsonStructure([
@@ -286,7 +286,7 @@ class LoginControllerTest extends TestCase
             'username' => 'AndrewCG',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v1');
+        $response = $this->doPost('set-username', $data, 'v2');
 
         $response 
         ->assertJsonStructure([
@@ -312,7 +312,7 @@ class LoginControllerTest extends TestCase
             'email' => 'user1@mail.com'
         ];
 
-        $response = $this->doPost('set-username', $data, 'v1');
+        $response = $this->doPost('set-username', $data, 'v2');
 
         $response 
         ->assertJsonStructure([
@@ -336,7 +336,7 @@ class LoginControllerTest extends TestCase
             'username' => 'xyz123',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v1');
+        $response = $this->doPost('set-username', $data, 'v2');
 
         $response 
         ->assertJsonStructure([
@@ -356,7 +356,7 @@ class LoginControllerTest extends TestCase
             'email' => 'unknow@mail.com'
         ];
 
-        $response = $this->doPost('set-username', $data, 'v1');
+        $response = $this->doPost('set-username', $data, 'v2');
 
         $response 
         ->assertJsonStructure([

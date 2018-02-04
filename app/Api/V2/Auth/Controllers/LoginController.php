@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Api\V1\Auth\Controllers;
+namespace App\Api\V2\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Api\V1\User\Models\User;
+use App\Api\V2\User\Models\User;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;

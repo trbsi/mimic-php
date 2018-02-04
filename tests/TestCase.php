@@ -41,14 +41,16 @@ abstract class TestCase extends BaseTestCase
      *
      * @param  string $url  URL to post to
      * @param  array $data Array of data to post
+     * @param  string $version Api vesrion: v1, v2...
      * @return response
      */
-    public function doPost($url, $data)
+    public function doPost($url, $data, $version)
     {
         return $this->json('POST', 'api/'.$url, $data,
         [
             'AllowEntry' => $this->allow_entry,
             'Authorization' => $this->token,
+            'Accept' => 'application/vnd.app.'.$version.'+json',
         ]);
     }
 
@@ -56,14 +58,16 @@ abstract class TestCase extends BaseTestCase
      *
      * @param  string $url  URL to get to
      * @param  array $data Array of data to post
+     * @param  string $version Api vesrion: v1, v2...
      * @return response
      */
-    public function doGet($url, $data)
+    public function doGet($url, $data, $version)
     {
         return $this->json('GET', 'api/'.$url, $data,
         [
             'AllowEntry' => $this->allow_entry,
             'Authorization' => $this->token,
+            'Accept' => 'application/vnd.app.'.$version.'+json',
         ]);
     }
 
@@ -71,14 +75,16 @@ abstract class TestCase extends BaseTestCase
      *
      * @param  string $url  URL to send data to
      * @param  array $data Array of data to post
+     * @param  string $version Api vesrion: v1, v2...
      * @return response
      */
-    public function doDelete($url, $data)
+    public function doDelete($url, $data, $version)
     {
         return $this->json('DELETE', 'api/'.$url, $data,
         [
             'AllowEntry' => $this->allow_entry,
             'Authorization' => $this->token,
+            'Accept' => 'application/vnd.app.'.$version.'+json',
         ]);
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Api\V1\Mimic\Controllers;
+namespace App\Api\V2\Mimic\Controllers;
 
-use App\Api\V1\Auth\Controllers\BaseAuthController;
+use App\Api\V2\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
-use App\Api\V1\User\Models\User;
-use App\Api\V1\Mimic\Models\Mimic;
-use App\Api\V1\Mimic\Models\MimicResponse;
+use App\Api\V2\User\Models\User;
+use App\Api\V2\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Models\MimicResponse;
 use App\Helpers\FileUpload;
-use App\Api\V1\Mimic\Requests\CreateMimicRequest;
+use App\Api\V2\Mimic\Requests\CreateMimicRequest;
 use App\Helpers\Constants;
-use App\Api\V1\Mimic\Repositories\CreateMimicRepository;
+use App\Api\V2\Mimic\Repositories\CreateMimicRepository;
 use DB;
 use Validator;
 

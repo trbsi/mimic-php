@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Api\V1\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Models\Mimic;
 use App\Models\CoreUser;
 
 class MimicsTable extends Seeder

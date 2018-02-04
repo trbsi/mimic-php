@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Api\V1\Auth\Controllers;
+namespace App\Api\V2\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Api\V1\User\Models\User;
+use App\Api\V2\User\Models\User;
 
 class BaseAuthController extends Controller
 {

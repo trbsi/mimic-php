@@ -1,5 +1,5 @@
 <?php
-namespace App\Api\V1\SocialAccount\Models;
+namespace App\Api\V2\SocialAccount\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,7 +21,7 @@ class SocialAccount extends Model
 
     public function user()
     {
-        return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(\App\Api\V2\User\Models\User::class, 'user_id', 'id');
     }
 
 

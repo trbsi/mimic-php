@@ -1,5 +1,5 @@
 <?php
-namespace App\Api\V1\Mimic\Models;
+namespace App\Api\V2\Mimic\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,12 +22,12 @@ class MimicHashtag extends Model
 
     public function hashtag()
     {
-        return $this->belongsTo(\App\Api\V1\Hashtag\Models\Hashtag::class, 'hashtag_id', 'id');
+        return $this->belongsTo(\App\Api\V2\Hashtag\Models\Hashtag::class, 'hashtag_id', 'id');
     }
 
     public function mimic()
     {
-        return $this->belongsTo(\App\Api\V1\Mimic\Models\Mimic::class, 'mimic_id', 'id');
+        return $this->belongsTo(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_id', 'id');
     }
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\Api\V1\Search\Controllers;
+namespace Tests\Functional\Api\V2\Search\Controllers;
 
 use Hash;
 use Tests\TestCase;
@@ -16,7 +16,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=%23jump', $data, 'v1');
+        $response = $this->doGet('search?term=%23jump', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -47,7 +47,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=%23totallyfake', $data, 'v1');
+        $response = $this->doGet('search?term=%23totallyfake', $data, 'v2');
 
         $response
         ->assertJsonStructure([])
@@ -59,7 +59,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=@andr', $data, 'v1');
+        $response = $this->doGet('search?term=@andr', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -93,7 +93,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=@totallyfake', $data, 'v1');
+        $response = $this->doGet('search?term=@totallyfake', $data, 'v2');
 
         $response
         ->assertJsonStructure([])
@@ -105,7 +105,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=totallyfake', $data, 'v1');
+        $response = $this->doGet('search?term=totallyfake', $data, 'v2');
 
         $response
         ->assertJsonStructure([])

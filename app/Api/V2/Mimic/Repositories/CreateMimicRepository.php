@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Api\V1\Mimic\Repositories;
+namespace App\Api\V2\Mimic\Repositories;
 
-use App\Api\V1\Mimic\Models\Mimic;
-use App\Api\V1\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Models\MimicResponse;
 use App\Helpers\FileUpload;
-use App\Api\V1\Mimic\Models\MimicTaguser;
-use App\Api\V1\Mimic\Models\MimicHashtag;
+use App\Api\V2\Mimic\Models\MimicTaguser;
+use App\Api\V2\Mimic\Models\MimicHashtag;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 
@@ -32,7 +32,7 @@ class CreateMimicRepository
     /**
      * Handle original/response Mimic creation
      * 
-     * @param \App\Api\V1\User\Models\User $user Authenticated user
+     * @param \App\Api\V2\User\Models\User $user Authenticated user
      * @param array $request This is array of data from request
      * @return boolean|object Return false or single created Mimic|MimicResponse
      */

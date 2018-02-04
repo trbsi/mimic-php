@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\V1\User\Models;
+namespace App\Api\V2\User\Models;
 
 use Hash;
 use Illuminate\Notifications\Notifiable;
@@ -139,7 +139,7 @@ class User extends Authenticatable
      */
     public function following()
     {
-        return $this->belongsToMany(\App\Api\V1\User\Models\User::class, 'follow', 'followed_by', 'following')->withTimestamps();
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'follow', 'followed_by', 'following')->withTimestamps();
     }
 
     /**
@@ -147,52 +147,52 @@ class User extends Authenticatable
      */
     public function followers()
     {
-        return $this->belongsToMany(\App\Api\V1\User\Models\User::class, 'follow', 'following', 'followed_by')->withTimestamps();
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'follow', 'following', 'followed_by')->withTimestamps();
     }
 
     /*
 
     public function users() {
-        return $this->belongsToMany(\App\Api\V1\User\Models\User::class, 'follow', 'following', 'followed_by');
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'follow', 'following', 'followed_by');
     }
 
 
     public function mimics() {
-        return $this->belongsToMany(\App\Api\V1\Mimic\Models\Mimic::class, 'mimic_upvote', 'user_id', 'mimic_id');
+        return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_upvote', 'user_id', 'mimic_id');
     }
 
     public function follows() {
-        return $this->hasMany(\App\Api\V1\Follow\Models\Follow::class, 'followed_by', 'id');
+        return $this->hasMany(\App\Api\V2\Follow\Models\Follow::class, 'followed_by', 'id');
     }
 
     public function follows() {
-        return $this->hasMany(\App\Api\V1\Follow\Models\Follow::class, 'following', 'id');
+        return $this->hasMany(\App\Api\V2\Follow\Models\Follow::class, 'following', 'id');
     }
 
     public function mimicTagusers() {
-        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicTaguser::class, 'user_id', 'id');
+        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicTaguser::class, 'user_id', 'id');
     }
 
     public function mimicUpvotes() {
-        return $this->hasMany(\App\Api\V1\Mimic\Models\MimicUpvote::class, 'user_id', 'id');
+        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicUpvote::class, 'user_id', 'id');
     }
 
     public function mimics() {
-        return $this->hasMany(\App\Api\V1\Mimic\Models\Mimic::class, 'user_id', 'id');
+        return $this->hasMany(\App\Api\V2\Mimic\Models\Mimic::class, 'user_id', 'id');
     }
 
     public function pushNotificationsTokens() {
-        return $this->hasMany(\App\Api\V1\PushNotificationsToken\Models\PushNotificationsToken::class, 'user_id', 'id');
+        return $this->hasMany(\App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken::class, 'user_id', 'id');
     }*/
 
     public function socialAccounts()
     {
-        return $this->hasMany(\App\Api\V1\SocialAccount\Models\SocialAccount::class, 'user_id', 'id');
+        return $this->hasMany(\App\Api\V2\SocialAccount\Models\SocialAccount::class, 'user_id', 'id');
     }
 
 
     public function mimicTaguser()
     {
-        return $this->belongsToMany(\App\Api\V1\Mimic\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
+        return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
     }
 }

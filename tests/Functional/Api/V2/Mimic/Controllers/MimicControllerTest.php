@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Functional\Api\V1\Mimic\Controllers;
+namespace Tests\Functional\Api\V2\Mimic\Controllers;
 
 use Tests\TestCase;
 use Tests\TestCaseHelper;
-use App\Api\V1\Mimic\Models\Mimic;
-use App\Api\V1\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Models\MimicResponse;
 use JWTAuth;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +21,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/user-mimics?user_id=1', $data, 'v1');
+        $response = $this->doGet('mimic/user-mimics?user_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -71,7 +71,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/user-mimics?user_id=10', $data, 'v1');
+        $response = $this->doGet('mimic/user-mimics?user_id=10', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -89,7 +89,7 @@ class MimicControllerTest extends TestCase
 
         $data = [];
 
-        $response = $this->doGet('mimic/user-mimics?user_id=2&get_responses=true', $data, 'v1');
+        $response = $this->doGet('mimic/user-mimics?user_id=2&get_responses=true', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -169,7 +169,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/user-mimics?user_id=30', $data, 'v1');
+        $response = $this->doGet('mimic/user-mimics?user_id=30', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -186,7 +186,7 @@ class MimicControllerTest extends TestCase
     {
         $data = ['original_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/upvote', $data, 'v1');
+        $response = $this->doPost('mimic/upvote', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -202,7 +202,7 @@ class MimicControllerTest extends TestCase
     {
         $data = ['original_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/upvote', $data, 'v1');
+        $response = $this->doPost('mimic/upvote', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -218,7 +218,7 @@ class MimicControllerTest extends TestCase
     {
         $data = ['response_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/upvote', $data, 'v1');
+        $response = $this->doPost('mimic/upvote', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -234,7 +234,7 @@ class MimicControllerTest extends TestCase
     {
         $data = ['response_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/upvote', $data, 'v1');
+        $response = $this->doPost('mimic/upvote', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -251,7 +251,7 @@ class MimicControllerTest extends TestCase
     {
         $data = ['original_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/report', $data, 'v1');
+        $response = $this->doPost('mimic/report', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -267,7 +267,7 @@ class MimicControllerTest extends TestCase
     {
         $data = ['response_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/report', $data, 'v1');
+        $response = $this->doPost('mimic/report', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -285,7 +285,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/list?page=0', $data, 'v1');
+        $response = $this->doGet('mimic/list?page=0', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -387,7 +387,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/list?page=10', $data, 'v1');
+        $response = $this->doGet('mimic/list?page=10', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -405,7 +405,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/list?page=0&user_id=1&original_mimic_id=2', $data, 'v1');
+        $response = $this->doGet('mimic/list?page=0&user_id=1&original_mimic_id=2', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -513,7 +513,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/list?page=0&user_id=1&response_mimic_id=1&original_mimic_id=1', $data, 'v1');
+        $response = $this->doGet('mimic/list?page=0&user_id=1&response_mimic_id=1&original_mimic_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -634,7 +634,7 @@ class MimicControllerTest extends TestCase
         
         $data = [];
 
-        $response = $this->doGet('mimic/load-responses?page=1&original_mimic_id=1', $data, 'v1');
+        $response = $this->doGet('mimic/load-responses?page=1&original_mimic_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -705,7 +705,7 @@ class MimicControllerTest extends TestCase
 
         $data = [];
 
-        $response = $this->doGet('mimic/load-responses?page=10&original_mimic_id=1', $data, 'v1');
+        $response = $this->doGet('mimic/load-responses?page=10&original_mimic_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -725,7 +725,7 @@ class MimicControllerTest extends TestCase
 
         $data = ['original_mimic_id' => 1, 'file' => $file];
 
-        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v1');
+        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
 
         $response
@@ -750,7 +750,7 @@ class MimicControllerTest extends TestCase
 
         $data = ['response_mimic_id' => 1, 'file' => $file];
 
-        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v1');
+        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
 
         $response
@@ -772,7 +772,7 @@ class MimicControllerTest extends TestCase
     {
         $data = ['original_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v1');
+        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -792,7 +792,7 @@ class MimicControllerTest extends TestCase
     {
         $data = ['response_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v1');
+        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -813,7 +813,7 @@ class MimicControllerTest extends TestCase
         $file = TestCaseHelper::returnFakeFile("test.pdf");
 
         $data = ['original_mimic_id' => 1, 'file' => $file];
-        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v1');
+        $response = $this->doPost('mimic/upload-video-thumb', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -835,9 +835,9 @@ class MimicControllerTest extends TestCase
         $path = public_path().'/files/user/4/1970/01/';
         $file = TestCaseHelper::returnNewUploadedFile($path, '24d23a82eb859b7832205fd83ce83a5c.jpg', 'video/mp4');
 
-        $data = ['hashtags' => '#skate #backflip #frontflip', 'file' => $file];
+        $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file];
 
-        $response = $this->doPost('mimic/create', $data, 'v1');
+        $response = $this->doPost('mimic/create', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
         $fileName = $responseJSON['mimic']['file'];
 
@@ -908,12 +908,15 @@ class MimicControllerTest extends TestCase
     {
         $path = public_path().'/files/user/4/1970/01/';
         $file = TestCaseHelper::returnNewUploadedFile($path, '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 'video/mp4');
+        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, 'fa66664ccc90eaebc38daa2829e73b0e.jpg', 'image/jpg');
 
-        $data = ['hashtags' => '#skate #backflip #frontflip', 'file' => $file];
+        $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file, 'video_thumbnail' => $videoThumbnail];
 
-        $response = $this->doPost('mimic/create', $data, 'v1');
+        $response = $this->doPost('mimic/create', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
         $fileName = $responseJSON['mimic']['file'];
+        $array = explode("/", $responseJSON['mimic']['video_thumb_url']);
+        $videoThumbFileName = end($array);
 
         $response
         ->assertJsonStructure([
@@ -943,7 +946,6 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'mimic' => [
-                'id' => 11,
                 'username' => 'xyz1234',
                 'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
                 'user_id' => 96,
@@ -951,7 +953,7 @@ class MimicControllerTest extends TestCase
                 'upvote' => '1',
                 'file' => $fileName,
                 'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
-                'video_thumb_url' => null,
+                'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$videoThumbFileName,
                 'aws_file' => null,
                 'upvoted' => 0,
                 'responses_count' => null
@@ -983,9 +985,9 @@ class MimicControllerTest extends TestCase
         $path = public_path().'/files/user/5/1970/01/';
         $file = TestCaseHelper::returnNewUploadedFile($path, '0cf7dbb25cd97f09e826e36ec178e135.jpg', 'image/jpg');
 
-        $data = ['file' => $file, 'original_mimic_id' => 1];
+        $data = ['mimic_file' => $file, 'original_mimic_id' => 1];
 
-        $response = $this->doPost('mimic/create', $data, 'v1');
+        $response = $this->doPost('mimic/create', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
         $fileName = $responseJSON['file'];
 
@@ -1025,12 +1027,15 @@ class MimicControllerTest extends TestCase
     {
         $path = public_path().'/files/user/5/1970/01/';
         $file = TestCaseHelper::returnNewUploadedFile($path, '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 'video/mp4');
+        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '7372ad0a28e9428413cbd41abb6433e5.jpg', 'image/jpg');
 
-        $data = ['file' => $file, 'original_mimic_id' => 1];
+        $data = ['mimic_file' => $file, 'original_mimic_id' => 1, 'video_thumbnail' => $videoThumbnail];
 
-        $response = $this->doPost('mimic/create', $data, 'v1');
+        $response = $this->doPost('mimic/create', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
         $fileName = $responseJSON['file'];
+        $array = explode("/", $responseJSON['video_thumb_url']);
+        $videoThumbFileName = end($array);
 
         $response
         ->assertJsonStructure([
@@ -1055,7 +1060,7 @@ class MimicControllerTest extends TestCase
             'upvote' => '1',
             'file' => $fileName,
             'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
-            'video_thumb_url' => null,
+            'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$videoThumbFileName,
             'aws_file' => null,
             'upvoted' => null
         ])
@@ -1068,15 +1073,15 @@ class MimicControllerTest extends TestCase
     {
         $file = TestCaseHelper::returnFakeFile("test.pdf");
 
-        $data = ['file' => $file, 'original_mimic_id' => 1];
-        $response = $this->doPost('mimic/create', $data, 'v1');
+        $data = ['mimic_file' => $file, 'original_mimic_id' => 1];
+        $response = $this->doPost('mimic/create', $data, 'v2');
 
         $response
         ->assertJsonStructure([
             'error' => [
                 'message',
                 'errors' => [
-                    'file'
+                    'mimic_file'
                 ]
             ]
         ])
@@ -1084,8 +1089,8 @@ class MimicControllerTest extends TestCase
             'error' => [
               'message' => "422 Unprocessable Entity",
               'errors' => [
-                    'file' => [
-                        'File should only be a photo (jpg, png) or a video (mp4).'
+                    'mimic_file' => [
+                        'File should only be a photo (jpg or png) or a video (mp4).'
                     ]
                 ]
             ]
@@ -1099,8 +1104,8 @@ class MimicControllerTest extends TestCase
         Mimic::find($mimicId)->delete();
         $file = TestCaseHelper::returnFakeFile("test.jpg");
 
-        $data = ['file' => $file, 'original_mimic_id' => $mimicId];
-        $response = $this->doPost('mimic/create', $data, 'v1');
+        $data = ['mimic_file' => $file, 'original_mimic_id' => $mimicId];
+        $response = $this->doPost('mimic/create', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -1127,7 +1132,7 @@ class MimicControllerTest extends TestCase
         $model->update(['user_id' => 96]);
         $data = [];
 
-        $response = $this->doDelete('mimic/delete?original_mimic_id='.$mimicId, $data);
+        $response = $this->doDelete('mimic/delete?original_mimic_id='.$mimicId, $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -1149,7 +1154,7 @@ class MimicControllerTest extends TestCase
         $model->update(['user_id' => 96]);
         $data = [];
 
-        $response = $this->doDelete('mimic/delete?response_mimic_id='.$mimicId, $data);
+        $response = $this->doDelete('mimic/delete?response_mimic_id='.$mimicId, $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -1167,7 +1172,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doDelete('mimic/delete?original_mimic_id=2', $data, 'v1');
+        $response = $this->doDelete('mimic/delete?original_mimic_id=2', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -1188,7 +1193,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doDelete('mimic/delete?response_mimic_id=2', $data, 'v1');
+        $response = $this->doDelete('mimic/delete?response_mimic_id=2', $data, 'v2');
 
         $response
         ->assertJsonStructure([

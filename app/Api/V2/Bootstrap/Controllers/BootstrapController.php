@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Api\V1\Bootstrap\Controllers;
+namespace App\Api\V2\Bootstrap\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Api\V1\User\Models\User;
-use App\Api\V1\PushNotificationsToken\Models\PushNotificationsToken;
+use App\Api\V2\User\Models\User;
+use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
 
 class BootstrapController extends Controller
 {

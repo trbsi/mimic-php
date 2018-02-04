@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\V1\Mimic\Requests;
+namespace App\Api\V2\Mimic\Requests;
 
 use Dingo\Api\Http\FormRequest;
 

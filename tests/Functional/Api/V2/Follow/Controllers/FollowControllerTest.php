@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\Api\V1\Follow\Controllers;
+namespace Tests\Functional\Api\V2\Follow\Controllers;
 
 use Hash;
 use Tests\TestCase;
@@ -12,7 +12,7 @@ class FollowControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('profile/followers?user_id=1', $data, 'v1');
+        $response = $this->doGet('profile/followers?user_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -60,7 +60,7 @@ class FollowControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('profile/followers?user_id=10', $data, 'v1');
+        $response = $this->doGet('profile/followers?user_id=10', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -76,7 +76,7 @@ class FollowControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('profile/following?user_id=1', $data, 'v1');
+        $response = $this->doGet('profile/following?user_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -124,7 +124,7 @@ class FollowControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('profile/following?user_id=10', $data, 'v1');
+        $response = $this->doGet('profile/following?user_id=10', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -141,7 +141,7 @@ class FollowControllerTest extends TestCase
     {
         $data = ['id' => 5];
 
-        $response = $this->doPost('profile/follow', $data, 'v1');
+        $response = $this->doPost('profile/follow', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -157,7 +157,7 @@ class FollowControllerTest extends TestCase
     {
         $data = ['id' => 5];
 
-        $response = $this->doPost('profile/follow', $data, 'v1');
+        $response = $this->doPost('profile/follow', $data, 'v2');
 
         $response
         ->assertJsonStructure([

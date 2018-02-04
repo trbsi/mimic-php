@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\CoreUser;
-use App\Api\V1\Follow\Models\Follow;
+use App\Api\V2\Follow\Models\Follow;
 
 class FollowTable extends Seeder
 {

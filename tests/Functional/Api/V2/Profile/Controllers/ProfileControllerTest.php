@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\Api\V1\Profile\Controllers;
+namespace Tests\Functional\Api\V2\Profile\Controllers;
 
 use Hash;
 use Tests\TestCase;
@@ -17,7 +17,7 @@ class ProfileControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('profile/user?id=1', $data, 'v1');
+        $response = $this->doGet('profile/user?id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -50,7 +50,7 @@ class ProfileControllerTest extends TestCase
     {
         $data = ['user_id' => 5];
 
-        $response = $this->doPost('profile/block', $data, 'v1');
+        $response = $this->doPost('profile/block', $data, 'v2');
 
         $response
         ->assertJsonStructure([

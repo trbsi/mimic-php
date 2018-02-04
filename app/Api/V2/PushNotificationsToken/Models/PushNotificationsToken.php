@@ -1,5 +1,5 @@
 <?php
-namespace App\Api\V1\PushNotificationsToken\Models;
+namespace App\Api\V2\PushNotificationsToken\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,7 +40,7 @@ class PushNotificationsToken extends Model
 
     public function user()
     {
-        return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(\App\Api\V2\User\Models\User::class, 'user_id', 'id');
     }
 
 }

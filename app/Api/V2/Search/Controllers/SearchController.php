@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Api\V1\Search\Controllers;
+namespace App\Api\V2\Search\Controllers;
 
-use App\Api\V1\Auth\Controllers\BaseAuthController;
+use App\Api\V2\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
-use App\Api\V1\Hashtag\Models\Hashtag;
-use App\Api\V1\User\Models\User;
+use App\Api\V2\Hashtag\Models\Hashtag;
+use App\Api\V2\User\Models\User;
 use DB;
 
 class SearchController extends BaseAuthController
