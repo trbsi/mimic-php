@@ -200,7 +200,7 @@ class Mimic extends Model
      * @param Mimic $mimicModel Created mimic model
      * @return array
      */
-    public function checkHashtags($tags, $mimicModel)
+    public function saveHashtags($tags, $mimicModel)
     {
         $returnHashtags = [];
         preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags);
@@ -263,10 +263,9 @@ class Mimic extends Model
      * Get mimic model and return response
      * 
      * @param  Mimic|MimicResponse $mimics Mimic or MimicResponse loaded result
-     * @param  boolean $direct If you want to access mimic structure directly without extra parameters
      * @return array Generated mimic response
      */
-    public function getMimicApiResponseContent($mimics, $direct = false)
+    public function getMimicApiResponseContent($mimics)
     {
         $mimicsResponseContent = [];
 
@@ -280,10 +279,11 @@ class Mimic extends Model
                     ($mimic->mimicResponses) ? $mimic->mimicResponses : []
                 );
             }
-        } //if this is single item taken with first()
+        } 
+        //if this is single item taken with first()
         else if ($mimics instanceof Collection == false && !empty($mimics)) {
 
-            $mimicsResponseContent[] = $this->generateContentForMimicResponse
+            return $this->generateContentForMimicResponse
             (
                 $mimics,
                 ($mimics->hashtags) ? $mimics->hashtags : [],

@@ -48,7 +48,7 @@ class MimicController extends BaseAuthController
             abort(400, trans('core.alert.cant_upload_mimic_body'));
         } catch (\Exception $e) {
             DB::rollBack();
-            abort($e->getStatusCode(), $e->getMessage());
+            abort(method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $e->getCode(), $e->getMessage());
         }
 
     }
@@ -84,7 +84,7 @@ class MimicController extends BaseAuthController
                 $request->file('file'),
                 $this->mimic->getFileOrPath($model->user_id, null, $model),
                 ['image'],
-                'server'
+                FileUpload::FILE_UPLOAD_SERVER
             );
 
             $model->video_thumb = $fileName;

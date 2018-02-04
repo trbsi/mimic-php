@@ -20,6 +20,7 @@ class CreateMimicRepository
         $this->mimic = $mimic;
         $this->mimicResponse = $mimicResponse;
         $this->fileUpload = $fileUpload;
+        $this->additionalFields = [];
     }
 
     /**
@@ -33,57 +34,48 @@ class CreateMimicRepository
     {
         //init variables
         $model = $this->mimic;
-        $additionalFields = [];
         $responseMimic = false; //is someone posted a response or not
         $relations = ['user', 'hashtags', 'mimicResponses.user'];
 
         //if this is response mimic upload - init variables
         if (array_key_exists('original_mimic_id', $request)) {
             $model = $this->mimicResponse;
-            $additionalFields['original_mimic_id'] = $request['original_mimic_id'];
+            $this->additionalFields['original_mimic_id'] = $request['original_mimic_id'];
             $responseMimic = true;
             $relations = ['user'];
 
             $this->checkIfOriginalMimicIsDeleted($request);
         }
 
-        //get file and its type
-        $file = $request['file'];
-        $type = $this->getFileType($file);
-
-        //upload mimic
-        //path to upload to: files/user/USER_ID/YEAR/
-        $fileName = $this->fileUpload->upload(
-            $file, 
-            $this->mimic->getFileOrPath($user->id), 
-            ['image', 'video'], 
-            'server');
+        //upload video thumbnail
+        //$this->uploadVideoThumbnail($request);
 
         //create mimic
-        $mimic = $model->create(
-            array_merge([
-                'file' => $fileName,
-                'mimic_type' => $type,
-                'user_id' => $user->id
-            ], $additionalFields)
-        );
+        $mimic = $model->create(array_merge([
+            'mimic_type' => $this->getFileType($request['file']),
+            'file' => $this->fileUpload->upload($request['file'], 
+                        $this->mimic->getFileOrPath($user->id), 
+                        ['image', 'video'], 
+                        FileUpload::FILE_UPLOAD_SERVER),
+            'user_id' => $user->id
+        ], $this->additionalFields));
 
         if ($mimic) {
             //check for hashtags
-            $this->mimic->checkHashtags(array_get($request, 'hashtags'), $mimic);
+            $this->mimic->saveHashtags(array_get($request, 'hashtags'), $mimic);
 
-            //update user number of mimics
+            //update user's number of mimics
             $user->increment('number_of_mimics');
 
             //send notification to a owner of original mimic that someone post a respons
-            if ($responseMimic == true) {
+            if ($responseMimic === true) {
                 $this->mimic->sendMimicNotification($mimic->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, ['authUser' => $user]);
             }
 
             //@TODO-TagUsers (still in progress and needs to be tested)
             //$this->mimic->checkTaggedUser($request->usernames, $mimic);
 
-            return $this->mimic->getMimicApiResponseContent($model->where('id', $mimic->id)->with($relations)->first())[0];
+            return $this->mimic->getMimicApiResponseContent($model->where('id', $mimic->id)->with($relations)->first());
         }
 
         return false;

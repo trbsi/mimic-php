@@ -93,7 +93,7 @@ class MimicsTable extends Seeder
                     //create mimic
                     $mainMimic = $mimic->create($data);
                     //add hashtags for this mimic
-                    $mimic->checkHashtags(file_get_contents($rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $mainMimic);
+                    $mimic->saveHashtags(file_get_contents($rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $mainMimic);
 
                 } //response mimic
                 else {

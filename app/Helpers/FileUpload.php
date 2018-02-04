@@ -7,6 +7,10 @@ use Image;
 
 class FileUpload
 {
+
+    const FILE_UPLOAD_SERVER = 'server';
+    const FILE_UPLOAD_AWS = 'aws';
+
     /**
      * upload file to S3
      * @param  $file File object Access via: $request->file('file_name')
@@ -23,11 +27,11 @@ class FileUpload
             }
 
             switch ($uploadWhere) {
-                case 'server':
+                case self::FILE_UPLOAD_SERVER:
                     return $this->uploadToServer(public_path() . $path, $file);
                     break;
 
-                case 'aws':
+                case self::FILE_UPLOAD_AWS:
                     return $this->uploadToAws($path, $file);
                     break;
 
