@@ -830,6 +830,7 @@ class MimicControllerTest extends TestCase
     }
 
     //--------------------------------Upload mimics--------------------------------
+    //original
     public function testSuccessfullyUploadImageOriginalMimic()
     {
         $path = public_path().'/files/user/4/1970/01/';
@@ -980,6 +981,102 @@ class MimicControllerTest extends TestCase
         Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
     }
 
+    public function testUploadVideoOriginalMimicVideoThumbnailNotSent()
+    {
+        $path = public_path().'/files/user/6/1970/01/';
+        $file = TestCaseHelper::returnFakeFile('video.mp4');
+
+        $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file];
+
+        $response = $this->doPost('mimic/create', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message',
+                'errors' => [
+                    'video_thumbnail'
+                ],
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => '422 Unprocessable Entity',
+                'errors' => [
+                    'video_thumbnail' => [
+                        'Video thumbnail is required'
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(422);
+    }
+
+    public function testUploadVideoOriginalMimicVideoThumbnailWrongFileFormat()
+    {
+        $path = public_path().'/files/user/6/1970/01/';
+        $file = TestCaseHelper::returnFakeFile('video.mp4');
+        $videoThumbnail = TestCaseHelper::returnFakeFile('image.txt');
+
+        $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file, 'video_thumbnail' => $videoThumbnail];
+
+        $response = $this->doPost('mimic/create', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message',
+                'errors' => [
+                    'video_thumbnail'
+                ],
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => '422 Unprocessable Entity',
+                'errors' => [
+                    'video_thumbnail' => [
+                        'File should only be a photo (jpg or png).'
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(422);
+    }
+
+    public function testUploadVideoOriginalMimicVideoThumbnailSentAsText()
+    {
+        $path = public_path().'/files/user/6/1970/01/';
+        $file = TestCaseHelper::returnFakeFile('video.mp4');
+
+        $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file, 'video_thumbnail' => 'xyz'];
+
+        $response = $this->doPost('mimic/create', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message',
+                'errors' => [
+                    'video_thumbnail'
+                ],
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => '422 Unprocessable Entity',
+                'errors' => [
+                    'video_thumbnail' => [
+                        'File should be an image or a video',
+                        'File should only be a photo (jpg or png).'
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(422);
+    }
+
+    //response
     public function testSuccessfullyUploadImageResponseMimic()
     {
         $path = public_path().'/files/user/5/1970/01/';
@@ -1069,6 +1166,99 @@ class MimicControllerTest extends TestCase
         Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
     }
 
+    public function testUploadVideoResponseMimicVideoThumbnailNotSent()
+    {
+        $file = TestCaseHelper::returnFakeFile('video.mp4');
+
+        $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file];
+
+        $response = $this->doPost('mimic/create', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message',
+                'errors' => [
+                    'video_thumbnail'
+                ],
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => '422 Unprocessable Entity',
+                'errors' => [
+                    'video_thumbnail' => [
+                        'Video thumbnail is required'
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(422);
+    }
+
+    public function testUploadVideoResponseMimicVideoThumbnailWrongFileFormat()
+    {
+        $file = TestCaseHelper::returnFakeFile('video.mp4');
+        $videoThumbnail = TestCaseHelper::returnFakeFile('image.txt');
+
+        $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file, 'video_thumbnail' => $videoThumbnail];
+
+        $response = $this->doPost('mimic/create', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message',
+                'errors' => [
+                    'video_thumbnail'
+                ],
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => '422 Unprocessable Entity',
+                'errors' => [
+                    'video_thumbnail' => [
+                        'File should only be a photo (jpg or png).'
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(422);
+    }
+
+    public function testUploadVideoResponseMimicVideoThumbnailSentAsText()
+    {
+        $file = TestCaseHelper::returnFakeFile('video.mp4');
+
+        $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file, 'video_thumbnail' => 'xyz'];
+
+        $response = $this->doPost('mimic/create', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message',
+                'errors' => [
+                    'video_thumbnail'
+                ],
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => '422 Unprocessable Entity',
+                'errors' => [
+                    'video_thumbnail' => [
+                        'File should be an image or a video',
+                        'File should only be a photo (jpg or png).'
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(422);
+    }
+
+    //general errors
     public function testUploadedOriginalOrResponseMimicIsNotVideoOrImage()
     {
         $file = TestCaseHelper::returnFakeFile("test.pdf");
@@ -1121,6 +1311,35 @@ class MimicControllerTest extends TestCase
         ->assertStatus(404);
     }
 
+    public function testParameterForMimicFileIsNotSentForOriginalOrResponseForVideoOrImage()
+    {
+        $file = TestCaseHelper::returnFakeFile('image.jpg');
+
+        $data = ['hashtags' => '#skate #backflip #frontflip'];
+
+        $response = $this->doPost('mimic/create', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message',
+                'errors' => [
+                    'mimic_file'
+                ],
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => '422 Unprocessable Entity',
+                'errors' => [
+                    'mimic_file' => [
+                        'File should be an image or a video'
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(422);
+    }
 
 
     //--------------------------------Delete mimics--------------------------------
