@@ -834,7 +834,7 @@ class MimicControllerTest extends TestCase
     public function testSuccessfullyUploadImageOriginalMimic()
     {
         $path = public_path().'/files/user/4/1970/01/';
-        $file = TestCaseHelper::returnNewUploadedFile($path, '24d23a82eb859b7832205fd83ce83a5c.jpg', 'video/mp4');
+        $file = TestCaseHelper::returnNewUploadedFile($path, '24d23a82eb859b7832205fd83ce83a5c.jpg', 'image/jpg');
 
         $data = ['hashtags' => '#skate #backflip #frontflip', 'mimic_file' => $file];
 

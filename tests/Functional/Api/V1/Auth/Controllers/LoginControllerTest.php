@@ -40,11 +40,9 @@ class LoginControllerTest extends TestCase
                 'username',
                 'token',
                 'user_id',
-                'email'
             ])
         ->assertJson([
 	    	'username' => null,
-	        'email' => 'dario_facebook@yahoo.com',
 	    ])
         ->assertStatus(200);
     }
@@ -73,11 +71,9 @@ class LoginControllerTest extends TestCase
                 'username',
                 'token',
                 'user_id',
-                'email'
             ])
         ->assertJson([
 	    	'username' => null,
-	        'email' => 'dario_facebook@yahoo.com',
 	    ])
         ->assertStatus(200);
     }
@@ -106,11 +102,9 @@ class LoginControllerTest extends TestCase
                 'username',
                 'token',
                 'user_id',
-                'email'
             ])
         ->assertJson([
 	    	'username' => null,
-	        'email' => null,
 	    ])
         ->assertStatus(200);
     }
@@ -139,11 +133,9 @@ class LoginControllerTest extends TestCase
                 'username',
                 'token',
                 'user_id',
-                'email'
             ])
         ->assertJson([
         	'username' => null,
-            'email' => 'dario_twitter@yahoo.com',
         ])
         ->assertStatus(200);
     }
@@ -170,11 +162,9 @@ class LoginControllerTest extends TestCase
                 'username',
                 'token',
                 'user_id',
-                'email'
             ])
         ->assertJson([
         	'username' => null,
-            'email' => 'dario_twitter@yahoo.com',
         ])
         ->assertStatus(200);
     }
@@ -201,11 +191,9 @@ class LoginControllerTest extends TestCase
                 'username',
                 'token',
                 'user_id',
-                'email'
             ])
         ->assertJson([
         	'username' => null,
-            'email' => null,
         ])
         ->assertStatus(200);
     }

@@ -46,7 +46,7 @@ class BootstrapController extends Controller
 
         }
 
-        return abort(400, trans('core.push_token.parameters_not_set'));
+        abort(400, trans('core.push_token.parameters_not_set'));
 
     }
 

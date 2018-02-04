@@ -21,17 +21,12 @@ class BootstrapControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
+            'success'
         ])
         ->assertJson([
-	    	'error' => [
-	    		'message' => trans('core.push_token.parameters_not_set')
-	    	]
+	    	'success' => false
 	    ])
-        ->assertStatus(400);
+        ->assertStatus(200);
     }
 
     public function testPushTokenSetButEmpty()
@@ -42,17 +37,12 @@ class BootstrapControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
+            'success'
         ])
         ->assertJson([
-	    	'error' => [
-	    		'message' => trans('core.push_token.parameters_not_set')
-	    	]
+            'success' => true
 	    ])
-        ->assertStatus(400);
+        ->assertStatus(200);
     }
 
     public function testDeviceIdNotSetButPushTokenIsSet()
@@ -63,17 +53,12 @@ class BootstrapControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
+            'success'
         ])
         ->assertJson([
-	    	'error' => [
-	    		'message' => trans('core.push_token.parameters_not_set')
-	    	]
+            'success' => true
 	    ])
-        ->assertStatus(400);
+        ->assertStatus(200);
     }
 
     public function testDeviceNotSetButEverythingElseIsSet()
@@ -84,17 +69,12 @@ class BootstrapControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
+            'success'
         ])
         ->assertJson([
-	    	'error' => [
-	    		'message' => trans('core.push_token.parameters_not_set')
-	    	]
+            'success' => true
 	    ])
-        ->assertStatus(400);
+        ->assertStatus(200);
     }
 
     public function testSuccesSavePushToken()
