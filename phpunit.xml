@@ -9,9 +9,12 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./tests</directory>
-            <exclude>./tests/TestCaseHelper.php</exclude>
+        <testsuite name="Functional-V1-Auth">
+            <directory suffix="Test.php">./tests/Functional/Api/V1/Auth</directory>
+        </testsuite>
+        <testsuite name="Functional-V1-All">
+            <directory suffix="Test.php">./tests/Functional/Api/V1</directory>
+            <exlcude>./tests/Functional/Api/V1/Auth</exlcude>
         </testsuite>
     </testsuites>
     <filter>

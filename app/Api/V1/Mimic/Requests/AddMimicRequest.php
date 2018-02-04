@@ -24,7 +24,8 @@ class AddMimicRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|file',
+            'file' => 'required|file|mimes:jpeg,png,jpg,mp4',
+            'video_thumb' => 'file|mimes:jpeg,png,jpg'
         ];
     }
 
@@ -38,6 +39,9 @@ class AddMimicRequest extends FormRequest
         return [
             'file.required' => trans('validation.file_should_be_image_video'),
             'file.file' => trans('validation.file_should_be_image_video'),
+            'file.mimes' => trans('validation.only_photo_or_video'),
+            'video_thumb.mimes' => trans('validation.only_photo_or_video'),
+            'video_thumb.file' => trans('validation.file_should_be_image_video'),
         ];
     }
 }

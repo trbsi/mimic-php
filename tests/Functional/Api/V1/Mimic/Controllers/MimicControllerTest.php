@@ -1074,15 +1074,23 @@ class MimicControllerTest extends TestCase
         $response
         ->assertJsonStructure([
             'error' => [
-              'message',
+                'message',
+                'errors' => [
+                    'file'
+                ]
             ]
         ])
         ->assertJson([
             'error' => [
-              'message' => "File should be an image or a video",
+              'message' => "422 Unprocessable Entity",
+              'errors' => [
+                    'file' => [
+                        'File should only be a photo (jpg, png) or a video (mp4).'
+                    ]
+                ]
             ]
         ])
-        ->assertStatus(400);
+        ->assertStatus(422);
     }
 
     public function testTryToUploadResponseButOriginalMimicIsDeleted()

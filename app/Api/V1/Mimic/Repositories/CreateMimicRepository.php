@@ -117,8 +117,6 @@ class CreateMimicRepository
             return Mimic::TYPE_VIDEO;
         } elseif (strpos($mime, "image") !== false) {
             return Mimic::TYPE_PIC;
-        } else {
-            abort(400, trans("validation.file_should_be_image_video"));
         }
 
         return $type;
