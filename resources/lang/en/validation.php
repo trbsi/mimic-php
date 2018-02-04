@@ -9,5 +9,7 @@ return [
     'is_not_a_video' => 'is not a video',
     'mimic_is_deleted' => "This Mimic has been deleted, you can't respond to this Mimic anymore",
     'choose_image_or_video' => 'Choose an image or a video',
-    'only_photo_or_video' => 'File should only be a photo (jpg, png) or a video (mp4).'
+    'file_mimes_only_photo_or_video' => 'File should only be a photo (jpg or png) or a video (mp4).',
+    'video_thumbnail_mimes_only_photo' => 'File should only be a photo (jpg or png).',
+    'video_thumbnail_required' => 'Video thumbnail is required',
 ];

@@ -46,10 +46,10 @@ trait MimicTrait
     {
         switch ($type) {
             case Mimic::TYPE_VIDEO:
-                return 'video';
+                return Mimic::TYPE_VIDEO_STRING;
                 break;
-            case Mimic::TYPE_PIC:
-                return 'picture';
+            case Mimic::TYPE_PHOTO:
+                return Mimic::TYPE_PHOTO_STRING;
                 break;
         }
     }

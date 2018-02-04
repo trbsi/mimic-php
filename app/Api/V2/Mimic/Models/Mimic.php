@@ -22,7 +22,9 @@ class Mimic extends Model
     use MimicTrait, SoftDeletes;
 
     const TYPE_VIDEO = 1;
-    const TYPE_PIC = 2;
+    const TYPE_VIDEO_STRING = 'video';
+    const TYPE_PHOTO = 2;
+    const TYPE_PHOTO_STRING = 'picture';
     const FILE_PATH = '/files/user/'; //user_id/year/month/file.mp4
     const MAX_TAG_LENGTH = 50;
     const LIST_ORIGINAL_MIMICS_LIMIT = 30;
@@ -203,23 +205,24 @@ class Mimic extends Model
     public function saveHashtags($tags, $mimicModel)
     {
         $returnHashtags = [];
-        preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags);
-        foreach ($hashtags[0] as $hashtag) {
-            //if length of string is 1 continue becuase this regex catches string even it it's only "#"
-            if (strlen($hashtag) == 1) {
-                continue;
+        if(preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags)) {
+            foreach ($hashtags[0] as $hashtag) {
+                //if length of string is 1 continue becuase this regex catches string even it it's only "#"
+                if (strlen($hashtag) == 1) {
+                    continue;
+                }
+
+                if (strlen($hashtag) > self::MAX_TAG_LENGTH) {
+                    $hashtag = substr($hashtag, 0, self::MAX_TAG_LENGTH);
+                }
+
+                $tag = Hashtag::updateOrCreate(['name' => $hashtag]);
+                $tag->increment("popularity");
+
+                $returnHashtags[$tag->id] = $hashtag;
             }
-
-            if (strlen($hashtag) > self::MAX_TAG_LENGTH) {
-                $hashtag = substr($hashtag, 0, self::MAX_TAG_LENGTH);
-            }
-
-            $tag = Hashtag::updateOrCreate(['name' => $hashtag]);
-            $tag->increment("popularity");
-
-            $returnHashtags[$tag->id] = $hashtag;
         }
-
+        
         if (!empty($returnHashtags)) {
             //save to mimic_hahstag table
             $mimicModel->hashtags()->attach(array_flip($returnHashtags));

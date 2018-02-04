@@ -80,7 +80,7 @@ class MimicsTable extends Seeder
                 $data =
                     [
                         'file' => $fileName,
-                        'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PIC : Mimic::TYPE_VIDEO,
+                        'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PHOTO : Mimic::TYPE_VIDEO,
                         'upvote' => 123456789,
                         'user_id' => $userIdTmp,
                         'created_at' => $date,

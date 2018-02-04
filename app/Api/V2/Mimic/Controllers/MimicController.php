@@ -8,7 +8,7 @@ use App\Api\V1\User\Models\User;
 use App\Api\V1\Mimic\Models\Mimic;
 use App\Api\V1\Mimic\Models\MimicResponse;
 use App\Helpers\FileUpload;
-use App\Api\V1\Mimic\Requests\AddMimicRequest;
+use App\Api\V1\Mimic\Requests\CreateMimicRequest;
 use App\Helpers\Constants;
 use App\Api\V1\Mimic\Repositories\CreateMimicRepository;
 use DB;
@@ -27,9 +27,11 @@ class MimicController extends BaseAuthController
 
     /**
      * Add new mimic
-     * @param Request $AddMimicRequest 
+     * 
+     * @param CreateMimicRequest $request Laravel's custom reuest
+     * @param CreateMimicRepository $createMimicRepository Repository for handling creation
      */
-    public function addMimic(AddMimicRequest $request, CreateMimicRepository $createMimicRepository)
+    public function createMimic(CreateMimicRequest $request, CreateMimicRepository $createMimicRepository)
     {
         DB::beginTransaction();
         try {

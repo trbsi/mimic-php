@@ -12,6 +12,12 @@ use App\Helpers\Constants;
 
 class CreateMimicRepository
 {
+    /** @var Mimic|MimicReponse This is created model of Mimic or MimicResponse */
+    protected $createdModel;
+
+    /** @var array Holds information about uploaded Mimic file */
+    protected $mimicFileInfo;
+
     public function __construct(
         Mimic $mimic, 
         MimicResponse $mimicResponse, 
@@ -47,35 +53,33 @@ class CreateMimicRepository
             $this->checkIfOriginalMimicIsDeleted($request);
         }
 
-        //upload video thumbnail
-        //$this->uploadVideoThumbnail($request);
+        //set uploaded Mimic file information
+        $this->setMimicFileInfo($request['mimic_file']);
 
         //create mimic
-        $mimic = $model->create(array_merge([
-            'mimic_type' => $this->getFileType($request['file']),
-            'file' => $this->fileUpload->upload($request['file'], 
+        $this->createdModel = $model->create(array_merge([
+            'mimic_type' => $this->getFileType(),
+            'file' => $this->fileUpload->upload($this->mimicFileInfo['file'], 
                         $this->mimic->getFileOrPath($user->id), 
                         ['image', 'video'], 
                         FileUpload::FILE_UPLOAD_SERVER),
             'user_id' => $user->id
         ], $this->additionalFields));
 
-        if ($mimic) {
+        if ($this->createdModel) {
             //check for hashtags
-            $this->mimic->saveHashtags(array_get($request, 'hashtags'), $mimic);
-
+            $this->mimic->saveHashtags(array_get($request, 'hashtags'), $this->createdModel);
+            //upload video thumbnail
+            $this->uploadVideoThumbnail($request);
             //update user's number of mimics
             $user->increment('number_of_mimics');
-
             //send notification to a owner of original mimic that someone post a respons
             if ($responseMimic === true) {
-                $this->mimic->sendMimicNotification($mimic->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, ['authUser' => $user]);
+                $this->mimic->sendMimicNotification($this->createdModel->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, ['authUser' => $user]);
             }
-
             //@TODO-TagUsers (still in progress and needs to be tested)
             //$this->mimic->checkTaggedUser($request->usernames, $mimic);
-
-            return $this->mimic->getMimicApiResponseContent($model->where('id', $mimic->id)->with($relations)->first());
+            return $this->mimic->getMimicApiResponseContent($model->where('id', $this->createdModel->id)->with($relations)->first());
         }
 
         return false;
@@ -101,16 +105,50 @@ class CreateMimicRepository
      * @param UploadedFile $file This is uploaded file taken via Laravel's class UploadedFile
      * @return integer Type of file: 1|2
      */
-    private function getFileType($file)
+    private function getFileType()
     {
-        $mime = $file->getMimeType();
-
-        if (strpos($mime, "video") !== false) {
+        if (strpos($this->mimicFileInfo['mimeType'], 'video') !== false) {
             return Mimic::TYPE_VIDEO;
-        } elseif (strpos($mime, "image") !== false) {
-            return Mimic::TYPE_PIC;
+        } elseif (strpos($this->mimicFileInfo['mimeType'], 'image') !== false) {
+            return Mimic::TYPE_PHOTO;
         }
 
         return $type;
     }
+
+    /**
+     * Upload video thumbnail if it exists
+     *
+     * @param array $request Request object in form of array
+     */
+    private function uploadVideoThumbnail($request)
+    {
+        if($this->createdModel->mimic_type === Mimic::TYPE_VIDEO_STRING 
+            && array_key_exists('video_thumbnail', $request)) {
+
+            $this->createdModel->video_thumb = $this->fileUpload->upload(
+                $request['video_thumbnail'],
+                $this->mimic->getFileOrPath($this->createdModel->user_id, null, $this->createdModel),
+                ['image'],
+                FileUpload::FILE_UPLOAD_SERVER
+            );
+            $this->createdModel->save();   
+        }
+    }
+
+    /**
+     * Set information about uploaded Mimic file
+     * 
+     * @param UploadedFile $mimicFile This is uploaded Mimic file
+     * @return void
+     */
+    private function setMimicFileInfo($mimicFile)
+    {
+        $this->mimicFileInfo = [
+            'file' => $mimicFile,
+            'mimeType' => $mimicFile->getMimeType(),
+            'extension' => $mimicFile->extension(),
+        ];
+    }
+
 }

@@ -19,7 +19,7 @@ $api->version('v1', function (Router $api) {
             $api->post('set-username', ['uses' => 'App\Api\V1\Auth\Controllers\LoginController@setUsernameAndEmail']);
 
             $api->group(['prefix' => 'mimic'], function (Router $api) {
-                $api->post('add', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@addMimic']);
+                $api->post('create', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@createMimic']);
                 $api->post('upload-video-thumb', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@uploadVideoThumb']);
                 $api->get('list', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@listMimics']);
                 $api->get('load-responses', ['uses' => 'App\Api\V1\Mimic\Controllers\MimicController@loadResponses']);
