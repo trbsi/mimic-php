@@ -11,6 +11,7 @@ use App\Helpers\FileUpload;
 use App\Api\V2\Mimic\Requests\CreateMimicRequest;
 use App\Helpers\Constants;
 use App\Api\V2\Mimic\Repositories\CreateMimicRepository;
+use App\Api\V2\Mimic\Repositories\DeleteMimicRepository;
 use DB;
 use Validator;
 
@@ -169,7 +170,7 @@ class MimicController extends BaseAuthController
      * Delete original or response mimic
      * @param  Request $request
      */
-    public function delete(Request $request)
+    public function delete(Request $request, DeleteMimicRepository $deleteMimicRepository)
     {
         if ($request->original_mimic_id) {
             $model = $this->mimic;
@@ -181,7 +182,9 @@ class MimicController extends BaseAuthController
 
         $result = $model->find($id);
 
-        if($result && $result->user_id === $this->authUser->id) {
+        if($result && ($result->user_id === $this->authUser->id || $request->mode === 'admin')) {
+            //delete Mimic from disk
+            $deleteMimicRepository->removeMimicFromDisk($result);
             $result->delete();
             //decrease number of mimics for this user
             $this->authUser->decrement('number_of_mimics');

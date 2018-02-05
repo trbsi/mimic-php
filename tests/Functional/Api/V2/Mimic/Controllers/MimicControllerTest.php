@@ -1345,13 +1345,11 @@ class MimicControllerTest extends TestCase
     //--------------------------------Delete mimics--------------------------------
     public function testDeleteOriginalMimicSuccessfully()
     {
-        $mimicId = 3;
+        $mimicId = 2;
         $model = Mimic::find($mimicId);
-        $oldModel = $model->replicate();
-        $model->update(['user_id' => 96]);
         $data = [];
 
-        $response = $this->doDelete('mimic/delete?original_mimic_id='.$mimicId, $data, 'v2');
+        $response = $this->doDelete('mimic/delete?mode=admin&original_mimic_id='.$mimicId, $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -1362,18 +1360,17 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200); 
 
-        $model->update(['user_id' => $oldModel->user_id]);
+        Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->file, $model, false, false));
+        Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
     }
 
     public function testDeleteResponseMimicSuccessfully()
     {
-        $mimicId = 3;
+        $mimicId = 7;
         $model = MimicResponse::find($mimicId);
-        $oldModel = $model->replicate();
-        $model->update(['user_id' => 96]);
         $data = [];
 
-        $response = $this->doDelete('mimic/delete?response_mimic_id='.$mimicId, $data, 'v2');
+        $response = $this->doDelete('mimic/delete?mode=admin&response_mimic_id='.$mimicId, $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -1384,7 +1381,8 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200); 
 
-        $model->update(['user_id' => $oldModel->user_id]);
+        Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->file, $model, false, false));
+        Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
     }
 
     public function testUserTriesToDeleteSomeoneElsesOriginalMimic()
