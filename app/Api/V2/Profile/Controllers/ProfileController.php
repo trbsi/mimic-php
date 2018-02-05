@@ -40,6 +40,6 @@ class ProfileController extends BaseAuthController
     public function blockUser(Request $request)
     {
         //$request->user_id -> who to block
-        return response()->json(['success' => true]);
+        return response()->json(['type' => 'blocked']);
     }
 }

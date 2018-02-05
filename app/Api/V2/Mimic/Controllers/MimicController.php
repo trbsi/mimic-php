@@ -221,6 +221,6 @@ class MimicController extends BaseAuthController
     public function reportMimic(Request $request)
     {
         //$request->original_mimic_id
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'message' => trans('mimic.report.mimic_has_been_reported')]);
     }
 }

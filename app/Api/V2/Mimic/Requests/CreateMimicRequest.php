@@ -30,6 +30,7 @@ class CreateMimicRequest extends FormRequest
     {
         $this->rules = [
             'mimic_file' => 'required|file|mimes:jpeg,png,jpg,mp4',
+            'hashtags' => 'required_without:original_mimic_id'
         ];
 
         $this->videoThumbnailRule();
@@ -51,6 +52,7 @@ class CreateMimicRequest extends FormRequest
             'video_thumbnail.mimes' => trans('validation.video_thumbnail_mimes_only_photo'),
             'video_thumbnail.file' => trans('validation.file_should_be_image_video'),
             'video_thumbnail.required' => trans('validation.video_thumbnail_required'),
+            'hashtags.required_without' => trans('validation.hashtags_are_reqired'),
         ];
     }
 

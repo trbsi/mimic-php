@@ -54,10 +54,10 @@ class ProfileControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'success'
+            'type'
         ])
         ->assertJson([
-            'success' => true
+            'type' => 'blocked'
         ])
         ->assertStatus(200);
     }
