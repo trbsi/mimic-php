@@ -45,6 +45,26 @@ class ProfileControllerTest extends TestCase
         ->assertStatus(200);
     }
 
+    public function testUserNotFound()
+    {
+        $data = [];
+
+        $response = $this->doGet('profile/user?id=200', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message'
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => "User not found"
+            ]
+        ])
+        ->assertStatus(404);
+    }
+
     //--------------------------------Block profile--------------------------------
     public function testSuccessfullyBlockUser()
     {
