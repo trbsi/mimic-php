@@ -3,6 +3,7 @@
 namespace App\Api\V2\Mimic\Repositories;
 
 use App\Api\V2\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Models\MimicResponse;
 
 class DeleteMimicRepository
 {
@@ -20,9 +21,35 @@ class DeleteMimicRepository
     private $absolutePathThumb = null;
     private $relativePathThumb = null;
 
-    public function __construct(Mimic $mimic)
+    public function __construct(Mimic $mimic, MimicResponse $mimicResponse)
     {
         $this->mimic = $mimic;
+        $this->mimicResponse = $mimicResponse;
+    }
+
+    public function deleteMimic($request, $authUser)
+    {
+        if (array_key_exists('original_mimic_id', $request)) {
+            $model = $this->mimic;
+            $id = $request['original_mimic_id'];
+        } else {
+            $model = $this->mimicResponse;
+            $id = $request['response_mimic_id'];
+        }
+
+        $mode = array_key_exists('mode', $request) ? $request['mode'] : null;
+
+        $result = $model->find($id);
+
+        if($result && ($result->user_id === $authUser->id || $mode === 'admin')) {
+            //delete Mimic from disk
+            $this->removeMimicFromDisk($result);
+            //decrease number of mimics for this user
+            $authUser->decrement('number_of_mimics');
+            $result->delete();
+        } else {
+            abort(403, trans('mimic.delete.mimic_not_yours'));
+        }
     }
 
     /**
@@ -31,7 +58,7 @@ class DeleteMimicRepository
      * @param Mimic|MimicResponse $model Loaded model from database
      * @return void
      */
-    public function removeMimicFromDisk($model)
+    private function removeMimicFromDisk($model)
     {
         $this->absolutePathFile = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, true);
         $this->relativePathFile = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, false);

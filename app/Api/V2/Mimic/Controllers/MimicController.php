@@ -172,26 +172,14 @@ class MimicController extends BaseAuthController
      */
     public function delete(Request $request, DeleteMimicRepository $deleteMimicRepository)
     {
-        if ($request->original_mimic_id) {
-            $model = $this->mimic;
-            $id = $request->original_mimic_id;
-        } else {
-            $model = $this->mimicResponse;
-            $id = $request->response_mimic_id;
-        }
-
-        $result = $model->find($id);
-
-        if($result && ($result->user_id === $this->authUser->id || $request->mode === 'admin')) {
-            //delete Mimic from disk
-            $deleteMimicRepository->removeMimicFromDisk($result);
-            $result->delete();
-            //decrease number of mimics for this user
-            $this->authUser->decrement('number_of_mimics');
+        DB::beginTransaction();
+        try {
+            $deleteMimicRepository->deleteMimic($request->all(), $this->authUser);
+            DB::commit();
             return response()->json(['success' => true]);
-   
-        } else {
-            abort(403, trans('mimic.delete.mimic_not_yours'));
+        } catch(\Exception $e) {
+            DB::rollBack();
+            abort(method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $e->getCode(), $e->getMessage());
         }
 
     }
