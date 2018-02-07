@@ -11,6 +11,4 @@ class Migration extends Model
 
     protected $table = 'migrations';
     protected $fillable = ['id', 'migration', 'batch'];
-
-
 }

@@ -7,7 +7,6 @@ use Image;
 
 class FileUpload
 {
-
     const FILE_UPLOAD_SERVER = 'server';
     const FILE_UPLOAD_AWS = 'aws';
 
@@ -38,8 +37,7 @@ class FileUpload
             }
         }
 
-        return NULL;
-
+        return null;
     }
 
     /**
@@ -51,7 +49,6 @@ class FileUpload
     private function uploadToServer($path, $file)
     {
         try {
-
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
@@ -129,7 +126,6 @@ class FileUpload
             if ($fileAllowed == false) {
                 abort(403, trans('validation.file_should_be_image_video'));
             }
-
         } else {
             switch ($allowType) {
                 case 'image':
@@ -144,8 +140,6 @@ class FileUpload
                     break;
             }
         }
-
-
     }
 
 
@@ -156,8 +150,7 @@ class FileUpload
      */
     public function resizeAndLowerQuality($model, $file = null)
     {
-        
-        try{
+        try {
             if ($file === null) {
                 $tmpFile = $model->file;
             } else {
@@ -187,6 +180,5 @@ class FileUpload
         } catch (\Exception $e) {
             //do something here
         }
-        
     }
 }

@@ -33,7 +33,6 @@ class Kernel extends ConsoleKernel
             $data1['uploadToAws']->uploadResponseMimicsToAws();
             $data1['fakeMimicData']->adjustMimicData();
         })->everyFiveMinutes();
-
     }
 
     /**

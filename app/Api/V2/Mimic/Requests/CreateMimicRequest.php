@@ -60,12 +60,12 @@ class CreateMimicRequest extends FormRequest
      * Validate video thumbnail
      *
      * Validate video thumbnail only if mimic_file is video
-     * 
+     *
      * @return void
      */
     private function videoThumbnailRule()
     {
-        if($this->mimic_file && strpos($this->mimic_file->getMimeType(), 'video') !== false) {
+        if ($this->mimic_file && strpos($this->mimic_file->getMimeType(), 'video') !== false) {
             $this->rules['video_thumbnail'] = 'required|file|mimes:jpeg,png,jpg';
         }
     }

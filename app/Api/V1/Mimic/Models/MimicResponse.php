@@ -94,7 +94,6 @@ class MimicResponse extends Model
             ->offset($offset)
             ->with(['user'])
             ->get();
-
     }
 
     public function originalMimic()
@@ -116,6 +115,4 @@ class MimicResponse extends Model
     {
         return $this->hasMany(\App\Api\V1\Mimic\Models\MimicResponseUpvote::class, 'mimic_id', 'id');
     }
-
-
 }

@@ -17,10 +17,11 @@ use Validator;
 
 class MimicController extends BaseAuthController
 {
-    public function __construct(User $user,
+    public function __construct(
+        User $user,
                                 Mimic $mimic,
-                                MimicResponse $mimicResponse)
-    {
+                                MimicResponse $mimicResponse
+    ) {
         parent::__construct($user);
         $this->mimic = $mimic;
         $this->mimicResponse = $mimicResponse;
@@ -28,7 +29,7 @@ class MimicController extends BaseAuthController
 
     /**
      * Add new mimic
-     * 
+     *
      * @param CreateMimicRequest $request Laravel's custom reuest
      * @param CreateMimicRepository $createMimicRepository Repository for handling creation
      */
@@ -42,9 +43,9 @@ class MimicController extends BaseAuthController
             
             $result = $createMimicRepository->create($user, $request->all());
 
-            if($result) {
+            if ($result) {
                 DB::commit();
-                return response()->json($result);                
+                return response()->json($result);
             }
 
             DB::rollBack();
@@ -53,7 +54,6 @@ class MimicController extends BaseAuthController
             DB::rollBack();
             abort(method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $e->getCode(), $e->getMessage());
         }
-
     }
 
     /**
@@ -62,7 +62,6 @@ class MimicController extends BaseAuthController
      */
     public function uploadVideoThumb(Request $request, FileUpload $fileUpload)
     {
-
         $validator = Validator::make($request->all(), [
             'file' => 'required|file|image',
         ]);
@@ -114,7 +113,8 @@ class MimicController extends BaseAuthController
             [
                 'count' => $mimicsResult->count(),
                 'mimics' => $structuredMimics,
-            ]);
+            ]
+        );
     }
 
     /**
@@ -177,11 +177,10 @@ class MimicController extends BaseAuthController
             $deleteMimicRepository->deleteMimic($request->all(), $this->authUser);
             DB::commit();
             return response()->json(['success' => true]);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             abort(method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $e->getCode(), $e->getMessage());
         }
-
     }
 
     /**

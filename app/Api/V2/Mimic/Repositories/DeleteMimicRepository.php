@@ -41,7 +41,7 @@ class DeleteMimicRepository
 
         $result = $model->find($id);
 
-        if($result && ($result->user_id === $authUser->id || $mode === 'admin')) {
+        if ($result && ($result->user_id === $authUser->id || $mode === 'admin')) {
             //delete Mimic from disk
             $this->removeMimicFromDisk($result);
             //decrease number of mimics for this user
@@ -54,7 +54,7 @@ class DeleteMimicRepository
 
     /**
      * Start with process of removing Mimic files, set relative and absolute file paths
-     * 
+     *
      * @param Mimic|MimicResponse $model Loaded model from database
      * @return void
      */
@@ -63,7 +63,7 @@ class DeleteMimicRepository
         $this->absolutePathFile = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, true);
         $this->relativePathFile = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, false);
 
-        if($model->video_thumb) {
+        if ($model->video_thumb) {
             $this->absolutePathThumb = $this->mimic->getFileOrPath($model->user_id, $model->video_thumb, $model, false, true);
             $this->relativePathThumb = $this->mimic->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false);
         }
@@ -78,7 +78,7 @@ class DeleteMimicRepository
     private function removeFromLocalDisk()
     {
         unlink($this->absolutePathFile);
-        if($this->absolutePathThumb) {
+        if ($this->absolutePathThumb) {
             unlink($this->absolutePathThumb);
         }
     }
@@ -91,5 +91,4 @@ class DeleteMimicRepository
     {
         //@TODO
     }
-
 }

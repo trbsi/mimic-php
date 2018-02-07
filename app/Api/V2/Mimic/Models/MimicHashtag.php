@@ -29,6 +29,4 @@ class MimicHashtag extends Model
     {
         return $this->belongsTo(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_id', 'id');
     }
-
-
 }

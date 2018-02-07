@@ -33,5 +33,4 @@ class Controller extends BaseController
     {
         return redirect(env('IOS_STORE_LINK'));
     }
-
 }

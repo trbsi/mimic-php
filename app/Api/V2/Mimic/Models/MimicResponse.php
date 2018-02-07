@@ -78,7 +78,7 @@ class MimicResponse extends Model
      */
     public function getUpvoteAttribute($value)
     {
-        if($this->preventMutation) {
+        if ($this->preventMutation) {
             return $value;
         } else {
             return Helper::numberFormat($value);
@@ -109,7 +109,6 @@ class MimicResponse extends Model
             ->offset($offset)
             ->with(['user'])
             ->get();
-
     }
 
     public function originalMimic()
@@ -131,6 +130,4 @@ class MimicResponse extends Model
     {
         return $this->hasMany(\App\Api\V2\Mimic\Models\MimicResponseUpvote::class, 'mimic_id', 'id');
     }
-
-
 }

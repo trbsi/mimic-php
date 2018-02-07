@@ -19,10 +19,10 @@ class CreateMimicRepository
     protected $mimicFileInfo;
 
     public function __construct(
-        Mimic $mimic, 
-        MimicResponse $mimicResponse, 
-        FileUpload $fileUpload)
-    {
+        Mimic $mimic,
+        MimicResponse $mimicResponse,
+        FileUpload $fileUpload
+    ) {
         $this->mimic = $mimic;
         $this->mimicResponse = $mimicResponse;
         $this->fileUpload = $fileUpload;
@@ -31,7 +31,7 @@ class CreateMimicRepository
 
     /**
      * Handle original/response Mimic creation
-     * 
+     *
      * @param \App\Api\V2\User\Models\User $user Authenticated user
      * @param array $request This is array of data from request
      * @return boolean|object Return false or single created Mimic|MimicResponse
@@ -59,10 +59,12 @@ class CreateMimicRepository
         //create mimic
         $this->createdModel = $model->create(array_merge([
             'mimic_type' => $this->getFileType(),
-            'file' => $this->fileUpload->upload($this->mimicFileInfo['file'], 
-                        $this->mimic->getFileOrPath($user->id), 
-                        ['image', 'video'], 
-                        FileUpload::FILE_UPLOAD_SERVER),
+            'file' => $this->fileUpload->upload(
+                $this->mimicFileInfo['file'],
+                        $this->mimic->getFileOrPath($user->id),
+                        ['image', 'video'],
+                        FileUpload::FILE_UPLOAD_SERVER
+            ),
             'user_id' => $user->id
         ], $this->additionalFields));
 
@@ -87,7 +89,7 @@ class CreateMimicRepository
 
     /**
      * Check if original Mimic is deleted
-     * 
+     *
      * @param array $request This is array of data from request
      * @throws Exception If original mimic is delete
      */
@@ -101,7 +103,7 @@ class CreateMimicRepository
 
     /**
      * Get type of uploaded file
-     * 
+     *
      * @param UploadedFile $file This is uploaded file taken via Laravel's class UploadedFile
      * @return integer Type of file: 1|2
      */
@@ -123,22 +125,21 @@ class CreateMimicRepository
      */
     private function uploadVideoThumbnail($request)
     {
-        if($this->createdModel->mimic_type === Mimic::TYPE_VIDEO_STRING 
+        if ($this->createdModel->mimic_type === Mimic::TYPE_VIDEO_STRING
             && array_key_exists('video_thumbnail', $request)) {
-
             $this->createdModel->video_thumb = $this->fileUpload->upload(
                 $request['video_thumbnail'],
                 $this->mimic->getFileOrPath($this->createdModel->user_id, null, $this->createdModel),
                 ['image'],
                 FileUpload::FILE_UPLOAD_SERVER
             );
-            $this->createdModel->save();   
+            $this->createdModel->save();
         }
     }
 
     /**
      * Set information about uploaded Mimic file
-     * 
+     *
      * @param UploadedFile $mimicFile This is uploaded Mimic file
      * @return void
      */
@@ -150,5 +151,4 @@ class CreateMimicRepository
             'extension' => $mimicFile->extension(),
         ];
     }
-
 }

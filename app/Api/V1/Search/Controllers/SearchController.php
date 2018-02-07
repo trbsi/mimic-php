@@ -24,7 +24,7 @@ class SearchController extends BaseAuthController
             $orderBy = 'popularity';
             $term = $request->term;
         } //search users
-        else if (substr($request->term, 0, 1) == "@") {
+        elseif (substr($request->term, 0, 1) == "@") {
             $table = $user->getTable();
             $match = $orderBy = 'username';
             $term = substr($request->term, 1);
@@ -33,6 +33,5 @@ class SearchController extends BaseAuthController
         }
 
         return DB::select("SELECT * FROM $table WHERE MATCH($match) AGAINST(? IN BOOLEAN MODE) ORDER BY $orderBy DESC", ["$term*"]);
-
     }
 }

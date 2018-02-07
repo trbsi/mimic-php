@@ -24,14 +24,12 @@ class SearchController extends BaseAuthController
             $orderBy = 'popularity';
             $term = $request->term;
             $model = $hashtag;
-
         } //search users
-        else if (substr($request->term, 0, 1) == "@") {
+        elseif (substr($request->term, 0, 1) == "@") {
             $table = $user->getTable();
             $match = $orderBy = 'username';
             $term = substr($request->term, 1);
             $model = $user;
-            
         } else {
             return [];
         }

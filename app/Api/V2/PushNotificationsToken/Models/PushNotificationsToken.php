@@ -42,5 +42,4 @@ class PushNotificationsToken extends Model
     {
         return $this->belongsTo(\App\Api\V2\User\Models\User::class, 'user_id', 'id');
     }
-
 }

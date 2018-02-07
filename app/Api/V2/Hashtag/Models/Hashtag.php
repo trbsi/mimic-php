@@ -26,6 +26,4 @@ class Hashtag extends Model
     {
         return $this->hasMany(\App\Api\V2\Mimic\Models\MimicHashtag::class, 'hashtag_id', 'id');
     }
-
-
 }

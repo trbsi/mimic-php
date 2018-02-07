@@ -22,7 +22,6 @@ class BootstrapController extends Controller
     public function updateNotificationToken(Request $request)
     {
         if (isset($request->push_token) && !empty($request->push_token) && isset($request->device_id) && isset($request->device)) {
-
             $user = $this->user->getAuthenticatedUser();
 
             $PNT = PushNotificationsToken::where(['user_id' => $user->id, 'device' => $request->device, 'device_id' => $request->device_id])
@@ -43,11 +42,9 @@ class BootstrapController extends Controller
             }
 
             return response()->json(['success' => true]);
-
         }
 
         abort(400, trans('core.push_token.parameters_not_set'));
-
     }
 
     /**

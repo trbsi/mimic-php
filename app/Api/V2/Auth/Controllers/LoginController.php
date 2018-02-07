@@ -12,7 +12,6 @@ use DB;
 
 class LoginController extends Controller
 {
-
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -41,12 +40,11 @@ class LoginController extends Controller
                 DB::rollBack();
                 abort(400, trans('core.login.login_failed_body'));
             }
-        } 
+        }
         //update user
         else {
-
             $updateData = array_only($provider_data, ['email', 'profile_picture']);
-            if(array_get($provider_data, 'email') === null) {
+            if (array_get($provider_data, 'email') === null) {
                 $updateData = array_only($provider_data, ['profile_picture']);
             }
 
@@ -60,7 +58,6 @@ class LoginController extends Controller
                 if (!$token) {
                     abort(400, trans('core.general.smth_went_wront_body'));
                 }
-
             } catch (JWTException $e) {
                 abort(400, trans('core.general.smth_went_wront_body'));
             }
@@ -75,7 +72,6 @@ class LoginController extends Controller
                 'user_id' => $user->id,
                 'email' => $user->email
             ]);
-
     }
 
     /**
@@ -91,7 +87,7 @@ class LoginController extends Controller
             abort(403, trans('core.login.username_empty'));
         }
 
-        //check username 
+        //check username
         if (!preg_match('/^[a-zA-Z0-9_.-]{4,}$/', $request->username)) {
             abort(403, trans('core.login.username_contain'));
         }
@@ -99,7 +95,7 @@ class LoginController extends Controller
         //check if email exists
         if ($request->email) {
             //check if email exists
-            if($this->user->where('email', $request->email)->where('id', '!=', $this->authUser->id)->count()) {
+            if ($this->user->where('email', $request->email)->where('id', '!=', $this->authUser->id)->count()) {
                 abort(403, trans('core.login.email_exists'));
             }
         }
@@ -107,7 +103,6 @@ class LoginController extends Controller
 
         //username doesn't exist, create it
         if (!$this->user->where('username', $request->username)->count()) {
-
             $updateData = ['username' => $request->username];
             if ($request->email) {
                 $updateData = array_merge($updateData, ['email' => $request->email]);
@@ -119,7 +114,6 @@ class LoginController extends Controller
                 ->json([
                     'status' => true,
                 ]);
-
         } else {
             abort(403, trans('core.login.username_exists'));
         }

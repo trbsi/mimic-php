@@ -94,27 +94,21 @@ class User extends Authenticatable
     public function getAuthenticatedUser()
     {
         $token = JWTAuth::getToken();
-        if (!$token)
+        if (!$token) {
             return false;
+        }
 
         try {
             $user = JWTAuth::parseToken()->authenticate();
             if (!$user) {
                 return abort(404, trans('core.user.user_not_found'));
             }
-
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
             return abort(404, 'token_expired');
-
         } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
             return abort(404, 'token_invalid');
-
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
             return abort(404, 'token_absent');
-
         }
 
         // the token is valid and we have found the user via the sub claim

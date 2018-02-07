@@ -96,7 +96,7 @@ class Mimic extends Model
      */
     public function getUpvotedAttribute($value)
     {
-        return (int)($value == NULL ? 0 : $value);
+        return (int)($value == null ? 0 : $value);
     }
 
     /**
@@ -106,7 +106,7 @@ class Mimic extends Model
      */
     public function getUpvoteAttribute($value)
     {
-        if($this->preventMutation) {
+        if ($this->preventMutation) {
             return $value;
         } else {
             return Helper::numberFormat($value);
@@ -146,7 +146,7 @@ class Mimic extends Model
             }
             $mimics = $mimics->where("$mimicsTable.user_id", $request->user_id);
         } //filter by hashtag
-        else if ($request->hashtag_id) {
+        elseif ($request->hashtag_id) {
             $mimicHashtagTable = (new MimicHashtag)->getTable();
             $mimics = $mimics
                 ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
@@ -161,7 +161,6 @@ class Mimic extends Model
                 })
                 ->orderBy(DB::raw("IF(ISNULL(follow.following) = 0 || user_id = $authUser->id, 0, 1)"), 'ASC') //I made this. Keep my mimics and mimics of people I follow in the first place ordered by most recent. After this just order by mimics.id DESC and it will order by most recent but it will keep my mimics and those of people I follow on the top
             ;
-
         }
 
         $mimics = $mimics->select("$mimicsTable.*")
@@ -205,7 +204,7 @@ class Mimic extends Model
     public function saveHashtags($tags, $mimicModel)
     {
         $returnHashtags = [];
-        if(preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags)) {
+        if (preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags)) {
             foreach ($hashtags[0] as $hashtag) {
                 //if length of string is 1 continue becuase this regex catches string even it it's only "#"
                 if (strlen($hashtag) == 1) {
@@ -264,7 +263,7 @@ class Mimic extends Model
 
     /**
      * Get mimic model and return response
-     * 
+     *
      * @param  Mimic|MimicResponse $mimics Mimic or MimicResponse loaded result
      * @return array Generated mimic response
      */
@@ -275,19 +274,16 @@ class Mimic extends Model
         //check if this is collection of items get with get() method
         if ($mimics instanceof Collection && !$mimics->isEmpty()) {
             foreach ($mimics as $mimic) {
-                $mimicsResponseContent[] = $this->generateContentForMimicResponse
-                (
+                $mimicsResponseContent[] = $this->generateContentForMimicResponse(
                     $mimic,
                     ($mimic->hashtags) ? $mimic->hashtags : [],
                     ($mimic->mimicResponses) ? $mimic->mimicResponses : []
                 );
             }
-        } 
+        }
         //if this is single item taken with first()
-        else if ($mimics instanceof Collection == false && !empty($mimics)) {
-
-            return $this->generateContentForMimicResponse
-            (
+        elseif ($mimics instanceof Collection == false && !empty($mimics)) {
+            return $this->generateContentForMimicResponse(
                 $mimics,
                 ($mimics->hashtags) ? $mimics->hashtags : [],
                 ($mimics->mimicResponses) ? $mimics->mimicResponses : []
@@ -315,7 +311,7 @@ class Mimic extends Model
             $data['title'] = trans('core.notifications.new_response_title');
             $data['body'] = trans('core.notifications.new_response_body', ['user' => $extra['authUser']->username]);
             $user_id = $model->user_id;
-        } else if($type === Constants::PUSH_TYPE_UPVOTE) {
+        } elseif ($type === Constants::PUSH_TYPE_UPVOTE) {
             $data['title'] = trans('core.notifications.upvote_mimic_title');
             $data['body'] = trans('core.notifications.upvote_mimic_body', ['user' => $extra['authUser']->username]);
             $user_id = $model->user_id;
@@ -332,10 +328,10 @@ class Mimic extends Model
      */
     public function getUser($authUser, $user)
     {
-        if(!in_array($authUser->email, ["dario.trbovic@yahoo.com"])) {
+        if (!in_array($authUser->email, ["dario.trbovic@yahoo.com"])) {
             $user = $authUser;
         } else {
-            if(env('APP_ENV') === 'live') {
+            if (env('APP_ENV') === 'live') {
                 $findUser = (rand(0, 1) === 0) ? rand(1, 95) : rand(119, 225);
             } else {
                 $findUser = rand(1, 95);
@@ -380,12 +376,10 @@ class Mimic extends Model
     public function mimicResponses()
     {
         return $this->hasMany(\App\Api\V2\Mimic\Models\MimicResponse::class, 'original_mimic_id', 'id');
-
     }
 
     public function mimicTagusers()
     {
         return $this->hasMany(\App\Api\V2\Mimic\Models\MimicTaguser::class, 'mimic_id', 'id');
     }
-
 }

@@ -28,6 +28,4 @@ class Follow extends Model
     {
         return $this->belongsTo(\App\Api\V2\User\Models\User::class, 'following', 'id');
     }
-
-
 }

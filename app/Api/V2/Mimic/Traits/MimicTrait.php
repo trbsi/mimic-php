@@ -22,7 +22,7 @@ trait MimicTrait
         $prependPath = false;
         if ($includeDomain) {
             $prependPath = env('APP_URL');
-        } else if ($includeRoot) {
+        } elseif ($includeRoot) {
             $prependPath = public_path();
         }
 
@@ -83,7 +83,7 @@ trait MimicTrait
                     ];
             }
         } //if it's object from database
-        else if (is_object($hashtags)) {
+        elseif (is_object($hashtags)) {
             foreach ($hashtags as $hashtag) {
                 $hashtagsStructure[] =
                     [
