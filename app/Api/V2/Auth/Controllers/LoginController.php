@@ -38,7 +38,7 @@ class LoginController extends Controller
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
-                abort(400, trans('core.login.login_failed_body'));
+                abort(400, trans('core.login.login_failed_body', ['provider' => ]));
             }
         }
         //update user

@@ -13,7 +13,7 @@ return
         'login' =>
         [
             'login_failed_title' => 'Login failed',
-            'login_failed_body' => "We couldn't log you in. Try again or contact us.",
+            'login_failed_body' => "Current email address is already registered using another authentication mechanism (Twitter or Facebook).",
 
             'username_exists' => 'This username already exists, try another one.',
             'username_empty' => 'Username cannot be empty.',
