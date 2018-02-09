@@ -9,11 +9,10 @@ class UploadToAws
 {
     const LIMIT = 3;
 
-    public function __construct(FileUpload $fileUpload, Mimic $mimic, MimicResponse $mimicResponse)
+    public function __construct(FileUpload $fileUpload, Mimic $mimic)
     {
         $this->fileUpload = $fileUpload;
         $this->mimic = $mimic;
-        $this->mimicResponse = $mimicResponse;
     }
 
     /**
