@@ -74,10 +74,12 @@ class DeleteMimicRepository
         //remove from local disk
         $this->removeFromLocalDisk(); 
 
-        //get file paths for AWS
-        $this->getFilePathsForAws($model);
-        //remove from AWS
-        $this->removeFromS3();
+        if($model->aws_file) {
+            //get file paths for AWS
+            $this->getFilePathsForAws($model);
+            //remove from AWS
+            $this->removeFromS3();
+        }
     }
 
     /**

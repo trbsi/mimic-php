@@ -1363,16 +1363,17 @@ class MimicControllerTest extends TestCase
         //missing from local storage
         Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->file, $model, false, false));
 
-        //missing from AWS
-        $this->doGet($model->aws_file, $data, 'v2')->assertStatus(404);
-
         if($model->video_thumb) {
-            //missing from local storage
             Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
+        }
 
-            //missing from AWS
+        //missing from AWS
+        if($model->aws_file) {
+            $this->doGet($model->aws_file, $data, 'v2')->assertStatus(404);
+        }
+
+        if($model->aws_video_thumb) {
             $this->doGet($model->aws_video_thumb, $data, 'v2')->assertStatus(404);
-
         }
     }
 
@@ -1396,14 +1397,16 @@ class MimicControllerTest extends TestCase
         //missing from local storage
         Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->file, $model, false, false));
 
-        //missing from AWS
-        $this->doGet($model->aws_file, $data, 'v2')->assertStatus(404);
-
         if($model->video_thumb) {
-            //missing from local storage
             Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
+        }
 
-            //missing from AWS
+        //missing from AWS
+        if($model->aws_file) {
+            $this->doGet($model->aws_file, $data, 'v2')->assertStatus(404);
+        }
+
+        if($model->aws_video_thumb) {
             $this->doGet($model->aws_video_thumb, $data, 'v2')->assertStatus(404);
 
         }
