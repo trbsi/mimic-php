@@ -9,25 +9,18 @@ use App\Helpers\AwsHelper;
 class DeleteMimicRepository
 {
     /**
-     * Absolute and relative path to mimic (original or response) files
+     * Absolute path to mimic and video thumbnail (original or response) files
      * @var null
      */
     private $absoluteFilePath = null;
-    private $relativeFilePath = null;
+    private $absoluteThumbPath = null;
 
     /**
-     * Relative path to mimic (original or response) files on AWS
+     * Relative path to mimic and video thumbnail (original or response) files on AWS
      * @var null
      */
     private $relativeAwsFilePath = null;
     private $relativeAwsThumbPath = null;
-
-    /**
-     * Absolute and relative path to video thumbnails (original or response)
-     * @var null
-     */
-    private $absoluteThumbPath = null;
-    private $relativeThumbPath = null;
 
     public function __construct(Mimic $mimic, MimicResponse $mimicResponse, AwsHelper $awsHelper)
     {
@@ -91,11 +84,9 @@ class DeleteMimicRepository
     private function getFilePathsForLocalDisk($model)
     {
         $this->absoluteFilePath = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, true);
-        $this->relativeFilePath = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, false);
 
         if ($model->video_thumb) {
             $this->absoluteThumbPath = $this->mimic->getFileOrPath($model->user_id, $model->video_thumb, $model, false, true);
-            $this->relativeThumbPath = $this->mimic->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false);
         }
     }
 
@@ -129,11 +120,15 @@ class DeleteMimicRepository
      */
     private function removeFromLocalDisk()
     {
-        //Remove main file
-        unlink($this->absoluteFilePath);
-        //Remove thumb file
-        if ($this->absoluteThumbPath) {
-            unlink($this->absoluteThumbPath);
+        try {
+            //Remove main file
+            unlink($this->absoluteFilePath);
+            //Remove thumb file
+            if ($this->absoluteThumbPath) {
+                unlink($this->absoluteThumbPath);
+            }
+        } catch(\Exception $e) {
+            //@TODO - log error - $e->getMessage()
         }
     }
 
