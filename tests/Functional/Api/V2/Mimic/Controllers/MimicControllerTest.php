@@ -1360,8 +1360,20 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200); 
 
+        //missing from local storage
         Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->file, $model, false, false));
-        Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
+
+        //missing from AWS
+        $this->doGet($model->aws_file, $data, 'v2')->assertStatus(404);
+
+        if($model->video_thumb) {
+            //missing from local storage
+            Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
+
+            //missing from AWS
+            $this->doGet($model->aws_video_thumb, $data, 'v2')->assertStatus(404);
+
+        }
     }
 
     public function testDeleteResponseMimicSuccessfully()
@@ -1381,8 +1393,21 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200); 
 
+        //missing from local storage
         Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->file, $model, false, false));
-        Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
+
+        //missing from AWS
+        $this->doGet($model->aws_file, $data, 'v2')->assertStatus(404);
+
+        if($model->video_thumb) {
+            //missing from local storage
+            Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
+
+            //missing from AWS
+            $this->doGet($model->aws_video_thumb, $data, 'v2')->assertStatus(404);
+
+        }
+
     }
 
     public function testUserTriesToDeleteSomeoneElsesOriginalMimic()

@@ -18,14 +18,14 @@ class SearchController extends BaseAuthController
     public function search(Request $request, Hashtag $hashtag, User $user)
     {
         //search hashtags
-        if (substr($request->term, 0, 1) == "#") {
+        if (substr($request->term, 0, 1) === "#") {
             $table = $hashtag->getTable();
             $match = 'name';
             $orderBy = 'popularity';
             $term = $request->term;
             $model = $hashtag;
         } //search users
-        elseif (substr($request->term, 0, 1) == "@") {
+        elseif (substr($request->term, 0, 1) === "@") {
             $table = $user->getTable();
             $match = $orderBy = 'username';
             $term = substr($request->term, 1);

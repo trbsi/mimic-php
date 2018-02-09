@@ -2,13 +2,18 @@
 namespace App\Helpers;
 
 use Aws\S3\Exception\S3Exception;
-use Aws\S3\S3Client;
 use Image;
+use App\Helpers\AwsHelper;
 
 class FileUpload
 {
     const FILE_UPLOAD_SERVER = 'server';
     const FILE_UPLOAD_AWS = 'aws';
+
+    public function __construct(AwsHelper $awsHelper) 
+    {
+        $this->awsHelper = $awsHelper;
+    }
 
     /**
      * upload file to S3
@@ -50,7 +55,7 @@ class FileUpload
     {
         try {
             if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+                mkdir($path, 0755, true);
             }
 
             $file_name = (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension();
@@ -81,17 +86,7 @@ class FileUpload
                 $sourceFile = $file;
             }
 
-            $this->s3client = new S3Client([
-                'version' => 'latest',
-                'region' => 'us-east-2',
-                'http' => [
-                    'verify' => false
-                ],
-                'credentials' => [
-                    'key' => env('AWS_KEY'),
-                    'secret' => env('AWS_SECRET'),
-                ],
-            ]);
+            $this->s3client = $this->awsHelper->initAwsS3client();
 
             $result = $this->s3client->putObject(array(
                 'Bucket' => env('AWS_BUCKET'),

@@ -4,6 +4,7 @@ namespace App\Api\V2\Mimic\Repositories;
 
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Helpers\AwsHelper;
 
 class DeleteMimicRepository
 {
@@ -11,20 +12,28 @@ class DeleteMimicRepository
      * Absolute and relative path to mimic (original or response) files
      * @var null
      */
-    private $absolutePathFile = null;
-    private $relativePathFile = null;
+    private $absoluteFilePath = null;
+    private $relativeFilePath = null;
+
+    /**
+     * Relative path to mimic (original or response) files on AWS
+     * @var null
+     */
+    private $relativeAwsFilePath = null;
+    private $relativeAwsThumbPath = null;
 
     /**
      * Absolute and relative path to video thumbnails (original or response)
      * @var null
      */
-    private $absolutePathThumb = null;
-    private $relativePathThumb = null;
+    private $absoluteThumbPath = null;
+    private $relativeThumbPath = null;
 
-    public function __construct(Mimic $mimic, MimicResponse $mimicResponse)
+    public function __construct(Mimic $mimic, MimicResponse $mimicResponse, AwsHelper $awsHelper)
     {
         $this->mimic = $mimic;
         $this->mimicResponse = $mimicResponse;
+        $this->awsHelper = $awsHelper;
     }
 
     public function deleteMimic($request, $authUser)
@@ -60,15 +69,56 @@ class DeleteMimicRepository
      */
     private function removeMimicFromDisk($model)
     {
-        $this->absolutePathFile = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, true);
-        $this->relativePathFile = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, false);
+        //get file paths for local disk
+        $this->getFilePathsForLocalDisk($model);
+        //remove from local disk
+        $this->removeFromLocalDisk(); 
+
+        //get file paths for AWS
+        $this->getFilePathsForAws($model);
+        //remove from AWS
+        $this->removeFromS3();
+    }
+
+    /**
+     * Get file paths for local disk
+     *
+     * @param Mimic|MimicResponse $model Loaded model from a database
+     * @return void
+     */
+    private function getFilePathsForLocalDisk($model)
+    {
+        $this->absoluteFilePath = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, true);
+        $this->relativeFilePath = $this->mimic->getFileOrPath($model->user_id, $model->file, $model, false, false);
 
         if ($model->video_thumb) {
-            $this->absolutePathThumb = $this->mimic->getFileOrPath($model->user_id, $model->video_thumb, $model, false, true);
-            $this->relativePathThumb = $this->mimic->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false);
+            $this->absoluteThumbPath = $this->mimic->getFileOrPath($model->user_id, $model->video_thumb, $model, false, true);
+            $this->relativeThumbPath = $this->mimic->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false);
+        }
+    }
+
+    /**
+     * Get file paths for AWS
+     *
+     * @param Mimic|MimicResponse $model Loaded model from a database
+     * @return void
+     */
+    private function getFilePathsForAws($model)
+    {
+        //Get path from a url: "https://s3.us-east-2.amazonaws.com/mimic.files.test2/files/user/96/2018/02/bd64074eb9dee10b89e7efa05ad56dc3.jpg"
+        //You'll get: "/files/user/96/2018/02/bd64074eb9dee10b89e7efa05ad56dc3.jpg"
+        //Remove "/" using ltrim
+        preg_match("/(?<=".env('AWS_BUCKET').").*/", $model->aws_file, $match);
+        if(!empty($match)) {
+            $this->relativeAwsFilePath = ltrim($match[0], '/');
         }
 
-        $this->removeFromLocalDisk();
+        if($model->aws_video_thumb) {
+            preg_match("/(?<=".env('AWS_BUCKET').").*/", $model->aws_video_thumb, $match);
+            if(!empty($match)) {
+                $this->relativeAwsThumbPath = ltrim($match[0], '/');
+            }
+        }
     }
 
     /**
@@ -77,9 +127,11 @@ class DeleteMimicRepository
      */
     private function removeFromLocalDisk()
     {
-        unlink($this->absolutePathFile);
-        if ($this->absolutePathThumb) {
-            unlink($this->absolutePathThumb);
+        //Remove main file
+        unlink($this->absoluteFilePath);
+        //Remove thumb file
+        if ($this->absoluteThumbPath) {
+            unlink($this->absoluteThumbPath);
         }
     }
 
@@ -89,6 +141,19 @@ class DeleteMimicRepository
      */
     private function removeFromS3()
     {
-        //@TODO
+        //Remove main file
+        $s3client = $this->awsHelper->initAwsS3client();
+        $s3client->deleteObject([
+            'Bucket' => env('AWS_BUCKET'),
+            'Key'    => $this->relativeAwsFilePath
+        ]); 
+
+        //Remove thumb file
+        if ($this->relativeAwsThumbPath) {
+            $s3client->deleteObject([
+                'Bucket' => env('AWS_BUCKET'),
+                'Key'    => $this->relativeAwsThumbPath
+            ]); 
+        }
     }
 }
