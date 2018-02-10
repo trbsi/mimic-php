@@ -17,6 +17,21 @@ class Hashtag extends Model
             'id' => 'int',
         ];
 
+    /**
+     * Get popularity attribute
+     * 
+     * @param integer $value Popularity number
+     * @return string Formatted number 
+     */
+    public function getPopularityAttribute($value)
+    {
+        if($this->preventMutation) {
+            return $value;
+        } else {
+            return number_format($value);
+        }
+    }
+
     public function mimics()
     {
         return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_hashtag', 'hashtag_id', 'mimic_id');

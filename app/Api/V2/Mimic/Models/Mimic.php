@@ -216,6 +216,7 @@ class Mimic extends Model
                 }
 
                 $tag = Hashtag::updateOrCreate(['name' => $hashtag]);
+                $tag->preventMutation = true;
                 $tag->increment("popularity");
 
                 $returnHashtags[$tag->id] = $hashtag;

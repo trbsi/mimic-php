@@ -32,12 +32,12 @@ class SearchControllerTest extends TestCase
             [
                 'id' => 1,
                 'name' => '#jumping',
-                'popularity' => 123456789,
+                'popularity' => "123,456,789",
             ],
             [
                 'id' => 2,
                 'name' => '#jump',
-                'popularity' => 123456789,
+                'popularity' => "123,456,789",
             ]
 	    ])
         ->assertStatus(200);
