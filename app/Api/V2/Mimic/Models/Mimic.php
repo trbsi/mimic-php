@@ -204,7 +204,7 @@ class Mimic extends Model
     public function saveHashtags($tags, $mimicModel)
     {
         $returnHashtags = [];
-        if (preg_match_all("(#[a-zA-Z0-9]*)", $tags, $hashtags)) {
+        if (preg_match_all("(#[a-zA-Z0-9]+)", $tags, $hashtags)) {
             foreach ($hashtags[0] as $hashtag) {
                 //if length of string is 1 continue becuase this regex catches string even it it's only "#"
                 if (strlen($hashtag) == 1) {
@@ -240,7 +240,7 @@ class Mimic extends Model
     public function checkTaggedUser($usernames, $mimicModel)
     {
         $returnUsers = [];
-        preg_match_all("(@[a-zA-Z0-9]*)", $usernames, $usernames);
+        preg_match_all("(@[a-zA-Z0-9]+)", $usernames, $usernames);
         foreach ($usernames[0] as $username) {
 
             //substr exlude "@"

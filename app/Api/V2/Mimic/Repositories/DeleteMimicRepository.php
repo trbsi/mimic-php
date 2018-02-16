@@ -101,13 +101,13 @@ class DeleteMimicRepository
         //Get path from a url: "https://s3.us-east-2.amazonaws.com/mimic.files.test2/files/user/96/2018/02/bd64074eb9dee10b89e7efa05ad56dc3.jpg"
         //You'll get: "/files/user/96/2018/02/bd64074eb9dee10b89e7efa05ad56dc3.jpg"
         //Remove "/" using ltrim
-        preg_match("/(?<=".env('AWS_BUCKET').").*/", $model->aws_file, $match);
+        preg_match("/(?<=".env('AWS_BUCKET').").+/", $model->aws_file, $match);
         if(!empty($match)) {
             $this->relativeAwsFilePath = ltrim($match[0], '/');
         }
 
         if($model->aws_video_thumb) {
-            preg_match("/(?<=".env('AWS_BUCKET').").*/", $model->aws_video_thumb, $match);
+            preg_match("/(?<=".env('AWS_BUCKET').").+/", $model->aws_video_thumb, $match);
             if(!empty($match)) {
                 $this->relativeAwsThumbPath = ltrim($match[0], '/');
             }
