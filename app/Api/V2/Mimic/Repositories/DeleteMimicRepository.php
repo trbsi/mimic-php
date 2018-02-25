@@ -47,7 +47,9 @@ class DeleteMimicRepository
             //delete Mimic from disk
             $this->removeMimicFromDisk($result);
             //decrease number of mimics for this user
-            $authUser->decrement('number_of_mimics');
+            if($authUser->number_of_mimics > 0) {
+                $authUser->decrement('number_of_mimics');                
+            }
             $result->delete();
         } else {
             abort(403, trans('mimic.delete.mimic_not_yours'));
