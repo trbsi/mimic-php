@@ -57,50 +57,6 @@ class MimicController extends BaseAuthController
     }
 
     /**
-     * Upload video thumb
-     * @param  Request $request
-     */
-    public function uploadVideoThumb(Request $request, FileUpload $fileUpload)
-    {
-        $validator = Validator::make($request->all(), [
-            'file' => 'required|file|image',
-        ]);
-
-        if ($validator->fails()) {
-            abort(400, trans('validation.file_should_be_image'));
-        }
-
-        DB::beginTransaction();
-        try {
-
-            //get mimic
-            if ($request->original_mimic_id) {
-                $model = $this->mimic->find($request->original_mimic_id);
-            } else {
-                $model = $this->mimicResponse->find($request->response_mimic_id);
-            }
-
-            //upload mimic
-            //path to upload do: files/user/USER_ID/YEAR/
-            $fileName = $fileUpload->upload(
-                $request->file('file'),
-                $this->mimic->getFileOrPath($model->user_id, null, $model),
-                ['image'],
-                FileUpload::FILE_UPLOAD_SERVER
-            );
-
-            $model->video_thumb = $fileName;
-            $model->save();
-
-            DB::commit();
-            return response()->json(['success' => true, 'video_thumb_url' => $model->video_thumb_url]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            abort(400, $e->getMessage());
-        }
-    }
-
-    /**
      * list newest mimics
      * @param  Request $request
      */

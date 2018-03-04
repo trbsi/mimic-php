@@ -56,7 +56,6 @@ $api->version('v2', function (Router $api) {
 
             $api->group(['prefix' => 'mimic'], function (Router $api) {
                 $api->post('create', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@createMimic']);
-                $api->post('upload-video-thumb', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@uploadVideoThumb']);
                 $api->get('list', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@listMimics']);
                 $api->get('load-responses', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@loadResponses']);
                 $api->post('upvote', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@upvote']);
