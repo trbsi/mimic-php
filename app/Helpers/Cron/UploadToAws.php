@@ -42,7 +42,7 @@ class UploadToAws
 
     /**
      * Actually upload to AWS
-     * 
+     *
      * @param  Model $model This is model of Mimic or MimicResponse
      */
     private function upload($model)

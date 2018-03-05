@@ -10,7 +10,7 @@ class FileUpload
     const FILE_UPLOAD_SERVER = 'server';
     const FILE_UPLOAD_AWS = 'aws';
 
-    public function __construct(AwsHelper $awsHelper) 
+    public function __construct(AwsHelper $awsHelper)
     {
         $this->awsHelper = $awsHelper;
     }
@@ -188,31 +188,32 @@ class FileUpload
      * @param  string $filePath Path to image, e.g. public/files/user/96/2018/03/6a97012502fa31c28d9767c4eb49d678.jpg
      * @return void
      */
-    public function correctImageOrientation($filePath) {
-      if (function_exists('exif_read_data')) {
-        $exif = exif_read_data($filePath);
-        if($exif && isset($exif['Orientation'])) {
-          if($exif['Orientation'] != 1){
-            $img = imagecreatefromjpeg($filePath);
-            $deg = 0;
-            switch ($exif['Orientation']) {
-              case 3:
-                $deg = 180;
-                break;
-              case 6:
-                $deg = 270;
-                break;
-              case 8:
-                $deg = 90;
-                break;
-            }
-            if ($deg) {
-              $img = imagerotate($img, $deg, 0);       
-            }
-            // then rewrite the rotated image back to the disk as $filePath
-            imagejpeg($img, $filePath, 95);
-          } // if there is some rotation necessary
-        } // if have the exif orientation info
-      } // if function exists     
+    public function correctImageOrientation($filePath)
+    {
+        if (function_exists('exif_read_data')) {
+            $exif = exif_read_data($filePath);
+            if ($exif && isset($exif['Orientation'])) {
+                if ($exif['Orientation'] != 1) {
+                    $img = imagecreatefromjpeg($filePath);
+                    $deg = 0;
+                    switch ($exif['Orientation']) {
+                        case 3:
+                            $deg = 180;
+                            break;
+                        case 6:
+                            $deg = 270;
+                            break;
+                        case 8:
+                            $deg = 90;
+                            break;
+                    }
+                    if ($deg) {
+                        $img = imagerotate($img, $deg, 0);
+                    }
+                    // then rewrite the rotated image back to the disk as $filePath
+                    imagejpeg($img, $filePath, 95);
+                } // if there is some rotation necessary
+            } // if have the exif orientation info
+        } // if function exists
     }
 }

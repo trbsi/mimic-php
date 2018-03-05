@@ -47,8 +47,8 @@ class DeleteMimicRepository
             //delete Mimic from disk
             $this->removeMimicFromDisk($result);
             //decrease number of mimics for this user
-            if($authUser->number_of_mimics > 0) {
-                $authUser->decrement('number_of_mimics');                
+            if ($authUser->number_of_mimics > 0) {
+                $authUser->decrement('number_of_mimics');
             }
             $result->delete();
         } else {
@@ -67,9 +67,9 @@ class DeleteMimicRepository
         //get file paths for local disk
         $this->getFilePathsForLocalDisk($model);
         //remove from local disk
-        $this->removeFromLocalDisk(); 
+        $this->removeFromLocalDisk();
 
-        if($model->aws_file) {
+        if ($model->aws_file) {
             //get file paths for AWS
             $this->getFilePathsForAws($model);
             //remove from AWS
@@ -104,13 +104,13 @@ class DeleteMimicRepository
         //You'll get: "/files/user/96/2018/02/bd64074eb9dee10b89e7efa05ad56dc3.jpg"
         //Remove "/" using ltrim
         preg_match("/(?<=".env('AWS_BUCKET').").+/", $model->aws_file, $match);
-        if(!empty($match)) {
+        if (!empty($match)) {
             $this->relativeAwsFilePath = ltrim($match[0], '/');
         }
 
-        if($model->aws_video_thumb) {
+        if ($model->aws_video_thumb) {
             preg_match("/(?<=".env('AWS_BUCKET').").+/", $model->aws_video_thumb, $match);
-            if(!empty($match)) {
+            if (!empty($match)) {
                 $this->relativeAwsThumbPath = ltrim($match[0], '/');
             }
         }
@@ -129,7 +129,7 @@ class DeleteMimicRepository
             if ($this->absoluteThumbPath) {
                 unlink($this->absoluteThumbPath);
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             //@TODO - log error - $e->getMessage()
         }
     }
@@ -145,14 +145,14 @@ class DeleteMimicRepository
         $s3client->deleteObject([
             'Bucket' => env('AWS_BUCKET'),
             'Key'    => $this->relativeAwsFilePath
-        ]); 
+        ]);
 
         //Remove thumb file
         if ($this->relativeAwsThumbPath) {
             $s3client->deleteObject([
                 'Bucket' => env('AWS_BUCKET'),
                 'Key'    => $this->relativeAwsThumbPath
-            ]); 
+            ]);
         }
     }
 }

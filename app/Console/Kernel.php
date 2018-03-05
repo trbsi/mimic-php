@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $data = [
-            'uploadToAws' => app('App\Helpers\Cron\UploadToAws'), 
+            'uploadToAws' => app('App\Helpers\Cron\UploadToAws'),
             'fakeMimicData' => app('App\Helpers\Cron\FakeMimicData')
         ];
         

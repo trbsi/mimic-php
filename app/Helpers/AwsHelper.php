@@ -7,11 +7,11 @@ class AwsHelper
 {
     /**
      * Init AWS, create AWS object
-     * @return S3Client 
+     * @return S3Client
      */
     public function initAwsS3client()
     {
-        return 
+        return
         new S3Client([
             'version' => 'latest',
             'region' => 'us-east-2',

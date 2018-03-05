@@ -19,13 +19,13 @@ class Hashtag extends Model
 
     /**
      * Get popularity attribute
-     * 
+     *
      * @param integer $value Popularity number
-     * @return string Formatted number 
+     * @return string Formatted number
      */
     public function getPopularityAttribute($value)
     {
-        if($this->preventMutation) {
+        if ($this->preventMutation) {
             return $value;
         } else {
             return number_format($value);
