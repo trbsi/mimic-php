@@ -41,3 +41,7 @@ the same is for A2Hosting
 
 #LUCY Landing Page
 https://themewagon.com/themes/lucy-best-free-responsive-bootstrap-app-landing-page-template/
+
+#Install Imagick on windows
+https://www.youtube.com/watch?v=fh0YJl1dUs8
+Imagic for PHP7.2 http://www.peewit.fr/imagick/

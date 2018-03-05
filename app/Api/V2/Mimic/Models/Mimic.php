@@ -283,7 +283,7 @@ class Mimic extends Model
             }
         }
         //if this is single item taken with first()
-        elseif ($mimics instanceof Collection == false && !empty($mimics)) {
+        elseif ($mimics instanceof Collection === false && !empty($mimics)) {
             return $this->generateContentForMimicResponse(
                 $mimics,
                 ($mimics->hashtags) ? $mimics->hashtags : [],
@@ -325,7 +325,7 @@ class Mimic extends Model
      * Fake user if this is my account
      *
      * @param User $authUser Authenticated user
-     * @param User $user Empty User model
+     * @param User $user Initialized User object
      */
     public function getUser($authUser, $user)
     {
@@ -338,7 +338,7 @@ class Mimic extends Model
                 $findUser = rand(1, 95);
             }
 
-            $user = $this->user->find($findUser);
+            $user = $user->find($findUser);
         }
 
         return $user;

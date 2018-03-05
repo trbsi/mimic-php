@@ -5,6 +5,9 @@ use App\Api\V1\Mimic\Models\Mimic;
 use App\Api\V1\Mimic\Models\MimicResponse;
 use App\Helpers\FileUpload;
 
+/**
+ * Used to upload files from server to AWS via CronJob
+ */
 class UploadToAws
 {
     const LIMIT = 3;
