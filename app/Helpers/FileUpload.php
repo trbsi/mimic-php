@@ -4,6 +4,7 @@ namespace App\Helpers;
 use Aws\S3\Exception\S3Exception;
 use Image;
 use App\Helpers\AwsHelper;
+use Imagick;
 
 class FileUpload
 {
@@ -57,13 +58,15 @@ class FileUpload
             if (!file_exists($path)) {
                 mkdir($path, 0755, true);
             }
-
+            
+            //save file info
+            $fileInfo['mime'] = $file->getMimeType();
             //generate name
             $file_name = (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension();
             //move file
             $file->move($path, $file_name);
             //correct image orientation
-            $this->correctImageOrientation($path.$file_name);
+            $this->correctImageOrientation($path.$file_name, $fileInfo);
 
             return $file_name;
         } catch (S3Exception $e) {
@@ -184,36 +187,47 @@ class FileUpload
     /**
      * Correct image orientation
      *
-     * @see Tutorial https://obrienmedia.co.uk/blog/fixing-ios-picture-orientation-after-uploading-with-php
      * @param  string $filePath Path to image, e.g. public/files/user/96/2018/03/6a97012502fa31c28d9767c4eb49d678.jpg
+     * @param array $fileInfo Information about file, like MIME
      * @return void
      */
-    public function correctImageOrientation($filePath)
+    public function correctImageOrientation($filePath, $fileInfo)
     {
-        if (function_exists('exif_read_data')) {
-            $exif = exif_read_data($filePath);
-            if ($exif && isset($exif['Orientation'])) {
-                if ($exif['Orientation'] != 1) {
-                    $img = imagecreatefromjpeg($filePath);
-                    $deg = 0;
-                    switch ($exif['Orientation']) {
-                        case 3:
-                            $deg = 180;
-                            break;
-                        case 6:
-                            $deg = 270;
-                            break;
-                        case 8:
-                            $deg = 90;
-                            break;
-                    }
-                    if ($deg) {
-                        $img = imagerotate($img, $deg, 0);
-                    }
-                    // then rewrite the rotated image back to the disk as $filePath
-                    imagejpeg($img, $filePath, 95);
-                } // if there is some rotation necessary
-            } // if have the exif orientation info
-        } // if function exists
+        if (strpos($fileInfo['mime'], 'image') === false) {
+            return;
+        }
+        $image = new Imagick($filePath);
+        switch ($image->getImageOrientation()) {
+            case Imagick::ORIENTATION_TOPLEFT:
+                break;
+            case Imagick::ORIENTATION_TOPRIGHT:
+                $image->flopImage();
+                break;
+            case Imagick::ORIENTATION_BOTTOMRIGHT:
+                $image->rotateImage("#000", 180);
+                break;
+            case Imagick::ORIENTATION_BOTTOMLEFT:
+                $image->flopImage();
+                $image->rotateImage("#000", 180);
+                break;
+            case Imagick::ORIENTATION_LEFTTOP:
+                $image->flopImage();
+                $image->rotateImage("#000", -90);
+                break;
+            case Imagick::ORIENTATION_RIGHTTOP:
+                $image->rotateImage("#000", 90);
+                break;
+            case Imagick::ORIENTATION_RIGHTBOTTOM:
+                $image->flopImage();
+                $image->rotateImage("#000", 90);
+                break;
+            case Imagick::ORIENTATION_LEFTBOTTOM:
+                $image->rotateImage("#000", -90);
+                break;
+            default: // Invalid orientation
+                break;
+        }
+        $image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
+        $image->writeImage();
     }
 }
