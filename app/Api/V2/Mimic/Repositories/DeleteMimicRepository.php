@@ -31,6 +31,8 @@ class DeleteMimicRepository
 
     public function deleteMimic($request, $authUser)
     {
+        $authUser->preventMutation = true;
+        
         if (array_key_exists('original_mimic_id', $request)) {
             $model = $this->mimic;
             $id = $request['original_mimic_id'];

@@ -74,6 +74,7 @@ class CreateMimicRepository
             //upload video thumbnail
             $this->uploadVideoThumbnail($request);
             //update user's number of mimics
+            $user->preventMutation = true;
             $user->increment('number_of_mimics');
             //send notification to a owner of original mimic that someone post a respons
             if ($responseMimic === true) {

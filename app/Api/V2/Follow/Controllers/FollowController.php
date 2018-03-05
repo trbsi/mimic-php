@@ -19,8 +19,8 @@ class FollowController extends BaseAuthController
     {
         //get user
         $user = User::find($request->id);
-        $user->preventMutation = true;
-        
+        $user->preventMutation = $this->authUser->preventMutation = true;
+
         DB::beginTransaction();
         //try to follow
         try {

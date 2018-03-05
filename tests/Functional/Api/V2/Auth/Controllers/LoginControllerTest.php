@@ -12,6 +12,11 @@ class LoginControllerTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+        User::where('id', '>', 95)->update([
+            'following' => 123456789,
+            'followers' => 123456789,
+            'number_of_mimics' => 123456789,
+        ]);
     }
 
     //--------------------------------Facebook--------------------------------
