@@ -30,7 +30,8 @@
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "helpers"
         ],
         "psr-4": {
             "App\\": "app/"
