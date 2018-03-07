@@ -52,7 +52,7 @@ class MimicController extends BaseAuthController
             abort(400, trans('core.alert.cant_upload_mimic_body'));
         } catch (\Exception $e) {
             DB::rollBack();
-            abort(method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $e->getCode(), $e->getMessage());
+            throw_exception($e);
         }
     }
 
@@ -128,6 +128,7 @@ class MimicController extends BaseAuthController
      */
     public function delete(Request $request, DeleteMimicRepository $deleteMimicRepository)
     {
+
         DB::beginTransaction();
         try {
             $deleteMimicRepository->deleteMimic($request->all(), $this->authUser);
@@ -135,7 +136,7 @@ class MimicController extends BaseAuthController
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             DB::rollBack();
-            abort(method_exists($e, 'getStatusCode') ? $e->getStatusCode() : $e->getCode(), $e->getMessage());
+            throw_exception($e);
         }
     }
 
