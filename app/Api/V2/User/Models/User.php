@@ -7,8 +7,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use JWTAuth;
 use App\Helpers\Helper;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -39,6 +40,26 @@ class User extends Authenticatable
      */
     protected $hidden = [
     ];
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     /**
      * Format "followers" attribute
@@ -101,27 +122,10 @@ class User extends Authenticatable
         return User::where(['email' => $email])->first();
     }
 
-    // somewhere in your controller
-    // https://github.com/tymondesigns/jwt-auth/wiki/Authentication
+    // http://jwt-auth.readthedocs.io/en/develop/auth-guard/#userorfail
     public function getAuthenticatedUser()
     {
-        $token = JWTAuth::getToken();
-        if (!$token) {
-            return false;
-        }
-
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
-            if (!$user) {
-                return abort(404, trans('core.user.user_not_found'));
-            }
-        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return abort(404, 'token_expired');
-        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return abort(404, 'token_invalid');
-        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return abort(404, 'token_absent');
-        }
+        $user = auth()->user();
 
         // the token is valid and we have found the user via the sub claim
         return $user;

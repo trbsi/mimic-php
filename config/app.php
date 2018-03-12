@@ -170,8 +170,6 @@ return [
         /*
          * Package Service Providers...
          */
-
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
 

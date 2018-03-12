@@ -54,7 +54,7 @@ class LoginController extends Controller
 
         if ($user) {
             try {
-                $token = $JWTAuth->fromUser($user);
+                $token = auth()->login($user);
                 if (!$token) {
                     abort(400, trans('core.general.smth_went_wront_body'));
                 }
