@@ -29,7 +29,7 @@ class Helper
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
                     'email' => (array_key_exists('email', $provider_data)) ? $provider_data["email"] : null,
-                    'profile_picture' => isset($provider_data["picture"]["data"]["url"]) ? $provider_data["picture"]["data"]["url"] : null,
+                    'profile_picture' => isset($provider_data["picture"]["data"]["url"]) ? $provider_data["picture"]["data"]["url"] : config('user.profile.no_profile_image_url'),
                 ];
         }
 
@@ -39,7 +39,7 @@ class Helper
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
                     'email' => (array_key_exists('email', $provider_data)) ? $provider_data["email"] : null,
-                    'profile_picture' => array_key_exists('profile_image_url', $provider_data) ? $provider_data["profile_image_url"] : null,
+                    'profile_picture' => array_key_exists('profile_image_url', $provider_data) ? $provider_data["profile_image_url"] : config('user.profile.no_profile_image_url'),
                 ];
         }
     }
