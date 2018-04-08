@@ -68,7 +68,7 @@ trait MimicTrait
 
         //if this is mimic reponse just return that mimic without hashtags or mimic_responses
         if ($mimic instanceof MimicResponse) {
-            return $mimicStructure;
+            return ['mimic' => $mimicStructure];
         }
 
         $hashtagsStructure = [];
@@ -155,7 +155,7 @@ trait MimicTrait
             ];
 
         if ($mimic instanceof Mimic) {
-            $extraParams['responses_count'] = $mimic->responses_count;
+            $extraParams['responses_count'] = $mimic->responses_count ?? 0;
         }
 
         return array_merge($standardResponse, $extraParams);
