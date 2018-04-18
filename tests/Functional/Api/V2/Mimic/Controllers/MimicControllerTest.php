@@ -387,7 +387,7 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/list?page=10', $data, 'v2');
+        $response = $this->doGet('mimic/list?page=100', $data, 'v2');
 
         $response
         ->assertJsonStructure([
@@ -395,7 +395,6 @@ class MimicControllerTest extends TestCase
             'mimics'
         ])
         ->assertJson([
-            'count' => 0,
             'mimics' => []
         ])
         ->assertStatus(200); 
@@ -975,34 +974,38 @@ class MimicControllerTest extends TestCase
 
         $response = $this->doPost('mimic/create', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
-        $fileName = $responseJSON['file'];
+        $fileName = $responseJSON['mimic']['file'];
 
         $response
         ->assertJsonStructure([
-            'id',
-            'username',
-            'profile_picture',
-            'user_id',
-            'mimic_type',
-            'upvote',
-            'file',
-            'file_url',
-            'video_thumb_url',
-            'aws_file',
-            'upvoted',
+            'mimic' => [
+                'id',
+                'username',
+                'profile_picture',
+                'user_id',
+                'mimic_type',
+                'upvote',
+                'file',
+                'file_url',
+                'video_thumb_url',
+                'aws_file',
+                'upvoted',
+            ]
         ])
         ->assertJson([
-            'id' => 131,
-            'username' => 'xyz1234',
-            'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
-            'user_id' => 96,
-            'mimic_type' => 'picture',
-            'upvote' => '1',
-            'file' => $fileName,
-            'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
-            'video_thumb_url' => null,
-            'aws_file' => null,
-            'upvoted' => null
+            'mimic' => [
+                'id' => 131,
+                'username' => 'xyz1234',
+                'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                'user_id' => 96,
+                'mimic_type' => 'picture',
+                'upvote' => '1',
+                'file' => $fileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
+                'video_thumb_url' => null,
+                'aws_file' => null,
+                'upvoted' => null
+            ]
         ])
         ->assertStatus(200);
 
@@ -1019,36 +1022,40 @@ class MimicControllerTest extends TestCase
 
         $response = $this->doPost('mimic/create', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
-        $fileName = $responseJSON['file'];
-        $array = explode("/", $responseJSON['video_thumb_url']);
+        $fileName = $responseJSON['mimic']['file'];
+        $array = explode("/", $responseJSON['mimic']['video_thumb_url']);
         $videoThumbFileName = end($array);
 
         $response
         ->assertJsonStructure([
-            'id',
-            'username',
-            'profile_picture',
-            'user_id',
-            'mimic_type',
-            'upvote',
-            'file',
-            'file_url',
-            'video_thumb_url',
-            'aws_file',
-            'upvoted',
+            'mimic' => [
+                'id',
+                'username',
+                'profile_picture',
+                'user_id',
+                'mimic_type',
+                'upvote',
+                'file',
+                'file_url',
+                'video_thumb_url',
+                'aws_file',
+                'upvoted',
+            ]
         ])
         ->assertJson([
-            'id' => 132,
-            'username' => 'xyz1234',
-            'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
-            'user_id' => 96,
-            'mimic_type' => 'video',
-            'upvote' => '1',
-            'file' => $fileName,
-            'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
-            'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$videoThumbFileName,
-            'aws_file' => null,
-            'upvoted' => null
+            'mimic' => [
+                'id' => 132,
+                'username' => 'xyz1234',
+                'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                'user_id' => 96,
+                'mimic_type' => 'video',
+                'upvote' => '1',
+                'file' => $fileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
+                'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$videoThumbFileName,
+                'aws_file' => null,
+                'upvoted' => null
+            ]
         ])
         ->assertStatus(200);
 

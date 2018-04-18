@@ -34,7 +34,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->allow_entry = base64_encode("almasi:slatkasi");
         //user id: 96, original email: dario_facebook@yahoo.com
-        $this->token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9taW1pYy5sb2NcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1MjA4ODE5NDEsImV4cCI6MTUyMDg4NTU0MSwibmJmIjoxNTIwODgxOTQxLCJqdGkiOiJXTEJXWVJXOExLOEZTR3dYIiwic3ViIjo5Nn0.qP3C3TuAgWxdfu2WKNyKueCPy8xXgtm0glO_yWHp7t4';
+        $this->token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9taW1pYy5sb2NcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE1MjQwODIwODMsImV4cCI6MTUzMTQ4OTQ0MywibmJmIjoxNTI0MDgyMDgzLCJqdGkiOiJOMm5Vc2RQUmNOZ3g5TlFBIiwic3ViIjo5Nn0.sFxNguxkoQiI6AWEh1G0-UwTrlqbuTdvQd71A1qpG4A';
     }
 
     /**
