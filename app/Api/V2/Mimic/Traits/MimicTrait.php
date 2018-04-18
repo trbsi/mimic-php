@@ -38,6 +38,68 @@ trait MimicTrait
     }
 
     /**
+     * Get mimic model and return response
+     *
+     * @param  Mimic|MimicResponse $mimics Mimic or MimicResponse loaded result
+     * @return array Generated mimic response
+     */
+    public function getMimicResponseContent($mimics)
+    {
+        $mimicsResponseContent = [];
+
+        //check if this is collection of items got with get() method
+        if (($mimics instanceof Collection && !$mimics->isEmpty()) || is_array($mimics)) {
+            foreach ($mimics as $mimic) {
+                $mimicsResponseContent[] = $this->generateContentForMimicResponse(
+                    $mimic,
+                    ($mimic->hashtags) ?? [],
+                    ($mimic->mimicResponses) ?? []
+                );
+            }
+        }
+        //if this is single item taken with first()
+        elseif ($mimics instanceof Collection === false && !empty($mimics)) {
+            return $this->generateContentForMimicResponse(
+                $mimics,
+                ($mimics->hashtags) ??  [],
+                ($mimics->mimicResponses) ?? []
+            );
+        }
+
+        return $mimicsResponseContent;
+    }
+
+    /**
+     * Get paginated response
+     * 
+     * @param collection $paginatedModel Mimics from the database taken with "->paginate()"
+     * @return array
+     */
+    public function getPaginatedResponseContent($paginatedModel)
+    {
+        return 
+        [
+            'count' => $paginatedModel->total(), //@TODO remove, this will be legacy and replced with 'meta'
+            'meta' => 
+            [
+                'pagination' => 
+                [
+                    'total' => $paginatedModel->total() ,
+                    'per_page' => $paginatedModel->perPage(),
+                    'current_page' => $paginatedModel->currentPage(),
+                    'last_page' => $paginatedModel->lastPage(),
+                    'next_page_url' => $paginatedModel->nextPageUrl(),
+                    'prev_page_url' => $paginatedModel->previousPageUrl(),
+                    'has_more_pages' => $paginatedModel->hasMorePages(),
+                    'first_item' => $paginatedModel->firstItem(),
+                    'last_item' => $paginatedModel->lastItem(),
+                ]
+            ],
+            'mimics' => $this->getMimicResponseContent($paginatedModel->items()),
+        ];
+    }
+
+    /**
      * Get Mimic type
      * @param  int $type 0/1
      * @return string "video/picture"

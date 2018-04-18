@@ -94,21 +94,15 @@ class MimicResponse extends Model
      */
     public function getMimicResponses($request, $authUser)
     {
-        $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT; //starting offset so you don't show responses you are sending as part of original mimic
-        if ($request->page) {
-            $offset = Mimic::LIST_RESPONSE_MIMICS_LIMIT * ($request->page);
-        }
 
         return $this
-            ->select($this->getTable() . ".*")
-            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = " . $this->getTable() . ".id), 1, 0) AS upvoted")
-            ->where("original_mimic_id", $request->original_mimic_id)
-            ->orderBy("upvote", "DESC")
-            ->orderBy("id", "DESC")
-            ->limit(Mimic::LIST_RESPONSE_MIMICS_LIMIT)
-            ->offset($offset)
-            ->with(['user'])
-            ->get();
+        ->select($this->getTable() . ".*")
+        ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = " . $this->getTable() . ".id), 1, 0) AS upvoted")
+        ->where("original_mimic_id", $request->original_mimic_id)
+        ->orderBy("upvote", "DESC")
+        ->orderBy("id", "DESC")
+        ->with(['user'])
+        ->paginate(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
     }
 
     public function originalMimic()

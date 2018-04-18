@@ -27,8 +27,8 @@ class Mimic extends Model
     const TYPE_PHOTO_STRING = 'picture';
     const FILE_PATH = '/files/user/'; //user_id/year/month/file.mp4
     const MAX_TAG_LENGTH = 50;
-    const LIST_ORIGINAL_MIMICS_LIMIT = 30;
-    const LIST_RESPONSE_MIMICS_LIMIT = 30;
+    const LIST_ORIGINAL_MIMICS_LIMIT = 2;
+    const LIST_RESPONSE_MIMICS_LIMIT = 2;
 
     /**
      * Generated
@@ -126,16 +126,12 @@ class Mimic extends Model
      * @param  Object $authUser Authenitacted user
      * @return [model]          [datafrom the database]
      */
-    public function getMimics($request, $authUser)
+    public function mimicsQuery($request, $authUser)
     {
+
         $mimicsTable = $this->getTable();
         $mimicResponseTable = (new MimicResponse)->getTable();
-
-        $queryData = ['offset' => 0, 'orderColumn' => "$mimicsTable.id", 'orderType' => 'DESC'];
-        if ($request->page) {
-            $queryData['offset'] = Mimic::LIST_ORIGINAL_MIMICS_LIMIT * $request->page;
-        }
-
+        $queryData = ['orderColumn' => "$mimicsTable.id", 'orderType' => 'DESC'];
         $mimics = $this;
 
         //filter original mimics by a specific user
@@ -163,37 +159,39 @@ class Mimic extends Model
             ;
         }
 
-        $mimics = $mimics->select("$mimicsTable.*")
-            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
-            ->selectRaw("(SELECT COUNT(*) FROM $mimicResponseTable WHERE original_mimic_id = $mimicsTable.id) AS responses_count")
-            ->orderBy($queryData['orderColumn'], $queryData['orderType'])//then order by other recent mimics
-            ->limit(Mimic::LIST_ORIGINAL_MIMICS_LIMIT)
-            ->offset($queryData['offset'])
-            ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable, $request) {
-                $query->select("$mimicResponseTable.*");
-                //check if user upvoted this mimic response
-                $query->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
-                //get user info for mimicResponses
-                $query->with('user');
+        $result = $mimics
+        ->select("$mimicsTable.*")
+        ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
+        ->selectRaw("(SELECT COUNT(*) FROM $mimicResponseTable WHERE original_mimic_id = $mimicsTable.id) AS responses_count")
+        ->orderBy($queryData['orderColumn'], $queryData['orderType'])//then order by other recent mimics
+        ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable, $request) {
+            $query->select("$mimicResponseTable.*");
+            //check if user upvoted this mimic response
+            $query->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
+            //get user info for mimicResponses
+            $query->with('user');
 
-                //first order by this specific id then by upvote
-                //if someone clicked on response mimic on user's profile make this response on the first place
-                if ($request->response_mimic_id) {
-                    $query->orderBy(DB::raw("$mimicResponseTable.id=$request->response_mimic_id"), 'DESC');
-                }
-                //load responses by upvotes
-                $query->orderBy("upvote", "DESC");
-                $query->orderBy("$mimicResponseTable.id", "DESC");
-            }, 'user', 'hashtags', /*'mimicTagusers'*/])
-            ->groupBy("$mimicsTable.id")
-            ->get()
-            ->map(function ($query) {
-                $query->mimicResponses = $query->mimicResponses->take(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
-                return $query;
-            });
+            //first order by this specific id then by upvote
+            //if someone clicked on response mimic on user's profile make this response on the first place
+            if ($request->response_mimic_id) {
+                $query->orderBy(DB::raw("$mimicResponseTable.id=$request->response_mimic_id"), 'DESC');
+            }
+            //load responses by upvotes
+            $query->orderBy("upvote", "DESC");
+            $query->orderBy("$mimicResponseTable.id", "DESC");
+        }, 'user', 'hashtags', /*'mimicTagusers'*/])
+        ->groupBy("$mimicsTable.id")
+        ->paginate(Mimic::LIST_ORIGINAL_MIMICS_LIMIT);
 
-        return $mimics;
+        //paginate mimicResponses
+        $result->map(function ($query) {
+            $query->mimicResponses = $query->mimicResponses->take(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
+            return $query;
+        });
+
+        return $this->getPaginatedResponseContent($result);
     }
+
 
     /**
      * @TODO - check if tags exists, put in redis as key => value and check in that way
@@ -262,37 +260,6 @@ class Mimic extends Model
         return $returnUsers;
     }
 
-    /**
-     * Get mimic model and return response
-     *
-     * @param  Mimic|MimicResponse $mimics Mimic or MimicResponse loaded result
-     * @return array Generated mimic response
-     */
-    public function getMimicApiResponseContent($mimics)
-    {
-        $mimicsResponseContent = [];
-
-        //check if this is collection of items get with get() method
-        if ($mimics instanceof Collection && !$mimics->isEmpty()) {
-            foreach ($mimics as $mimic) {
-                $mimicsResponseContent[] = $this->generateContentForMimicResponse(
-                    $mimic,
-                    ($mimic->hashtags) ? $mimic->hashtags : [],
-                    ($mimic->mimicResponses) ? $mimic->mimicResponses : []
-                );
-            }
-        }
-        //if this is single item taken with first()
-        elseif ($mimics instanceof Collection === false && !empty($mimics)) {
-            return $this->generateContentForMimicResponse(
-                $mimics,
-                ($mimics->hashtags) ? $mimics->hashtags : [],
-                ($mimics->mimicResponses) ? $mimics->mimicResponses : []
-            );
-        }
-
-        return $mimicsResponseContent;
-    }
 
     /**
      * send various notification to a user

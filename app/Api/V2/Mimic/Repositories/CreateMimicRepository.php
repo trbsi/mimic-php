@@ -82,7 +82,7 @@ class CreateMimicRepository
             }
             //@TODO-TagUsers (still in progress and needs to be tested)
             //$this->mimic->checkTaggedUser($request->usernames, $mimic);
-            return $this->mimic->getMimicApiResponseContent($model->where('id', $this->createdModel->id)->with($relations)->first());
+            return $this->mimic->getMimicResponseContent($model->where('id', $this->createdModel->id)->with($relations)->first());
         }
 
         return false;
