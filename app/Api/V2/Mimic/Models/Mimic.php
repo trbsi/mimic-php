@@ -27,8 +27,8 @@ class Mimic extends Model
     const TYPE_PHOTO_STRING = 'picture';
     const FILE_PATH = '/files/user/'; //user_id/year/month/file.mp4
     const MAX_TAG_LENGTH = 50;
-    const LIST_ORIGINAL_MIMICS_LIMIT = 2;
-    const LIST_RESPONSE_MIMICS_LIMIT = 2;
+    const LIST_ORIGINAL_MIMICS_LIMIT = 30;
+    const LIST_RESPONSE_MIMICS_LIMIT = 30;
 
     /**
      * Generated
