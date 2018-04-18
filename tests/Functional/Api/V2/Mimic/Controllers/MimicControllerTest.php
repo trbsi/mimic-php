@@ -639,60 +639,68 @@ class MimicControllerTest extends TestCase
         ->assertJsonStructure([
             'mimics' => [
                 '*' => [
-                    'id',
-                    'username',
-                    'profile_picture',
-                    'user_id',
-                    'mimic_type',
-                    'upvote',
-                    'file',
-                    'file_url',
-                    'video_thumb_url',
-                    'aws_file',
-                    'upvoted',
+                    'mimic' => [
+                        'id',
+                        'username',
+                        'profile_picture',
+                        'user_id',
+                        'mimic_type',
+                        'upvote',
+                        'file',
+                        'file_url',
+                        'video_thumb_url',
+                        'aws_file',
+                        'upvoted',
+                    ]
                 ]
             ]
         ])
         ->assertJson([
             'mimics' => [
                 [
-                    'id' => 100,
-                    'username' => 'beachdude',
-                    'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
-                    'user_id' => 2,
-                    'mimic_type' => 'picture',
-                    'upvote' => '123M',
-                    'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
-                    'video_thumb_url' => null,
-                    'aws_file' => null,
-                    'upvoted' => 0
+                    'mimic' => [
+                        'id' => 130,
+                        'username' => 'beachdude',
+                        'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                        'user_id' => 2,
+                        'mimic_type' => 'picture',
+                        'upvote' => '123M',
+                        'file' => 'xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
+                        'video_thumb_url' => null,
+                        'aws_file' => null,
+                        'upvoted' => 0
+                    ]
                 ],
                 [
-                    'id' => 99,
-                    'username' => 'beachdude',
-                    'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
-                    'user_id' => 2,
-                    'mimic_type' => 'picture',
-                    'upvote' => '123M',
-                    'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
-                    'video_thumb_url' => null,
-                    'aws_file' => null,
-                    'upvoted' => 0
+                    'mimic' => [
+                        'id' => 129,
+                        'username' => 'beachdude',
+                        'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                        'user_id' => 2,
+                        'mimic_type' => 'picture',
+                        'upvote' => '123M',
+                        'file' => 'xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
+                        'video_thumb_url' => null,
+                        'aws_file' => null,
+                        'upvoted' => 0
+                    ]
                 ],
                 [
-                    'id' => 98,
-                    'username' => 'beachdude',
-                    'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
-                    'user_id' => 2,
-                    'mimic_type' => 'picture',
-                    'upvote' => '123M',
-                    'file' => 'xyz.jpg',
-                    'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
-                    'video_thumb_url' => null,
-                    'aws_file' => null,
-                    'upvoted' => 0
+                    'mimic' => [
+                        'id' => 128,
+                        'username' => 'beachdude',
+                        'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                        'user_id' => 2,
+                        'mimic_type' => 'picture',
+                        'upvote' => '123M',
+                        'file' => 'xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
+                        'video_thumb_url' => null,
+                        'aws_file' => null,
+                        'upvoted' => 0
+                    ]
                 ]
             ]
         ])
