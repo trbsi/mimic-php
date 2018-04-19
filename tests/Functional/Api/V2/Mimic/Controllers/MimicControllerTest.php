@@ -281,15 +281,28 @@ class MimicControllerTest extends TestCase
  
 
     //--------------------------------List mimics--------------------------------
-    public function testListMimicsOnMainScreenPageZero()
+    public function testListMimicsOnMainScreenPageOne()
     {
         $data = [];
 
-        $response = $this->doGet('mimic/list?page=0', $data, 'v2');
+        $response = $this->doGet('mimic/list?page=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
             'count',
+            'meta' => [
+                'pagination' => [
+                    'total',
+                    'per_page',
+                    'current_page',
+                    'last_page',
+                    'next_page_url',
+                    'prev_page_url',
+                    'has_more_pages',
+                    'first_item',
+                    'last_item'
+                ]
+            ],
             'mimics' =>
             [
                 '*' => [
@@ -335,6 +348,19 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'count' => 9,
+            'meta' => [
+                'pagination' => [
+                    'total' => 9,
+                    'per_page' => 30,
+                    'current_page' => 1,
+                    'last_page' => 1,
+                    'next_page_url' => null,
+                    'prev_page_url' => null,
+                    'has_more_pages' => false,
+                    'first_item' => 1,
+                    'last_item' => 9
+                ]
+            ],
             'mimics' => [
                 [
                     'mimic' => [
@@ -404,11 +430,24 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/list?page=0&user_id=1&original_mimic_id=2', $data, 'v2');
+        $response = $this->doGet('mimic/list?page=1&user_id=1&original_mimic_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
             'count',
+            'meta' => [
+                'pagination' => [
+                    'total',
+                    'per_page',
+                    'current_page',
+                    'last_page',
+                    'next_page_url',
+                    'prev_page_url',
+                    'has_more_pages',
+                    'first_item',
+                    'last_item'
+                ]
+            ],
             'mimics' => [
                 '*' => [
                     'mimic' => [
@@ -452,6 +491,19 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'count' => 1,
+            'meta' => [
+                'pagination' => [
+                    'total' => 1,
+                    'per_page' => 30,
+                    'current_page' => 1,
+                    'last_page' => 1,
+                    'next_page_url' => null,
+                    'prev_page_url' => null,
+                    'has_more_pages' => false,
+                    'first_item' => 1,
+                    'last_item' => 1
+                ]
+            ],
             'mimics' => [
                 [
                     'mimic' => [
@@ -512,11 +564,24 @@ class MimicControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('mimic/list?page=0&user_id=1&response_mimic_id=1&original_mimic_id=1', $data, 'v2');
+        $response = $this->doGet('mimic/list?page=1&user_id=1&original_mimic_id=1&response_mimic_id=3', $data, 'v2');
 
         $response
         ->assertJsonStructure([
             'count',
+            'meta' => [
+                'pagination' => [
+                    'total',
+                    'per_page',
+                    'current_page',
+                    'last_page',
+                    'next_page_url',
+                    'prev_page_url',
+                    'has_more_pages',
+                    'first_item',
+                    'last_item'
+                ]
+            ],
             'mimics' => [
                 '*' => [
                     'mimic' => [
@@ -561,6 +626,19 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'count' => 1,
+            'meta' => [
+                'pagination' => [
+                    'total' => 1,
+                    'per_page' => 30,
+                    'current_page' => 1,
+                    'last_page' => 1,
+                    'next_page_url' => null,
+                    'prev_page_url' => null,
+                    'has_more_pages' => false,
+                    'first_item' => 1,
+                    'last_item' => 1
+                ]
+            ],
             'mimics' => [
                 [
                     'mimic' => [
@@ -598,21 +676,34 @@ class MimicControllerTest extends TestCase
                     'hashtags_flat' => '#beatbox #box #beat #music',
                     'mimic_responses' => [
                         [
-                            'id' => 1,
-                            'username' => 'beachdude',
-                            'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
-                            'user_id' => 2,
-                            'mimic_type' => 'picture',
+                            'id' => 3,
+                            'username' => 'Cognizant',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/4.jpg',
+                            'user_id' => 4,
+                            'mimic_type' => 'video',
                             'upvote' => '123M',
-                            'file' => '46bcd7f8cc3373caea6b0efd888a5c2d.jpg',
-                            'file_url' => 'http://mimic.loc/files/user/2/1970/01/46bcd7f8cc3373caea6b0efd888a5c2d.jpg',
-                            'video_thumb_url' => null,
+                            'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                            'file_url' => 'http://mimic.loc/files/user/4/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                            'video_thumb_url' => 'http://mimic.loc/files/user/4/1970/01/fa66664ccc90eaebc38daa2829e73b0e.jpg',
                             'aws_file' => null,
                             'upvoted' => 0
-                        ]
-                    ]
-                ]
-            ]
+                        ],
+                        [
+                            'id' => 11,
+                            'username' => 'hogwartsthestral',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/12.jpg',
+                            'user_id' => 12,
+                            'mimic_type' => 'video',
+                            'upvote' => '123M',
+                            'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                            'file_url' => 'http://mimic.loc/files/user/12/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                            'video_thumb_url' => 'http://mimic.loc/files/user/12/1970/01/c7a2baecad36742d9cfdd40a52c7e6f5.jpg',
+                            'aws_file' => null,
+                            'upvoted' => 0
+                        ],
+                    ],
+                ],
+            ],
 
         ])
         ->assertStatus(200);
@@ -633,10 +724,24 @@ class MimicControllerTest extends TestCase
         
         $data = [];
 
-        $response = $this->doGet('mimic/load-responses?page=1&original_mimic_id=1', $data, 'v2');
+        $response = $this->doGet('mimic/load-responses?page=2&original_mimic_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
+            'count',
+            'meta' => [
+                'pagination' => [
+                    'total',
+                    'per_page',
+                    'current_page',
+                    'last_page',
+                    'next_page_url',
+                    'prev_page_url',
+                    'has_more_pages',
+                    'first_item',
+                    'last_item'
+                ]
+            ],
             'mimics' => [
                 '*' => [
                     'mimic' => [
@@ -656,17 +761,31 @@ class MimicControllerTest extends TestCase
             ]
         ])
         ->assertJson([
+            'count' => 61,
+            'meta' => [
+                'pagination' => [
+                    'total' => 61,
+                    'per_page' => 30,
+                    'current_page' => 2,
+                    'last_page' => 3,
+                    'next_page_url' => "http://mimic.loc/api/mimic/load-responses?page=3",
+                    'prev_page_url' => "http://mimic.loc/api/mimic/load-responses?page=1",
+                    'has_more_pages' => true,
+                    'first_item' => 31,
+                    'last_item' => 60
+                ]
+            ],
             'mimics' => [
                 [
                     'mimic' => [
-                        'id' => 130,
+                        'id' => 100,
                         'username' => 'beachdude',
                         'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
                         'user_id' => 2,
                         'mimic_type' => 'picture',
                         'upvote' => '123M',
                         'file' => 'xyz.jpg',
-                        'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/2018/04/xyz.jpg',
                         'video_thumb_url' => null,
                         'aws_file' => null,
                         'upvoted' => 0
@@ -674,14 +793,14 @@ class MimicControllerTest extends TestCase
                 ],
                 [
                     'mimic' => [
-                        'id' => 129,
+                        'id' => 99,
                         'username' => 'beachdude',
                         'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
                         'user_id' => 2,
                         'mimic_type' => 'picture',
                         'upvote' => '123M',
                         'file' => 'xyz.jpg',
-                        'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/2018/04/xyz.jpg',
                         'video_thumb_url' => null,
                         'aws_file' => null,
                         'upvoted' => 0
@@ -689,14 +808,14 @@ class MimicControllerTest extends TestCase
                 ],
                 [
                     'mimic' => [
-                        'id' => 128,
+                        'id' => 98,
                         'username' => 'beachdude',
                         'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
                         'user_id' => 2,
                         'mimic_type' => 'picture',
                         'upvote' => '123M',
                         'file' => 'xyz.jpg',
-                        'file_url' => 'http://mimic.loc/files/user/2/'.date("Y").'/'.date("m").'/xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/2018/04/xyz.jpg',
                         'video_thumb_url' => null,
                         'aws_file' => null,
                         'upvoted' => 0
@@ -712,13 +831,41 @@ class MimicControllerTest extends TestCase
 
         $data = [];
 
-        $response = $this->doGet('mimic/load-responses?page=10&original_mimic_id=1', $data, 'v2');
+        $response = $this->doGet('mimic/load-responses?page=100&original_mimic_id=1', $data, 'v2');
 
         $response
         ->assertJsonStructure([
+            'count',
+            'meta' => [
+                'pagination' => [
+                    'total',
+                    'per_page',
+                    'current_page',
+                    'last_page',
+                    'next_page_url',
+                    'prev_page_url',
+                    'has_more_pages',
+                    'first_item',
+                    'last_item'
+                ]
+            ],
             'mimics'
         ])
         ->assertJson([
+            'count' => 61,
+            'meta' => [
+                'pagination' => [
+                    'total' => 61,
+                    'per_page' => 30,
+                    'current_page' => 100,
+                    'last_page' => 3,
+                    'next_page_url' => null,
+                    'prev_page_url' => "http://mimic.loc/api/mimic/load-responses?page=99",
+                    'has_more_pages' => false,
+                    'first_item' => null,
+                    'last_item' => null
+                ]
+            ],
             'mimics' => []
         ])
         ->assertStatus(200); 
