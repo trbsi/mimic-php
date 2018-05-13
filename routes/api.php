@@ -72,7 +72,10 @@ $api->version('v2', function (Router $api) {
                 $api->get('following', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@following']);
             });
 
-            $api->get('search', ['uses' => 'App\Api\V2\Search\Controllers\SearchController@search']);
+            $api->group(['prefix' => 'search'], function (Router $api) {
+                $api->get('/', ['uses' => 'App\Api\V2\Search\Controllers\SearchController@search']);
+                $api->get('top', ['uses' => 'App\Api\V2\Search\Controllers\SearchController@topHashtagsAndUsers']);
+            });
         });
     });
 });

@@ -12,7 +12,6 @@ class Constants
     public const ORDER_BY_RECENT = 'recent';
     public const ORDER_BY_POPULAR = 'popular';
     public const ORDER_BY_PEOPLE_YOU_FOLLOW = 'people_you_follow';    
-
     
     /**
      * Get our social accounts

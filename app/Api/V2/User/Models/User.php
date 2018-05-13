@@ -8,10 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use JWTAuth;
 use App\Helpers\Helper;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Api\V2\User\Traits\UserQueryTrait;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, UserQueryTrait;
 
     protected $table = 'users';
 

@@ -2,10 +2,12 @@
 namespace App\Api\V2\Hashtag\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Api\V2\Hashtag\Traits\HashtagQueryTrait;
 
 class Hashtag extends Model
 {
-
+    use HashtagQueryTrait;
+    
     /**
      * Generated
      */
