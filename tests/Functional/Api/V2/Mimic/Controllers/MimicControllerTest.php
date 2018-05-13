@@ -785,7 +785,7 @@ class MimicControllerTest extends TestCase
                         'mimic_type' => 'picture',
                         'upvote' => '123M',
                         'file' => 'xyz.jpg',
-                        'file_url' => 'http://mimic.loc/files/user/2/2018/04/xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/'.date('Y').'/'.date('m').'/xyz.jpg',
                         'video_thumb_url' => null,
                         'aws_file' => null,
                         'upvoted' => 0
@@ -800,7 +800,7 @@ class MimicControllerTest extends TestCase
                         'mimic_type' => 'picture',
                         'upvote' => '123M',
                         'file' => 'xyz.jpg',
-                        'file_url' => 'http://mimic.loc/files/user/2/2018/04/xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/'.date('Y').'/'.date('m').'/xyz.jpg',
                         'video_thumb_url' => null,
                         'aws_file' => null,
                         'upvoted' => 0
@@ -815,7 +815,7 @@ class MimicControllerTest extends TestCase
                         'mimic_type' => 'picture',
                         'upvote' => '123M',
                         'file' => 'xyz.jpg',
-                        'file_url' => 'http://mimic.loc/files/user/2/2018/04/xyz.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/2/'.date('Y').'/'.date('m').'/xyz.jpg',
                         'video_thumb_url' => null,
                         'aws_file' => null,
                         'upvoted' => 0
