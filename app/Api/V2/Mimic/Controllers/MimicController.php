@@ -19,8 +19,8 @@ class MimicController extends BaseAuthController
 {
     public function __construct(
         User $user,
-                                Mimic $mimic,
-                                MimicResponse $mimicResponse
+        Mimic $mimic,
+        MimicResponse $mimicResponse
     ) {
         parent::__construct($user);
         $this->mimic = $mimic;
@@ -62,7 +62,7 @@ class MimicController extends BaseAuthController
      */
     public function listMimics(Request $request)
     {
-        return response()->json($this->mimic->mimicsQuery($request, $this->authUser));
+        return response()->json($this->mimic->getMimics($request, $this->authUser));
     }
 
     /**
