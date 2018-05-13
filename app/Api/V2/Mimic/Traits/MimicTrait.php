@@ -162,9 +162,9 @@ trait MimicTrait
             $followTable = (new Follow)->getTable();
             $this->mimicsQuery = $this->mimicsQuery
                 ->where(function($query) use($authUser) {
-                    $query->where('user_id', $authUser->id)->orWhere(DB::raw('follow.following IS NOT NULL'));
+                    $query->where('user_id', $authUser->id)->orWhereRaw('follow.following IS NOT NULL');
                 }) 
-                ->join($followTable, function ($join) use ($followTable, $mimicsTable, $authUser) {
+                ->leftJoin($followTable, function ($join) use ($followTable, $mimicsTable, $authUser) {
                     $join->on("$followTable.following", '=', "$mimicsTable.user_id");
                     $join->where('followed_by', $authUser->id);
                 })
