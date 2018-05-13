@@ -5,6 +5,7 @@ namespace Tests\Functional\Api\V2\Mimic\Controllers;
 use Tests\TestCase;
 use Tests\TestCaseHelper;
 use App\Api\V2\Mimic\Models\Mimic;
+use App\Api\V2\Follow\Models\Follow;
 use App\Api\V2\Mimic\Models\MimicResponse;
 use JWTAuth;
 use Illuminate\Support\Facades\Storage;
@@ -871,6 +872,415 @@ class MimicControllerTest extends TestCase
         ->assertStatus(200); 
     }
 
+
+    public function testGetMimicsFromPeopleYouFollow()
+    {
+        //add some followers
+        foreach ([1, 3] as $following) {
+            Follow::create([
+                'followed_by' => 96,
+                'following' => $following
+            ]);
+        }
+        
+        
+        $response = $this->doGet('mimic/list?page=1&order_by=people_you_follow', [], 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'count',
+            'meta' => [
+                'pagination' => [
+                    'total',
+                    'per_page',
+                    'current_page',
+                    'last_page',
+                    'next_page_url',
+                    'prev_page_url',
+                    'has_more_pages',
+                    'first_item',
+                    'last_item'
+                ]
+            ],
+            'mimics' => [
+                '*' => [
+                    'mimic' => [
+                        'id',
+                        'username',
+                        'profile_picture',
+                        'user_id',
+                        'mimic_type',
+                        'upvote',
+                        'file',
+                        'file_url',
+                        'video_thumb_url',
+                        'aws_file',
+                        'upvoted',
+                        'responses_count',
+                    ],
+                    'hashtags' => [
+                        '*' => [
+                            'hashtag_id',
+                            'hashtag_name'
+                        ],
+                    ],
+                    'hashtags_flat',
+                    'mimic_responses'
+                ]
+            ]
+        ])
+        ->assertJson([
+            'count' => 2,
+            'meta' => [
+                'pagination' => [
+                    'total' => 2,
+                    'per_page' => 30,
+                    'current_page' => 1,
+                    'last_page' => 1,
+                    'next_page_url' => null,
+                    'prev_page_url' => null,
+                    'has_more_pages' => false,
+                    'first_item' => 1,
+                    'last_item' => 2
+                ]
+            ],
+            'mimics' => [
+                [
+                    'mimic' => [
+                        'id' => 3,
+                        'username' => 'Chrisburke04',
+                        'profile_picture' => 'http://mimic.loc/files/hr/female/3.jpg',
+                        'user_id' => 3,
+                        'mimic_type' => 'picture',
+                        'upvote' => '123M',
+                        'file' => '7372ad0a28e9428413cbd41abb6433e5.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/3/1970/01/7372ad0a28e9428413cbd41abb6433e5.jpg',
+                        'video_thumb_url' => null,
+                        'aws_file' => null,
+                        'upvoted' => 0,
+                        'responses_count' => 10
+                    ],
+                    'hashtags' => [
+                        [
+                            'hashtag_id' => 20,
+                            'hashtag_name' => '#happydog'
+                        ],
+                        [
+                            'hashtag_id' => 21,
+                            'hashtag_name' => '#dog'
+                        ],
+                        [
+                            'hashtag_id' => 22,
+                            'hashtag_name' => '#dogs'
+                        ],
+                        [
+                            'hashtag_id' => 23,
+                            'hashtag_name' => '#cutedogs'
+                        ],
+                        [
+                            'hashtag_id' => 24,
+                            'hashtag_name' => '#cute'
+                        ]
+                    ],
+                    'hashtags_flat' => '#happydog #dog #dogs #cutedogs #cute',
+                    'mimic_responses' => [
+                        [
+                            'id' => 26,
+                            'username' => 'Jrfoley5',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/13.jpg',
+                            'user_id' => 13,
+                            'mimic_type' => 'picture',
+                            'upvote' => '123M',
+                            'file' => '7372ad0a28e9428413cbd41abb6433e5.jpg',
+                            'file_url' => 'http://mimic.loc/files/user/13/1970/01/7372ad0a28e9428413cbd41abb6433e5.jpg',
+                            'video_thumb_url' => null,
+                            'aws_file' => null,
+                            'upvoted' => 0
+                        ]
+                    ]
+                ],
+                [
+                    'mimic' => [
+                        'id' => 1,
+                        'username' => 'AndrewCG',
+                        'profile_picture' => 'http://mimic.loc/files/hr/male/1.jpg',
+                        'user_id' => 1,
+                        'mimic_type' => 'video',
+                        'upvote' => '123M',
+                        'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                        'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                        'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg',
+                        'aws_file' => null,
+                        'upvoted' => 0,
+                        'responses_count' => 61
+                    ],
+                    'hashtags' => [
+                        [
+                            'hashtag_id' => 12,
+                            'hashtag_name' => '#beatbox'
+                        ],
+                        [
+                            'hashtag_id' => 13,
+                            'hashtag_name' => '#box'
+                        ],
+                        [
+                            'hashtag_id' => 14,
+                            'hashtag_name' => '#beat'
+                        ],
+                        [
+                            'hashtag_id' => 15,
+                            'hashtag_name' => '#music'
+                        ]
+                    ],
+                    'hashtags_flat' => '#beatbox #box #beat #music',
+                    'mimic_responses' => [
+                        [
+                            'id' => 130,
+                            'username' => 'beachdude',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                            'user_id' => 2,
+                            'mimic_type' => 'picture',
+                            'upvote' => '123M',
+                            'file' => 'xyz.jpg',
+                            'file_url' => 'http://mimic.loc/files/user/2/'.date('Y').'/'.date('m').'/xyz.jpg',
+                            'video_thumb_url' => null,
+                            'aws_file' => null,
+                            'upvoted' => 0
+                        ]
+                    ]
+                ]
+            ]
+        ])
+        ->assertStatus(200); 
+    }
+
+    public function testGetRecentMimics()
+    {
+        $response = $this->doGet('mimic/list?page=1&order_by=recent', [], 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'count',
+            'meta' => [
+                'pagination' => [
+                    'total',
+                    'per_page',
+                    'current_page',
+                    'last_page',
+                    'next_page_url',
+                    'prev_page_url',
+                    'has_more_pages',
+                    'first_item',
+                    'last_item'
+                ]
+            ],
+            'mimics' => [
+                '*' => [
+                    'mimic' => [
+                        'id',
+                        'username',
+                        'profile_picture',
+                        'user_id',
+                        'mimic_type',
+                        'upvote',
+                        'file',
+                        'file_url',
+                        'video_thumb_url',
+                        'aws_file',
+                        'upvoted',
+                        'responses_count',
+                    ],
+                    'hashtags' => [
+                        '*' => [
+                            'hashtag_id',
+                            'hashtag_name'
+                        ],
+                    ],
+                    'hashtags_flat',
+                    'mimic_responses'
+                ]
+            ]
+        ])
+        ->assertJson([
+            'count' => 9,
+            'meta' => [
+                'pagination' => [
+                    'total' => 9,
+                    'per_page' => 30,
+                    'current_page' => 1,
+                    'last_page' => 1,
+                    'next_page_url' => null,
+                    'prev_page_url' => null,
+                    'has_more_pages' => false,
+                    'first_item' => 1,
+                    'last_item' => 9
+                ]
+            ],
+            'mimics' => [
+                [
+                    'mimic' => [
+                        'id' => 9,
+                        'username' => 'Desynchronized',
+                        'profile_picture' => 'http://mimic.loc/files/hr/female/9.jpg',
+                        'user_id' => 9,
+                        'mimic_type' => 'picture',
+                        'upvote' => '123M',
+                        'file' => 'd71934d20a65fd1ef32e914c0ad48c77.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/9/1970/01/d71934d20a65fd1ef32e914c0ad48c77.jpg',
+                        'video_thumb_url' => null,
+                        'aws_file' => null,
+                        'upvoted' => 0,
+                        'responses_count' => 10
+                    ],
+                    'hashtags' => [
+                        [
+                            'hashtag_id' => 43,
+                            'hashtag_name' => '#videogame'
+                        ],
+                        [
+                            'hashtag_id' => 44,
+                            'hashtag_name' => '#shoot'
+                        ],
+                    ],
+                    'hashtags_flat' => '#videogame #shoot',
+                    'mimic_responses' => [
+                        [
+                            'id' => 80,
+                            'username' => 'piperpilot32',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/19.jpg',
+                            'user_id' => 19,
+                            'mimic_type' => 'video',
+                            'upvote' => '123M',
+                            'file' => '0ad52c7c64e23d527a4c907c7deb211e.mp4',
+                            'file_url' => 'http://mimic.loc/files/user/19/1970/01/0ad52c7c64e23d527a4c907c7deb211e.mp4',
+                            'video_thumb_url' => 'http://mimic.loc/files/user/19/1970/01/f319af632ddaaedd97a79f01e958fb04.jpg',
+                            'aws_file' => null,
+                            'upvoted' => 0
+                        ],
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(200); 
+    }
+
+    public function testGetPopularMimics()
+    {
+        $response = $this->doGet('mimic/list?page=1&order_by=popular', [], 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'count',
+            'meta' => [
+                'pagination' => [
+                    'total',
+                    'per_page',
+                    'current_page',
+                    'last_page',
+                    'next_page_url',
+                    'prev_page_url',
+                    'has_more_pages',
+                    'first_item',
+                    'last_item'
+                ]
+            ],
+            'mimics' => [
+                '*' => [
+                    'mimic' => [
+                        'id',
+                        'username',
+                        'profile_picture',
+                        'user_id',
+                        'mimic_type',
+                        'upvote',
+                        'file',
+                        'file_url',
+                        'video_thumb_url',
+                        'aws_file',
+                        'upvoted',
+                        'responses_count',
+                    ],
+                    'hashtags' => [
+                        '*' => [
+                            'hashtag_id',
+                            'hashtag_name'
+                        ],
+                    ],
+                    'hashtags_flat',
+                    'mimic_responses'
+                ]
+            ]
+        ])
+        ->assertJson([
+            'count' => 9,
+            'meta' => [
+                'pagination' => [
+                    'total' => 9,
+                    'per_page' => 30,
+                    'current_page' => 1,
+                    'last_page' => 1,
+                    'next_page_url' => null,
+                    'prev_page_url' => null,
+                    'has_more_pages' => false,
+                    'first_item' => 1,
+                    'last_item' => 9
+                ]
+            ],
+            'mimics' => [
+                [
+                    'mimic' => [
+                        'id' => 1,
+                        'username' => 'AndrewCG',
+                        'profile_picture' => 'http://mimic.loc/files/hr/male/1.jpg',
+                        'user_id' => 1,
+                        'mimic_type' => 'video',
+                        'upvote' => '123M',
+                        'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                        'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                        'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg',
+                        'aws_file' => null,
+                        'upvoted' => 0,
+                        'responses_count' => 61
+                    ],
+                    'hashtags' => [
+                        [
+                            'hashtag_id' => 12,
+                            'hashtag_name' => '#beatbox'
+                        ],
+                        [
+                            'hashtag_id' => 13,
+                            'hashtag_name' => '#box'
+                        ],
+                        [
+                            'hashtag_id' => 14,
+                            'hashtag_name' => '#beat'
+                        ],
+                        [
+                            'hashtag_id' => 15,
+                            'hashtag_name' => '#music'
+                        ]
+                    ],
+                    'hashtags_flat' => '#beatbox #box #beat #music',
+                    'mimic_responses' => [
+                        [
+                            'id' => 130,
+                            'username' => 'beachdude',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                            'user_id' => 2,
+                            'mimic_type' => 'picture',
+                            'upvote' => '123M',
+                            'file' => 'xyz.jpg',
+                            'file_url' => 'http://mimic.loc/files/user/2/2018/05/xyz.jpg',
+                            'video_thumb_url' => null,
+                            'aws_file' => null,
+                            'upvoted' => 0
+                        ]
+                    ]
+                ],
+            ]
+        ])
+        ->assertStatus(200);
+    }
 
     //--------------------------------Upload mimics--------------------------------
     //original

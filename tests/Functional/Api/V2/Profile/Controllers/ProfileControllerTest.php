@@ -40,7 +40,7 @@ class ProfileControllerTest extends TestCase
             'followers' => '123M',
             'following' => '123M',
             'number_of_mimics' => '123M',
-            'i_am_following_you' => false
+            'i_am_following_you' => true
 	    ])
         ->assertStatus(200);
     }
