@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Api\V2\Hashtag\Models\Hashtag;
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Mimic\Traits\MimicTrait;
+use App\Api\V2\Mimic\Traits\MimicQueryTrait;
 use App\Api\V2\Mimic\Models\MimicResponse;
 use Illuminate\Support\Collection;
 use App\Helpers\Constants;
@@ -14,7 +15,7 @@ use App\Helpers\Helper;
 
 class Mimic extends Model
 {
-    use MimicTrait, SoftDeletes;
+    use MimicTrait, SoftDeletes, MimicQueryTrait;
 
     const TYPE_VIDEO = 1;
     const TYPE_VIDEO_STRING = 'video';
