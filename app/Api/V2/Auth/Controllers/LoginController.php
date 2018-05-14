@@ -44,12 +44,16 @@ class LoginController extends Controller
         //update user
         else {
             $updateData = array_only($provider_data, ['email', 'profile_picture']);
-            if (array_get($provider_data, 'email') === null) {
+            if (!array_get($provider_data, 'email')) {
                 $updateData = array_only($provider_data, ['profile_picture']);
             }
 
-            $user->update($updateData);
-            DB::commit();
+            try {
+                $user->update($updateData);
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+            }   
         }
 
         if ($user) {

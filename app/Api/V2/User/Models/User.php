@@ -9,10 +9,11 @@ use JWTAuth;
 use App\Helpers\Helper;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Api\V2\User\Traits\UserQueryTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, UserQueryTrait;
+    use Notifiable, UserQueryTrait, SoftDeletes;
 
     protected $table = 'users';
 
