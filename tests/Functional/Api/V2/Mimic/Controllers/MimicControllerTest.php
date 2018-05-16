@@ -191,10 +191,12 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'type'
+            'type',
+            'upvotes',
         ])
         ->assertJson([
-            'type' => 'upvoted'
+            'type' => 'upvoted',
+
         ])
         ->assertStatus(200); 
     }
@@ -207,10 +209,11 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'type'
+            'type',
+            'upvotes',
         ])
         ->assertJson([
-            'type' => 'downvoted'
+            'type' => 'downvoted',
         ])
         ->assertStatus(200); 
     }
@@ -223,7 +226,8 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'type'
+            'type',
+            'upvotes',
         ])
         ->assertJson([
             'type' => 'upvoted'
@@ -239,7 +243,8 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'type'
+            'type',
+            'upvotes',
         ])
         ->assertJson([
             'type' => 'downvoted'

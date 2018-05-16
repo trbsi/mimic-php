@@ -12,7 +12,10 @@ class Constants
     public const ORDER_BY_RECENT = 'recent';
     public const ORDER_BY_POPULAR = 'popular';
     public const ORDER_BY_PEOPLE_YOU_FOLLOW = 'people_you_follow';    
-    
+
+    public const UPVOTED = 'upvoted';
+    public const DOWNVOTED = 'downvoted';
+
     /**
      * Get our social accounts
      * @return array Links to social accounts
@@ -20,10 +23,10 @@ class Constants
     public static function socialAccounts()
     {
         return [
-            'facebook' => 'https://www.facebook.com/HelloMimic/',
-            'twitter' => 'https://twitter.com/Mimic_app_',
+            'facebook' => 'https://www.facebook.com/app.mimics/',
+            'twitter' => 'https://twitter.com/app_mimic',
             //'reddit' => 'https://www.reddit.com/r/Mimic_app/',
-            'steemit' => 'https://steemit.com/@dariot/feed',
+            //'steemit' => 'https://steemit.com/@dariot/feed',
             //'telegram' => 'https://t.me/joinchat/Gw8zPA_0YttHagXJeBwbsw',
             'instagram' => 'https://www.instagram.com/app_mimic/',
         ];
