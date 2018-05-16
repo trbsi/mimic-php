@@ -185,6 +185,11 @@ class MimicControllerTest extends TestCase
     //--------------------------------Upvote/downvote--------------------------------
     public function testUpvoteOriginalMimicSuccessfully()
     {
+        //change number of upvotes to 5
+        $model = Mimic::find(1);
+        $model->upvote = 5;
+        $model->save();
+
         $data = ['original_mimic_id' => 1];
 
         $response = $this->doPost('mimic/upvote', $data, 'v2');
@@ -196,6 +201,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'type' => 'upvoted',
+            'upvotes' => 6,
 
         ])
         ->assertStatus(200); 
@@ -214,12 +220,24 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'type' => 'downvoted',
+            'upvotes' => 5,
         ])
         ->assertStatus(200); 
+
+        //return back to default number of upvotes
+        $model = Mimic::find(1);
+        $model->upvote = 123456789;
+        $model->save();
+        
     }
 
     public function testUpvoteResponseMimicSuccessfully()
     {
+        //change number of upvotes to 5
+        $model = MimicResponse::find(1);
+        $model->upvote = 5;
+        $model->save();
+
         $data = ['response_mimic_id' => 1];
 
         $response = $this->doPost('mimic/upvote', $data, 'v2');
@@ -230,7 +248,8 @@ class MimicControllerTest extends TestCase
             'upvotes',
         ])
         ->assertJson([
-            'type' => 'upvoted'
+            'type' => 'upvoted',
+            'upvotes' => 6,
         ])
         ->assertStatus(200); 
     }
@@ -247,9 +266,15 @@ class MimicControllerTest extends TestCase
             'upvotes',
         ])
         ->assertJson([
-            'type' => 'downvoted'
+            'type' => 'downvoted',
+            'upvotes' => 5,
         ])
         ->assertStatus(200); 
+
+        //return back to default number of upvotes
+        $model = MimicResponse::find(1);
+        $model->upvote = 123456789;
+        $model->save();
     }
 
     //--------------------------------Report--------------------------------
