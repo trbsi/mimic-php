@@ -128,11 +128,8 @@ class User extends Authenticatable implements JWTSubject
     public function getAuthenticatedUser()
     {
         $user = auth()->user();
-
-        // the token is valid and we have found the user via the sub claim
         return $user;
     }
-
 
     /**
      * Get all users who I'm following
@@ -190,9 +187,13 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(\App\Api\V2\SocialAccount\Models\SocialAccount::class, 'user_id', 'id');
     }
 
-
     public function mimicTaguser()
     {
         return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
+    }
+
+    public function blockedUsers() 
+    {
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'users_blocks_pivot', 'blocked_by', 'user_id');
     }
 }

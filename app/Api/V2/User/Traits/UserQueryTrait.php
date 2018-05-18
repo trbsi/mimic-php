@@ -16,4 +16,14 @@ trait UserQueryTrait
 		->limit(10)
 		->get();
 	}
+
+	/**
+	 * Get all users blocked by me (logged in user)
+	 *
+	 * @return collection
+	 */
+	public function getUsersBlockedByMe()
+	{
+		return $this->blockedUsers;
+	}
 }

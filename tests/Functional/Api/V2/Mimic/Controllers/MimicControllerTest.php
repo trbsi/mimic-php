@@ -919,7 +919,7 @@ class MimicControllerTest extends TestCase
 
 
     public function testGetMimicsFromPeopleYouFollow()
-    {
+    { 
         //add some followers
         foreach ([1, 3] as $following) {
             Follow::create([
@@ -975,11 +975,11 @@ class MimicControllerTest extends TestCase
                 ]
             ]
         ])
-        /*->assertJson([
-            'count' => 4,
+        ->assertJson([
+            'count' => 2,
             'meta' => [
                 'pagination' => [
-                    'total' => 4,
+                    'total' => 2,
                     'per_page' => 30,
                     'current_page' => 1,
                     'last_page' => 1,
@@ -987,49 +987,123 @@ class MimicControllerTest extends TestCase
                     'prev_page_url' => null,
                     'has_more_pages' => false,
                     'first_item' => 1,
-                    'last_item' => 4
+                    'last_item' => 2
                 ]
             ],
             'mimics' => [
-                [
-                    'mimic' => [
-                        'id' => 11,
-                        'username' => 'xyz1234',
-                        'user_id' => 96,
-                        'upvoted' => 0,
-                        'i_am_following_you' => false,
+                [     
+                    'mimic' => [ 
+                        'id' => 3, 
+                        'username' => 'Chrisburke04', 
+                        'profile_picture' => 'http://mimic.loc/files/hr/female/3.jpg', 
+                        'user_id' => 3, 
+                        'mimic_type' => 'picture', 
+                        'upvote' => '123M', 
+                        'file' => '7372ad0a28e9428413cbd41abb6433e5.jpg', 
+                        'file_url' => 'http://mimic.loc/files/user/3/1970/01/7372ad0a28e9428413cbd41abb6433e5.jpg', 
+                        'video_thumb_url' => null, 
+                        'aws_file' => null, 
+                        'upvoted' => 0, 
+                        'i_am_following_you' => true, 
+                        'responses_count' => 10,
+                    ], 
+                    'hashtags' => [ 
+                        [ 
+                            'hashtag_id' => 20, 
+                            'hashtag_name' => '#happydog' 
+                        ], 
+                        [ 
+                            'hashtag_id' => 21, 
+                            'hashtag_name' => '#dog' 
+                        ], 
+                        [ 
+                            'hashtag_id' => 22, 
+                            'hashtag_name' => '#dogs' 
+                        ], 
+                        [ 
+                            'hashtag_id' => 23, 
+                            'hashtag_name' => '#cutedogs' 
+                        ], 
+                        [ 
+                            'hashtag_id' => 24, 
+                            'hashtag_name' => '#cute' 
+                        ] 
+                    ], 
+                    'hashtags_flat' => '#happydog #dog #dogs #cutedogs #cute', 
+                    'mimic_responses' => [ 
+                        [ 
+                            'id' => 26, 
+                            'username' => 'Jrfoley5', 
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/13.jpg', 
+                            'user_id' => 13, 
+                            'mimic_type' => 'picture', 
+                            'upvote' => '123M', 
+                            'file' => '7372ad0a28e9428413cbd41abb6433e5.jpg', 
+                            'file_url' => 'http://mimic.loc/files/user/13/1970/01/7372ad0a28e9428413cbd41abb6433e5.jpg', 
+                            'video_thumb_url' => null, 
+                            'aws_file' => null, 
+                            'upvoted' => 0,
+                            'i_am_following_you' => false,
+                        ] 
+                    ] 
+                ], 
+                [ 
+                    'mimic' => [ 
+                        'id' => 1, 
+                        'username' => 'AndrewCG', 
+                        'profile_picture' => 'http://mimic.loc/files/hr/male/1.jpg', 
+                        'user_id' => 1, 
+                        'mimic_type' => 'video', 
+                        'upvote' => '123M', 
+                        'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 
+                        'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 
+                        'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg', 
+                        'aws_file' => null, 
+                        'upvoted' => 0, 
+                        'i_am_following_you' => true, 
+                        'responses_count' => 61 
+                    ], 
+                    'hashtags' => [ 
+                        [ 
+                            'hashtag_id' => 12, 
+                            'hashtag_name' => '#beatbox' 
+                        ], 
+                        [ 
+                            'hashtag_id' => 13, 
+                            'hashtag_name' => '#box' 
+                        ], 
+                        [ 
+                            'hashtag_id' => 14, 
+                            'hashtag_name' => '#beat' 
+                        ], 
+                        [ 
+                            'hashtag_id' => 15, 
+                            'hashtag_name' => '#music' 
+                        ] 
+                    ], 
+                    'hashtags_flat' => '#beatbox #box #beat #music', 
+                    'mimic_responses' => [ 
+                        [ 
+                            'id' => 130, 
+                            'username' => 'beachdude', 
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg', 
+                            'user_id' => 2, 
+                            'mimic_type' => 'picture', 
+                            'upvote' => '123M', 
+                            'file' => 'xyz.jpg', 
+                            'file_url' => 'http://mimic.loc/files/user/2/'.date('Y').'/'.date('m').'/xyz.jpg', 
+                            'video_thumb_url' => null, 
+                            'aws_file' => null, 
+                            'upvoted' => 0 ,
+                            'i_am_following_you' => false, 
+                        ] 
                     ]
-                ],
-                [
-                    'mimic' => [
-                        'id' => 11,
-                        'username' => 'xyz1234',
-                        'user_id' => 96,
-                        'upvoted' => 0,
-                        'i_am_following_you' => false,
-                    ],
-                ],
-                [    
-                    'mimic' => [
-                        'id' => 3,
-                        'username' => 'Chrisburke04',
-                        'user_id' => 3,
-                        'upvoted' => 0,
-                        'i_am_following_you' => true,
-                    ],
-                ],
-                [
-                    'mimic' => [
-                        'id' => 1,
-                        'username' => 'AndrewCG',
-                        'user_id' => 1,
-                        'upvoted' => 0,
-                        'i_am_following_you' => true,
-                    ]
-                ]
+                ] 
             ]
-        ])*/
+        ])
         ->assertStatus(200); 
+       
+       
     }
 
     public function testGetRecentMimics()

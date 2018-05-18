@@ -123,6 +123,8 @@ trait MimicQueryTrait
             $query->orderBy("upvote", "DESC");
             $query->orderBy("$mimicResponseTable.id", "DESC");
         }, 'user', 'hashtags', /*'mimicTagusers'*/])
-        ->groupBy("$mimicsTable.id");
+        ->groupBy("$mimicsTable.id")
+        ->whereNotIn($mimicsTable.'.user_id', $authUser->getUsersBlockedByMe()->pluck('id')->toArray())
+        ;
     }
 }

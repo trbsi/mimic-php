@@ -6,6 +6,7 @@ use App\Api\V2\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Follow\Models\Follow;
+use App\Helpers\Constants;
 
 class ProfileController extends BaseAuthController
 {
@@ -41,7 +42,19 @@ class ProfileController extends BaseAuthController
      */
     public function blockUser(Request $request)
     {
-        //$request->user_id -> who to block
-        return response()->json(['type' => 'blocked']);
+        if((int)$request->user_id === (int)$this->authUser->id) {
+            abort(400, trans('users.cant_block_yourself'));
+        }
+
+        try {
+            //block
+            $this->authUser->blockedUsers()->attach($request->user_id);
+            $type = Constants::BLOCKED;
+        } catch(\Exception $e) {
+            //unblock
+            $this->authUser->blockedUsers()->detach($request->user_id);
+            $type = Constants::UNBLOCKED;
+        }
+        return response()->json(['type' => $type]);
     }
 }
