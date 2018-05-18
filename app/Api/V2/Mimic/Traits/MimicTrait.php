@@ -216,6 +216,7 @@ trait MimicTrait
                 'video_thumb_url' => $mimic->video_thumb_url,
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
+                'i_am_following_you' => $mimic->i_am_following_you,
             ];
 
         if ($mimic instanceof Mimic) {

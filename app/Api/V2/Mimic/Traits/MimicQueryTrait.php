@@ -98,15 +98,19 @@ trait MimicQueryTrait
     {
         $mimicsTable = $this->getTable();
         $mimicResponseTable = (new MimicResponse)->getTable();
+        $followTable = (new Follow)->getTable();
 
         return $this->mimicsQuery
         ->select("$mimicsTable.*")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
         ->selectRaw("(SELECT COUNT(*) FROM $mimicResponseTable WHERE original_mimic_id = $mimicsTable.id) AS responses_count")
-        ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable, $request) {
+        ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicsTable.".user_id),1,0) AS i_am_following_you")
+        ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable, $request, $followTable) {
             $query->select("$mimicResponseTable.*");
             //check if user upvoted this mimic response
-            $query->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted");
+            $query
+            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted")
+            ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicResponseTable.".user_id),1,0) AS i_am_following_you");
             //get user info for mimicResponses
             $query->with('user');
 

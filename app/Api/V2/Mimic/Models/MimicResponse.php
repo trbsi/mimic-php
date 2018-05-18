@@ -28,6 +28,7 @@ class MimicResponse extends Model
             'user_id' => 'int',
             'original_mimic_id' => 'int',
             'upvoted' => 'int', //this is to check if user upvoted mimic or not
+            'i_am_following_you' => 'boolean', //when returning the list of response mimics
         ];
 
     /**
