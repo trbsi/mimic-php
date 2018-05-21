@@ -30,7 +30,8 @@ class ProfileControllerTest extends TestCase
             'number_of_mimics',
             'created_at',
             'updated_at',
-            'i_am_following_you'
+            'i_am_following_you',
+            'is_blocked',
         ])
         ->assertJson([
             'id' => 1,
@@ -40,7 +41,8 @@ class ProfileControllerTest extends TestCase
             'followers' => '123M',
             'following' => '123M',
             'number_of_mimics' => '123M',
-            'i_am_following_you' => true
+            'i_am_following_you' => true,
+            'is_blocked' => false,
 	    ])
         ->assertStatus(200);
     }
@@ -80,5 +82,41 @@ class ProfileControllerTest extends TestCase
             'type' => 'blocked'
         ])
         ->assertStatus(200);
+    }
+
+    public function testSuccessfullyUnBlockUser()
+    {
+        $data = ['user_id' => 5];
+
+        $response = $this->doPost('profile/block', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'type'
+        ])
+        ->assertJson([
+            'type' => 'unblocked'
+        ])
+        ->assertStatus(200);
+    }
+
+    public function testCantBlockYourself()
+    {
+        $data = ['user_id' => 96];
+
+        $response = $this->doPost('profile/block', $data, 'v2');
+
+        $response
+        ->assertJsonStructure([
+            'error' => [
+                'message',
+            ]
+        ])
+        ->assertJson([
+            'error' => [
+                'message' => "You can't block yourself!",
+            ]
+        ])
+        ->assertStatus(400);
     }
 }
