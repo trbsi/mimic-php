@@ -92,7 +92,7 @@ class LoginController extends Controller
         }
 
         //check username
-        if (!preg_match('/^[a-zA-Z0-9_.-]{4,}$/', $request->username)) {
+        if (!preg_match('/^[a-zA-Z0-9_.-]{4,20}$/', $request->username)) {
             abort(403, trans('core.login.username_contain'));
         }
 
