@@ -17,6 +17,8 @@ class Constants
     public const DOWNVOTED = 'downvoted';
     public const BLOCKED = 'blocked';
     public const UNBLOCKED = 'unblocked';
+    public const FOLLOWED = 'followed';
+    public const UNFOLLOWED = 'unfollowed';    
 
     /**
      * Get our social accounts

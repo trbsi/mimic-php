@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Api\V2\Follow\Models\Follow;
 use App\Api\V2\User\Models\User;
 use DB;
+use App\Helpers\Constants;
 
 class FollowController extends BaseAuthController
 {
@@ -28,7 +29,7 @@ class FollowController extends BaseAuthController
             $this->authUser->following()->attach($user->id);
             $this->authUser->increment('following');
             DB::commit();
-            return response()->json(['type' => 'followed']);
+            $type = Constants::FOLLOWED;
         } //unfollow
         catch (\Exception $e) {
             //rollback query in "try" block
@@ -36,8 +37,14 @@ class FollowController extends BaseAuthController
             $user->decrement('followers');
             $this->authUser->following()->detach($user->id);
             $this->authUser->decrement('following');
-            return response()->json(['type' => 'unfollowed']);
+            $type = Constants::UNFOLLOWED;
         }
+
+        return response()->json([
+            'type' => $type,
+            'followers' => $user->fresh()->followers,
+        ]);
+
     }
 
     /**
