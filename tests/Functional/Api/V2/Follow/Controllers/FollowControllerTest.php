@@ -4,6 +4,8 @@ namespace Tests\Functional\Api\V2\Follow\Controllers;
 
 use Hash;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Api\V2\User\Models\User;
 
 class FollowControllerTest extends TestCase
 {
@@ -139,34 +141,44 @@ class FollowControllerTest extends TestCase
     //--------------------------------Follow/unfollow--------------------------------
     public function testUserSuccessfullyFollowedAnotherUser()
     {
+        $user = User::find(5);
+        $user->update(['followers' => 1]);
+        
         $data = ['id' => 5];
 
         $response = $this->doPost('profile/follow', $data, 'v2');
 
         $response
         ->assertJsonStructure([
-            'type'
+            'type',
+            'followers',
         ])
         ->assertJson([
-            'type' => 'followed'
+            'type' => 'followed',
+            'followers' => '2',
         ])
         ->assertStatus(200);
     }
 
     public function testUserSuccessfullyUnFollowedAnotherUser()
-    {
+    {        
         $data = ['id' => 5];
 
         $response = $this->doPost('profile/follow', $data, 'v2');
 
         $response
         ->assertJsonStructure([
-            'type'
+            'type',
+            'followers',
         ])
         ->assertJson([
-            'type' => 'unfollowed'
+            'type' => 'unfollowed',
+            'followers' => '1',
         ])
         ->assertStatus(200);
+
+        $user = User::find(5);
+        $user->update(['followers' => 123456789]);
     }
 
 }

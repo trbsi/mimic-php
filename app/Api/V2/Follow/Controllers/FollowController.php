@@ -23,16 +23,16 @@ class FollowController extends BaseAuthController
         $user->preventMutation = $this->authUser->preventMutation = true;
 
         DB::beginTransaction();
-        //try to follow
+
         try {
+            //follow
             $user->increment('followers');
             $this->authUser->following()->attach($user->id);
             $this->authUser->increment('following');
             DB::commit();
             $type = Constants::FOLLOWED;
-        } //unfollow
-        catch (\Exception $e) {
-            //rollback query in "try" block
+        } catch (\Exception $e) {
+            //unfollow
             DB::rollBack();
             $user->decrement('followers');
             $this->authUser->following()->detach($user->id);
