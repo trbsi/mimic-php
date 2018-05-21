@@ -33,6 +33,7 @@ class User extends Authenticatable implements JWTSubject
             'following' => 'int',  //number of user I'm following
             'number_of_mimics' => 'int',
             'i_am_following_you' => 'boolean', //when I open someone else's profile check if I (loggedin user) am following another user
+            'is_blocked' => 'boolean',
         ];
 
     /**

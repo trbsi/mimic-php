@@ -26,8 +26,9 @@ class ProfileController extends BaseAuthController
 
         $userTable = $this->user->getTable();
         $user = User::select("$userTable.*")
-            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new Follow)->getTable() . " WHERE followed_by = " . $this->authUser->id . " AND following = $userTable.id),1,0) AS i_am_following_you")
-            ->find($id);
+        ->selectRaw("IF(EXISTS(SELECT null FROM " . (new Follow)->getTable() . " WHERE followed_by = " . $this->authUser->id . " AND following = $userTable.id),1,0) AS i_am_following_you")
+        ->selectRaw("IF(EXISTS(SELECT null FROM users_blocks_pivot WHERE blocked_by = ".$this->authUser->id." AND user_id = users.id),1,0) AS is_blocked")
+        ->find($id);
 
         if ($user) {
             return $user;
