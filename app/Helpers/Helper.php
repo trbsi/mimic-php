@@ -28,8 +28,8 @@ class Helper
                 [
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
-                    'email' => (!isset($provider_data["email"]) || empty($provider_data["email"])) ? NULL : $provider_data["email"],
-                    'profile_picture' => $provider_data["picture"]["data"]["url"],
+                    'email' => (array_key_exists('email', $provider_data)) ? $provider_data["email"] : null,
+                    'profile_picture' => isset($provider_data["picture"]["data"]["url"]) ? $provider_data["picture"]["data"]["url"] : config('user.profile.no_profile_image_url'),
                 ];
         }
 
@@ -38,8 +38,8 @@ class Helper
                 [
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
-                    'email' => (!isset($provider_data["email"]) || empty($provider_data["email"])) ? NULL : $provider_data["email"],
-                    'profile_picture' => $provider_data["profile_image_url"],
+                    'email' => (array_key_exists('email', $provider_data)) ? $provider_data["email"] : null,
+                    'profile_picture' => array_key_exists('profile_image_url', $provider_data) ? $provider_data["profile_image_url"] : config('user.profile.no_profile_image_url'),
                 ];
         }
     }
@@ -55,9 +55,9 @@ class Helper
         if ($n < 1000) {
             // Anything less than a million
             $n_format = number_format($n);
-        } else if ($n < 1000000) {
+        } elseif ($n < 1000000) {
             $n_format = number_format($n / 1000, $precision) . 'K';
-        } else if ($n < 1000000000) {
+        } elseif ($n < 1000000000) {
             // Anything less than a billion
             $n_format = number_format($n / 1000000, $precision) . 'M';
         } else {

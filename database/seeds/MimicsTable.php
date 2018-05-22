@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Api\V1\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Models\Mimic;
 use App\Models\CoreUser;
 
 class MimicsTable extends Seeder
@@ -13,7 +13,6 @@ class MimicsTable extends Seeder
      */
     public function run(Mimic $mimic, CoreUser $user)
     {
-        $users = $user->count();
 
         $rootDir = public_path() . '/files/seeds';
         $rii = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($rootDir));
@@ -22,7 +21,7 @@ class MimicsTable extends Seeder
         $thumb_string = '_video_thumb';
 
         foreach ($rii as $path => $file) {
-            if ($file->isDir() || $file->getFileName() == 'hashtags.txt') {
+            if ($file->isDir() || $file->getFileName() === 'hashtags.txt') {
                 continue;
             }
 
@@ -46,6 +45,8 @@ class MimicsTable extends Seeder
             $mimicResponses = [];
             $year = "1970";
             $month = $date = "01";
+            $date = "$year-$month-$date 12:00:00";
+
             foreach ($filesTmp as $arrayKey => $file) {
                 //get file info
                 $path_parts = pathinfo($file);
@@ -56,7 +57,7 @@ class MimicsTable extends Seeder
                     $userIdTmp = $mainUserId;
                 } //response mimic
                 else {
-                    $userIdTmp = rand($mainUserId, $users);
+                    $userIdTmp++;
                 }
 
                 //copy files to another directory
@@ -64,13 +65,13 @@ class MimicsTable extends Seeder
                 if (!file_exists($path)) {
                     mkdir($path, 0755, true);
                 }
-                $fileName = md5(time() . mt_rand()) . '.' . $path_parts['extension'];
+                $fileName = md5($date.$dirName.$path_parts['extension']) . '.' . $path_parts['extension'];
                 copy($rootDir . '/' . $dirName . '/' . $file, $path . '/' . $fileName);
 
                 //if this is video file get its thumb, move to another folder and save
                 $videoThumbFileName = null;
                 if (strpos($mime, 'video') !== false) {
-                    $videoThumbFileName = md5(time() . mt_rand()) . '.jpg';
+                    $videoThumbFileName = md5($date.$dirName.$path_parts['filename']) . '.jpg';
                     $videoThumbFile = $path_parts['filename'] . $thumb_string . ".jpg";
                     copy($rootDir . '/' . $dirName . '/' . $videoThumbFile, $path . '/' . $videoThumbFileName);
                 }
@@ -79,19 +80,20 @@ class MimicsTable extends Seeder
                 $data =
                     [
                         'file' => $fileName,
-                        'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PIC : Mimic::TYPE_VIDEO,
-                        'upvote' => rand(1, 35),
+                        'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PHOTO : Mimic::TYPE_VIDEO,
+                        'upvote' => 123456789,
                         'user_id' => $userIdTmp,
-                        'created_at' => "$year-$month-$date 12:00:00",
-                        'updated_at' => "$year-$month-$date 12:00:00",
+                        'created_at' => $date,
+                        'updated_at' => $date,
                         'video_thumb' => $videoThumbFileName
                     ];
 
+                //main mimic
                 if ($arrayKey == 0) {
                     //create mimic
                     $mainMimic = $mimic->create($data);
                     //add hashtags for this mimic
-                    $mimic->checkHashtags(file_get_contents($rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $mainMimic);
+                    $mimic->saveHashtags(file_get_contents($rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $mainMimic);
 
                 } //response mimic
                 else {

@@ -74,8 +74,13 @@ class SendPushNotification
 
         // Open a connection to the APNS server
         $fp = stream_socket_client(
-            $applePushGateway, $err,
-            $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
+            $applePushGateway,
+            $err,
+            $errstr,
+            60,
+            STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT,
+            $ctx
+        );
 
         if (!$fp) {
             return false;
@@ -116,7 +121,6 @@ class SendPushNotification
         } else {
             return true;
         }
-
     }
 
     // Sends Push's toast notification for Windows Phone 8 users
@@ -202,9 +206,9 @@ class SendPushNotification
         $iOStokens = $Androidtokens = [];
         foreach ($tokens as $token) {
             if (!empty($token->token)) {
-                if ($token->device == "android") {
+                if ($token->device === "android") {
                     $Androidtokens[] = $token->token;
-                } else if ($token->device == "ios") {
+                } elseif ($token->device === "ios") {
                     $iOStokens[] = $token->token;
                 }
             }
@@ -219,8 +223,5 @@ class SendPushNotification
         /*if (!empty($Androidtokens)) {
         $return = SendPushNotification::android($data, $Androidtokens);
         }*/
-
     }
-
-
 }

@@ -28,6 +28,4 @@ class MimicResponseUpvote extends Model
     {
         return $this->belongsTo(\App\Api\V1\User\Models\User::class, 'user_id', 'id');
     }
-
-
 }

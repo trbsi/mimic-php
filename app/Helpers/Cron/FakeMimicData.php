@@ -19,17 +19,16 @@ class FakeMimicData
         $results = Mimic::whereRaw($query)->get();
 
         foreach ($results as $result) {
-           $result->upvote = rand(1, 26);
-           $result->save();
+            $result->upvote = rand(1, 26);
+            $result->save();
         }
 
         //find all mimic responses where id is admin id and update user_id and upvote
         $results = MimicResponse::whereRaw($query)->get();
 
         foreach ($results as $result) {
-           $result->upvote = rand(1, 26);
-           $result->save();
+            $result->upvote = rand(1, 26);
+            $result->save();
         }
-        
     }
 }

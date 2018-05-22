@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\CoreUser;
-use App\Api\V1\Follow\Models\Follow;
+use App\Api\V2\Follow\Models\Follow;
 
 class FollowTable extends Seeder
 {
@@ -13,27 +13,21 @@ class FollowTable extends Seeder
      */
     public function run(CoreUser $user, Follow $follow)
     {
-        $numberOfUsers = $user->count();
-        for ($i = 1; $i <= 200; $i++) {
-            $insert =
-                [
-                    'followed_by' => rand(1, $numberOfUsers),
-                    'following' => rand(1, $numberOfUsers),
-                ];
+        $items =
+        [
+            [
+                'followed_by' => 1,
+                'following' => 2,
+            ],
+            [
+                'followed_by' => 2,
+                'following' => 1,
+            ]
+            
+        ];
 
-            try {
-                $follow->create($insert);
-            } catch (\Exception $e) {
-                //var_dump($e->getMessage());
-            }
-        }
-
-        //update user's following and followers
-        foreach ($user->all() as $user) {
-            $followers = $follow->where('following', $user->id)->count();  //number of followers
-            $following = $follow->where('followed_by', $user->id)->count(); //number of user I'm following
-
-            $user->update(['following' => $following, 'followers' => $followers]);
+        foreach ($items as $item) {
+            $follow->create($item);
         }
     }
 }

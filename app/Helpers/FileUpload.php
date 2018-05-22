@@ -2,11 +2,20 @@
 namespace App\Helpers;
 
 use Aws\S3\Exception\S3Exception;
-use Aws\S3\S3Client;
 use Image;
+use App\Helpers\AwsHelper;
+use Imagick;
 
 class FileUpload
 {
+    const FILE_UPLOAD_SERVER = 'server';
+    const FILE_UPLOAD_AWS = 'aws';
+
+    public function __construct(AwsHelper $awsHelper)
+    {
+        $this->awsHelper = $awsHelper;
+    }
+
     /**
      * upload file to S3
      * @param  $file File object Access via: $request->file('file_name')
@@ -23,19 +32,18 @@ class FileUpload
             }
 
             switch ($uploadWhere) {
-                case 'server':
+                case self::FILE_UPLOAD_SERVER:
                     return $this->uploadToServer(public_path() . $path, $file);
                     break;
 
-                case 'aws':
+                case self::FILE_UPLOAD_AWS:
                     return $this->uploadToAws($path, $file);
                     break;
 
             }
         }
 
-        return NULL;
-
+        throw new \Exception(trans('file.errors.file_not_chosen'), 400);
     }
 
     /**
@@ -47,13 +55,18 @@ class FileUpload
     private function uploadToServer($path, $file)
     {
         try {
-
             if (!file_exists($path)) {
-                mkdir($path, 0777, true);
+                mkdir($path, 0755, true);
             }
-
+            
+            //save file info
+            $fileInfo['mime'] = $file->getMimeType();
+            //generate name
             $file_name = (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension();
+            //move file
             $file->move($path, $file_name);
+            //correct image orientation
+            $this->correctImageOrientation($path.$file_name, $fileInfo);
 
             return $file_name;
         } catch (S3Exception $e) {
@@ -80,17 +93,7 @@ class FileUpload
                 $sourceFile = $file;
             }
 
-            $this->s3client = new S3Client([
-                'version' => 'latest',
-                'region' => 'us-east-2',
-                'http' => [
-                    'verify' => false
-                ],
-                'credentials' => [
-                    'key' => env('AWS_KEY'),
-                    'secret' => env('AWS_SECRET'),
-                ],
-            ]);
+            $this->s3client = $this->awsHelper->initAwsS3client();
 
             $result = $this->s3client->putObject(array(
                 'Bucket' => env('AWS_BUCKET'),
@@ -125,7 +128,6 @@ class FileUpload
             if ($fileAllowed == false) {
                 abort(403, trans('validation.file_should_be_image_video'));
             }
-
         } else {
             switch ($allowType) {
                 case 'image':
@@ -140,8 +142,6 @@ class FileUpload
                     break;
             }
         }
-
-
     }
 
 
@@ -152,8 +152,7 @@ class FileUpload
      */
     public function resizeAndLowerQuality($model, $file = null)
     {
-        
-        try{
+        try {
             if ($file === null) {
                 $tmpFile = $model->file;
             } else {
@@ -183,6 +182,52 @@ class FileUpload
         } catch (\Exception $e) {
             //do something here
         }
-        
+    }
+
+    /**
+     * Correct image orientation
+     *
+     * @param  string $filePath Path to image, e.g. public/files/user/96/2018/03/6a97012502fa31c28d9767c4eb49d678.jpg
+     * @param array $fileInfo Information about file, like MIME
+     * @return void
+     */
+    public function correctImageOrientation($filePath, $fileInfo)
+    {
+        if (strpos($fileInfo['mime'], 'image') === false) {
+            return;
+        }
+        $image = new Imagick($filePath);
+        switch ($image->getImageOrientation()) {
+            case Imagick::ORIENTATION_TOPLEFT:
+                break;
+            case Imagick::ORIENTATION_TOPRIGHT:
+                $image->flopImage();
+                break;
+            case Imagick::ORIENTATION_BOTTOMRIGHT:
+                $image->rotateImage("#000", 180);
+                break;
+            case Imagick::ORIENTATION_BOTTOMLEFT:
+                $image->flopImage();
+                $image->rotateImage("#000", 180);
+                break;
+            case Imagick::ORIENTATION_LEFTTOP:
+                $image->flopImage();
+                $image->rotateImage("#000", -90);
+                break;
+            case Imagick::ORIENTATION_RIGHTTOP:
+                $image->rotateImage("#000", 90);
+                break;
+            case Imagick::ORIENTATION_RIGHTBOTTOM:
+                $image->flopImage();
+                $image->rotateImage("#000", 90);
+                break;
+            case Imagick::ORIENTATION_LEFTBOTTOM:
+                $image->rotateImage("#000", -90);
+                break;
+            default: // Invalid orientation
+                break;
+        }
+        $image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
+        $image->writeImage();
     }
 }

@@ -13,3 +13,6 @@ Homestead.yaml
 /public/google88dfe09525f52bca.html
 /public/ico-files/img/marketing/*
 /public/robots.txt
+.php_cs.cache
+.DS_Store
+/public/.DS_Store

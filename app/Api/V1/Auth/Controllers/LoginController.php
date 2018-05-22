@@ -12,7 +12,6 @@ use DB;
 
 class LoginController extends Controller
 {
-
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -53,7 +52,6 @@ class LoginController extends Controller
                 if (!$token) {
                     abort(400, trans('core.general.smth_went_wront_body'));
                 }
-
             } catch (JWTException $e) {
                 abort(400, trans('core.general.smth_went_wront_body'));
             }
@@ -67,7 +65,6 @@ class LoginController extends Controller
                 'token' => $token,
                 'user_id' => $user->id
             ]);
-
     }
 
     /**
@@ -83,7 +80,7 @@ class LoginController extends Controller
             abort(403, trans('core.login.username_empty'));
         }
 
-        //check username 
+        //check username
         if (!preg_match('/^[a-zA-Z0-9_.-]{4,}$/', $request->username)) {
             abort(403, trans('core.login.username_contain'));
         }
@@ -91,7 +88,7 @@ class LoginController extends Controller
         //check if email exists
         if ($request->email) {
             //check if email exists
-            if($this->user->where('email', $request->email)->where('id', '!=', $this->authUser->id)->count()) {
+            if ($this->user->where('email', $request->email)->where('id', '!=', $this->authUser->id)->count()) {
                 abort(403, trans('core.login.email_exists'));
             }
         }
@@ -105,7 +102,6 @@ class LoginController extends Controller
                 ->json([
                     'status' => true,
                 ]);
-
         } else {
             abort(403, trans('core.login.username_exists'));
         }

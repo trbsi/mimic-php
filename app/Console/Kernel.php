@@ -4,8 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Helpers\Cron\UploadToAws;
-use App\Helpers\Cron\FakeMimicData;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,14 +24,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $data1 = ['uploadToAws' => new UploadToAws, 'fakeMimicData' => new FakeMimicData];
+        $data = [
+            'uploadToAws' => app('App\Helpers\Cron\UploadToAws'),
+            'fakeMimicData' => app('App\Helpers\Cron\FakeMimicData')
+        ];
         
-        $schedule->call(function () use ($data1) {
-            $data1['uploadToAws']->uploadOriginalMimicsToAws();
-            $data1['uploadToAws']->uploadResponseMimicsToAws();
-            $data1['fakeMimicData']->adjustMimicData();
+        $schedule->call(function () use ($data) {
+            $data['uploadToAws']->uploadOriginalMimicsToAws();
+            $data['uploadToAws']->uploadResponseMimicsToAws();
+            $data['fakeMimicData']->adjustMimicData();
         })->everyFiveMinutes();
-
     }
 
     /**

@@ -18,12 +18,13 @@ use Validator;
 
 class MimicController extends BaseAuthController
 {
-    public function __construct(User $user,
+    public function __construct(
+        User $user,
                                 Mimic $mimic,
                                 MimicResponse $mimicResponse,
                                 MimicTaguser $mimicTaguser,
-                                MimicHashtag $mimicHashtag)
-    {
+                                MimicHashtag $mimicHashtag
+    ) {
         parent::__construct($user);
         $this->mimic = $mimic;
         $this->mimicResponse = $mimicResponse;
@@ -37,7 +38,6 @@ class MimicController extends BaseAuthController
      */
     public function addMimic(AddMimicRequest $request, FileUpload $fileUpload)
     {
-
         DB::beginTransaction();
         try {
             //@TODO REMOVE - fake user
@@ -83,7 +83,8 @@ class MimicController extends BaseAuthController
                     'file' => $fileName,
                     'mimic_type' => $type,
                     'user_id' => $user->id
-                ], $additionalFields))
+                ], $additionalFields)
+            )
             ) {
 
                 //check for hashtags
@@ -114,7 +115,6 @@ class MimicController extends BaseAuthController
             DB::rollBack();
             abort(400, $e->getMessage());
         }
-
     }
 
     /**
@@ -123,7 +123,6 @@ class MimicController extends BaseAuthController
      */
     public function uploadVideoThumb(Request $request, FileUpload $fileUpload)
     {
-
         $validator = Validator::make($request->all(), [
             'file' => 'required|file',
         ]);
@@ -174,7 +173,8 @@ class MimicController extends BaseAuthController
             [
                 'count' => $this->mimic->getMimicCount($request),
                 'mimics' => $this->mimic->getMimicApiResponseContent($mimics),
-            ]);
+            ]
+        );
     }
 
     /**
@@ -283,10 +283,10 @@ class MimicController extends BaseAuthController
      */
     private function getUser()
     {
-        if(!in_array($this->authUser->email, ["dario.trbovic@yahoo.com"])) {
+        if (!in_array($this->authUser->email, ["dario.trbovic@yahoo.com"])) {
             $user = $this->authUser;
         } else {
-            if(env('APP_ENV') === 'live') {
+            if (env('APP_ENV') === 'live') {
                 $findUser = (rand(0, 1) === 0) ? rand(1, 95) : rand(119, 225);
             } else {
                 $findUser = rand(1, 95);
