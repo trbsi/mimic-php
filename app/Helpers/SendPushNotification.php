@@ -33,6 +33,7 @@ class SendPushNotification
             'tickerText' => '',
             'msgcnt' => 1,
             'vibrate' => 1,
+            'parameters' => $data['parameters'] ?? null,
         );
 
         $headers = array(
@@ -90,17 +91,18 @@ class SendPushNotification
         //------------CHANGED-------------------
         // Create the payload body
         $body['aps'] =
-            [
-                'alert' =>
-                    [
-                        'title' => $data['title'],
-                        'body' => $data['body'],
-                    ],
-                'sound' => isset($data['sound']) ? $data['sound'] : 'default', //"message.wav"
-            ];
+        [
+            'alert' =>
+                [
+                    'title' => $data['title'],
+                    'body' => $data['body'],
+                ],
+            'sound' => isset($data['sound']) ? $data['sound'] : 'default', //"message.wav"
+        ];
+        $body['parameters'] = $data['parameters'] ?? null;
 
         //------------CHANGED-------------------
-
+dd(json_encode($body));
         // Encode the payload as JSON
         $payload = json_encode($body);
 

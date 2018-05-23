@@ -12,6 +12,11 @@ class Constants
     public const ORDER_BY_RECENT = 'recent';
     public const ORDER_BY_POPULAR = 'popular';
     public const ORDER_BY_PEOPLE_YOU_FOLLOW = 'people_you_follow';
+    public const MIMIC_ORIGINAL = 'original';
+    public const MIMIC_RESPONSE = 'response';
+
+    //PUSH NOTIFICATIONS 
+    public const POSITION_SPLIT_SCREEN = 'split_screen';
 
     public const UPVOTED = 'upvoted';
     public const DOWNVOTED = 'downvoted';

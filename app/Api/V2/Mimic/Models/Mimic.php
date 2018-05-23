@@ -214,7 +214,7 @@ class Mimic extends Model
             $user_id = $model->user_id;
         }
 
-        SendPushNotification::sendNotification($user_id, $data);
+        SendPushNotification::sendNotification($user_id, array_merge($data, $extra));
     }
 
     /**

@@ -83,25 +83,43 @@ class MimicController extends BaseAuthController
         //@TODO REMOVE - fake user
         $user = $this->mimic->getUser($this->authUser, $this->user);
         //@TODO REMOVE - fake user
-        
+
+        $model = ($request->original_mimic_id) ? $this->mimic : $this->mimicResponse;
+        $id = ($request->original_mimic_id) ?? $request->response_mimic_id;
+        $model = $model->find($id);
+        $model->preventMutation = true;
+
         if ($request->original_mimic_id) {
-            $model = $this->mimic;
-            $id = $request->original_mimic_id;
+            $api_call_params = [
+                'user_id' => $model->user_id,
+                'original_mimic_id' => $model->id,
+            ];
         } else {
-            $model = $this->mimicResponse;
-            $id = $request->response_mimic_id;
+            $api_call_params = [
+                'user_id' => $model->originalMimic->user_id,
+                'original_mimic_id' => $model->original_mimic_id,
+                'response_mimic_id' => $model->id,
+            ];
         }
 
         DB::beginTransaction();
-        $model = $model->find($id);
-        $model->preventMutation = true;
 
         //try to upvote
         try {
             $model->increment('upvote');
             $model->userUpvotes()->attach($user->id);
             DB::commit();
-            $this->mimic->sendMimicNotification($model, Constants::PUSH_TYPE_UPVOTE, ['authUser' => $user]);
+
+            //send push
+            $data = [
+                'authUser' => $user,
+                'parameters' => [
+                    'api_call' => app('Dingo\Api\Routing\UrlGenerator')->version('v2')->route('mimic.list', array_merge(['page' => 1], $api_call_params)),
+                    'position' => Constants::POSITION_SPLIT_SCREEN,
+                ],
+            ];
+
+            $this->mimic->sendMimicNotification($model, Constants::PUSH_TYPE_UPVOTE, $data);
             $type = Constants::UPVOTED;
         } //downvote
         catch (\Exception $e) {
