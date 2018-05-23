@@ -189,8 +189,6 @@
                 </li>
                 <li class="wow animated fadeInLeft github"><a href="<?=$socialAccounts['instagram']?>" target="_blank"><i class="fa fa-instagram"></i></a>
                 </li>
-                <li class="wow animated fadeInLeft linkedin"><a href="<?=$socialAccounts['steemit']?>" target="_blank"><i class="fa fa-book"></i></a>
-                </li>
                 <li class="wow animated fadeInRight twitter"><a href="mailto:<?=config('app.official_email')?>"><i class="fa fa-envelope"></i></a>
                 </li>
         </ul>

@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Api\V2\User\Models\User;
 use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
+use Validator;
 
 class BootstrapController extends Controller
 {
-    public function __construct(User $user, PushNotificationsToken $PNT)
+    public function __construct(User $user)
     {
         $this->user = $user;
-        $this->PNT = $PNT;
     }
 
 
@@ -53,5 +53,37 @@ class BootstrapController extends Controller
     public function heartbeat()
     {
         return response()->json(['success' => true]);
+    }
+
+    /**
+     * Send feedback from user to us
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function sendFeeback(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'body' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            abort(400, trans('general.feedback_body_missing'));
+        }
+
+        $fileName = '/feedbackovi.html';
+        $path = public_path().$fileName;
+        $first_time_creation = file_exists($path) ? false : true;
+
+        $contents = view('api.bootstrap.send-feedback', [
+            'user' => $this->user->getAuthenticatedUser(),
+            'body' => $request->body,
+            'first_time_creation' => $first_time_creation,
+        ])->render();
+
+        
+        file_put_contents($path, $contents.PHP_EOL , FILE_APPEND | LOCK_EX);
+
+        return response()->json(['message' => trans('general.thanks_for_feedback')]);
     }
 }

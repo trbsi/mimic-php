@@ -16,3 +16,5 @@ Homestead.yaml
 .php_cs.cache
 .DS_Store
 /public/.DS_Store
+/public/ivan_test.php
+/public/feedbackovi.html

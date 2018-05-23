@@ -51,9 +51,13 @@ $api->version('v2', function (Router $api) {
         });
 
         $api->group(['middleware' => ['jwt.auth']], function (Router $api) {
-            $api->post('save-push-token', ['uses' => 'App\Api\V2\Bootstrap\Controllers\BootstrapController@updateNotificationToken']);
             $api->post('set-username', ['uses' => 'App\Api\V2\Auth\Controllers\LoginController@setUsernameAndEmail']);
 
+            $api->group(['prefix' => 'bootstrap'], function (Router $api) {
+                $api->post('send-feedback', ['uses' => 'App\Api\V2\Bootstrap\Controllers\BootstrapController@sendFeeback']);
+                $api->post('save-push-token', ['uses' => 'App\Api\V2\Bootstrap\Controllers\BootstrapController@updateNotificationToken']);
+            });
+           
             $api->group(['prefix' => 'mimic'], function (Router $api) {
                 $api->post('create', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@createMimic']);
                 $api->get('list', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@listMimics']);
