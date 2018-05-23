@@ -221,9 +221,8 @@ class Mimic extends Model
      * Fake user if this is my account
      *
      * @param User $authUser Authenticated user
-     * @param User $user Initialized User object
      */
-    public function getUser($authUser, $user)
+    public function getUser($authUser)
     {
         if (!in_array($authUser->email, ["dario.trbovic@yahoo.com"])) {
             $user = $authUser;
@@ -234,7 +233,7 @@ class Mimic extends Model
                 $findUser = rand(1, 95);
             }
 
-            $user = $user->find($findUser);
+            $user = User::find($findUser);
         }
 
         return $user;

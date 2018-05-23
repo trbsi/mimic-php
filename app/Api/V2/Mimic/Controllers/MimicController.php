@@ -12,6 +12,7 @@ use App\Api\V2\Mimic\Requests\CreateMimicRequest;
 use App\Helpers\Constants;
 use App\Api\V2\Mimic\Repositories\CreateMimicRepository;
 use App\Api\V2\Mimic\Repositories\DeleteMimicRepository;
+use App\Api\V2\Mimic\Repositories\UpvoteMimicRepository;
 use DB;
 use Validator;
 
@@ -38,7 +39,7 @@ class MimicController extends BaseAuthController
         DB::beginTransaction();
         try {
             //@TODO REMOVE - fake user
-            $user = $this->mimic->getUser($this->authUser, $this->user);
+            $user = $this->mimic->getUser($this->authUser);
             //@TODO REMOVE - fake user
             
             $result = $createMimicRepository->create($user, $request->all());
@@ -78,62 +79,10 @@ class MimicController extends BaseAuthController
      * Upvote original or response mimic
      * @param  Request $request
      */
-    public function upvote(Request $request)
+    public function upvote(Request $request, UpvoteMimicRepository $upvoteMimicRepository)
     {
-        //@TODO REMOVE - fake user
-        $user = $this->mimic->getUser($this->authUser, $this->user);
-        //@TODO REMOVE - fake user
-
-        $model = ($request->original_mimic_id) ? $this->mimic : $this->mimicResponse;
-        $id = ($request->original_mimic_id) ?? $request->response_mimic_id;
-        $model = $model->find($id);
-        $model->preventMutation = true;
-
-        if ($request->original_mimic_id) {
-            $api_call_params = [
-                'user_id' => $model->user_id,
-                'original_mimic_id' => $model->id,
-            ];
-        } else {
-            $api_call_params = [
-                'user_id' => $model->originalMimic->user_id,
-                'original_mimic_id' => $model->original_mimic_id,
-                'response_mimic_id' => $model->id,
-            ];
-        }
-
-        DB::beginTransaction();
-
-        //try to upvote
-        try {
-            $model->increment('upvote');
-            $model->userUpvotes()->attach($user->id);
-            DB::commit();
-
-            //send push
-            $data = [
-                'authUser' => $user,
-                'parameters' => [
-                    'api_call' => app('Dingo\Api\Routing\UrlGenerator')->version('v2')->route('mimic.list', array_merge(['page' => 1], $api_call_params)),
-                    'position' => Constants::POSITION_SPLIT_SCREEN,
-                ],
-            ];
-
-            $this->mimic->sendMimicNotification($model, Constants::PUSH_TYPE_UPVOTE, $data);
-            $type = Constants::UPVOTED;
-        } //downvote
-        catch (\Exception $e) {
-            DB::rollBack(); //rollback query inside "try"
-            $model->decrement('upvote');
-            $model->userUpvotes()->detach($user->id);
-            $type = Constants::DOWNVOTED;
-        }
-
-        $model = $model->fresh();
-        return response()->json([
-            'type' => $type,
-            'upvotes' => $model->upvote,
-        ]);
+        $data = $upvoteMimicRepository->upvote($request->all(), $this->authUser);
+        return response()->json($data);
     }
 
     /**
