@@ -44,7 +44,6 @@ class FollowController extends BaseAuthController
             'type' => $type,
             'followers' => $user->fresh()->followers,
         ]);
-
     }
 
     /**

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CoreUser extends User
 {
-	use SoftDeletes;
+    use SoftDeletes;
 }

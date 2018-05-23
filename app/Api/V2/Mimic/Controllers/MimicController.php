@@ -124,7 +124,6 @@ class MimicController extends BaseAuthController
      */
     public function delete(Request $request, DeleteMimicRepository $deleteMimicRepository)
     {
-
         DB::beginTransaction();
         try {
             $deleteMimicRepository->deleteMimic($request->all(), $this->authUser);

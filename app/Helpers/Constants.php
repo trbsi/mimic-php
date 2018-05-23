@@ -11,14 +11,14 @@ class Constants
     //MIMICS
     public const ORDER_BY_RECENT = 'recent';
     public const ORDER_BY_POPULAR = 'popular';
-    public const ORDER_BY_PEOPLE_YOU_FOLLOW = 'people_you_follow';    
+    public const ORDER_BY_PEOPLE_YOU_FOLLOW = 'people_you_follow';
 
     public const UPVOTED = 'upvoted';
     public const DOWNVOTED = 'downvoted';
     public const BLOCKED = 'blocked';
     public const UNBLOCKED = 'unblocked';
     public const FOLLOWED = 'followed';
-    public const UNFOLLOWED = 'unfollowed';    
+    public const UNFOLLOWED = 'unfollowed';
 
     /**
      * Get our social accounts

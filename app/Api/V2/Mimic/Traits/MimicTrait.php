@@ -72,18 +72,18 @@ trait MimicTrait
 
     /**
      * Get paginated response
-     * 
+     *
      * @param collection $paginatedModel Mimics from the database taken with "->paginate()"
      * @return array
      */
     public function getPaginatedResponseContent($paginatedModel)
     {
-        return 
+        return
         [
             'count' => $paginatedModel->total(), //@TODO remove, this will be legacy and replced with 'meta'
-            'meta' => 
+            'meta' =>
             [
-                'pagination' => 
+                'pagination' =>
                 [
                     'total' => $paginatedModel->total() ,
                     'per_page' => $paginatedModel->perPage(),
