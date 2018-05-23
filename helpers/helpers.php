@@ -10,9 +10,9 @@ if (! function_exists('throw_exception')) {
      */
     function throw_exception(\Exception $e)
     {
-    	$statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : method_exists($e, 'getCode') ? $e->getCode() : 0;
+        $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : (method_exists($e, 'getCode') ? $e->getCode() : 0);
 
-    	if($statusCode < 100 || $statusCode > 599) {
+        if($statusCode < 100 || $statusCode > 599) {
     		$statusCode = 400;
     	}
 
