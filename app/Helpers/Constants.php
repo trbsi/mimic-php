@@ -17,6 +17,7 @@ class Constants
 
     //PUSH NOTIFICATIONS 
     public const POSITION_SPLIT_SCREEN = 'split_screen';
+    public const POSITION_USER_PROFILE = 'user_profile';
 
     public const UPVOTED = 'upvoted';
     public const DOWNVOTED = 'downvoted';

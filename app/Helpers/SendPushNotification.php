@@ -102,7 +102,7 @@ class SendPushNotification
         $body['parameters'] = $data['parameters'] ?? null;
 
         //------------CHANGED-------------------
-echo(json_encode($body));
+
         // Encode the payload as JSON
         $payload = json_encode($body);
 

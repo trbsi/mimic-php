@@ -69,7 +69,7 @@ $api->version('v2', function (Router $api) {
             });
 
             $api->group(['prefix' => 'profile'], function (Router $api) {
-                $api->get('user', ['uses' => 'App\Api\V2\Profile\Controllers\ProfileController@userProfile']);
+                $api->get('user', ['uses' => 'App\Api\V2\Profile\Controllers\ProfileController@userProfile', 'as' => 'profile.user']);
                 $api->post('block', ['uses' => 'App\Api\V2\Profile\Controllers\ProfileController@blockUser']);
                 $api->post('follow', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@followUser']);
                 $api->get('followers', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@followers']);

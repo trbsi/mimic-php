@@ -8,6 +8,7 @@ use App\Api\V2\Follow\Models\Follow;
 use App\Api\V2\User\Models\User;
 use DB;
 use App\Helpers\Constants;
+use App\Api\V2\Follow\Repositories\FollowUserRepository;
 
 class FollowController extends BaseAuthController
 {
@@ -16,34 +17,14 @@ class FollowController extends BaseAuthController
      * @param  Request $requets [description]
      * @return [type]           [description]
      */
-    public function followUser(Request $request)
+    public function followUser(Request $request, FollowUserRepository $followUserRepository)
     {
-        //get user
-        $user = User::find($request->id);
-        $user->preventMutation = $this->authUser->preventMutation = true;
-
-        DB::beginTransaction();
-
         try {
-            //follow
-            $user->increment('followers');
-            $this->authUser->following()->attach($user->id);
-            $this->authUser->increment('following');
-            DB::commit();
-            $type = Constants::FOLLOWED;
-        } catch (\Exception $e) {
-            //unfollow
-            DB::rollBack();
-            $user->decrement('followers');
-            $this->authUser->following()->detach($user->id);
-            $this->authUser->decrement('following');
-            $type = Constants::UNFOLLOWED;
+            $data = $followUserRepository->followUser($request->all(), $this->authUser);
+            return response()->json($data);
+        } catch(\Exception $e) {
+            throw_exception($e);
         }
-
-        return response()->json([
-            'type' => $type,
-            'followers' => $user->fresh()->followers,
-        ]);
     }
 
     /**
