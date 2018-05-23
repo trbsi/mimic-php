@@ -78,10 +78,24 @@ class CreateMimicRepository
             $user->increment('number_of_mimics');
             //send notification to a owner of original mimic that someone post a respons
             if ($responseMimic === true) {
-                $this->mimic->sendMimicNotification($this->createdModel->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, ['authUser' => $user]);
+                $pushData = [
+                    'authUser' => $user,
+                    'parameters' => [
+                        'api_call' => app('Dingo\Api\Routing\UrlGenerator')->version('v2')->route('mimic.list', [
+                            'page' => 1, 
+                            'user_id' => $this->createdModel->originalMimic, 
+                            'original_mimic_id' => $this->createdModel->original_mimic_id, 
+                            'response_mimic_id' => $this->createdModel->id,
+                        ]),
+                        'position' => Constants::POSITION_SPLIT_SCREEN,
+                    ],
+                ];
+                $this->mimic->sendMimicNotification($this->createdModel->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, $pushData);
             }
+
             //@TODO-TagUsers (still in progress and needs to be tested)
             //$this->mimic->checkTaggedUser($request->usernames, $mimic);
+
             return $this->mimic->getMimicResponseContent($model->where('id', $this->createdModel->id)->with($relations)->first());
         }
 
