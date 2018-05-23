@@ -71,7 +71,7 @@ use yii\helpers\Html;
                 <a href="javascript:;" class="btn btn-default btn-tos"
                    role="button">Terms Of Use</a>
                 <a href="javascript:;" class="btn btn-default btn-pp"
-                   role="button">Privacy Police</a>
+                   role="button">Privacy Policy</a>
                 <?php /*<a href="javascript:;" class="btn btn-default btn-eula" role="button">EULA</a>*/ ?>
             </div>
         </div>
