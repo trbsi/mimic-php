@@ -59,12 +59,12 @@ class SendPushNotification
     public static function iOS($data, $deviceTokens)
     {
         //------------CHANGED-------------------
-        if (App::isLocal()) {
+        if (env('APP_ENV') === 'local' || env('APP_ENV') === 'development') {
             $applePushGateway = "ssl://gateway.sandbox.push.apple.com:2195";
-            $ckpem = "development.pem";
+            $ckpem = env('IOS_PUSH_PEM_DEVELOPMENT') ?? 'ios_push_development_timmy.pem';
         } else {
             $applePushGateway = "ssl://gateway.push.apple.com:2195";
-            $ckpem = "production.pem";
+            $ckpem = env('IOS_PUSH_PEM_PRODUCTION') ?? 'ios_push_production_timmy.pem';
         }
         //------------CHANGED-------------------
 

@@ -89,10 +89,10 @@ class PushNotifications
 
         if ($sandbox == true) {
             $gate="ssl://gateway.sandbox.push.apple.com:2195";
-            $ck='development.pem';
+            $ck='ios_push_development_timmy.pem';
         } else {
             $gate="ssl://gateway.push.apple.com:2195";
-            $ck='production.pem';
+            $ck='ios_push_production_timmy.pem';
         }
         $deviceToken = $devicetoken;
 
@@ -125,12 +125,15 @@ class PushNotifications
                 'title' => $data['mtitle'],
                 'body' => $data['mdesc'],
             ],
-            'sound' => 'default'
+            'sound' => 'default',
+            'badge' =>  isset($_GET["badge"]) ? (int)$_GET["badge"] : 3,
         ];
-        $body["event"]="message";
-        $body["pin_id"] = isset($_GET["pin_id"]) ? (int)$_GET["pin_id"] : 0;
-        $body['aps']['badge'] = isset($_GET["badge"]) ? (int)$_GET["badge"] : 3;
-
+        if(isset($_GET['rich'])) {
+            $body['aps']['mutable-content'] = 1;
+            $body['aps']['category'] = 'rich-apns';
+            $body['media-url'] = $_GET['media-url'] ?? 'https://i.imgur.com/t4WGJQx.jpg';
+        }
+        
         // Encode the payload as JSON
         $payload = json_encode($body);
 
