@@ -6,11 +6,15 @@ trait UserQueryTrait
     /**
      * Return top 10 hashtags
      *
+     * @param object $authUser Authenticated user
      * @return collection
      */
-    public function getTopTenUsers()
+    public function getTopTenUsers(object $authUser)
     {
         return $this
+        ->select($this->getTable().".*")
+        ->selectRaw($this->getIAmFollowingYouQuery($authUser))
+        ->selectRaw($this->getIsBlockedQuery($authUser))
         ->orderBy('followers', 'DESC')
         ->orderBy('number_of_mimics', 'DESC')
         ->limit(10)

@@ -72,7 +72,9 @@ class SearchControllerTest extends TestCase
 		        'following',
 		        'number_of_mimics',
 		        'created_at',
-		        'updated_at'
+                'updated_at',
+                'i_am_following_you',
+                'is_blocked',
 		    ]
         ])
         ->assertJson([
@@ -84,6 +86,8 @@ class SearchControllerTest extends TestCase
                 'followers' => '123M',
                 'following' => '123M',
                 'number_of_mimics' => '123M',
+                'i_am_following_you' => true,
+                'is_blocked' => false,
 		    ]
 	    ])
         ->assertStatus(200);
@@ -137,6 +141,8 @@ class SearchControllerTest extends TestCase
                     'followers',
                     'following',
                     'number_of_mimics',
+                    'i_am_following_you',
+                    'is_blocked',
                 ],
             ]
         ])
@@ -203,6 +209,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 1,
@@ -212,6 +220,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => true,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 2,
@@ -221,6 +231,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 3,
@@ -230,6 +242,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => true,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 4,
@@ -239,6 +253,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 5,
@@ -248,6 +264,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 6,
@@ -257,6 +275,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 7,
@@ -266,6 +286,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 8,
@@ -275,6 +297,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
                 ],
                 [
                     'id' => 9,
@@ -284,6 +308,8 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
                 ]
             ]
         ])
