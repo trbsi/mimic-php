@@ -17,6 +17,7 @@ trait UserQueryTrait
         ->selectRaw($this->getIsBlockedQuery($authUser))
         ->orderBy('followers', 'DESC')
         ->orderBy('number_of_mimics', 'DESC')
+        ->whereNotIn('id', $authUser->blockedUsers->pluck('id')->toArray())
         ->limit(10)
         ->get();
     }
