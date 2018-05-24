@@ -20,17 +20,6 @@ return
             'email_exists' => 'This email already exists.',
             'username_contain' => "Username can only contain letters, numbers, '.' and '-'. It should be min 4 characters long.",
         ],
-        'notifications' =>
-        [
-            'respond_to_mimic_title' => 'Respond to new mimic',
-            'respond_to_mimic_body' => ':user come and respond to my mimic! - :owner',
-
-            'upvote_mimic_title' => 'New upvote',
-            'upvote_mimic_body' => ':user upvoted your Mimic!',
-
-            'new_response_title' => 'New response',
-            'new_response_body' => ':user has just responded to your Mimic. Check it out!'
-        ],
         'alert' => 
         [
             'cant_upload_mimic_title' => "Mimic couldn't be added",

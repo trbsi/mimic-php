@@ -42,7 +42,7 @@ class SearchController extends BaseAuthController
 
     /**
      * Get top 10 hashtags and users.
-     * 
+     *
      * @param  Request $request
      * @return json
      */

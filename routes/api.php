@@ -60,7 +60,7 @@ $api->version('v2', function (Router $api) {
            
             $api->group(['prefix' => 'mimic'], function (Router $api) {
                 $api->post('create', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@createMimic']);
-                $api->get('list', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@listMimics']);
+                $api->get('list', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@listMimics', 'as' => 'mimic.list']);
                 $api->get('load-responses', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@loadResponses']);
                 $api->post('upvote', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@upvote']);
                 $api->delete('delete', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@delete']);
@@ -69,7 +69,7 @@ $api->version('v2', function (Router $api) {
             });
 
             $api->group(['prefix' => 'profile'], function (Router $api) {
-                $api->get('user', ['uses' => 'App\Api\V2\Profile\Controllers\ProfileController@userProfile']);
+                $api->get('user', ['uses' => 'App\Api\V2\Profile\Controllers\ProfileController@userProfile', 'as' => 'profile.user']);
                 $api->post('block', ['uses' => 'App\Api\V2\Profile\Controllers\ProfileController@blockUser']);
                 $api->post('follow', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@followUser']);
                 $api->get('followers', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@followers']);

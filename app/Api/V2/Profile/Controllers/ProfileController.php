@@ -43,7 +43,7 @@ class ProfileController extends BaseAuthController
      */
     public function blockUser(Request $request)
     {
-        if((int)$request->user_id === (int)$this->authUser->id) {
+        if ((int)$request->user_id === (int)$this->authUser->id) {
             abort(400, trans('users.cant_block_yourself'));
         }
 
@@ -51,7 +51,7 @@ class ProfileController extends BaseAuthController
             //block
             $this->authUser->blockedUsers()->attach($request->user_id);
             $type = Constants::BLOCKED;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             //unblock
             $this->authUser->blockedUsers()->detach($request->user_id);
             $type = Constants::UNBLOCKED;

@@ -53,7 +53,7 @@ class LoginController extends Controller
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
-            }   
+            }
         }
 
         if ($user) {

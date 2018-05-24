@@ -82,7 +82,7 @@ class BootstrapController extends Controller
         ])->render();
 
         
-        file_put_contents($path, $contents.PHP_EOL , FILE_APPEND | LOCK_EX);
+        file_put_contents($path, $contents.PHP_EOL, FILE_APPEND | LOCK_EX);
 
         return response()->json(['message' => trans('general.thanks_for_feedback')]);
     }

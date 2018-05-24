@@ -193,7 +193,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
     }
 
-    public function blockedUsers() 
+    public function blockedUsers()
     {
         return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'users_blocks_pivot', 'blocked_by', 'user_id');
     }

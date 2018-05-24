@@ -2,28 +2,28 @@
 namespace App\Api\V2\User\Traits;
 
 trait UserQueryTrait
-{	
-	/**
-	 * Return top 10 hashtags
-	 * 
-	 * @return collection
-	 */
-	public function getTopTenUsers()
-	{
-		return $this
-		->orderBy('followers', 'DESC')
-		->orderBy('number_of_mimics', 'DESC')
-		->limit(10)
-		->get();
-	}
+{
+    /**
+     * Return top 10 hashtags
+     *
+     * @return collection
+     */
+    public function getTopTenUsers()
+    {
+        return $this
+        ->orderBy('followers', 'DESC')
+        ->orderBy('number_of_mimics', 'DESC')
+        ->limit(10)
+        ->get();
+    }
 
-	/**
-	 * Get all users blocked by me (logged in user)
-	 *
-	 * @return collection
-	 */
-	public function getUsersBlockedByMe()
-	{
-		return $this->blockedUsers;
-	}
+    /**
+     * Get all users blocked by me (logged in user)
+     *
+     * @return collection
+     */
+    public function getUsersBlockedByMe()
+    {
+        return $this->blockedUsers;
+    }
 }

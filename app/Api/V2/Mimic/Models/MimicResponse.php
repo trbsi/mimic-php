@@ -95,7 +95,6 @@ class MimicResponse extends Model
      */
     public function getMimicResponses($request, $authUser)
     {
-
         return $this
         ->select($this->getTable() . ".*")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = " . $this->getTable() . ".id), 1, 0) AS upvoted")

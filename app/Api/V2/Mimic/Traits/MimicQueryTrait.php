@@ -13,15 +13,15 @@ use DB;
 
 trait MimicQueryTrait
 {
-   /**
-     * get all original mimics (latest or from followers) from the database, with relations
-     * See this for help on how to get only X items from relation table using map()
-     * https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
-     * https://stackoverflow.com/questions/31700003/laravel-4-eloquent-relationship-hasmany-limit-records
-     * @param  Request $request Laravel request
-     * @param  Object $authUser Authenticated user
-     * @return Collection
-     */
+    /**
+      * get all original mimics (latest or from followers) from the database, with relations
+      * See this for help on how to get only X items from relation table using map()
+      * https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
+      * https://stackoverflow.com/questions/31700003/laravel-4-eloquent-relationship-hasmany-limit-records
+      * @param  Request $request Laravel request
+      * @param  Object $authUser Authenticated user
+      * @return Collection
+      */
     public function buildQuery(Request $request, object $authUser)
     {
         $this->mimicsQuery = $this;
@@ -42,7 +42,7 @@ trait MimicQueryTrait
 
     /**
      * Build query filter such as filtering by most recetn, popular, hashtag...
-     * 
+     *
      * @param  Request $request Laravel request
      * @param  Object $authUser Authenticated user
      * @return object
@@ -63,20 +63,20 @@ trait MimicQueryTrait
             $this->mimicsQuery = $this->mimicsQuery
                 ->join($mimicHashtagTable, "$mimicHashtagTable.mimic_id", '=', "$mimicsTable.id")
                 ->where('hashtag_id', $request->hashtag_id);
-        } else if($request->order_by === Constants::ORDER_BY_PEOPLE_YOU_FOLLOW) {
+        } elseif ($request->order_by === Constants::ORDER_BY_PEOPLE_YOU_FOLLOW) {
             //get mimics from people you follow and your mimics
             $followTable = (new Follow)->getTable();
             $this->mimicsQuery = $this->mimicsQuery
-                ->where(function($query) use($authUser) {
+                ->where(function ($query) use ($authUser) {
                     $query->where('user_id', $authUser->id)->orWhereRaw('follow.following IS NOT NULL');
-                }) 
+                })
                 ->leftJoin($followTable, function ($join) use ($followTable, $mimicsTable, $authUser) {
                     $join->on("$followTable.following", '=', "$mimicsTable.user_id");
                     $join->where('followed_by', $authUser->id);
                 })
                 ->orderBy(DB::raw("IF(ISNULL(follow.following) = 0 || user_id = $authUser->id, 0, 1)"), 'ASC') //I made this. Keep my mimics and mimics of people I follow on the first place ordered by most recent. After this just order by mimics.id DESC and it will order by most recent but it will keep my mimics and those of people I follow on the top
             ;
-        } else if($request->order_by === Constants::ORDER_BY_POPULAR) {
+        } elseif ($request->order_by === Constants::ORDER_BY_POPULAR) {
             $orderByColumn = 'upvote';
         }
 
@@ -89,7 +89,7 @@ trait MimicQueryTrait
 
     /**
      * Build query core
-     * 
+     *
      * @param  Request $request Laravel request
      * @param  Object $authUser Authenticated user
      * @return object
