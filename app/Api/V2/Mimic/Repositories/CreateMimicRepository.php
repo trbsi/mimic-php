@@ -79,14 +79,15 @@ class CreateMimicRepository
             //send notification to a owner of original mimic that someone post a respons
             if ($responseMimic === true) {
                 $pushData = [
+                    'media-url' => $this->createdModel->file_url,
                     'authUser' => $user,
                     'parameters' => [
-                        'api_call' => app('Dingo\Api\Routing\UrlGenerator')->version('v2')->route('mimic.list', [
+                        'api_call_params' => [
                             'page' => 1, 
-                            'user_id' => $this->createdModel->originalMimic, 
+                            'user_id' => $this->createdModel->originalMimic->user_id, 
                             'original_mimic_id' => $this->createdModel->original_mimic_id, 
                             'response_mimic_id' => $this->createdModel->id,
-                        ]),
+                        ],
                         'position' => Constants::POSITION_SPLIT_SCREEN,
                     ],
                 ];

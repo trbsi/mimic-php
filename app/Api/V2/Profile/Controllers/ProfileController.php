@@ -17,8 +17,8 @@ class ProfileController extends BaseAuthController
     public function userProfile(Request $request)
     {
         //if this is set user is accessing other user's profile
-        if ($request->id) {
-            $id = $request->id;
+        if ($request->id || $request->user_id) {
+            $id = $request->id ?? $request->user_id;
         } //user is accessing his own profile
         else {
             $id = $this->authUser->id;

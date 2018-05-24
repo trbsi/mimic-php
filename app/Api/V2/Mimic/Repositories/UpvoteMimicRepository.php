@@ -60,8 +60,8 @@ class UpvoteMimicRepository
             $pushData = [
                 'authUser' => $user,
                 'parameters' => [
-                    'api_call' => app('Dingo\Api\Routing\UrlGenerator')->version('v2')->route('mimic.list', array_merge(['page' => 1], $api_call_params)),
-                    'position' => Constants::POSITION_SPLIT_SCREEN,
+                    'api_call_params' => array_merge(['page' => 1,], $api_call_params),
+                    'position' => Constants::POSITION_SPLIT_SCREEN
                 ],
             ];
 

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Users;
 
-use App\Events\UserFollowedEvent;
+use App\Events\Users\UserFollowedEvent;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 
+/**
+ * Send notification when user follows another user. Send notification to a user who was followed
+ */
 class SendUserFollowedNotification
 {
     /**
@@ -35,10 +38,9 @@ class SendUserFollowedNotification
         $data['title'] = trans('notifications.someone_followed_you_title');
         $data['body'] = trans('notifications.someone_followed_you_body', ['user' => $event->authUser->username]);
         $data['parameters'] = [
-            'api_call' => app('Dingo\Api\Routing\UrlGenerator')->version('v2')->route('profile.user', 
-            [
-                'id' => $event->authUser->id,
-            ]),
+            'api_call_params' => [
+                'user_id' => $event->authUser->id,
+            ],
             'position' => Constants::POSITION_USER_PROFILE,
         ];
         $user_id = $event->followedUser->id; //send notfication to

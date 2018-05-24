@@ -5,7 +5,7 @@ namespace App\Api\V2\Follow\Repositories;
 use App\Api\V2\User\Models\User;
 use DB;
 use App\Helpers\Constants;
-use App\Events\UserFollowedEvent;
+use App\Events\Users\UserFollowedEvent;
 
 class FollowUserRepository
 {
