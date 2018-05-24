@@ -12,6 +12,7 @@ use App\Api\V2\Mimic\Requests\CreateMimicRequest;
 use App\Helpers\Constants;
 use App\Api\V2\Mimic\Repositories\CreateMimicRepository;
 use App\Api\V2\Mimic\Repositories\DeleteMimicRepository;
+use App\Api\V2\Mimic\Repositories\UpvoteMimicRepository;
 use DB;
 use Validator;
 
@@ -38,7 +39,7 @@ class MimicController extends BaseAuthController
         DB::beginTransaction();
         try {
             //@TODO REMOVE - fake user
-            $user = $this->mimic->getUser($this->authUser, $this->user);
+            $user = $this->mimic->getUser($this->authUser);
             //@TODO REMOVE - fake user
             
             $result = $createMimicRepository->create($user, $request->all());
@@ -78,44 +79,10 @@ class MimicController extends BaseAuthController
      * Upvote original or response mimic
      * @param  Request $request
      */
-    public function upvote(Request $request)
+    public function upvote(Request $request, UpvoteMimicRepository $upvoteMimicRepository)
     {
-        //@TODO REMOVE - fake user
-        $user = $this->mimic->getUser($this->authUser, $this->user);
-        //@TODO REMOVE - fake user
-        
-        if ($request->original_mimic_id) {
-            $model = $this->mimic;
-            $id = $request->original_mimic_id;
-        } else {
-            $model = $this->mimicResponse;
-            $id = $request->response_mimic_id;
-        }
-
-        DB::beginTransaction();
-        $model = $model->find($id);
-        $model->preventMutation = true;
-
-        //try to upvote
-        try {
-            $model->increment('upvote');
-            $model->userUpvotes()->attach($user->id);
-            DB::commit();
-            $this->mimic->sendMimicNotification($model, Constants::PUSH_TYPE_UPVOTE, ['authUser' => $user]);
-            $type = Constants::UPVOTED;
-        } //downvote
-        catch (\Exception $e) {
-            DB::rollBack(); //rollback query inside "try"
-            $model->decrement('upvote');
-            $model->userUpvotes()->detach($user->id);
-            $type = Constants::DOWNVOTED;
-        }
-
-        $model = $model->fresh();
-        return response()->json([
-            'type' => $type,
-            'upvotes' => $model->upvote,
-        ]);
+        $data = $upvoteMimicRepository->upvote($request->all(), $this->authUser);
+        return response()->json($data);
     }
 
     /**
@@ -124,7 +91,6 @@ class MimicController extends BaseAuthController
      */
     public function delete(Request $request, DeleteMimicRepository $deleteMimicRepository)
     {
-
         DB::beginTransaction();
         try {
             $deleteMimicRepository->deleteMimic($request->all(), $this->authUser);

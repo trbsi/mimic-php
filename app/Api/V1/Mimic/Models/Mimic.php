@@ -312,12 +312,12 @@ class Mimic extends Model
             ];
 
         if ($type === Constants::PUSH_TYPE_NEW_RESPONSE) {
-            $data['title'] = trans('core.notifications.new_response_title');
-            $data['body'] = trans('core.notifications.new_response_body', ['user' => $extra['authUser']->username]);
+            $data['title'] = trans('notifications.new_response_title');
+            $data['body'] = trans('notifications.new_response_body', ['user' => $extra['authUser']->username]);
             $user_id = $model->user_id;
         } elseif ($type === Constants::PUSH_TYPE_UPVOTE) {
-            $data['title'] = trans('core.notifications.upvote_mimic_title');
-            $data['body'] = trans('core.notifications.upvote_mimic_body', ['user' => $extra['authUser']->username]);
+            $data['title'] = trans('notifications.upvote_mimic_title');
+            $data['body'] = trans('notifications.upvote_mimic_body', ['user' => $extra['authUser']->username]);
             $user_id = $model->user_id;
         }
 

@@ -17,8 +17,8 @@ class ProfileController extends BaseAuthController
     public function userProfile(Request $request)
     {
         //if this is set user is accessing other user's profile
-        if ($request->id) {
-            $id = $request->id;
+        if ($request->id || $request->user_id) {
+            $id = $request->id ?? $request->user_id;
         } //user is accessing his own profile
         else {
             $id = $this->authUser->id;
@@ -26,8 +26,8 @@ class ProfileController extends BaseAuthController
 
         $userTable = $this->user->getTable();
         $user = User::select("$userTable.*")
-        ->selectRaw("IF(EXISTS(SELECT null FROM " . (new Follow)->getTable() . " WHERE followed_by = " . $this->authUser->id . " AND following = $userTable.id),1,0) AS i_am_following_you")
-        ->selectRaw("IF(EXISTS(SELECT null FROM users_blocks_pivot WHERE blocked_by = ".$this->authUser->id." AND user_id = users.id),1,0) AS is_blocked")
+        ->selectRaw($this->user->getIAmFollowingYouQuery($this->authUser))
+        ->selectRaw($this->user->getIsBlockedQuery($this->authUser))
         ->find($id);
 
         if ($user) {
@@ -43,7 +43,7 @@ class ProfileController extends BaseAuthController
      */
     public function blockUser(Request $request)
     {
-        if((int)$request->user_id === (int)$this->authUser->id) {
+        if ((int)$request->user_id === (int)$this->authUser->id) {
             abort(400, trans('users.cant_block_yourself'));
         }
 
@@ -51,7 +51,7 @@ class ProfileController extends BaseAuthController
             //block
             $this->authUser->blockedUsers()->attach($request->user_id);
             $type = Constants::BLOCKED;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             //unblock
             $this->authUser->blockedUsers()->detach($request->user_id);
             $type = Constants::UNBLOCKED;

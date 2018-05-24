@@ -33,6 +33,7 @@ class SendPushNotification
             'tickerText' => '',
             'msgcnt' => 1,
             'vibrate' => 1,
+            'parameters' => $data['parameters'] ?? null,
         );
 
         $headers = array(
@@ -58,12 +59,12 @@ class SendPushNotification
     public static function iOS($data, $deviceTokens)
     {
         //------------CHANGED-------------------
-        if (App::isLocal()) {
+        if (env('APP_ENV') === 'local' || env('APP_ENV') === 'development') {
             $applePushGateway = "ssl://gateway.sandbox.push.apple.com:2195";
-            $ckpem = "development.pem";
+            $ckpem = env('IOS_PUSH_PEM_DEVELOPMENT') ?? 'ios_push_development_timmy.pem';
         } else {
             $applePushGateway = "ssl://gateway.push.apple.com:2195";
-            $ckpem = "production.pem";
+            $ckpem = env('IOS_PUSH_PEM_PRODUCTION') ?? 'ios_push_production_timmy.pem';
         }
         //------------CHANGED-------------------
 
@@ -90,20 +91,27 @@ class SendPushNotification
         //------------CHANGED-------------------
         // Create the payload body
         $body['aps'] =
+        [
+            'alert' =>
             [
-                'alert' =>
-                    [
-                        'title' => $data['title'],
-                        'body' => $data['body'],
-                    ],
-                'sound' => isset($data['sound']) ? $data['sound'] : 'default', //"message.wav"
-            ];
+                'title' => $data['title'],
+                'body' => $data['body'],
+            ],
+            'sound' => $data['sound'] ?? 'default', //"message.wav"
+            'badge' => $data['badge'] ?? 1,
 
+        ];
+        $body['parameters'] = $data['parameters'] ?? null;
+        if(array_key_exists('media-url', $data)) {
+            $body['aps']['mutable-content'] = 1;
+            $body['aps']['category'] = 'rich-apns';
+            $body['media-url'] = $data['media-url'];
+        }
         //------------CHANGED-------------------
 
         // Encode the payload as JSON
         $payload = json_encode($body);
-
+echo $payload; die;
         //if you have multiple tokens for one user or if you want to send notifications to more users take all the tokens you need and put in array and use foreach to send notification, this way is faster because connection to apple server is  opened during sending
         foreach ($deviceTokens as $deviceToken) {
             // Build the binary notification

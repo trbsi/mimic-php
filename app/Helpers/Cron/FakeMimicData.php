@@ -8,9 +8,9 @@ use App\Api\V1\Mimic\Models\MimicResponse;
 class FakeMimicData
 {
     /**
-     * Fake mimic's user and upvote
+     * Fake mimic's upvotes
      */
-    public function adjustMimicData()
+    public function run()
     {
         //$query = 'created_at >= DATE_SUB(NOW(), INTERVAL 5 MINUTE) AND (user_id >= 1 AND user_id <= 97)';
         $query = 'created_at >= DATE_SUB(NOW(), INTERVAL 5 MINUTE)';

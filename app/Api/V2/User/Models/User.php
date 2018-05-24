@@ -10,6 +10,7 @@ use App\Helpers\Helper;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Api\V2\User\Traits\UserQueryTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Api\V2\Follow\Models\Follow;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -133,6 +134,28 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * Get part of query for i_am_following_you property
+     *
+     * @param object $authUser Authenticated user
+     * @return string
+     */
+    public function getIAmFollowingYouQuery(object $authUser): string
+    {
+        return "IF(EXISTS(SELECT null FROM " . (new Follow)->getTable() . " WHERE followed_by = " . $authUser->id . " AND following = ".$this->getTable().".id),1,0) AS i_am_following_you";
+    }
+
+    /**
+     * Get part of query for is_blocked property
+     *
+     * @param object $authUser Authenticated user
+     * @return string
+     */
+    public function getIsBlockedQuery(object $authUser): string
+    {
+        return "IF(EXISTS(SELECT null FROM users_blocks_pivot WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
+    }
+
+    /**
      * Get all users who I'm following
      */
     public function following()
@@ -193,7 +216,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
     }
 
-    public function blockedUsers() 
+    public function blockedUsers()
     {
         return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'users_blocks_pivot', 'blocked_by', 'user_id');
     }
