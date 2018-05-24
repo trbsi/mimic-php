@@ -4,6 +4,9 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Helpers\Cron\UploadToAws;
+use App\Helpers\Cron\FakeMimicData;
+use App\Helpers\Cron\Hashtags\UpdateHashtagPopularity;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,16 +27,25 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $data = [
-            'uploadToAws' => app('App\Helpers\Cron\UploadToAws'),
-            'fakeMimicData' => app('App\Helpers\Cron\FakeMimicData')
+        //https://gist.github.com/davejamesmiller/bd857d9b0ac895df7604dd2e63b23afe (laravel what to use instead of new)
+        $container = app();
+        $model = [
+            'UploadToAws' => $container->make(UploadToAws::class),
+            'FakeMimicData' => $container->make(FakeMimicData::class),
+            'UpdateHashtagPopularity' => $container->make(UpdateHashtagPopularity::class),
         ];
         
-        $schedule->call(function () use ($data) {
-            $data['uploadToAws']->uploadOriginalMimicsToAws();
-            $data['uploadToAws']->uploadResponseMimicsToAws();
-            $data['fakeMimicData']->adjustMimicData();
+        $schedule->call(function () use ($model) {
+            $model['UploadToAws']->uploadOriginalMimicsToAws();
+            $model['UploadToAws']->uploadResponseMimicsToAws();
+            $model['FakeMimicData']->run();
         })->everyFiveMinutes();
+
+        $schedule->call(function () use ($model) {
+            $model['UpdateHashtagPopularity']->run();
+        })->daily();
+
+        
     }
 
     /**
