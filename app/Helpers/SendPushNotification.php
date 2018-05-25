@@ -104,14 +104,14 @@ class SendPushNotification
         $body['parameters'] = $data['parameters'] ?? null;
         if(array_key_exists('media-url', $data)) {
             $body['aps']['mutable-content'] = 1;
-            $body['aps']['category'] = 'rich-apns';
-            $body['media-url'] = $data['media-url'];
+            $body['data']['media-url'] = $data['media-url'];
+            $body['data']['media-type'] = $data['media-type'];
         }
         //------------CHANGED-------------------
 
         // Encode the payload as JSON
         $payload = json_encode($body);
-echo $payload; die;
+
         //if you have multiple tokens for one user or if you want to send notifications to more users take all the tokens you need and put in array and use foreach to send notification, this way is faster because connection to apple server is  opened during sending
         foreach ($deviceTokens as $deviceToken) {
             // Build the binary notification

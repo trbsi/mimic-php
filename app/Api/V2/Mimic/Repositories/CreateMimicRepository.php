@@ -61,9 +61,9 @@ class CreateMimicRepository
             'mimic_type' => $this->getFileType(),
             'file' => $this->fileUpload->upload(
                 $this->mimicFileInfo['file'],
-                        $this->mimic->getFileOrPath($user->id),
-                        ['image', 'video'],
-                        FileUpload::FILE_UPLOAD_SERVER
+                $this->mimic->getFileOrPath($user->id),
+                ['image', 'video'],
+                FileUpload::FILE_UPLOAD_SERVER
             ),
             'user_id' => $user->id
         ], $this->additionalFields));
@@ -80,6 +80,7 @@ class CreateMimicRepository
             if ($responseMimic === true) {
                 $pushData = [
                     'media-url' => $this->createdModel->file_url,
+                    'media-type' => $this->createdModel->mimic_type,
                     'authUser' => $user,
                     'parameters' => [
                         'api_call_params' => [
