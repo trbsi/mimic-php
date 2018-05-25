@@ -40,6 +40,8 @@ class SendUserFollowedNotification
         $data['parameters'] = [
             'api_call_params' => [
                 'user_id' => $event->authUser->id,
+                'profile_picture' => $event->authUser->profile_picture,
+                'username' => $event->authUser->username,
             ],
             'position' => Constants::POSITION_USER_PROFILE,
         ];
