@@ -1,4 +1,4 @@
-@if($first_time_creation)
+@if($firstTimeCreation)
 <style>
     .chat {
     width: 400px;
@@ -51,7 +51,10 @@
 .date {
     font-size: 11px;
 }
-
+.images {
+    max-height: 200px;
+    width: auto;
+}
 </style>
 @endif
 
@@ -61,5 +64,11 @@
     <span class="date">{{date('d.m.Y')}}</span>
     <br>
     {{$body}}
+    @if($filePath)
+        @foreach($filePath as $path)
+        <br>
+        <a href="{{asset($path)}}" target="_blank" ><img src="{{asset($path)}}" class="images"></a>
+        @endforeach
+    @endif
 </div>
 </div>
