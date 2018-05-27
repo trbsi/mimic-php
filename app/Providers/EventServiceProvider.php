@@ -14,7 +14,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\Users\UserFollowedEvent' => [
-            'App\Listeners\Users\Push\SendUserFollowedNotification',
+            'App\Listeners\Users\PushNotifications\SendUserFollowedNotification',
         ],
     ];
 

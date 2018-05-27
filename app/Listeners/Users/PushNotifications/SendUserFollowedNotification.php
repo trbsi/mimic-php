@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Users\Push;
+namespace App\Listeners\Users\PushNotifications;
 
 use App\Events\Users\UserFollowedEvent;
 use App\Helpers\SendPushNotification;
