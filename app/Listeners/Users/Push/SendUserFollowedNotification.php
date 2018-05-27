@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Users;
+namespace App\Listeners\Users\Push;
 
 use App\Events\Users\UserFollowedEvent;
 use App\Helpers\SendPushNotification;
@@ -33,18 +33,19 @@ class SendUserFollowedNotification
         [
             'badge' => 1,
             'sound' => 'default',
+            'title' => trans('notifications.someone_followed_you_title'),
+            'body' =>  trans('notifications.someone_followed_you_body', ['user' => $event->authUser->username]),
+            'mutable_category' => Constants::MUTABLE_CATEGORY_USER,
+            'parameters' => [
+                'api_call_params' => [
+                    'user_id' => $event->authUser->id,
+                    'profile_picture' => $event->authUser->profile_picture,
+                    'username' => $event->authUser->username,
+                ],
+                'position' => Constants::POSITION_USER_PROFILE,
+            ],
         ];
 
-        $data['title'] = trans('notifications.someone_followed_you_title');
-        $data['body'] = trans('notifications.someone_followed_you_body', ['user' => $event->authUser->username]);
-        $data['parameters'] = [
-            'api_call_params' => [
-                'user_id' => $event->authUser->id,
-                'profile_picture' => $event->authUser->profile_picture,
-                'username' => $event->authUser->username,
-            ],
-            'position' => Constants::POSITION_USER_PROFILE,
-        ];
         $user_id = $event->followedUser->id; //send notfication to
 
         SendPushNotification::sendNotification($user_id, $data);

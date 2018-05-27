@@ -106,6 +106,9 @@ class SendPushNotification
             $body['aps']['mutable-content'] = 1;
             $body['data']['media-url'] = $data['media-url'];
             $body['data']['media-type'] = $data['media-type'];
+        } else if(array_key_exists('mutable_category', $data)) {
+            $body['aps']['mutable-content'] = 1;
+            $body['aps']['category'] = $data['mutable_category'];
         }
         //------------CHANGED-------------------
 
