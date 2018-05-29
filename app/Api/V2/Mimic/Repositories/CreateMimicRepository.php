@@ -76,8 +76,8 @@ class CreateMimicRepository
             //update user's number of mimics
             $user->preventMutation = true;
             $user->increment('number_of_mimics');
-            //send notification to a owner of original mimic that someone post a respons
-            if ($responseMimic === true) {
+            //send notification to a owner of original mimic that someone post a response, only if original mimic wasn't posted by logged in user
+            if ($responseMimic && $user->id !== $this->createdModel->originalMimic->user_id) {
                 $pushData = [
                     'media-url' => $this->createdModel->file_url,
                     'media-type' => $this->createdModel->mimic_type,
