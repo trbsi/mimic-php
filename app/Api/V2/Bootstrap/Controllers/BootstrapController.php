@@ -65,20 +65,36 @@ class BootstrapController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'body' => 'required',
+            'files.*' => 'image',
+        ], [
+            'body.required' => trans('general.feedback_body_missing'), 
+            'files.*.uploaded' => trans('validation.file_should_be_image'),
         ]);
 
         if ($validator->fails()) {
-            abort(400, trans('general.feedback_body_missing'));
+            $messages = "";
+            foreach($validator->errors()->all() as $msg) {
+                $messages.=$msg."\n";
+            }
+            abort(400, $messages);
+        }
+
+        $filePath = [];
+        if($request->file('files')) {
+            foreach($request->file('files') as $file) {
+                $filePath[] = str_replace('public/', 'storage/', $file->store('public/feedback_files'));
+            }
         }
 
         $fileName = '/feedbackovi.html';
         $path = public_path().$fileName;
-        $first_time_creation = file_exists($path) ? false : true;
+        $firstTimeCreation = file_exists($path) ? false : true;
 
         $contents = view('api.bootstrap.send-feedback', [
             'user' => $this->user->getAuthenticatedUser(),
             'body' => $request->body,
-            'first_time_creation' => $first_time_creation,
+            'firstTimeCreation' => $firstTimeCreation,
+            'filePath' => $filePath,
         ])->render();
 
         
