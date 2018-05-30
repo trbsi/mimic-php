@@ -23,24 +23,28 @@ class SearchRepository
     public function search(array $data, object $authUser)
     {
         //search hashtags
-        if (substr($data['term'], 0, 1) === "#") {
-            $table = $this->hashtag->getTable();
-            $match = 'name';
-            $orderBy = 'popularity';
-            $term = $data['term'];
-            $model = $this->hashtag;
-        } //search users
-        elseif (substr($data['term'], 0, 1) === "@") {
-            $table = $this->user->getTable();
-            $match = $orderBy = 'username';
-            $term = substr($data['term'], 1);
-            $model = $this->user
-            ->select("$table.*")
-            ->selectRaw($this->user->getIAmFollowingYouQuery($authUser))
-            ->selectRaw($this->user->getIsBlockedQuery($authUser));
-    
+        if(strlen($data['term']) > 1) {
+            if (substr($data['term'], 0, 1) === "#") {
+                $table = $this->hashtag->getTable();
+                $match = 'name';
+                $orderBy = 'popularity';
+                $term = $data['term'];
+                $model = $this->hashtag;
+            } //search users
+            elseif (substr($data['term'], 0, 1) === "@") {
+                $table = $this->user->getTable();
+                $match = $orderBy = 'username';
+                $term = substr($data['term'], 1);
+                $model = $this->user
+                ->select("$table.*")
+                ->selectRaw($this->user->getIAmFollowingYouQuery($authUser))
+                ->selectRaw($this->user->getIsBlockedQuery($authUser));
+        
+            } else {
+                return response()->json([]);
+            }
         } else {
-            return [];
+            return response()->json([]);
         }
 
         return $model
