@@ -103,7 +103,6 @@ trait MimicQueryTrait
         return $this->mimicsQuery
         ->select("$mimicsTable.*")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
-        ->selectRaw("(SELECT COUNT(*) FROM $mimicResponseTable WHERE original_mimic_id = $mimicsTable.id) AS responses_count")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicsTable.".user_id),1,0) AS i_am_following_you")
         ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable, $request, $followTable) {
             $query->select("$mimicResponseTable.*");
@@ -123,6 +122,7 @@ trait MimicQueryTrait
             $query->orderBy("upvote", "DESC");
             $query->orderBy("$mimicResponseTable.id", "DESC");
         }, 'user', 'hashtags', /*'mimicTagusers'*/])
+        ->withCount('mimicResponses')
         ->groupBy("$mimicsTable.id")
         ->whereNotIn($mimicsTable.'.user_id', $authUser->getUsersBlockedByMe()->pluck('id')->toArray())
         ;

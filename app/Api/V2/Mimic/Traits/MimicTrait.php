@@ -80,7 +80,6 @@ trait MimicTrait
     {
         return
         [
-            'count' => $paginatedModel->total(), //@TODO remove, this will be legacy and replced with 'meta'
             'meta' =>
             [
                 'pagination' =>
@@ -220,7 +219,7 @@ trait MimicTrait
             ];
 
         if ($mimic instanceof Mimic) {
-            $extraParams['responses_count'] = $mimic->responses_count ?? 0;
+            $extraParams['responses_count'] = $mimic->mimic_responses_count ?? 0;
         }
 
         return array_merge($standardResponse, $extraParams);
