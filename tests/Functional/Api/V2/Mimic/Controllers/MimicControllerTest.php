@@ -56,7 +56,7 @@ class MimicControllerTest extends TestCase
                         'aws_video_thumb' => null,
                         'mimic_type' => 'video',
                         'is_private' => false,
-                        'upvote' => "123M",
+                        'upvote' => '123M',
                         'deleted_at' => null,
                         'created_at' => '1970-01-01 12:00:00',
                         'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
@@ -318,7 +318,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'meta' => [
                 'pagination' => [
                     'total',
@@ -378,7 +377,6 @@ class MimicControllerTest extends TestCase
             ]   
         ])
         ->assertJson([
-            'count' => 9,
             'meta' => [
                 'pagination' => [
                     'total' => 9,
@@ -450,7 +448,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'mimics'
         ])
         ->assertJson([
@@ -467,7 +464,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'meta' => [
                 'pagination' => [
                     'total',
@@ -525,7 +521,6 @@ class MimicControllerTest extends TestCase
             ]
         ])
         ->assertJson([
-            'count' => 1,
             'meta' => [
                 'pagination' => [
                     'total' => 1,
@@ -605,7 +600,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'meta' => [
                 'pagination' => [
                     'total',
@@ -664,7 +658,6 @@ class MimicControllerTest extends TestCase
 
         ])
         ->assertJson([
-            'count' => 1,
             'meta' => [
                 'pagination' => [
                     'total' => 1,
@@ -770,7 +763,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'meta' => [
                 'pagination' => [
                     'total',
@@ -804,15 +796,14 @@ class MimicControllerTest extends TestCase
             ]
         ])
         ->assertJson([
-            'count' => 61,
             'meta' => [
                 'pagination' => [
                     'total' => 61,
                     'per_page' => 30,
                     'current_page' => 2,
                     'last_page' => 3,
-                    'next_page_url' => "http://mimic.loc/api/mimic/load-responses?page=3",
-                    'prev_page_url' => "http://mimic.loc/api/mimic/load-responses?page=1",
+                    'next_page_url' => 'http://mimic.loc/api/mimic/load-responses?page=3',
+                    'prev_page_url' => 'http://mimic.loc/api/mimic/load-responses?page=1',
                     'has_more_pages' => true,
                     'first_item' => 31,
                     'last_item' => 60
@@ -881,7 +872,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'meta' => [
                 'pagination' => [
                     'total',
@@ -898,7 +888,6 @@ class MimicControllerTest extends TestCase
             'mimics'
         ])
         ->assertJson([
-            'count' => 61,
             'meta' => [
                 'pagination' => [
                     'total' => 61,
@@ -906,7 +895,7 @@ class MimicControllerTest extends TestCase
                     'current_page' => 100,
                     'last_page' => 3,
                     'next_page_url' => null,
-                    'prev_page_url' => "http://mimic.loc/api/mimic/load-responses?page=99",
+                    'prev_page_url' => 'http://mimic.loc/api/mimic/load-responses?page=99',
                     'has_more_pages' => false,
                     'first_item' => null,
                     'last_item' => null
@@ -933,7 +922,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'meta' => [
                 'pagination' => [
                     'total',
@@ -976,7 +964,6 @@ class MimicControllerTest extends TestCase
             ]
         ])
         ->assertJson([
-            'count' => 2,
             'meta' => [
                 'pagination' => [
                     'total' => 2,
@@ -1112,7 +1099,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'meta' => [
                 'pagination' => [
                     'total',
@@ -1155,7 +1141,6 @@ class MimicControllerTest extends TestCase
             ]
         ])
         ->assertJson([
-            'count' => 9,
             'meta' => [
                 'pagination' => [
                     'total' => 9,
@@ -1225,7 +1210,6 @@ class MimicControllerTest extends TestCase
 
         $response
         ->assertJsonStructure([
-            'count',
             'meta' => [
                 'pagination' => [
                     'total',
@@ -1268,7 +1252,6 @@ class MimicControllerTest extends TestCase
             ]
         ])
         ->assertJson([
-            'count' => 9,
             'meta' => [
                 'pagination' => [
                     'total' => 9,
@@ -1285,50 +1268,42 @@ class MimicControllerTest extends TestCase
             'mimics' => [
                 [
                     'mimic' => [
-                        'id' => 1,
-                        'username' => 'AndrewCG',
-                        'profile_picture' => 'http://mimic.loc/files/hr/male/1.jpg',
-                        'user_id' => 1,
-                        'mimic_type' => 'video',
+                        'id' => 9,
+                        'username' => 'Desynchronized',
+                        'profile_picture' => 'http://mimic.loc/files/hr/female/9.jpg',
+                        'user_id' => 9,
+                        'mimic_type' => 'picture',
                         'upvote' => '123M',
-                        'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
-                        'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
-                        'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg',
+                        'file' => 'd71934d20a65fd1ef32e914c0ad48c77.jpg',
+                        'file_url' => 'http://mimic.loc/files/user/9/1970/01/d71934d20a65fd1ef32e914c0ad48c77.jpg',
+                        'video_thumb_url' => null,
                         'aws_file' => null,
                         'upvoted' => 0,
-                        'i_am_following_you' => true,
-                        'responses_count' => 61,
+                        'i_am_following_you' => false,
+                        'responses_count' => 10,
                     ],
                     'hashtags' => [
                         [
-                            'hashtag_id' => 12,
-                            'hashtag_name' => '#beatbox'
+                            'hashtag_id' => 43,
+                            'hashtag_name' => '#videogame'
                         ],
                         [
-                            'hashtag_id' => 13,
-                            'hashtag_name' => '#box'
-                        ],
-                        [
-                            'hashtag_id' => 14,
-                            'hashtag_name' => '#beat'
-                        ],
-                        [
-                            'hashtag_id' => 15,
-                            'hashtag_name' => '#music'
+                            'hashtag_id' => 44,
+                            'hashtag_name' => '#shoot'
                         ]
                     ],
-                    'hashtags_flat' => '#beatbox #box #beat #music',
+                    'hashtags_flat' => '#videogame #shoot',
                     'mimic_responses' => [
                         [
-                            'id' => 130,
-                            'username' => 'beachdude',
-                            'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
-                            'user_id' => 2,
-                            'mimic_type' => 'picture',
+                            'id' => 80,
+                            'username' => 'piperpilot32',
+                            'profile_picture' => 'http://mimic.loc/files/hr/female/19.jpg',
+                            'user_id' => 19,
+                            'mimic_type' => 'video',
                             'upvote' => '123M',
-                            'file' => 'xyz.jpg',
-                            'file_url' => 'http://mimic.loc/files/user/2/2018/05/xyz.jpg',
-                            'video_thumb_url' => null,
+                            'file' => '0ad52c7c64e23d527a4c907c7deb211e.mp4',
+                            'file_url' => 'http://mimic.loc/files/user/19/1970/01/0ad52c7c64e23d527a4c907c7deb211e.mp4',
+                            'video_thumb_url' => 'http://mimic.loc/files/user/19/1970/01/f319af632ddaaedd97a79f01e958fb04.jpg',
                             'aws_file' => null,
                             'upvoted' => 0,
                             'i_am_following_you' => false,
@@ -1389,7 +1364,7 @@ class MimicControllerTest extends TestCase
                 'mimic_type' => 'picture',
                 'upvote' => '1',
                 'file' => $fileName,
-                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date('Y').'/'.date('m').'/'.$fileName,
                 'video_thumb_url' => null,
                 'aws_file' => null,
                 'upvoted' => 0,
@@ -1415,7 +1390,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date('Y').'/'.date('m').'/'.$fileName);
     }
 
     public function testSuccessfullyUploadVideoOriginalMimic()
@@ -1429,7 +1404,7 @@ class MimicControllerTest extends TestCase
         $response = $this->doPost('mimic/create', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
         $fileName = $responseJSON['mimic']['file'];
-        $array = explode("/", $responseJSON['mimic']['video_thumb_url']);
+        $array = explode('/', $responseJSON['mimic']['video_thumb_url']);
         $videoThumbFileName = end($array);
 
         $response
@@ -1467,8 +1442,8 @@ class MimicControllerTest extends TestCase
                 'mimic_type' => 'video',
                 'upvote' => '1',
                 'file' => $fileName,
-                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
-                'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$videoThumbFileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date('Y').'/'.date('m').'/'.$fileName,
+                'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date('Y').'/'.date('m').'/'.$videoThumbFileName,
                 'aws_file' => null,
                 'upvoted' => 0,
                 'responses_count' => null,
@@ -1493,7 +1468,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date('Y').'/'.date('m').'/'.$fileName);
     }
 
     public function testUploadVideoOriginalMimicVideoThumbnailNotSent()
@@ -1629,7 +1604,7 @@ class MimicControllerTest extends TestCase
                 'mimic_type' => 'picture',
                 'upvote' => '1',
                 'file' => $fileName,
-                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date('Y').'/'.date('m').'/'.$fileName,
                 'video_thumb_url' => null,
                 'aws_file' => null,
                 'upvoted' => null,
@@ -1638,7 +1613,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date('Y').'/'.date('m').'/'.$fileName);
     }
 
     public function testSuccessfullyUploadVideoResponseMimic()
@@ -1652,7 +1627,7 @@ class MimicControllerTest extends TestCase
         $response = $this->doPost('mimic/create', $data, 'v2');
         $responseJSON = TestCaseHelper::decodeResponse($response);
         $fileName = $responseJSON['mimic']['file'];
-        $array = explode("/", $responseJSON['mimic']['video_thumb_url']);
+        $array = explode('/', $responseJSON['mimic']['video_thumb_url']);
         $videoThumbFileName = end($array);
 
         $response
@@ -1681,8 +1656,8 @@ class MimicControllerTest extends TestCase
                 'mimic_type' => 'video',
                 'upvote' => '1',
                 'file' => $fileName,
-                'file_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$fileName,
-                'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date("Y").'/'.date('m').'/'.$videoThumbFileName,
+                'file_url' => 'http://mimic.loc/files/user/96/'.date('Y').'/'.date('m').'/'.$fileName,
+                'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date('Y').'/'.date('m').'/'.$videoThumbFileName,
                 'aws_file' => null,
                 'upvoted' => null,
                 'i_am_following_you' => false,
@@ -1690,7 +1665,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertStatus(200);
 
-        Storage::disk('public')->assertExists('files/user/96/'.date("Y").'/'.date('m').'/'.$fileName);
+        Storage::disk('public')->assertExists('files/user/96/'.date('Y').'/'.date('m').'/'.$fileName);
     }
 
     public function testUploadVideoResponseMimicVideoThumbnailNotSent()
@@ -1788,7 +1763,7 @@ class MimicControllerTest extends TestCase
     //general errors
     public function testUploadedOriginalOrResponseMimicIsNotVideoOrImage()
     {
-        $file = TestCaseHelper::returnFakeFile("test.pdf");
+        $file = TestCaseHelper::returnFakeFile('test.pdf');
 
         $data = ['mimic_file' => $file, 'original_mimic_id' => 1];
         $response = $this->doPost('mimic/create', $data, 'v2');
@@ -1804,7 +1779,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'error' => [
-              'message' => "422 Unprocessable Entity",
+              'message' => '422 Unprocessable Entity',
               'errors' => [
                     'mimic_file' => [
                         'File should only be a photo (jpg or png) or a video (mp4).'
@@ -1819,7 +1794,7 @@ class MimicControllerTest extends TestCase
     {
         $mimicId = 4;
         Mimic::find($mimicId)->delete();
-        $file = TestCaseHelper::returnFakeFile("test.jpg");
+        $file = TestCaseHelper::returnFakeFile('test.jpg');
 
         $data = ['mimic_file' => $file, 'original_mimic_id' => $mimicId];
         $response = $this->doPost('mimic/create', $data, 'v2');
@@ -1832,7 +1807,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'error' => [
-              'message' => "This Mimic has been deleted, you can't respond to this Mimic anymore",
+              'message' => 'This Mimic has been deleted, you can\'t respond to this Mimic anymore',
             ]
         ])
         ->assertStatus(404);
@@ -1955,7 +1930,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'error' => [
-                'message' => "This is not your Mimic, you can't delete it."
+                'message' => 'This is not your Mimic, you can\'t delete it.'
             ]
         ])
         ->assertStatus(403); 
@@ -1976,7 +1951,7 @@ class MimicControllerTest extends TestCase
         ])
         ->assertJson([
             'error' => [
-                'message' => "This is not your Mimic, you can't delete it."
+                'message' => 'This is not your Mimic, you can\'t delete it.'
             ]
         ])
         ->assertStatus(403); 

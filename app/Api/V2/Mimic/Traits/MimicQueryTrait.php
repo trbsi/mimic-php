@@ -77,11 +77,11 @@ trait MimicQueryTrait
                 ->orderBy(DB::raw("IF(ISNULL(follow.following) = 0 || user_id = $authUser->id, 0, 1)"), 'ASC') //I made this. Keep my mimics and mimics of people I follow on the first place ordered by most recent. After this just order by mimics.id DESC and it will order by most recent but it will keep my mimics and those of people I follow on the top
             ;
         } elseif ($request->order_by === Constants::ORDER_BY_POPULAR) {
-            $orderByColumn = 'upvote';
+            $this->mimicsQuery = $this->mimicsQuery->orderBy($this->getTable().'.upvote', 'DESC');
         }
 
         //set order by. default order by recent
-        $this->mimicsQuery = $this->mimicsQuery->orderBy($orderByColumn ?? $this->getTable().'.id', $orderByType ?? 'DESC');//then order by other recent mimics
+        $this->mimicsQuery = $this->mimicsQuery->orderBy($this->getTable().'.id', 'DESC');//then order by other recent mimics
 
 
         return $this;
