@@ -38,8 +38,11 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () use ($model) {
             $model['UploadToAws']->uploadOriginalMimicsToAws();
             $model['UploadToAws']->uploadResponseMimicsToAws();
-            $model['FakeMimicData']->run();
         })->everyFiveMinutes();
+
+        $schedule->call(function () use ($model) {
+            $model['FakeMimicData']->run();
+        })->everyFifteenMinutes();
 
         $schedule->call(function () use ($model) {
             $model['UpdateHashtagPopularity']->run();
