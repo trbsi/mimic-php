@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -11,11 +10,6 @@ use App\Helpers\Constants;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function ajaxTest()
-    {
-        return view("ajax-test");
-    }
 
     public function index()
     {
@@ -32,5 +26,30 @@ class Controller extends BaseController
     public function appStore()
     {
         return redirect(env('IOS_STORE_LINK'));
+    }
+
+    /**
+     * Share mimic via web on FB, IG, Twitter...
+     *
+     * @param int $id Original mimic id
+     * @return void
+     */
+    public function shareMimic($id)
+    {
+        $model = resolve('MimicModel');
+        $relations = ['user', 'hashtags', 'responses.user'];
+        $mimic = $model->getOneMimicWithRelations($id, $relations);
+
+        if (!$mimic) {
+            return redirect('/');
+        }
+
+        $socialImageUrl = ($mimic->mimic_type === $mimic::TYPE_PHOTO_STRING) ? $mimic->file_url : $mimic->video_thumb_url;
+
+        return view("public.social.share", [
+            'mimic' => $mimic,
+            'social' => Constants::socialAccounts(),
+            'socialImageUrl' => $socialImageUrl,
+        ]);
     }
 }

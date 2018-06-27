@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('ajax-test', 'Controller@ajaxTest');
 Route::get('/', 'Controller@index');
 Route::get('legal', 'Controller@legal');
 Route::get('appstore', 'Controller@appStore');
-
-Route::group(['namespace' => 'Cron', 'prefix' => 'cron'], function () {
-});
+Route::get('share/{id}', 'Controller@shareMimic')->name('share.mimic');

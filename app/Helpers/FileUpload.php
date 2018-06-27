@@ -196,6 +196,7 @@ class FileUpload
         if (strpos($fileInfo['mime'], 'image') === false) {
             return;
         }
+        
         $image = new Imagick($filePath);
         switch ($image->getImageOrientation()) {
             case Imagick::ORIENTATION_TOPLEFT:

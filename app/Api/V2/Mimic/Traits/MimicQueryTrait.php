@@ -126,4 +126,19 @@ trait MimicQueryTrait
         ->whereNotIn($mimicsTable.'.user_id', $authUser->getUsersBlockedByMe()->pluck('id')->toArray())
         ;
     }
+
+    /**
+     * Get one mimic with relations
+     *
+     * @param int $id Original mimic id
+     * @param array $relations Array of relations
+     * @return collection
+     */
+    public function getOneMimicWithRelations($id, $relations = [])
+    {
+        return $this
+        ->where('id', $id)
+        ->with($relations)
+        ->first();
+    }
 }

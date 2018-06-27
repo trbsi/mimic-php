@@ -184,6 +184,9 @@ return [
 
         Intervention\Image\ImageServiceProvider::class,
 
+        //Custom providers
+        App\Providers\Models\Mimic\MimicModelProvider::class,
+
     ],
 
     /*
