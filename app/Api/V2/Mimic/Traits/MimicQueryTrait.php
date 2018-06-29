@@ -118,8 +118,7 @@ trait MimicQueryTrait
             if ($request->response_mimic_id) {
                 $query->orderBy(DB::raw("$mimicResponseTable.id=$request->response_mimic_id"), 'DESC');
             }
-            //load responses by upvotes
-            $query->orderBy("upvote", "DESC");
+            //load responses by most recent
             $query->orderBy("$mimicResponseTable.id", "DESC");
         }, 'user', 'hashtags', /*'mimicTagusers'*/])
         ->withCount('mimicResponses')
