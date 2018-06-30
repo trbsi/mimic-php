@@ -41,7 +41,7 @@ class Mimic extends Model
             'upvote' => 'int',
             'user_id' => 'int',
             'upvoted' => 'int', //this is to check if user upvoted mimic or not
-            'responses_count' => 'int',
+            'responses_count' => 'int', //this comes from withCount('responses')
             'i_am_following_you' => 'boolean', //when returning the list of mimics
         ];
 
@@ -269,7 +269,7 @@ class Mimic extends Model
         return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
-    public function mimicResponses()
+    public function responses()
     {
         return $this->hasMany(\App\Api\V2\Mimic\Models\MimicResponse::class, 'original_mimic_id', 'id');
     }

@@ -31,9 +31,9 @@ trait MimicQueryTrait
         ->buildQueryCore($request, $authUser)
         ->paginate(Mimic::LIST_ORIGINAL_MIMICS_LIMIT);
 
-        //paginate mimicResponses
+        //paginate responses
         $result->map(function ($query) {
-            $query->mimicResponses = $query->mimicResponses->take(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
+            $query->responses = $query->responses->take(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
             return $query;
         });
 
@@ -104,13 +104,13 @@ trait MimicQueryTrait
         ->select("$mimicsTable.*")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicsTable.".user_id),1,0) AS i_am_following_you")
-        ->with(['mimicResponses' => function ($query) use ($authUser, $mimicResponseTable, $request, $followTable) {
+        ->with(['responses' => function ($query) use ($authUser, $mimicResponseTable, $request, $followTable) {
             $query->select("$mimicResponseTable.*");
             //check if user upvoted this mimic response
             $query
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicResponseTable.".user_id),1,0) AS i_am_following_you");
-            //get user info for mimicResponses
+            //get user info for responses
             $query->with('user');
 
             //first order by this specific id then by upvote
@@ -121,7 +121,7 @@ trait MimicQueryTrait
             //load responses by most recent
             $query->orderBy("$mimicResponseTable.id", "DESC");
         }, 'user', 'hashtags', /*'mimicTagusers'*/])
-        ->withCount('mimicResponses')
+        ->withCount('responses')
         ->groupBy("$mimicsTable.id")
         ->whereNotIn($mimicsTable.'.user_id', $authUser->getUsersBlockedByMe()->pluck('id')->toArray())
         ;

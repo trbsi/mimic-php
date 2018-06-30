@@ -41,7 +41,7 @@ class CreateMimicRepository
         //init variables
         $model = $this->mimic;
         $responseMimic = false; //is someone posted a response or not
-        $relations = ['user', 'hashtags', 'mimicResponses.user'];
+        $relations = ['user', 'hashtags', 'responses.user'];
 
         //if this is response mimic upload - init variables
         if (array_key_exists('original_mimic_id', $request)) {

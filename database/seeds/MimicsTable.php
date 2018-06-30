@@ -103,7 +103,7 @@ class MimicsTable extends Seeder
             }
 
             $mainUserId++;
-            $mainMimic->mimicResponses()->createMany($mimicResponses);
+            $mainMimic->responses()->createMany($mimicResponses);
 
         }
 

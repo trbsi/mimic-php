@@ -54,7 +54,7 @@ trait MimicTrait
                 $mimicsResponseContent[] = $this->generateContentForMimicResponse(
                     $mimic,
                     ($mimic->hashtags) ?? [],
-                    ($mimic->mimicResponses) ?? []
+                    ($mimic->responses) ?? []
                 );
             }
         }
@@ -63,7 +63,7 @@ trait MimicTrait
             return $this->generateContentForMimicResponse(
                 $mimics,
                 ($mimics->hashtags) ??  [],
-                ($mimics->mimicResponses) ?? []
+                ($mimics->responses) ?? []
             );
         }
 
@@ -122,10 +122,10 @@ trait MimicTrait
      * @param  [type] $mimic       [Mimic model]
      * @param  [type] $hashtags    [array of hashtags in form: [hashtag id] => hashtag name ]
      * @param  [type] $taggedUsers [array of usernames in form: [user id] => username] @TODO-TagUsers (future feature and needs to be tested)
-     * @param  [type] $mimicResponses [all responses of a specific origina mimic, ordered descending by upvotes]
+     * @param  [type] $responses [all responses of a specific origina mimic, ordered descending by upvotes]
      * @return array Structured response
      */
-    private function generateContentForMimicResponse($mimic, $hashtags, $mimicResponses, $taggedUsers = null)
+    private function generateContentForMimicResponse($mimic, $hashtags, $responses, $taggedUsers = null)
     {
         $mimicStructure = $this->createMimicArrayStructure($mimic);
 
@@ -178,10 +178,10 @@ trait MimicTrait
             }
         }*/
 
-        $mimicResponsesStructure = [];
+        $responsesStructure = [];
         //get all mimic responses
-        foreach ($mimicResponses as $mimicResponse) {
-            $mimicResponsesStructure[] = $this->createMimicArrayStructure($mimicResponse);
+        foreach ($responses as $mimicResponse) {
+            $responsesStructure[] = $this->createMimicArrayStructure($mimicResponse);
         }
 
         return
@@ -190,7 +190,7 @@ trait MimicTrait
                 'hashtags' => $hashtagsStructure,
                 'hashtags_flat' => implode(" ", array_pluck($hashtagsStructure, 'hashtag_name')),
                 //'taggedUsers' => $taggedUsersTmp, @TODO-TagUsers (future feature and needs to be tested)
-                'mimic_responses' => $mimicResponsesStructure
+                'mimic_responses' => $responsesStructure
             ];
     }
 
@@ -219,7 +219,7 @@ trait MimicTrait
             ];
 
         if ($mimic instanceof Mimic) {
-            $extraParams['responses_count'] = $mimic->mimic_responses_count ?? 0;
+            $extraParams['responses_count'] = $mimic->responses_count ?? 0;
         }
 
         return array_merge($standardResponse, $extraParams);
