@@ -23,17 +23,17 @@ class Helper
      */
     public static function getOauthProviderData($provider, $provider_data)
     {
-        if ($provider == "facebook") {
+        if ($provider === "facebook") {
             return
                 [
                     'provider' => $provider,
                     'provider_id' => $provider_data["id"],
                     'email' => (array_key_exists('email', $provider_data)) ? $provider_data["email"] : null,
-                    'profile_picture' => isset($provider_data["picture"]["data"]["url"]) ? $provider_data["picture"]["data"]["url"] : config('user.profile.no_profile_image_url'),
+                    'profile_picture' => sprintf('https://graph.facebook.com/%s/picture?type=large', $provider_data["id"]),
                 ];
         }
 
-        if ($provider == "twitter") {
+        if ($provider === "twitter") {
             return
                 [
                     'provider' => $provider,

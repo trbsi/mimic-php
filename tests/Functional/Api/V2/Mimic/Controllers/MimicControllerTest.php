@@ -1359,7 +1359,7 @@ class MimicControllerTest extends TestCase
             'mimic' => [
                 'id' => 10,
                 'username' => 'xyz1234',
-                'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                'profile_picture' => 'https://graph.facebook.com/2042074229356674/picture?type=large',
                 'user_id' => 96,
                 'mimic_type' => 'picture',
                 'upvote' => '1',
@@ -1437,7 +1437,7 @@ class MimicControllerTest extends TestCase
         ->assertJson([
             'mimic' => [
                 'username' => 'xyz1234',
-                'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                'profile_picture' => 'https://graph.facebook.com/2042074229356674/picture?type=large',
                 'user_id' => 96,
                 'mimic_type' => 'video',
                 'upvote' => '1',
@@ -1599,7 +1599,7 @@ class MimicControllerTest extends TestCase
             'mimic' => [
                 'id' => 131,
                 'username' => 'xyz1234',
-                'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                'profile_picture' => 'https://graph.facebook.com/2042074229356674/picture?type=large',
                 'user_id' => 96,
                 'mimic_type' => 'picture',
                 'upvote' => '1',
@@ -1608,7 +1608,7 @@ class MimicControllerTest extends TestCase
                 'video_thumb_url' => null,
                 'aws_file' => null,
                 'upvoted' => null,
-                'i_am_following_you' => false,
+                'i_am_following_you' => null,
             ]
         ])
         ->assertStatus(200);
@@ -1651,7 +1651,7 @@ class MimicControllerTest extends TestCase
             'mimic' => [
                 'id' => 132,
                 'username' => 'xyz1234',
-                'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                'profile_picture' => 'https://graph.facebook.com/2042074229356674/picture?type=large',
                 'user_id' => 96,
                 'mimic_type' => 'video',
                 'upvote' => '1',
@@ -1660,7 +1660,7 @@ class MimicControllerTest extends TestCase
                 'video_thumb_url' => 'http://mimic.loc/files/user/96/'.date('Y').'/'.date('m').'/'.$videoThumbFileName,
                 'aws_file' => null,
                 'upvoted' => null,
-                'i_am_following_you' => false,
+                'i_am_following_you' => null,
             ]
         ])
         ->assertStatus(200);

@@ -25,3 +25,6 @@ https://codepen.io/tylernj42/pen/BoxzaQ
 
 JWT Authentication with tymon jwt
 https://medium.com/@mosesesan/tutorial-5-how-to-build-a-laravel-5-4-jwt-authentication-api-with-e-mail-verification-61d3f356f823
+
+Facebook pictures URL expire
+https://stackoverflow.com/questions/34580136/facebook-app-login-how-to-control-expiration-date-of-an-image-url-i-got

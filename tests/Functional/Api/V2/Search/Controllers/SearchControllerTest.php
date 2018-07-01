@@ -205,7 +205,7 @@ class SearchControllerTest extends TestCase
                     'id' => 96,
                     'email' => 'unknow@mail.com',
                     'username' => 'xyz1234',
-                    'profile_picture' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg',
+                    'profile_picture' => 'https://graph.facebook.com/2042074229356674/picture?type=large',
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
