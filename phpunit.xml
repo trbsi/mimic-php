@@ -9,15 +9,6 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Functional-V1-Auth">
-            <directory suffix="Test.php">./tests/Functional/Api/V1/Auth</directory>
-        </testsuite>
-        <testsuite name="Functional-V1-All">
-            <directory suffix="Test.php">./tests/Functional/Api/V1</directory>
-            <exclude>
-                <directory suffix=".php">./tests/Functional/Api/V1/Auth</directory>
-            </exclude>
-        </testsuite>
         <testsuite name="Functional-V2-Auth">
             <directory suffix="Test.php">./tests/Functional/Api/V2/Auth</directory>
         </testsuite>

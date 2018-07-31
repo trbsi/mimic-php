@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Api\V1\PushNotificationsToken\Models\PushNotificationsToken;
+use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
 use App;
 
 class SendPushNotification

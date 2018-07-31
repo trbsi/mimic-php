@@ -1,8 +1,8 @@
 <?php
 namespace App\Helpers\Cron;
 
-use App\Api\V1\Mimic\Models\Mimic;
-use App\Api\V1\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Models\MimicResponse;
 use App\Helpers\FileUpload;
 
 /**
