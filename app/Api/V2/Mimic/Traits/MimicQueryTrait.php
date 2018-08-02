@@ -81,7 +81,7 @@ trait MimicQueryTrait
         }
 
         //set order by. default order by recent
-        $this->mimicsQuery = $this->mimicsQuery->orderBy($this->getTable().'.id', 'DESC');//then order by other recent mimics
+        $this->mimicsQuery = $this->mimicsQuery->orderBy($this->getTable().'.id', 'DESC');
 
 
         return $this;
