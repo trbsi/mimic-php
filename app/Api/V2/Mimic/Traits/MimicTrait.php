@@ -5,6 +5,7 @@ use DB;
 use App\Helpers\SendPushNotification;
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\JsonResources\MimicResource;
 
 trait MimicTrait
 {
@@ -42,33 +43,12 @@ trait MimicTrait
     /**
      * Get mimic model and return response
      *
-     * @param  Mimic|MimicResponse $mimics Mimic or MimicResponse loaded result
+     * @param  Mimic|MimicResponse $mimic Mimic or MimicResponse loaded result
      * @return array Generated mimic response
      */
-    public function getMimicResponseContent($mimics)
+    public function getSingleMimicResponseContent($mimic)
     {
-        $mimicsResponseContent = [];
-
-        //check if this is collection of items got with get() method
-        if (($mimics instanceof Collection && !$mimics->isEmpty()) || is_array($mimics)) {
-            foreach ($mimics as $mimic) {
-                $mimicsResponseContent[] = $this->generateContentForMimicResponse(
-                    $mimic,
-                    ($mimic->hashtags) ?? [],
-                    ($mimic->responses) ?? []
-                );
-            }
-        }
-        //if this is single item taken with first()
-        elseif ($mimics instanceof Collection === false && !empty($mimics)) {
-            return $this->generateContentForMimicResponse(
-                $mimics,
-                ($mimics->hashtags) ??  [],
-                ($mimics->responses) ?? []
-            );
-        }
-
-        return $mimicsResponseContent;
+        return new MimicResource($mimic);
     }
 
     /**
@@ -77,9 +57,9 @@ trait MimicTrait
      * @param collection $paginatedModel Mimics from the database taken with "->paginate()"
      * @return array
      */
-    public function getPaginatedResponseContent($paginatedModel)
+    public function getPaginatedResponseContent($paginatedModel): array
     {
-        return
+        return 
         [
             'meta' =>
             [
@@ -96,7 +76,7 @@ trait MimicTrait
                     'last_item' => $paginatedModel->lastItem(),
                 ]
             ],
-            'mimics' => $this->getMimicResponseContent($paginatedModel->items()),
+            'mimics' => MimicResource::collection($paginatedModel),
         ];
     }
 
@@ -116,83 +96,6 @@ trait MimicTrait
                 return Mimic::TYPE_PHOTO_STRING;
                 break;
         }
-    }
-
-    /**
-     * generate mimic response
-     * @param  [type] $mimic       [Mimic model]
-     * @param  [type] $hashtags    [array of hashtags in form: [hashtag id] => hashtag name ]
-     * @param  [type] $taggedUsers [array of usernames in form: [user id] => username] @TODO-TagUsers (future feature and needs to be tested)
-     * @param  [type] $responses [all responses of a specific origina mimic, ordered descending by upvotes]
-     * @return array Structured response
-     */
-    private function generateContentForMimicResponse($mimic, $hashtags, $responses, $taggedUsers = null)
-    {
-        $mimicStructure = $this->createMimicArrayStructure($mimic);
-
-        //if this is mimic reponse just return that mimic without hashtags or mimic_responses
-        if ($mimic instanceof MimicResponse) {
-            return ['mimic' => $mimicStructure];
-        }
-
-        $hashtagsStructure = [];
-
-        //it could be an array generated with  checkTags
-        if (is_array($hashtags)) {
-            foreach ($hashtags as $hashtag_id => $hashtag_name) {
-                $hashtagsStructure[] =
-                    [
-                        "hashtag_id" => $hashtag_id,
-                        "hashtag_name" => $hashtag_name
-                    ];
-            }
-        } //if it's object from database
-        elseif (is_object($hashtags)) {
-            foreach ($hashtags as $hashtag) {
-                $hashtagsStructure[] =
-                    [
-                        "hashtag_id" => $hashtag->id,
-                        "hashtag_name" => $hashtag->name,
-                    ];
-            }
-        }
-
-        //@TODO-TagUsers (future feature and needs to be tested)
-        /*$taggedUsersTmp = [];
-        //it could be an array generated with  checkTaggedUser
-        if (is_array($taggedUsers)) {
-            foreach ($taggedUsers as $user_id => $username) {
-                $taggedUsersTmp[] =
-                    [
-                        "user_id" => $user_id,
-                        "username" => $username,
-                    ];
-            }
-        } //if it's object from database
-        else if (is_object($taggedUsers)) {
-            foreach ($taggedUsers as $taggedUser) {
-                $taggedUsersTmp[] =
-                    [
-                        "user_id" => $taggedUser->id,
-                        "username" => $taggedUser->username
-                    ];
-            }
-        }*/
-
-        $responsesStructure = [];
-        //get all mimic responses
-        foreach ($responses as $mimicResponse) {
-            $responsesStructure[] = $this->createMimicArrayStructure($mimicResponse);
-        }
-
-        return
-            [
-                'mimic' => $mimicStructure,
-                'hashtags' => $hashtagsStructure,
-                'hashtags_flat' => implode(" ", array_pluck($hashtagsStructure, 'hashtag_name')),
-                //'taggedUsers' => $taggedUsersTmp, @TODO-TagUsers (future feature and needs to be tested)
-                'mimic_responses' => $responsesStructure
-            ];
     }
 
     /**
@@ -218,6 +121,7 @@ trait MimicTrait
                 'upvoted' => $mimic->upvoted,
                 'i_am_following_you' => $mimic->i_am_following_you,
                 'created_at' => (int) strtotime($mimic->created_at),
+                'meta' => $mimic->meta,
             ];
 
         if ($mimic instanceof Mimic) {

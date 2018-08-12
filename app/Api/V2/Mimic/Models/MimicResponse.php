@@ -16,7 +16,7 @@ class MimicResponse extends Model
      * Generated
      */
 
-    protected $table = 'mimic_response';
+    protected $table = 'mimic_responses';
     protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id', 'width', 'height', 'aws_video_thumb'];
 
     protected $appends = ['file_url', 'video_thumb_url'];
@@ -122,5 +122,10 @@ class MimicResponse extends Model
     public function upvotes()
     {
         return $this->hasMany(\App\Api\V2\Mimic\Models\MimicResponseUpvote::class, 'mimic_id', 'id');
+    }
+
+    public function meta()
+    {
+        return $this->hasOne('App\Api\V2\Mimic\Resource\Response\Resource\Meta\Models\Meta', 'mimic_id', 'id');
     }
 }

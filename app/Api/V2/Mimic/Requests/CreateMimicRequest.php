@@ -30,7 +30,9 @@ class CreateMimicRequest extends FormRequest
     {
         $this->rules = [
             'mimic_file' => 'required|file|mimes:jpeg,png,jpg,mp4',
-            'hashtags' => 'required_without:original_mimic_id'
+            'hashtags' => 'required_without:original_mimic_id',
+            'meta.height' => 'required|integer',
+            'meta.width' => 'required|integer',
         ];
 
         $this->videoThumbnailRule();
@@ -46,13 +48,21 @@ class CreateMimicRequest extends FormRequest
     public function messages()
     {
         return [
-            'mimic_file.required' => trans('validation.file_should_be_image_video'),
-            'mimic_file.file' => trans('validation.file_should_be_image_video'),
-            'mimic_file.mimes' => trans('validation.file_mimes_only_photo_or_video'),
-            'video_thumbnail.mimes' => trans('validation.video_thumbnail_mimes_only_photo'),
-            'video_thumbnail.file' => trans('validation.file_should_be_image_video'),
-            'video_thumbnail.required' => trans('validation.video_thumbnail_required'),
-            'hashtags.required_without' => trans('validation.hashtags_are_reqired'),
+            'mimic_file.required' => trans('validation.mimic.create.file_should_be_image_video'),
+            'mimic_file.file' => trans('validation.mimic.create.file_should_be_image_video'),
+            'mimic_file.mimes' => trans('validation.mimic.create.file_mimes_only_photo_or_video'),
+            'video_thumbnail.mimes' => trans('validation.mimic.create.video_thumbnail_mimes_only_photo'),
+            'video_thumbnail.file' => trans('validation.mimic.create.file_should_be_image_video'),
+            'video_thumbnail.required' => trans('validation.mimic.create.video_thumbnail_required'),
+            'hashtags.required_without' => trans('validation.mimic.create.hashtags_are_required'),
+            'meta.height.required' =>  trans('validation.mimic.create.height_is_required'),
+            'meta.height.integer' =>  trans('validation.mimic.create.height_is_required'),
+            'meta.width.required' =>  trans('validation.mimic.create.width_is_required'),
+            'meta.width.integer' =>  trans('validation.mimic.create.width_is_required'),
+            'meta.thumbnail_height.required' =>  trans('validation.mimic.create.thumb_height_is_required'),
+            'meta.thumbnail_height.integer' =>  trans('validation.mimic.create.thumb_height_is_required'),
+            'meta.thumbnail_width.required' =>  trans('validation.mimic.create.thumb_width_is_required'),
+            'meta.thumbnail_width.integer' =>  trans('validation.mimic.create.thumb_width_is_required'),
         ];
     }
 
@@ -66,7 +76,9 @@ class CreateMimicRequest extends FormRequest
     private function videoThumbnailRule()
     {
         if ($this->mimic_file && strpos($this->mimic_file->getMimeType(), 'video') !== false) {
-            $this->rules['video_thumbnail'] = 'required|file|mimes:jpeg,png,jpg';
+            $this->rules['video_thumbnail'] = ['required', 'file', 'mimes:jpeg,png,jpg'];
+            $this->rules['meta.thumbnail_height'] = ['required', 'integer'];
+            $this->rules['meta.thumbnail_width'] = ['required', 'integer'];
         }
     }
 }

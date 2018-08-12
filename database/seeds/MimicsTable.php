@@ -78,20 +78,32 @@ class MimicsTable extends Seeder
 
                 //insert into database
                 $data =
-                    [
-                        'file' => $fileName,
-                        'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PHOTO : Mimic::TYPE_VIDEO,
-                        'upvote' => 123456789,
-                        'user_id' => $userIdTmp,
-                        'created_at' => $date,
-                        'updated_at' => $date,
-                        'video_thumb' => $videoThumbFileName
-                    ];
+                [
+                    'file' => $fileName,
+                    'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PHOTO : Mimic::TYPE_VIDEO,
+                    'upvote' => 123456789,
+                    'user_id' => $userIdTmp,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                    'video_thumb' => $videoThumbFileName,
+                    'meta' => [
+                        'height' => 900,
+                        'width' => 600
+                    ]
+                ];
+
+                if(null !== $videoThumbFileName) {
+                    $data['meta']['thumbnail_height'] = 300;
+                    $data['meta']['thumbnail_width'] = 200;
+                }
+                
 
                 //main mimic
                 if ($arrayKey == 0) {
                     //create mimic
-                    $mainMimic = $mimic->create($data);
+                    $mainMimic = $mimic->create(array_except($data, ['meta']));
+                    //insert meta
+                    $mainMimic->meta()->create(array_get($data, 'meta'));
                     //add hashtags for this mimic
                     $mimic->saveHashtags(file_get_contents($rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $mainMimic);
 
@@ -103,8 +115,11 @@ class MimicsTable extends Seeder
             }
 
             $mainUserId++;
-            $mainMimic->responses()->createMany($mimicResponses);
 
+            foreach($mimicResponses as $mimicResponse) {
+                $response = $mainMimic->responses()->create(array_except($mimicResponse, ['meta']));
+                $response->meta()->create(array_get($data, 'meta'));
+            }
         }
 
     }

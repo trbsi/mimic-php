@@ -111,18 +111,6 @@ class Mimic extends Model
     }
 
     /**
-     * Get Mimics for listing
-     * @param  Request $request  Raw request
-     * @param  object $authUser Autneticated user
-     * @return array
-     */
-    public function getMimics($request, $authUser): array
-    {
-        return $this->getPaginatedResponseContent($this->buildQuery($request, $authUser));
-    }
-
-
-    /**
      * @TODO - check if tags exists, put in redis as key => value and check in that way
      * @param string $tags List of tags: "#tag1 #tag2"
      * @param Mimic $mimicModel Created mimic model
@@ -277,5 +265,10 @@ class Mimic extends Model
     public function mimicTagusers()
     {
         return $this->hasMany(\App\Api\V2\Mimic\Models\MimicTaguser::class, 'mimic_id', 'id');
+    }
+
+    public function meta()
+    {
+        return $this->hasOne('App\Api\V2\Mimic\Resource\Meta\Models\Meta', 'mimic_id', 'id');
     }
 }

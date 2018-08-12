@@ -13,10 +13,10 @@ use App\Helpers\Constants;
 class CreateMimicRepository
 {
     /** @var Mimic|MimicReponse This is created model of Mimic or MimicResponse */
-    protected $createdModel;
+    private $createdModel;
 
     /** @var array Holds information about uploaded Mimic file */
-    protected $mimicFileInfo;
+    private $mimicFileInfo;
 
     public function __construct(
         Mimic $mimic,
@@ -33,28 +33,28 @@ class CreateMimicRepository
      * Handle original/response Mimic creation
      *
      * @param \App\Api\V2\User\Models\User $user Authenticated user
-     * @param array $request This is array of data from request
+     * @param array $data This is array of data from request
      * @return boolean|object Return false or single created Mimic|MimicResponse
      */
-    public function create($user, $request)
+    public function create($user, $data)
     {
         //init variables
         $model = $this->mimic;
         $responseMimic = false; //is someone posted a response or not
-        $relations = ['user', 'hashtags', 'responses.user'];
+        $relations = ['user', 'hashtags', 'responses.user', 'meta'];
 
         //if this is response mimic upload - init variables
-        if (array_key_exists('original_mimic_id', $request)) {
+        if (array_key_exists('original_mimic_id', $data)) {
             $model = $this->mimicResponse;
-            $this->additionalFields['original_mimic_id'] = $request['original_mimic_id'];
+            $this->additionalFields['original_mimic_id'] = $data['original_mimic_id'];
             $responseMimic = true;
-            $relations = ['user'];
+            $relations = ['user', 'meta'];
 
-            $this->checkIfOriginalMimicIsDeleted($request);
+            $this->checkIfOriginalMimicIsDeleted($data);
         }
 
         //set uploaded Mimic file information
-        $this->setMimicFileInfo($request['mimic_file']);
+        $this->setMimicFileInfo($data['mimic_file']);
 
         //create mimic
         $this->createdModel = $model->create(array_merge([
@@ -70,12 +70,18 @@ class CreateMimicRepository
 
         if ($this->createdModel) {
             //check for hashtags
-            $this->mimic->saveHashtags(array_get($request, 'hashtags'), $this->createdModel);
+            $this->mimic->saveHashtags(array_get($data, 'hashtags'), $this->createdModel);
+
             //upload video thumbnail
-            $this->uploadVideoThumbnail($request);
+            $this->uploadVideoThumbnail($data);
+
             //update user's number of mimics
             $user->preventMutation = true;
             $user->increment('number_of_mimics');
+
+            //save meta
+            $this->createdModel->meta()->create(array_get($data, 'meta'));
+
             //send notification to a owner of original mimic that someone post a response, only if original mimic wasn't posted by logged in user
             if ($responseMimic && $user->id !== $this->createdModel->originalMimic->user_id) {
                 $pushData = [
@@ -97,8 +103,9 @@ class CreateMimicRepository
 
             //@TODO-TagUsers (still in progress and needs to be tested)
             //$this->mimic->checkTaggedUser($request->usernames, $mimic);
-
-            return $this->mimic->getMimicResponseContent($model->where('id', $this->createdModel->id)->with($relations)->first());
+            
+            $result = $model->where('id', $this->createdModel->id)->with($relations)->first();
+            return $this->mimic->getSingleMimicResponseContent($result);
         }
 
         return false;
@@ -107,13 +114,13 @@ class CreateMimicRepository
     /**
      * Check if original Mimic is deleted
      *
-     * @param array $request This is array of data from request
+     * @param array $data This is array of data from request
      * @throws Exception If original mimic is delete
      */
-    private function checkIfOriginalMimicIsDeleted($request)
+    private function checkIfOriginalMimicIsDeleted($data)
     {
         //check if mimic has been deleted
-        if (!$this->mimic->find($request['original_mimic_id'])) {
+        if (!$this->mimic->find($data['original_mimic_id'])) {
             abort(404, trans('validation.mimic_is_deleted'));
         }
     }
@@ -138,14 +145,14 @@ class CreateMimicRepository
     /**
      * Upload video thumbnail if it exists
      *
-     * @param array $request Request object in form of array
+     * @param array $data Request object in form of array
      */
-    private function uploadVideoThumbnail($request)
+    private function uploadVideoThumbnail($data)
     {
         if ($this->createdModel->mimic_type === Mimic::TYPE_VIDEO_STRING
-            && array_key_exists('video_thumbnail', $request)) {
+            && array_key_exists('video_thumbnail', $data)) {
             $this->createdModel->video_thumb = $this->fileUpload->upload(
-                $request['video_thumbnail'],
+                $data['video_thumbnail'],
                 $this->mimic->getFileOrPath($this->createdModel->user_id, null, $this->createdModel),
                 ['image'],
                 FileUpload::FILE_UPLOAD_SERVER

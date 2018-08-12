@@ -14,6 +14,11 @@ use DB;
 trait MimicQueryTrait
 {
     /**
+     * @var Mimic
+     */
+    private $mimicsQuery;
+
+    /**
       * get all original mimics (latest or from followers) from the database, with relations
       * See this for help on how to get only X items from relation table using map()
       * https://laravel.io/forum/04-05-2014-eloquent-eager-loading-to-limit-for-each-post
@@ -22,7 +27,7 @@ trait MimicQueryTrait
       * @param  Object $authUser Authenticated user
       * @return Collection
       */
-    public function buildQuery(Request $request, object $authUser)
+    public function getMimics(Request $request, object $authUser)
     {
         $this->mimicsQuery = $this;
 
@@ -111,7 +116,7 @@ trait MimicQueryTrait
             ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicResponseTable.".user_id),1,0) AS i_am_following_you");
             //get user info for responses
-            $query->with('user');
+            $query->with(['user', 'meta']);
 
             //first order by this specific id then by upvote
             //if someone clicked on response mimic on user's profile make this response on the first place
@@ -120,7 +125,7 @@ trait MimicQueryTrait
             }
             //load responses by most recent
             $query->orderBy("$mimicResponseTable.id", "DESC");
-        }, 'user', 'hashtags', /*'mimicTagusers'*/])
+        }, 'user', 'hashtags', 'meta'])
         ->withCount('responses')
         ->groupBy("$mimicsTable.id")
         ->whereNotIn($mimicsTable.'.user_id', $authUser->getUsersBlockedByMe()->pluck('id')->toArray())
