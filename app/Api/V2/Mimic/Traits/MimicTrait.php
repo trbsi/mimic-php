@@ -11,6 +11,7 @@ trait MimicTrait
 
     /**
      * Get file path for a mimic
+     *
      * @param  object $user_id User id
      * @param  object $model Mimic model
      * @param  string $file Mimic file
@@ -216,6 +217,7 @@ trait MimicTrait
                 'aws_file' => $mimic->aws_file,
                 'upvoted' => $mimic->upvoted,
                 'i_am_following_you' => $mimic->i_am_following_you,
+                'created_at' => (int) strtotime($mimic->created_at),
             ];
 
         if ($mimic instanceof Mimic) {
