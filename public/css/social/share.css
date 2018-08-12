@@ -25,6 +25,11 @@ html {
 }
 
 /* SLIDER */
+
+#content {
+    background: #fffef9;
+}
+
 .slider {
     width: 100%;
 }
@@ -164,13 +169,73 @@ header {
 /*FOOTER*/
 footer {
     padding-top: 5%;
-    background: white;
+    background: #F9BE0C;
     min-height: 200px;
     font-size: 20px;
+    color: white;
 }
 
-footer a {
-    color: #F9BE0C;
+ul.social-icon {
+    padding: 0px;
+    margin-top: 95px;
+}
+
+ul.social-icon li {
+    display: inline-block;
+    margin: 5px;
+}
+
+ul.social-icon i {
+    color: #333;
+    background: #fff;
+    border-radius: 100%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+}
+
+ul.social-icon li a {
+    display: block;
+}
+
+.social-icon ul li a i {
+    color: white;
+    border-color: white;
+}
+
+ul.social-icons {
+    padding: 0;
+}
+
+ul.social-icons li {
+    display: inline-block;
+    margin: 5px;
+    font-size: 35px;
+}
+
+.facebook a:hover i {
+    color: #fff;
+    background-color: #3B5998;
+}   
+
+.twitter a:hover i {
+    color: #fff;
+    background-color: #2A80BA;
+}
+
+.instagram a:hover i {
+    color: #fff;
+    background-color: #f21a8d;
+}
+
+ul.social-icons i {
+    color: white;
+    border-radius: 100%;
+    display: block;
+    width: 50px;
+    height: 50px;
+    padding: 9px;
 }
 
 @media screen and (max-width: 768px) {

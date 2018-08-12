@@ -1168,6 +1168,11 @@ ul.social-icons li a {
     background-color: #2A80BA;
 }
 
+.instagram a:hover i {
+    color: #fff;
+    background-color: #f21a8d;
+}
+    
 .linkedin a:hover i {
     color: #fff;
     background-color: #007bb6;

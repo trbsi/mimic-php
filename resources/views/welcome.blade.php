@@ -128,21 +128,11 @@
         <div class="row">
             <div class="col-xs-12">
                 <div id="screenshots" class="owl-carousel owl-theme">
-                    <a href="img/1.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/1.jpg" class="img_res wow animated zoomIn" alt="">
+                    @for($i=1;$i<=10;$i++)
+                    <a href="img/screenshots/{{$i}}.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
+                        <img src="img/screenshots/{{$i}}.jpg" class="img_res wow animated zoomIn" alt="">
                     </a>
-                    <a href="img/2.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/2.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
-                    <a href="img/3.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/3.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
-                    <a href="img/4.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/4.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
-                    <a href="img/5.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/5.jpg" class="img_res wow animated zoomIn" alt="">
-                    </a>
+                    @endfor
                 </div>
                 <div class="customNavigation row">
                     <a class="btn prev gallery-nav wow animated bounceInLeft"><i class="fa fa-chevron-left"></i></a>
@@ -161,14 +151,12 @@
             <h1 class="text-center animation-box wow bounceIn animated"><?= config("app.name") ?></h1>
         </div>
         <ul class="social-icons text-center">
-            <li class="wow animated fadeInLeft facebook"><a href="<?=$socialAccounts['facebook']?>" target="_blank"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li class="wow animated fadeInLeft twitter"><a href="<?=$socialAccounts['twitter']?>" target="_blank"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li class="wow animated fadeInLeft github"><a href="<?=$socialAccounts['instagram']?>" target="_blank"><i class="fa fa-instagram"></i></a>
-                </li>
-                <li class="wow animated fadeInRight twitter"><a href="mailto:<?=config('app.official_email')?>"><i class="fa fa-envelope"></i></a>
-                </li>
+            @foreach($socialAccounts as $socialName => $socialUrl)
+            <li class="wow animated fadeInLeft {{$socialName}}"><a href="{{$socialUrl}}" target="_blank"><i class="fa fa-{{$socialName}}"></i></a>
+            </li>
+            @endforeach
+            <li class="wow animated fadeInRight twitter"><a href="mailto:<?=config('app.official_email')?>"><i class="fa fa-envelope"></i></a>
+            </li>
         </ul>
     </div>
     <!-- container -->

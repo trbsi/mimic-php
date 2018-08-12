@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/slick/slick-theme.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/social/share.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
     @include('templates.core.parts.headers.favicon')
 </head>
 
@@ -18,7 +19,7 @@
             <span id="logo">mimic</span>
         </a>
     </header>
-    <div class="container-fluid height-100">
+    <div class="container-fluid height-100" id="content">
         <div class="row height-100" id="container-left">
             <div class="cols-xs-12 col-sm-12 col-md-3 Aligner height-100 text-center hidden-xs">
                 <div class="Aligner-center get-the-app">
@@ -117,15 +118,20 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    @foreach($social as $key => $socialAccount)
-                       | <a href="{{$socialAccount}}" target="_blank">{{ucfirst($key)}}</a> |
-                    @endforeach
+                    <ul class="social-icons text-center">
+                        @foreach($social as $socialName => $socialUrl)
+                        <li class="wow animated fadeInLeft {{$socialName}}"><a href="{{$socialUrl}}" target="_blank"><i class="fa fa-{{$socialName}}"></i></a>
+                        </li>
+                        @endforeach
+                        <li class="wow animated fadeInRight twitter"><a href="mailto:<?=config('app.official_email')?>"><i class="fa fa-envelope"></i></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="row"><div class="col-md-12">&nbsp;</div></div>
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <a href="/">Mimic</a> &copy; <?= date('Y') ?>
+                    <a href="/" style="color: white">Mimic</a> &copy; <?= date('Y') ?>
                 </div>
             </div>
         </div>
