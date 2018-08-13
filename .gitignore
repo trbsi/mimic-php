@@ -18,3 +18,4 @@ Homestead.yaml
 /public/.DS_Store
 /public/ivan_test.php
 /public/feedbackovi.html
+reset_database.sh
