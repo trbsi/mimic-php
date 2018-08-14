@@ -49,17 +49,31 @@ class UploadToAws
     {
         $videoThumbUrl = null;
         
-        //resize all images include video thumb
-        $this->fileUpload->resizeAndLowerQuality($model);
-
-        $path = $this->mimic->getFileOrPath($model->user_id, null, $model);
-
+        //Resize and upload original
+        $image = $this->fileUpload->resizeAndLowerQuality($model, $model->file);
+        $absolutePath = $this->mimic->getAbsolutePathToFile($model->user_id, $model->file, $model);
         //ltrim($path, "/") - remove "/" from the beginning of a string. That's how upload to AWS works
-        $url = $this->fileUpload->upload(public_path() . $path . $model->file, ltrim($path, "/"), null, FileUpload::FILE_UPLOAD_AWS);
+        $url = $this->fileUpload->upload($absolutePath, ltrim($path, "/"), null, FileUpload::FILE_UPLOAD_AWS);
 
-        //if there is video thumbnail for video, upload ti also
+        if ($image) {
+            $model->meta()->update([
+                'height' => $image->height(),
+                'width' => $image->width(),
+            ]);
+        }
+
+        //Resize and upload thumbnail
         if ($model->video_thumb) {
-            $videoThumbUrl = $this->fileUpload->upload(public_path() . $path . $model->video_thumb, ltrim($path, "/"), null, FileUpload::FILE_UPLOAD_AWS);
+            $image = $this->fileUpload->resizeAndLowerQuality($model, $model->video_thumb);
+            $absolutePath = $this->mimic->getAbsolutePathToFile($model->user_id, $model->video_thumb, $model);
+            $videoThumbUrl = $this->fileUpload->upload($absolutePath, ltrim($path, "/"), null, FileUpload::FILE_UPLOAD_AWS);
+            
+            if ($image) {
+                $model->meta()->update([
+                    'thumbnail_height' => $image->height(),
+                    'thumbnail_width' => $image->width(),
+                ]);
+            }
         }
 
         $model->update(['aws_file' => $url, 'aws_video_thumb' => $videoThumbUrl]);

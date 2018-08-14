@@ -147,40 +147,35 @@ class FileUpload
 
     /**
      * Resize and lower quality of an image
-     * @param  object $model Mimic or MimicResponse model
-     * @param  string $file This is name of an image to get path to
+     * 
+     * @param Mimic|MimicResponse $model Mimic or MimicResponse model
+     * @param string $file This is name of an image to get path to
      */
-    public function resizeAndLowerQuality($model, $file = null)
+    public function resizeAndLowerQuality(object $model, string $file): ?object
     {
         try {
-            if ($file === null) {
-                $tmpFile = $model->file;
-            } else {
-                $tmpFile = $file;
-            }
-
-            $imagePath = $model->getFileOrPath($model->user_id, $tmpFile, $model, false, true);
+            $imagePath = $model->getAbsolutePathToFile($model->user_id, $file, $model);
             $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $imagePath);
 
             if (strpos($mime, 'image') !== false) {
                 $img = Image::make($imagePath);
-
+             
                 // resize the image to a width of 1600 and constrain aspect ratio (auto height)
                 // prevent possible upsizing
-                $img->resize(1600, null, function ($constraint) {
+                $image = $img->resize(1600, null, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 });
 
                 $img->save($imagePath, 60);
+
+                return $image;
             }
 
-            //if there is video thumbnail for video, upload it also
-            if ($model->video_thumb && $file === null) {
-                $this->resizeAndLowerQuality($model, $model->video_thumb);
-            }
+            return null;
+
         } catch (\Exception $e) {
-            //do something here
+            return null;
         }
     }
 

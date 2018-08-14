@@ -25,11 +25,13 @@ trait MimicTrait
         $prependPath = false;
         if ($includeDomain) {
             $prependPath = env('APP_URL');
-        } elseif ($includeRoot) {
+        } 
+        
+        if ($includeRoot) {
             $prependPath = public_path();
         }
 
-        if ($model != null) {
+        if ($model !== null) {
             $Y = date("Y", strtotime($model->created_at));
             $m = date("m", strtotime($model->created_at));
         } else {
@@ -38,6 +40,19 @@ trait MimicTrait
         }
 
         return $prependPath . Mimic::FILE_PATH . $user_id . "/" . $Y . "/" . $m . "/" . $file;
+    }
+
+    /**
+     * Get absolute path to a file
+     *
+     * @param int $user_id
+     * @param string $file
+     * @param Mimic|MimicResponse $model
+     * @return void
+     */
+    public function getAbsolutePathToFile(int $user_id, string $file, object $model): string
+    {
+        return $this->getFileOrPath($user_id, $file, $model, false, true);
     }
 
     /**
