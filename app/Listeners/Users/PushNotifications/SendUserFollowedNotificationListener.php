@@ -9,7 +9,7 @@ use App\Helpers\Constants;
 /**
  * Send notification when user follows another user. Send notification to a user who was followed
  */
-class SendUserFollowedNotification
+class SendUserFollowedNotificationListener
 {
     /**
      * Create the event listener.
