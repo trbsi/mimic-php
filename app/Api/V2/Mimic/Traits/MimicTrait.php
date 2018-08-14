@@ -106,10 +106,8 @@ trait MimicTrait
         switch ($type) {
             case Mimic::TYPE_VIDEO:
                 return Mimic::TYPE_VIDEO_STRING;
-                break;
             case Mimic::TYPE_PHOTO:
                 return Mimic::TYPE_PHOTO_STRING;
-                break;
         }
     }
 

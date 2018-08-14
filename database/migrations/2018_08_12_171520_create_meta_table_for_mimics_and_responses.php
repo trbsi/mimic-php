@@ -28,6 +28,7 @@ class CreateMetaTableForMimicsAndResponses extends Migration
             ->on('mimics')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+            $table->unique(['mimic_id']);
         });
 
         Schema::create('mimic_responses_metas', function (Blueprint $table) {
@@ -43,6 +44,7 @@ class CreateMetaTableForMimicsAndResponses extends Migration
             ->on('mimic_responses')
             ->onUpdate('cascade')
             ->onDelete('cascade');
+            $table->unique(['mimic_id']);
         });
     }
 
