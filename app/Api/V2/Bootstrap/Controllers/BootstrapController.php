@@ -10,14 +10,6 @@ use App\Api\V2\Auth\Controllers\BaseAuthController;
 
 class BootstrapController extends BaseAuthController
 {
-    /** 
-     * Used by mobile phone to check internet connection, this always returns success 
-     */ 
-    public function heartbeat() 
-    { 
-        return response()->json(['success' => true]); 
-    } 
-
     /**
      * @param Request $request
      */
