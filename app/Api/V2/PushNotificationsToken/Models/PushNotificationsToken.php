@@ -13,19 +13,10 @@ class PushNotificationsToken extends Model
     protected $table = 'push_notifications_token';
     protected $fillable = ['id', 'user_id', 'token', 'device', 'device_id', 'updated_at', 'created_at'];
     protected $casts =
-        [
-            'id' => 'int',
-            'user_id' => 'int',
-        ];
-
-    /**
-     * Clear old push tokens, older than 7 days
-     */
-    public function clearPushTokens()
-    {
-        //SELECT * FROM `rre_push_notifications_token`  WHERE date_modified < DATE_SUB(NOW(), INTERVAL 7 DAY)
-        self::whereRaw('updated_at < DATE_SUB(NOW(), INTERVAL 7 DAY)')->delete();
-    }
+    [
+        'id' => 'int',
+        'user_id' => 'int',
+    ];
 
     /**
      * get push tokens of a user so you can send notification to him
