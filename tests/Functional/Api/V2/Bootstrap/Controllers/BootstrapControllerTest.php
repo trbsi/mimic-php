@@ -2,14 +2,15 @@
 
 namespace Tests\Functional\Api\V2\Bootstrap\Controllers;
 
-use Hash;
-use Tests\TestCase;
+use Tests\Functional\Api\V2\TestCaseV2;
+use Tests\Functional\Api\V2\Bootstrap\Assert;
 
-class BootstrapControllerTest extends TestCase
+class BootstrapControllerTest extends TestCaseV2
 {
 	public function setUp()
     {
         parent::setUp();
+        $this->assert = $this->app->make(Assert::class);
     }
 
     //--------------------------------Push notifications--------------------------------
@@ -17,20 +18,11 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doPost('bootstrap/save-push-token', $data, 'v2');
+        $response = $this->doPost('bootstrap/save-push-token', $data);
 
         $response
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-	    	'error' => [
-	    		'message' => trans('core.push_token.parameters_not_set')
-	    	]
-	    ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError(trans('core.push_token.parameters_not_set')))
         ->assertStatus(400);
     }
 
@@ -38,20 +30,11 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = ['push_token' => ''];
 
-        $response = $this->doPost('bootstrap/save-push-token', $data, 'v2');
+        $response = $this->doPost('bootstrap/save-push-token', $data);
 
         $response
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-	    	'error' => [
-	    		'message' => trans('core.push_token.parameters_not_set')
-	    	]
-	    ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError(trans('core.push_token.parameters_not_set')))
         ->assertStatus(400);
     }
 
@@ -59,20 +42,11 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = ['push_token' => 'xxxyyyzzz'];
 
-        $response = $this->doPost('bootstrap/save-push-token', $data, 'v2');
+        $response = $this->doPost('bootstrap/save-push-token', $data);
 
         $response
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-	    	'error' => [
-	    		'message' => trans('core.push_token.parameters_not_set')
-	    	]
-	    ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError(trans('core.push_token.parameters_not_set')))
         ->assertStatus(400);
     }
 
@@ -80,20 +54,11 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = ['push_token' => 'xxxyyyzzz', 'device_id' => '111222333'];
 
-        $response = $this->doPost('bootstrap/save-push-token', $data, 'v2');
+        $response = $this->doPost('bootstrap/save-push-token', $data);
 
         $response
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-	    	'error' => [
-	    		'message' => trans('core.push_token.parameters_not_set')
-	    	]
-	    ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError(trans('core.push_token.parameters_not_set')))
         ->assertStatus(400);
     }
 
@@ -101,15 +66,11 @@ class BootstrapControllerTest extends TestCase
     {
     	$data = ['push_token' => 'xxxyyyzzz', 'device_id' => '111222333', 'device' => 'ios'];
 
-        $response = $this->doPost('bootstrap/save-push-token', $data, 'v2');
+        $response = $this->doPost('bootstrap/save-push-token', $data);
 
         $response
-        ->assertJsonStructure([
-            'success'
-        ])
-        ->assertJson([
-	    	'success' => true
-	    ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
+        ->assertJson($this->assert->getAssertJsonOnSuccess(['success' => true]))
         ->assertStatus(200);
     }
 

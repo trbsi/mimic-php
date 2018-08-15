@@ -49,3 +49,6 @@ https://github.com/mkoppanen/imagick/issues/224#issuecomment-367532736 (ovo mi j
 Just use x86 
 http://windows.php.net/downloads/pecl/snaps/imagick/3.4.3/ -> php_imagick-3.4.3-7.2-ts-vc15-x86.zip
 http://windows.php.net/downloads/pecl/deps/ -> ImageMagick-7.0.7-11-vc15-x86.zip
+
+#Seed databse before tests
+https://stackoverflow.com/a/42350139/1860890

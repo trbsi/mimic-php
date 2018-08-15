@@ -2,21 +2,21 @@
 
 namespace Tests\Functional\Api\V2\Auth\Controllers;
 
-use Hash;
-use App\Models\CoreUser as User;
-use Tests\TestCase;
+use Tests\Functional\Api\V2\TestCaseV2;
+use Tests\Functional\Api\V2\Auth\Assert;
 
-class LoginControllerTest extends TestCase
+class LoginControllerTest extends TestCaseV2
 {
+    /**
+     * @var Assert
+     */
+    private $assert; 
 
+    
     public function setUp()
     {
         parent::setUp();
-        User::where('id', '>', 95)->update([
-            'following' => 123456789,
-            'followers' => 123456789,
-            'number_of_mimics' => 123456789,
-        ]);
+        $this->assert = $this->app->make(Assert::class);
     }
 
     //--------------------------------Facebook--------------------------------
@@ -38,19 +38,14 @@ class LoginControllerTest extends TestCase
               ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v2');
+        $response = $this->doPost('auth/login', $data);
 
         $response
-        ->assertJsonStructure([
-                'username',
-                'token',
-                'user_id',
-                'email'
-            ])
-        ->assertJson([
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
+        ->assertJson($this->assert->getAssertJsonOnSuccess([
 	    	'username' => null,
 	        'email' => 'dario_facebook@yahoo.com',
-	    ])
+	    ]))
         ->assertStatus(200);
     }
 
@@ -71,19 +66,14 @@ class LoginControllerTest extends TestCase
               ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v2');
+        $response = $this->doPost('auth/login', $data);
 
         $response
-        ->assertJsonStructure([
-                'username',
-                'token',
-                'user_id',
-                'email'
-            ])
-        ->assertJson([
-	    	'username' => null,
-	        'email' => 'dario_facebook@yahoo.com',
-	    ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
+        ->assertJson($this->assert->getAssertJsonOnSuccess([
+            'username' => null,
+            'email' => null,
+        ]))
         ->assertStatus(200);
     }
 
@@ -104,19 +94,14 @@ class LoginControllerTest extends TestCase
               ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v2');
+        $response = $this->doPost('auth/login', $data);
 
         $response
-        ->assertJsonStructure([
-                'username',
-                'token',
-                'user_id',
-                'email'
-            ])
-        ->assertJson([
-	    	'username' => null,
-	        'email' => null,
-	    ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
+        ->assertJson($this->assert->getAssertJsonOnSuccess([
+            'username' => null,
+            'email' => null,
+        ]))
         ->assertStatus(200);
     }
 
@@ -137,19 +122,14 @@ class LoginControllerTest extends TestCase
             ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v2');
+        $response = $this->doPost('auth/login', $data);
 
         $response
-        ->assertJsonStructure([
-                'username',
-                'token',
-                'user_id',
-                'email'
-            ])
-        ->assertJson([
-        	'username' => null,
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
+        ->assertJson($this->assert->getAssertJsonOnSuccess([
+            'username' => null,
             'email' => 'dario_twitter@yahoo.com',
-        ])
+        ]))
         ->assertStatus(200);
     }
 
@@ -168,19 +148,14 @@ class LoginControllerTest extends TestCase
             ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v2');
+        $response = $this->doPost('auth/login', $data);
 
         $response
-        ->assertJsonStructure([
-                'username',
-                'token',
-                'user_id',
-                'email'
-            ])
-        ->assertJson([
-        	'username' => null,
-            'email' => 'dario_twitter@yahoo.com',
-        ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
+        ->assertJson($this->assert->getAssertJsonOnSuccess([
+            'username' => null,
+            'email' => null,
+        ]))
         ->assertStatus(200);
     }
 
@@ -199,19 +174,14 @@ class LoginControllerTest extends TestCase
             ]
         ];
 
-        $response = $this->doPost('auth/login', $data, 'v2');
+        $response = $this->doPost('auth/login', $data);
 
         $response
-        ->assertJsonStructure([
-                'username',
-                'token',
-                'user_id',
-                'email'
-            ])
-        ->assertJson([
-        	'username' => null,
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
+        ->assertJson($this->assert->getAssertJsonOnSuccess([
+            'username' => null,
             'email' => null,
-        ])
+        ]))
         ->assertStatus(200);
     }
 
@@ -222,20 +192,11 @@ class LoginControllerTest extends TestCase
             'username' => '',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v2');
+        $response = $this->doPost('set-username', $data);
 
         $response 
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-            'error' => [
-                'message' => trans('core.login.username_empty')
-            ]
-        ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.username_empty')))
         ->assertStatus(403);
     }
 
@@ -245,20 +206,11 @@ class LoginControllerTest extends TestCase
             'username' => 'xyz',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v2');
+        $response = $this->doPost('set-username', $data);
 
         $response 
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-            'error' => [
-                'message' => trans('core.login.username_contain')
-            ]
-        ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.username_contain')))
         ->assertStatus(403);
     }
 
@@ -268,20 +220,11 @@ class LoginControllerTest extends TestCase
             'username' => 'xyz123&',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v2');
+        $response = $this->doPost('set-username', $data);
 
         $response 
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-            'error' => [
-                'message' => trans('core.login.username_contain')
-            ]
-        ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.username_contain')))
         ->assertStatus(403);
     }
 
@@ -291,20 +234,11 @@ class LoginControllerTest extends TestCase
             'username' => 'AndrewCG',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v2');
+        $response = $this->doPost('set-username', $data);
 
         $response 
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-            'error' => [
-                'message' => trans('core.login.username_exists')
-            ]
-        ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.username_exists')))
         ->assertStatus(403);
     }
 
@@ -317,20 +251,11 @@ class LoginControllerTest extends TestCase
             'email' => 'user1@mail.com'
         ];
 
-        $response = $this->doPost('set-username', $data, 'v2');
+        $response = $this->doPost('set-username', $data);
 
         $response 
-        ->assertJsonStructure([
-            'error' => [
-                'message',
-                'status_code'
-            ]
-        ])
-        ->assertJson([
-            'error' => [
-                'message' => trans('core.login.email_exists')
-            ]
-        ])
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.email_exists')))
         ->assertStatus(403);
     }
 
@@ -341,7 +266,7 @@ class LoginControllerTest extends TestCase
             'username' => 'xyz123',
         ];
 
-        $response = $this->doPost('set-username', $data, 'v2');
+        $response = $this->doPost('set-username', $data);
 
         $response 
         ->assertJsonStructure([
@@ -361,7 +286,7 @@ class LoginControllerTest extends TestCase
             'email' => 'unknow@mail.com'
         ];
 
-        $response = $this->doPost('set-username', $data, 'v2');
+        $response = $this->doPost('set-username', $data);
 
         $response 
         ->assertJsonStructure([

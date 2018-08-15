@@ -152,7 +152,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getIAmFollowingYouQuery(object $authUser): string
     {
-        return "IF(EXISTS(SELECT COUNT(*) FROM " . (new Follow)->getTable() . " WHERE followed_by = " . $authUser->id . " AND following = ".$this->getTable().".id),1,0) AS i_am_following_you";
+        return "IF(EXISTS(SELECT id FROM " . (new Follow)->getTable() . " WHERE followed_by = " . $authUser->id . " AND following = ".$this->getTable().".id),1,0) AS i_am_following_you";
     }
 
     /**
@@ -163,7 +163,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getIsBlockedQuery(object $authUser): string
     {
-        return "IF(EXISTS(SELECT COUNT(*) FROM users_blocks_pivot WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
+        return "IF(EXISTS(SELECT id FROM users_blocks_pivot WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
     }
 
     /**

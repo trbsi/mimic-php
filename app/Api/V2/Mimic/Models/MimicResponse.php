@@ -17,7 +17,7 @@ class MimicResponse extends Model
      */
 
     protected $table = 'mimic_responses';
-    protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id', 'width', 'height', 'aws_video_thumb'];
+    protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id', 'aws_video_thumb'];
 
     protected $appends = ['file_url', 'video_thumb_url'];
     protected $casts =
@@ -100,7 +100,7 @@ class MimicResponse extends Model
         ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = " . $this->getTable() . ".id), 1, 0) AS upvoted")
         ->where("original_mimic_id", $request->original_mimic_id)
         ->orderBy("id", "DESC")
-        ->with(['user'])
+        ->with(['user', 'meta'])
         ->paginate(Mimic::LIST_RESPONSE_MIMICS_LIMIT);
     }
 

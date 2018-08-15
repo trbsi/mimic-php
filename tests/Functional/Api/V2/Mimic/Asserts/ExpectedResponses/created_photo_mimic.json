@@ -1,0 +1,39 @@
+{
+  "mimic": {
+    "username": "sanjas",
+    "profile_picture": "http://mimic.loc/files/hr/female/95.jpg",
+    "user_id": 95,
+    "mimic_type": "picture",
+    "upvote": "1",
+    "file": "{file}",
+    "file_url": "http://mimic.loc/files/user/95/{year}/{month}/{file}",
+    "video_thumb_url": null,
+    "aws_file": null,
+    "upvoted": 0,
+    "i_am_following_you": null,
+    "created_at": "{created_at}",
+    "responses_count": null,
+    "meta": {
+      "width": 900,
+      "height": 600,
+      "thumbnail_width": null,
+      "thumbnail_height": null
+    }
+  },
+  "hashtags": [
+    {
+      "hashtag_id": 45,
+      "hashtag_name": "#skate"
+    },
+    {
+      "hashtag_id": 46,
+      "hashtag_name": "#backflip"
+    },
+    {
+      "hashtag_id": 47,
+      "hashtag_name": "#frontflip"
+    }
+  ],
+  "hashtags_flat": "#skate #backflip #frontflip",
+  "mimic_responses": []
+}

@@ -2,10 +2,9 @@
 
 namespace Tests\Functional\Api\V2\Search\Controllers;
 
-use Hash;
-use Tests\TestCase;
+use Tests\Functional\Api\V2\TestCaseV2;
 
-class SearchControllerTest extends TestCase
+class SearchControllerTest extends TestCaseV2
 {
 	public function setUp()
     {
@@ -16,7 +15,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=%23jump', $data, 'v2');
+        $response = $this->doGet('search?term=%23jump', $data);
 
         $response
         ->assertJsonStructure([
@@ -47,7 +46,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=%23totallyfake', $data, 'v2');
+        $response = $this->doGet('search?term=%23totallyfake', $data);
 
         $response
         ->assertJsonStructure([])
@@ -59,7 +58,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=@andr', $data, 'v2');
+        $response = $this->doGet('search?term=@andr', $data);
 
         $response
         ->assertJsonStructure([
@@ -86,7 +85,7 @@ class SearchControllerTest extends TestCase
                 'followers' => '123M',
                 'following' => '123M',
                 'number_of_mimics' => '123M',
-                'i_am_following_you' => true,
+                'i_am_following_you' => false,
                 'is_blocked' => false,
 		    ]
 	    ])
@@ -97,7 +96,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=@totallyfake', $data, 'v2');
+        $response = $this->doGet('search?term=@totallyfake', $data);
 
         $response
         ->assertJsonStructure([])
@@ -109,7 +108,7 @@ class SearchControllerTest extends TestCase
     {
     	$data = [];
 
-        $response = $this->doGet('search?term=totallyfake', $data, 'v2');
+        $response = $this->doGet('search?term=totallyfake', $data);
 
         $response
         ->assertJsonStructure([])
@@ -121,7 +120,7 @@ class SearchControllerTest extends TestCase
     {
         $data = [];
 
-        $response = $this->doGet('search/top', $data, 'v2');
+        $response = $this->doGet('search/top', $data);
 
         $response
         ->assertJsonStructure([
@@ -202,17 +201,6 @@ class SearchControllerTest extends TestCase
             ],
             'users' => [
                 [
-                    'id' => 96,
-                    'email' => 'unknow@mail.com',
-                    'username' => 'xyz1234',
-                    'profile_picture' => 'https://graph.facebook.com/2042074229356674/picture?type=large',
-                    'followers' => '123M',
-                    'following' => '123M',
-                    'number_of_mimics' => '123M',
-                    'i_am_following_you' => false,
-                    'is_blocked' => false,
-                ],
-                [
                     'id' => 1,
                     'email' => 'user1@mail.com',
                     'username' => 'AndrewCG',
@@ -220,7 +208,7 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
-                    'i_am_following_you' => true,
+                    'i_am_following_you' => false,
                     'is_blocked' => false,
                 ],
                 [
@@ -242,7 +230,7 @@ class SearchControllerTest extends TestCase
                     'followers' => '123M',
                     'following' => '123M',
                     'number_of_mimics' => '123M',
-                    'i_am_following_you' => true,
+                    'i_am_following_you' => false,
                     'is_blocked' => false,
                 ],
                 [
@@ -310,7 +298,19 @@ class SearchControllerTest extends TestCase
                     'number_of_mimics' => '123M',
                     'i_am_following_you' => false,
                     'is_blocked' => false,
+                ],
+                [
+                    'id' => 10,
+                    'email' => 'user10@mail.com',
+                    'username' => 'DriveAlive',
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/10.jpg',
+                    'followers' => '123M',
+                    'following' => '123M',
+                    'number_of_mimics' => '123M',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false
                 ]
+
             ]
         ])
         ->assertStatus(200);

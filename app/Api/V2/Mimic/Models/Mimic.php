@@ -31,7 +31,7 @@ class Mimic extends Model
      */
 
     protected $table = 'mimics';
-    protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id', 'width', 'height', 'aws_video_thumb'];
+    protected $fillable = ['id', 'file', 'aws_file', 'mimic_type', 'is_private', 'upvote', 'user_id', 'aws_video_thumb'];
     protected $appends = ['file_url', 'video_thumb_url'];
     protected $casts =
         [
