@@ -11,6 +11,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Api\V2\User\Traits\UserQueryTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Api\V2\Follow\Models\Follow;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -36,6 +37,13 @@ class User extends Authenticatable implements JWTSubject
             'i_am_following_you' => 'boolean', //when I open someone else's profile check if I (loggedin user) am following another user
             'is_blocked' => 'boolean',
         ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at', 'created_at', 'updated_at', 'last_seen'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -129,8 +137,11 @@ class User extends Authenticatable implements JWTSubject
     // http://jwt-auth.readthedocs.io/en/develop/auth-guard/#userorfail
     public function getAuthenticatedUser()
     {
-        $user = auth()->user();
-        return $user;
+        try {
+            return auth()->userOrFail();
+        } catch (UserNotDefinedException $e) {
+            return null;
+        }
     }
 
     /**
@@ -141,7 +152,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getIAmFollowingYouQuery(object $authUser): string
     {
-        return "IF(EXISTS(SELECT null FROM " . (new Follow)->getTable() . " WHERE followed_by = " . $authUser->id . " AND following = ".$this->getTable().".id),1,0) AS i_am_following_you";
+        return "IF(EXISTS(SELECT COUNT(*) FROM " . (new Follow)->getTable() . " WHERE followed_by = " . $authUser->id . " AND following = ".$this->getTable().".id),1,0) AS i_am_following_you";
     }
 
     /**
@@ -152,7 +163,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getIsBlockedQuery(object $authUser): string
     {
-        return "IF(EXISTS(SELECT null FROM users_blocks_pivot WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
+        return "IF(EXISTS(SELECT COUNT(*) FROM users_blocks_pivot WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
     }
 
     /**

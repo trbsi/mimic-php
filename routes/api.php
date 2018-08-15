@@ -21,6 +21,10 @@ $api->version('v2', function (Router $api) {
                 $api->post('save-push-token', ['uses' => 'App\Api\V2\Bootstrap\Controllers\BootstrapController@updateNotificationToken']);
             });
            
+            $api->group(['prefix' => 'users'], function (Router $api) {
+                $api->put('last-seen', ['uses' => 'App\Api\V2\User\Controllers\UserController@updateLastSeen']);
+            });
+           
             $api->group(['prefix' => 'mimic'], function (Router $api) {
                 $api->post('create', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@createMimic']);
                 $api->get('list', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@getMimics', 'as' => 'mimic.list']);
@@ -32,8 +36,8 @@ $api->version('v2', function (Router $api) {
             });
 
             $api->group(['prefix' => 'profile'], function (Router $api) {
-                $api->get('user', ['uses' => 'App\Api\V2\Profile\Controllers\ProfileController@userProfile', 'as' => 'profile.user']);
-                $api->post('block', ['uses' => 'App\Api\V2\Profile\Controllers\ProfileController@blockUser']);
+                $api->get('user', ['uses' => 'App\Api\V2\User\Controllers\UserController@userProfile', 'as' => 'profile.user']);
+                $api->post('block', ['uses' => 'App\Api\V2\User\Controllers\UserController@blockUser']);
                 $api->post('follow', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@followUser']);
                 $api->get('followers', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@followers']);
                 $api->get('following', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@following']);

@@ -2,19 +2,21 @@
 
 namespace App\Api\V2\Bootstrap\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Api\V2\User\Models\User;
+use App\Models\CoreUser as User;
 use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
 use Validator;
+use App\Api\V2\Auth\Controllers\BaseAuthController;
 
-class BootstrapController extends Controller
+class BootstrapController extends BaseAuthController
 {
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
+    /** 
+     * Used by mobile phone to check internet connection, this always returns success 
+     */ 
+    public function heartbeat() 
+    { 
+        return response()->json(['success' => true]); 
+    } 
 
     /**
      * @param Request $request
@@ -45,14 +47,6 @@ class BootstrapController extends Controller
         }
 
         abort(400, trans('core.push_token.parameters_not_set'));
-    }
-
-    /**
-     * Used bymobile phone to check internet connection, this always returns success
-     */
-    public function heartbeat()
-    {
-        return response()->json(['success' => true]);
     }
 
     /**
@@ -91,7 +85,7 @@ class BootstrapController extends Controller
         $firstTimeCreation = file_exists($path) ? false : true;
 
         $contents = view('api.bootstrap.send-feedback', [
-            'user' => $this->user->getAuthenticatedUser(),
+            'user' => $this->authUser,
             'body' => $request->body,
             'firstTimeCreation' => $firstTimeCreation,
             'filePath' => $filePath,
