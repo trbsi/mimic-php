@@ -18,7 +18,7 @@ class MimicResource extends JsonResource
      */
     public function toArray($request)
     {
-        return 
+        return
         [
             'mimic' => [
                 'id' => $this->id,

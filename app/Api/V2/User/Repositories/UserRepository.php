@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Api\V2\User\Repositories;
+
 use Illuminate\Http\Request;
 use App\Api\V2\User\Models\User;
 use Exception;
@@ -15,7 +16,7 @@ class UserRepository
      * @throws Exception
      * @return User|null
      */
-    public function getProfile(Request $request, User $authUser, User $user): ?User 
+    public function getProfile(Request $request, User $authUser, User $user): ?User
     {
         //if this is set user is accessing other user's profile
         if ($request->id || $request->user_id) {

@@ -147,7 +147,7 @@ class FileUpload
 
     /**
      * Resize and lower quality of an image
-     * 
+     *
      * @param Mimic|MimicResponse $model Mimic or MimicResponse model
      * @param string $file This is name of an image to get path to
      */
@@ -173,7 +173,6 @@ class FileUpload
             }
 
             return null;
-
         } catch (\Exception $e) {
             return null;
         }

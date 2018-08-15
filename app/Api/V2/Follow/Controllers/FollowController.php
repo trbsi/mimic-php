@@ -22,7 +22,7 @@ class FollowController extends BaseAuthController
         try {
             $data = $followUserRepository->followUser($request->all(), $this->authUser);
             return response()->json($data);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             throw_exception($e);
         }
     }

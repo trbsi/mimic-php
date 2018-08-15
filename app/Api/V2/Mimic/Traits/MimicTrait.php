@@ -25,7 +25,7 @@ trait MimicTrait
         $prependPath = false;
         if ($includeDomain) {
             $prependPath = env('APP_URL');
-        } 
+        }
         
         if ($includeRoot) {
             $prependPath = public_path();
@@ -74,7 +74,7 @@ trait MimicTrait
      */
     public function getPaginatedResponseContent($paginatedModel): array
     {
-        return 
+        return
         [
             'meta' =>
             [

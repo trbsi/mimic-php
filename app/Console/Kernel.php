@@ -46,8 +46,6 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () use ($model) {
             $model['UpdateHashtagPopularity']->run();
         })->daily();
-
-        
     }
 
     /**

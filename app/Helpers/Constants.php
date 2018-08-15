@@ -15,7 +15,7 @@ class Constants
     public const MIMIC_ORIGINAL = 'original';
     public const MIMIC_RESPONSE = 'response';
 
-    //PUSH NOTIFICATIONS 
+    //PUSH NOTIFICATIONS
     public const POSITION_SPLIT_SCREEN = 'split_screen';
     public const POSITION_USER_PROFILE = 'user_profile';
     public const MUTABLE_CATEGORY_USER = 'user';

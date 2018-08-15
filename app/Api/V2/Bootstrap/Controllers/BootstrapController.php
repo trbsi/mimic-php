@@ -53,21 +53,21 @@ class BootstrapController extends BaseAuthController
             'body' => 'required',
             'files.*' => 'image',
         ], [
-            'body.required' => trans('general.feedback_body_missing'), 
+            'body.required' => trans('general.feedback_body_missing'),
             'files.*.uploaded' => trans('validation.file_should_be_image'),
         ]);
 
         if ($validator->fails()) {
             $messages = "";
-            foreach($validator->errors()->all() as $msg) {
+            foreach ($validator->errors()->all() as $msg) {
                 $messages.=$msg."\n";
             }
             abort(400, $messages);
         }
 
         $filePath = [];
-        if($request->file('files')) {
-            foreach($request->file('files') as $file) {
+        if ($request->file('files')) {
+            foreach ($request->file('files') as $file) {
                 $filePath[] = str_replace('public/', 'storage/', $file->store('public/feedback_files'));
             }
         }

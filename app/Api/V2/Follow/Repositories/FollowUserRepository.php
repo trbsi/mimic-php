@@ -19,11 +19,11 @@ class FollowUserRepository
     {
         //get user
         $user = User::find($data['id']);
-        if(!$user) {
+        if (!$user) {
             abort(400, trans('users.user_not_found'));
         }
 
-        if((int)$authUser->id === (int)$user->id) {
+        if ((int)$authUser->id === (int)$user->id) {
             abort(400, trans('users.cant_follow_yourself'));
         }
 
@@ -38,7 +38,7 @@ class FollowUserRepository
             DB::commit();
             $type = Constants::FOLLOWED;
             event(new UserFollowedEvent($authUser, $user));
-        } catch (\Exception $e) { 
+        } catch (\Exception $e) {
             //unfollow
             DB::rollBack();
             $user->decrement('followers');
@@ -52,5 +52,4 @@ class FollowUserRepository
             'followers' => $user->fresh()->followers,
         ];
     }
-
 }

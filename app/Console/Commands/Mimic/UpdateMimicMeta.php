@@ -83,14 +83,14 @@ class UpdateMimicMeta extends Command
             $mimic = $model;
         }
 
-        if($model->mimic_type === $mimic::TYPE_PHOTO_STRING) {
+        if ($model->mimic_type === $mimic::TYPE_PHOTO_STRING) {
             $imagePath = $mimic->getAbsolutePathToFile($model->user_id, $model->file, $model);
             list($width, $height) = getimagesize($imagePath);
             $data['width'] = $width;
             $data['height'] = $height;
         }
 
-        if($model->mimic_type === $mimic::TYPE_VIDEO_STRING) {
+        if ($model->mimic_type === $mimic::TYPE_VIDEO_STRING) {
             $imagePath = $mimic->getAbsolutePathToFile($model->user_id, $model->video_thumb, $model);
             list($width, $height) = getimagesize($imagePath);
 
@@ -98,7 +98,6 @@ class UpdateMimicMeta extends Command
             $data['height'] = 720;
             $data['thumbnail_width'] = $width;
             $data['thumbnail_height'] = $height;
-
         }
 
         return $data;

@@ -23,7 +23,7 @@ class SearchRepository
     public function search(array $data, object $authUser)
     {
         //search hashtags
-        if(strlen($data['term']) > 1) {
+        if (strlen($data['term']) > 1) {
             if (substr($data['term'], 0, 1) === "#") {
                 $table = $this->hashtag->getTable();
                 $match = 'name';
@@ -39,7 +39,6 @@ class SearchRepository
                 ->select("$table.*")
                 ->selectRaw($this->user->getIAmFollowingYouQuery($authUser))
                 ->selectRaw($this->user->getIsBlockedQuery($authUser));
-        
             } else {
                 return response()->json([]);
             }
