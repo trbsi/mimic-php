@@ -69,7 +69,7 @@ trait MimicTrait
     /**
      * Get paginated response
      *
-     * @param collection $paginatedModel Mimics from the database taken with "->paginate()"
+     * @param collection $paginatedModel Mimics/responses from the database taken with "->paginate()"
      * @return array
      */
     public function getPaginatedResponseContent($paginatedModel): array

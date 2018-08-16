@@ -13,6 +13,7 @@ use App\Helpers\Constants;
 use App\Api\V2\Mimic\Repositories\CreateMimicRepository;
 use App\Api\V2\Mimic\Repositories\DeleteMimicRepository;
 use App\Api\V2\Mimic\Repositories\UpvoteMimicRepository;
+use App\Api\V2\Mimic\Repositories\ReadMimicRepository;
 use DB;
 use Validator;
 
@@ -108,23 +109,18 @@ class MimicController extends BaseAuthController
 
     /**
      * Get user's mimics so he can list them and delete them
-     * @param  Request $request
+     * @param  Request             $request             
+     * @param  ReadMimicRepository $readMimicRepository
+     * @return Response                                   
      */
-    public function getUserMimics(Request $request)
+    public function getUserMimics(Request $request, ReadMimicRepository $readMimicRepository)
     {
-        if ($request->get_responses && ($request->get_responses === 'true' || $request->get_responses === true)) {
-            $model = $this->mimicResponse->with('originalMimic');
-        } else {
-            $model = $this->mimic;
+        try {
+            $result = $readMimicRepository->getUserMimics($request, $this->authUser);
+            return response()->json(['mimics' => $result]);
+        } catch (\Exception $e) {
+            throw_exception($e);
         }
-
-        if ($request->user_id) {
-            $user_id = $request->user_id;
-        } else {
-            $user_id = $this->authUser->id;
-        }
-
-        return response()->json(['mimics' => $model->where('user_id', $user_id)->orderBy('id', 'DESC')->get()]);
     }
 
     /**
