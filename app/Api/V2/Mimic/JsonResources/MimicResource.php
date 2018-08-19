@@ -34,6 +34,7 @@ class MimicResource extends JsonResource
                 'upvoted' => $this->upvoted,
                 'i_am_following_you' => $this->i_am_following_you,
                 'created_at' => (int) strtotime($this->created_at),
+                'responses_count' => $this->responses_count,
                 'meta' => new MetaResource($this->whenLoaded('meta')),
             ],
             'hashtags' => HashtagResource::collection($this->whenLoaded('hashtags')),

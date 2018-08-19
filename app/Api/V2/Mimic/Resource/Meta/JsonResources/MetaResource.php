@@ -14,6 +14,11 @@ class MetaResource extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->first();
+        return [
+            'width' => $this->width,
+            'height' => $this->height,
+            'thumbnail_width' => $this->thumbnail_width,
+            'thumbnail_height' => $this->thumbnail_height,
+        ];
     }
 }
