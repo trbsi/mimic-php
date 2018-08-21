@@ -3,6 +3,9 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * This is CacheHelper class used in Blitzer, not being used on Mimic
+ */
 class CacheHelper
 {
     /**

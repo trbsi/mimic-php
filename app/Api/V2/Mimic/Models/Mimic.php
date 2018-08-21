@@ -206,13 +206,13 @@ class Mimic extends Model
     }
 
     /**
-     * Fake user if this is my account
+     * Fake user if this is admin account
      *
      * @param User $authUser Authenticated user
      */
     public function getUser($authUser)
     {
-        if (!in_array($authUser->email, ["dario.trbovic@yahoo.com"])) {
+        if (!in_array($authUser->email, Constants::ADMIN_EMAILS)) {
             $user = $authUser;
         } else {
             if (env('APP_ENV') === 'live') {
