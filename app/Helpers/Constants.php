@@ -19,9 +19,6 @@ class Constants
     public const POSITION_SPLIT_SCREEN = 'split_screen';
     public const POSITION_USER_PROFILE = 'user_profile';
     public const MUTABLE_CATEGORY_USER = 'user';
-    //push types
-    public const PUSH_TYPE_NEW_RESPONSE = 'push_type_new_response';
-    public const PUSH_TYPE_UPVOTE = 'push_type_upvote';
 
     //ACTIONS
     public const UPVOTED = 'upvoted';

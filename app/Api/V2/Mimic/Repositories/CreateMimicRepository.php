@@ -9,6 +9,7 @@ use App\Api\V2\Mimic\Models\MimicTaguser;
 use App\Api\V2\Mimic\Models\MimicHashtag;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
+use App\Events\Mimic\MimicCreatedEvent;
 
 class CreateMimicRepository
 {
@@ -32,22 +33,26 @@ class CreateMimicRepository
     /**
      * Handle original/response Mimic creation
      *
-     * @param \App\Api\V2\User\Models\User $user Authenticated user
+     * @param User $authUser Authenticated user
      * @param array $data This is array of data from request
      * @return boolean|object Return false or single created Mimic|MimicResponse
      */
-    public function create($user, $data)
+    public function create($authUser, $data)
     {
         //init variables
         $model = $this->mimic;
-        $responseMimic = false; //is someone posted a response or not
+        $isResponseMimic = false; //is someone posted a response or not
         $relations = ['user', 'hashtags', 'responses.user', 'meta'];
+
+        //@TODO REMOVE - fake user
+        $user = $this->mimic->getUser($authUser);
+        //@TODO REMOVE - fake user
 
         //if this is response mimic upload - init variables
         if (array_key_exists('original_mimic_id', $data)) {
             $model = $this->mimicResponse;
             $this->additionalFields['original_mimic_id'] = $data['original_mimic_id'];
-            $responseMimic = true;
+            $isResponseMimic = true;
             $relations = ['user', 'meta'];
 
             $this->checkIfOriginalMimicIsDeleted($data);
@@ -82,24 +87,7 @@ class CreateMimicRepository
             //save meta
             $this->createdModel->meta()->create(array_get($data, 'meta'));
 
-            //send notification to a owner of original mimic that someone post a response, only if original mimic wasn't posted by logged in user
-            if ($responseMimic && $user->id !== $this->createdModel->originalMimic->user_id) {
-                $pushData = [
-                    'media-url' => $this->createdModel->file_url,
-                    'media-type' => $this->createdModel->mimic_type,
-                    'authUser' => $user,
-                    'parameters' => [
-                        'api_call_params' => [
-                            'page' => 1,
-                            'user_id' => $this->createdModel->originalMimic->user_id,
-                            'original_mimic_id' => $this->createdModel->original_mimic_id,
-                            'response_mimic_id' => $this->createdModel->id,
-                        ],
-                        'position' => Constants::POSITION_SPLIT_SCREEN,
-                    ],
-                ];
-                $this->mimic->sendMimicNotification($this->createdModel->originalMimic, Constants::PUSH_TYPE_NEW_RESPONSE, $pushData);
-            }
+            event(new MimicCreatedEvent($isResponseMimic, $user, $this->createdModel));
 
             //@TODO-TagUsers (still in progress and needs to be tested)
             //$this->mimic->checkTaggedUser($request->usernames, $mimic);

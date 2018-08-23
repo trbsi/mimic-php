@@ -137,12 +137,22 @@ class PushNotifications
         // Encode the payload as JSON
         $payload = json_encode($body);
 
-        // Build the binary notification
-        $msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
+        if (is_array($deviceToken)) {
+            foreach ($deviceToken as $token) {
+                // Build the binary notification
+                $msg = chr(0) . pack('n', 32) . pack('H*', $token) . pack('n', strlen($payload)) . $payload;
 
-        // Send it to the server
-        $result = fwrite($fp, $msg, strlen($msg));
-        
+                // Send it to the server
+                $result = fwrite($fp, $msg, strlen($msg));
+                var_dump($result);
+            }
+        } else {
+            // Build the binary notification
+            $msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
+            // Send it to the server
+            $result = fwrite($fp, $msg, strlen($msg));
+        }
+
         // Close the connection to the server
         fclose($fp);
                 

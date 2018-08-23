@@ -13,8 +13,14 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Users\UserFollowedEvent' => [
-            'App\Listeners\Users\PushNotifications\SendUserFollowedNotificationListener',
+        'App\Events\User\UserFollowedEvent' => [
+            'App\Listeners\User\PushNotifications\SendUserFollowedNotificationListener',
+        ],
+        'App\Events\Mimic\MimicUpvotedEvent' => [
+            'App\Listeners\Mimic\PushNotifications\SendMimicUpvotedNotificationListener',
+        ],
+        'App\Events\Mimic\MimicCreatedEvent' => [
+            'App\Listeners\Mimic\PushNotifications\SendMimicCreatedNotificationListener',
         ],
     ];
 

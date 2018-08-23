@@ -1,11 +1,11 @@
 <?php
 
-require_once('PushNotifications.php');
+require_once 'PushNotifications.php';
 
 // Message payload
 $msg_payload = array(
-'mtitle' => 'Dario',
-'mdesc' => 'Sta ima',
+    'mtitle' => 'Dario',
+    'mdesc'  => 'Sta ima',
 );
 
 // For Android
@@ -13,6 +13,14 @@ $regId = 'APA91bFj7EluPtNldew4A3dXKPVuiIs0BgdbXYM2FTTfJanrejChxCx-uxoK6mnXV7pWw1
 
 // For iOS
 $deviceToken = 'b54768dcc082e3e03da2f6ff5cb5f2ac6fad0fbeb664c465abd610599e5677e3';
+$deviceToken = [
+'A068C5457701D692F7E977BC8E826B087CC5B2329F99137C882BDADDC1298103', 
+'8531E37522DC6F250E4716165E4412BA44DDF2CB8BE3F39B278BDAFA47284BB6',
+'C5ADFE3AE80961AC8CA17DE1CD6CA77DE1EC5B02D695A9E0ECD0AD3F6320B535', 
+'C5ADFE3AE80961AC8CA17DE1CD6CA77DE1EC5B02D695A9E0ECD0AD3F6320B535',
+'8C640878205B9907FCB8E4A912361EF7B8CDD2EBD598E43A4BB71E115C5524CB', 
+];
+
 if (isset($_GET["token"])) {
     $deviceToken = $_GET["token"];
 }
@@ -25,7 +33,7 @@ if ($_GET['os'] == 'android') {
     $r = PushNotifications::android($msg_payload, $regId);
 }
 
-//	PushNotifications::WP8($msg_payload, $uri);
+//    PushNotifications::WP8($msg_payload, $uri);
 
 if ($_GET['os'] == 'ios') {
     $r = PushNotifications::iOS($msg_payload, $deviceToken);

@@ -7,6 +7,7 @@ use App\Api\V2\Mimic\Models\MimicResponse;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 use DB;
+use App\Events\Mimic\MimicUpvotedEvent;
 
 class UpvoteMimicRepository
 {
@@ -20,7 +21,7 @@ class UpvoteMimicRepository
 
     /**
      * Upvote original or response mimic
-     * @param array $request Array of data from request
+     * @param array $data Array of data from request
      * @param object $authUser Authenticated user
      * @return array
      */
@@ -35,19 +36,6 @@ class UpvoteMimicRepository
         $model = $model->find($id);
         $model->preventMutation = true;
 
-        if (array_get($data, 'original_mimic_id')) {
-            $api_call_params = [
-                'user_id' => $model->user_id,
-                'original_mimic_id' => $model->id,
-            ];
-        } else {
-            $api_call_params = [
-                'user_id' => $model->originalMimic->user_id,
-                'original_mimic_id' => $model->original_mimic_id,
-                'response_mimic_id' => $model->id,
-            ];
-        }
-
         DB::beginTransaction();
 
         //try to upvote
@@ -56,20 +44,12 @@ class UpvoteMimicRepository
             $model->userUpvotes()->attach($user->id);
             DB::commit();
 
-            //send push
-            $pushData = [
-                'authUser' => $user,
-                'parameters' => [
-                    'api_call_params' => array_merge(['page' => 1,], $api_call_params),
-                    'position' => Constants::POSITION_SPLIT_SCREEN
-                ],
-            ];
-
-            $this->mimic->sendMimicNotification($model, Constants::PUSH_TYPE_UPVOTE, $pushData);
             $type = Constants::UPVOTED;
+            event(new MimicUpvotedEvent($model, $user, $data));
         } //downvote
         catch (\Exception $e) {
-            DB::rollBack(); //rollback query inside "try"
+            DB::rollBack();
+
             $model->decrement('upvote');
             $model->userUpvotes()->detach($user->id);
             $type = Constants::DOWNVOTED;

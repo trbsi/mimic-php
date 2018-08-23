@@ -102,11 +102,14 @@ class SendPushNotification
 
         ];
         $body['parameters'] = $data['parameters'] ?? null;
+        
         if (array_key_exists('media-url', $data)) {
             $body['aps']['mutable-content'] = 1;
             $body['data']['media-url'] = $data['media-url'];
             $body['data']['media-type'] = $data['media-type'];
-        } elseif (array_key_exists('mutable_category', $data)) {
+        } 
+
+        if (array_key_exists('mutable_category', $data)) {
             $body['aps']['mutable-content'] = 1;
             $body['aps']['category'] = $data['mutable_category'];
         }

@@ -179,33 +179,6 @@ class Mimic extends Model
 
 
     /**
-     * send various notification to a user
-     * @param model $model Mimic/MimicResponse model
-     * @param  string $type What kind of notification to send
-     * @param array $extra Array of some extra data
-     */
-    public function sendMimicNotification($model, $type, $extra = [])
-    {
-        $data =
-            [
-                'badge' => 1,
-                'sound' => 'default',
-            ];
-
-        if ($type === Constants::PUSH_TYPE_NEW_RESPONSE) {
-            $data['title'] = trans('notifications.new_response_title');
-            $data['body'] = trans('notifications.new_response_body', ['user' => $extra['authUser']->username]);
-            $user_id = $model->user_id;
-        } elseif ($type === Constants::PUSH_TYPE_UPVOTE) {
-            $data['title'] = trans('notifications.upvote_mimic_title');
-            $data['body'] = trans('notifications.upvote_mimic_body', ['user' => $extra['authUser']->username]);
-            $user_id = $model->user_id;
-        }
-
-        SendPushNotification::sendNotification($user_id, array_merge($data, $extra));
-    }
-
-    /**
      * Fake user if this is admin account
      *
      * @param User $authUser Authenticated user

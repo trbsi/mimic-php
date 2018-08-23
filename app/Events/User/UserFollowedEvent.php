@@ -1,14 +1,27 @@
 <?php
 
-namespace App\Events\Users;
+namespace App\Events\User;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserFollowedEvent
 {
-    use SerializesModels;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var User
+     */
     public $authUser;
+
+    /**
+     * @var User
+     */
     public $followedUser;
 
     /**

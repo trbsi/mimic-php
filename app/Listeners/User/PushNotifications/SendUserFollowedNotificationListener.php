@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Listeners\Users\PushNotifications;
+namespace App\Listeners\User\PushNotifications;
 
-use App\Events\Users\UserFollowedEvent;
+use App\Events\User\UserFollowedEvent;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 
@@ -11,16 +11,6 @@ use App\Helpers\Constants;
  */
 class SendUserFollowedNotificationListener
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Handle the event.
      *

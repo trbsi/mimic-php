@@ -16,6 +16,7 @@ use App\Api\V2\Mimic\Repositories\UpvoteMimicRepository;
 use App\Api\V2\Mimic\Repositories\ReadMimicRepository;
 use DB;
 use Validator;
+use Exception;
 
 class MimicController extends BaseAuthController
 {
@@ -39,11 +40,7 @@ class MimicController extends BaseAuthController
     {
         DB::beginTransaction();
         try {
-            //@TODO REMOVE - fake user
-            $user = $this->mimic->getUser($this->authUser);
-            //@TODO REMOVE - fake user
-            
-            $result = $createMimicRepository->create($user, $request->all());
+            $result = $createMimicRepository->create($this->authUser, $request->all());
 
             if ($result) {
                 DB::commit();
@@ -52,7 +49,7 @@ class MimicController extends BaseAuthController
 
             DB::rollBack();
             abort(400, trans('core.alert.cant_upload_mimic_body'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw_exception($e);
         }
