@@ -59,15 +59,16 @@ class SendPushNotification
     public static function iOS($data, $deviceTokens)
     {
         //------------CHANGED-------------------
-        if (env('APP_ENV') === 'local') {
+        if (env('APP_ENV') === 'local' || env('APP_ENV') === 'development') {
             $applePushGateway = "ssl://gateway.sandbox.push.apple.com:2195";
             $ckpem = env('IOS_PUSH_PEM_DEVELOPMENT') ?? 'ios_push_development_timmy.pem';
         } else {
             $applePushGateway = "ssl://gateway.push.apple.com:2195";
             $ckpem = env('IOS_PUSH_PEM_PRODUCTION') ?? 'ios_push_production_timmy.pem';
         }
+        $ckpem = public_path().'/'.$ckpem;
         //------------CHANGED-------------------
-
+       
         $ctx = stream_context_create();
         // ck.pem is your certificate file
         stream_context_set_option($ctx, 'ssl', 'local_cert', $ckpem);

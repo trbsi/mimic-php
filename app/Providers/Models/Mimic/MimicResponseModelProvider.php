@@ -4,7 +4,7 @@ namespace App\Providers\Models\Mimic;
 
 use Illuminate\Support\ServiceProvider;
 
-class MimicModelProvider extends ServiceProvider
+class MimicResponseModelProvider extends ServiceProvider
 {
     /**
      * Bootstrap services.
@@ -23,8 +23,8 @@ class MimicModelProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('MimicModel', function ($app) {
-            $class = 'App\Api\\'.strtoupper(env('API_VERSION')).'\Mimic\Models\Mimic';
+        $this->app->bind('MimicResponseModel', function ($app) {
+            $class = 'App\Api\\'.strtoupper(env('API_VERSION')).'\Mimic\Models\MimicResponse';
             return app()->make($class);
         });
     }

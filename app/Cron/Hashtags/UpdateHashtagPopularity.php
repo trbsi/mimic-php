@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\Cron\Hashtags;
+namespace App\Cron\Hashtags;
 
 use DB;
 

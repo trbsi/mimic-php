@@ -1,5 +1,5 @@
 <?php
-namespace App\Helpers\Cron;
+namespace App\Cron;
 
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Models\MimicResponse;
