@@ -6,6 +6,8 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Cron\UploadToAws;
 use App\Cron\Hashtags\UpdateHashtagPopularity;
+use App\Cron\PushNotifications\RemoveOldPushTokens;
+
 //FAKES
 use App\Cron\Fakes\Mimics\Upvotes\FakeUpvotes;
 use App\Cron\Fakes\Mimics\Upvotes\ResetFakeUpvotes;
@@ -30,9 +32,12 @@ class Kernel extends ConsoleKernel
     {
         //https://gist.github.com/davejamesmiller/bd857d9b0ac895df7604dd2e63b23afe (laravel what to use instead of new)
         $container = app();
+
+        //REAL
         $model = [
             'UploadToAws' => $container->make(UploadToAws::class),
             'UpdateHashtagPopularity' => $container->make(UpdateHashtagPopularity::class),
+            'RemoveOldPushTokens' => $container->make(RemoveOldPushTokens::class),
         ];
         
         $schedule->call(function () use ($model) {
@@ -43,6 +48,10 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () use ($model) {
             $model['UpdateHashtagPopularity']->run();
         })->daily();
+
+        $schedule->call(function () use ($model) {
+            $model['RemoveOldPushTokens']->run();
+        })->weekly();
 
         //FAKES
         //Upvotes
