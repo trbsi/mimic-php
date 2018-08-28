@@ -32,7 +32,7 @@ class MimicUpvotedEvent
     /**
      * Create a new event instance.
      *
-     * @param Mimic|MimicResponse $model Upvoted Mimic or response Mimic
+     * @param Mimic|MimicResponse $model Mimic or response Mimic
      * @param User $user Authenticated user (User who upvoted)
      * @param array $data Array of data from request
      * @return void

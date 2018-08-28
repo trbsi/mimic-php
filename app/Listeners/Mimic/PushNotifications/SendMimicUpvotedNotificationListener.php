@@ -33,6 +33,8 @@ class SendMimicUpvotedNotificationListener
             'sound' => 'default',
             'title' => trans('notifications.upvote_mimic_title'),
             'body' => trans('notifications.upvote_mimic_body', ['user' => $event->user->username]),
+            'media-url' => $event->model->file_url,
+            'media-type' => $event->model->mimic_type,
             'parameters' => [
                 'api_call_params' => array_merge(['page' => 1,], $apiCallParams),
                 'position' => Constants::POSITION_SPLIT_SCREEN

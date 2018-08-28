@@ -56,7 +56,7 @@ html {
     opacity: 1;
 }
 
-.one-time {
+.slider {
     max-width: 400px;
     margin: 0 auto;
 }
@@ -128,6 +128,7 @@ header {
 /*MIMIC IMAGE/VIDEO*/
 .mimic-img-video {
     margin: 0 auto;
+    width: 100%;
 }
 
 .blur-bg {
@@ -154,6 +155,7 @@ header {
 .no-mimics {
     background: white;
     text-align: center;
+    border: 1px solid #ccc;
 }
 
 .no-mimics img {
