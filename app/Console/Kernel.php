@@ -4,9 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Helpers\Cron\UploadToAws;
-use App\Helpers\Cron\FakeMimicData;
-use App\Helpers\Cron\Hashtags\UpdateHashtagPopularity;
+use App\Cron\UploadToAws;
+use App\Cron\Hashtags\UpdateHashtagPopularity;
+//FAKES
+use App\Cron\Fakes\Mimics\Upvotes\FakeUpvotes;
+use App\Cron\Fakes\Mimics\Upvotes\ResetFakeUpvotes;
 
 class Kernel extends ConsoleKernel
 {
@@ -30,7 +32,6 @@ class Kernel extends ConsoleKernel
         $container = app();
         $model = [
             'UploadToAws' => $container->make(UploadToAws::class),
-            'FakeMimicData' => $container->make(FakeMimicData::class),
             'UpdateHashtagPopularity' => $container->make(UpdateHashtagPopularity::class),
         ];
         
@@ -40,12 +41,23 @@ class Kernel extends ConsoleKernel
         })->everyFiveMinutes();
 
         $schedule->call(function () use ($model) {
-            $model['FakeMimicData']->run();
-        })->everyFifteenMinutes();
-
-        $schedule->call(function () use ($model) {
             $model['UpdateHashtagPopularity']->run();
         })->daily();
+
+        //FAKES
+        //Upvotes
+        $model = [
+            'FakeUpvotes' => $container->make(FakeUpvotes::class),
+            'ResetFakeUpvotes' => $container->make(ResetFakeUpvotes::class),
+        ];
+
+        $schedule->call(function () use ($model) {
+            $model['ResetFakeUpvotes']->run();
+        })->weekly();
+        
+        $schedule->call(function () use ($model) {
+            $model['FakeUpvotes']->run();
+        })->everyTenMinutes();
     }
 
     /**
