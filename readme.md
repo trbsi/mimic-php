@@ -52,3 +52,7 @@ http://windows.php.net/downloads/pecl/deps/ -> ImageMagick-7.0.7-11-vc15-x86.zip
 
 #Seed databse before tests
 https://stackoverflow.com/a/42350139/1860890
+
+# QUERIES
+## Update number of mimics per user
+UPDATE `users` SET `number_of_mimics` = ((SELECT COUNT(*) FROM mimics WHERE deleted_at IS NULL AND user_id = users.id)+(SELECT COUNT(*) FROM mimic_responses WHERE deleted_at IS NULL AND user_id = users.id))
