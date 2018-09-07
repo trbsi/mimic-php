@@ -38,17 +38,17 @@ class MimicControllerTest extends TestCaseV2
         $assertData = [
             'id' => 1,
             'user_id' => 1,
-            'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+            'file' => '1-1.mp4',
             'aws_file' => null,
-            'video_thumb' => 'bb4c28e90898e04516c86d398e165dee.jpg',
+            'video_thumb' => '1-1.jpg',
             'aws_video_thumb' => null,
             'mimic_type' => 'video',
             'is_private' => false,
             'upvote' => '123M',
             'deleted_at' => null,
             'created_at' => '1970-01-01 12:00:00',
-            'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
-            'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg',
+            'file_url' => 'http://mimic.loc/files/user/1/1970/01/1-1.mp4',
+            'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/1-1.jpg',
         ];
 
         $response
@@ -83,7 +83,7 @@ class MimicControllerTest extends TestCaseV2
             'id' => 1,
             'user_id' => 2,
             'original_mimic_id' => 1,
-            'file' => '46bcd7f8cc3373caea6b0efd888a5c2d.jpg',
+            'file' => '2-1.jpg',
             'aws_file' => null,
             'video_thumb' => null,
             'aws_video_thumb' => null,
@@ -93,14 +93,14 @@ class MimicControllerTest extends TestCaseV2
             'deleted_at' => null,
             'created_at' => '1970-01-01 12:00:00',
             'updated_at' => '1970-01-01 12:00:00',
-            'file_url' => 'http://mimic.loc/files/user/2/1970/01/46bcd7f8cc3373caea6b0efd888a5c2d.jpg',
+            'file_url' => 'http://mimic.loc/files/user/2/1970/01/2-1.jpg',
             'video_thumb_url' => null,
             'original_mimic' => [
                 'id' => 1,
                 'user_id' => 1,
-                'file' => '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
+                'file' => '1-1.mp4',
                 'aws_file' => null,
-                'video_thumb' => 'bb4c28e90898e04516c86d398e165dee.jpg',
+                'video_thumb' => '1-1.jpg',
                 'aws_video_thumb' => null,
                 'mimic_type' => 'video',
                 'is_private' => false,
@@ -108,8 +108,8 @@ class MimicControllerTest extends TestCaseV2
                 'deleted_at' => null,
                 'created_at' => '1970-01-01 12:00:00',
                 'updated_at' => '1970-01-01 12:00:00',
-                'file_url' => 'http://mimic.loc/files/user/1/1970/01/0cf4aa302cea84e9a15f2fe8a58a2f43.mp4',
-                'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/bb4c28e90898e04516c86d398e165dee.jpg',
+                'file_url' => 'http://mimic.loc/files/user/1/1970/01/1-1.mp4',
+                'video_thumb_url' => 'http://mimic.loc/files/user/1/1970/01/1-1.jpg',
             ]
         ];
         $response
@@ -432,7 +432,7 @@ class MimicControllerTest extends TestCaseV2
     public function testSuccessfullyUploadImageOriginalMimic()
     {
         $path = public_path().'/files/user/4/1970/01/';
-        $file = TestCaseHelper::returnNewUploadedFile($path, '24d23a82eb859b7832205fd83ce83a5c.jpg', 'image/jpg');
+        $file = TestCaseHelper::returnNewUploadedFile($path, '4-13.jpg', 'image/jpg');
 
         $data = [
             'hashtags' => '#skate #backflip #frontflip', 
@@ -460,8 +460,8 @@ class MimicControllerTest extends TestCaseV2
     public function testSuccessfullyUploadVideoOriginalMimic()
     {
         $path = public_path().'/files/user/4/1970/01/';
-        $file = TestCaseHelper::returnNewUploadedFile($path, '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 'video/mp4');
-        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, 'fa66664ccc90eaebc38daa2829e73b0e.jpg', 'image/jpg');
+        $file = TestCaseHelper::returnNewUploadedFile($path, '4-3.mp4', 'video/mp4');
+        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '4-3.jpg', 'image/jpg');
 
         $data = [
             'hashtags' => '#skate #backflip #frontflip', 
@@ -590,7 +590,7 @@ class MimicControllerTest extends TestCaseV2
     public function testSuccessfullyUploadImageResponseMimic()
     {
         $path = public_path().'/files/user/5/1970/01/';
-        $file = TestCaseHelper::returnNewUploadedFile($path, '0cf7dbb25cd97f09e826e36ec178e135.jpg', 'image/jpg');
+        $file = TestCaseHelper::returnNewUploadedFile($path, '5-4.jpg', 'image/jpg');
 
         $data = [
             'mimic_file' => $file, 
@@ -620,8 +620,8 @@ class MimicControllerTest extends TestCaseV2
     public function testSuccessfullyUploadVideoResponseMimic()
     {
         $path = public_path().'/files/user/5/1970/01/';
-        $file = TestCaseHelper::returnNewUploadedFile($path, '0cf4aa302cea84e9a15f2fe8a58a2f43.mp4', 'video/mp4');
-        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '7372ad0a28e9428413cbd41abb6433e5.jpg', 'image/jpg');
+        $file = TestCaseHelper::returnNewUploadedFile($path, '5-14.mp4', 'video/mp4');
+        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '5-14.jpg', 'image/jpg');
 
         $data = [
             'mimic_file' => $file, 

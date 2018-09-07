@@ -16,11 +16,10 @@ class UsersTable extends Seeder
         $usernames = include __DIR__ . "/FakeUsernames.php";
 
         for ($i = 1; $i < count($usernames); $i++) {
-
             $gender = 'female';
 
             //because of functional testing
-            switch($usernames[$i]) {
+            switch ($usernames[$i]) {
                 case 'beachdude':
                     $gender = 'female';
                     break;
@@ -50,6 +49,5 @@ class UsersTable extends Seeder
             $userTmp = $user->create($insert);
             $userTmp->socialAccounts()->createMany($socialAccounts);
         }
-
     }
 }
