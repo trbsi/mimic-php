@@ -31,6 +31,8 @@ class FollowControllerTest extends TestCaseV2
             'number_of_mimics' => '123M',
             'pivot_following' => 1,
             'pivot_followed_by' => 2,
+            'i_am_following_you' => false,
+            'is_blocked' => false,
         ];
 
         $response
@@ -70,6 +72,8 @@ class FollowControllerTest extends TestCaseV2
             'number_of_mimics' => '123M',
             'pivot_followed_by' => 1,
             'pivot_following' => 2,
+            'i_am_following_you' => false,
+            'is_blocked' => false,
         ];
 
         $response

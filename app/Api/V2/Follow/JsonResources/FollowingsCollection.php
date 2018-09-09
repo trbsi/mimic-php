@@ -15,7 +15,7 @@ class FollowingsCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'followings' => $this->collection,
+            'following' => $this->collection,
         ];
     }
 }

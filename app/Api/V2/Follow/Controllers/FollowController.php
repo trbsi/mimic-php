@@ -42,7 +42,7 @@ class FollowController extends BaseAuthController
 
         $result = $user->find($user_id)
         ->followers()
-        ->select('*')
+        ->select($user->getTable().'.*')
         ->selectRaw($user->getIAmFollowingYouQuery($this->authUser))
         ->selectRaw($user->getIsBlockedQuery($this->authUser))
         ->get();
@@ -64,7 +64,7 @@ class FollowController extends BaseAuthController
 
         $result = $user->find($user_id)
         ->following()
-        ->select('*')
+        ->select($user->getTable().'.*')
         ->selectRaw($user->getIAmFollowingYouQuery($this->authUser))
         ->selectRaw($user->getIsBlockedQuery($this->authUser))
         ->get();
