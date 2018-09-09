@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Api\V2\Mimic\Resource\Response\JsonResources;
+namespace App\Api\V2\Mimic\Resources\Response\JsonResources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Api\V2\Mimic\Resource\Meta\JsonResources\MetaResource;
+use App\Api\V2\Mimic\Resources\Meta\JsonResources\MetaResource;
 
 class ResponseResource extends JsonResource
 {

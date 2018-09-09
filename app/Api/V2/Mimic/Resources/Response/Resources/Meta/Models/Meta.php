@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\V2\Mimic\Resource\Response\Resource\Meta\Models;
+namespace App\Api\V2\Mimic\Resources\Response\Resources\Meta\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

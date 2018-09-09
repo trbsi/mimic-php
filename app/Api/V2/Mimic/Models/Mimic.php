@@ -242,6 +242,6 @@ class Mimic extends Model
 
     public function meta()
     {
-        return $this->hasOne('App\Api\V2\Mimic\Resource\Meta\Models\Meta', 'mimic_id', 'id');
+        return $this->hasOne('App\Api\V2\Mimic\Resources\Meta\Models\Meta', 'mimic_id', 'id');
     }
 }

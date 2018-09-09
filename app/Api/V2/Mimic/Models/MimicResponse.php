@@ -126,6 +126,6 @@ class MimicResponse extends Model
 
     public function meta()
     {
-        return $this->hasOne('App\Api\V2\Mimic\Resource\Response\Resource\Meta\Models\Meta', 'mimic_id', 'id');
+        return $this->hasOne('App\Api\V2\Mimic\Resources\Response\Resources\Meta\Models\Meta', 'mimic_id', 'id');
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Api\V2\Mimic\JsonResources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Api\V2\Mimic\Resource\Meta\JsonResources\MetaResource;
+use App\Api\V2\Mimic\Resources\Meta\JsonResources\MetaResource;
 use App\Api\V2\Hashtag\JsonResources\HashtagResource;
-use App\Api\V2\Mimic\Resource\Response\JsonResources\ResponseResource;
+use App\Api\V2\Mimic\Resources\Response\JsonResources\ResponseResource;
 use Illuminate\Http\Resources\MissingValue;
 
 class MimicResource extends JsonResource
