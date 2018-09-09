@@ -9,6 +9,8 @@ use App\Api\V2\User\Models\User;
 use DB;
 use App\Helpers\Constants;
 use App\Api\V2\Follow\Repositories\FollowUserRepository;
+use App\Api\V2\Follow\JsonResources\FollowersCollection;
+use App\Api\V2\Follow\JsonResources\FollowingsCollection;
 
 class FollowController extends BaseAuthController
 {
@@ -38,7 +40,15 @@ class FollowController extends BaseAuthController
             $user_id = $this->authUser->id;
         }
 
-        return response()->json(['followers' => $user->find($user_id)->followers()->get()]);
+        $result = $user->find($user_id)
+        ->followers()
+        ->select('*')
+        ->selectRaw($user->getIAmFollowingYouQuery($this->authUser))
+        ->selectRaw($user->getIsBlockedQuery($this->authUser))
+        ->get();
+
+        $collection = new FollowersCollection($result);
+        return response()->json($collection);
     }
 
     /**
@@ -52,6 +62,14 @@ class FollowController extends BaseAuthController
             $user_id = $this->authUser->id;
         }
 
-        return response()->json(['following' => $user->find($user_id)->following()->get()]);
+        $result = $user->find($user_id)
+        ->following()
+        ->select('*')
+        ->selectRaw($user->getIAmFollowingYouQuery($this->authUser))
+        ->selectRaw($user->getIsBlockedQuery($this->authUser))
+        ->get();
+
+        $collection = new FollowingsCollection($result);
+        return response()->json($collection);
     }
 }
