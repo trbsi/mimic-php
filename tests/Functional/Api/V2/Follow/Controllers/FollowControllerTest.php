@@ -77,8 +77,8 @@ class FollowControllerTest extends TestCaseV2
         ];
 
         $response
-        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('following'))
-        ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'following'))
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('followings'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'followings'))
         ->assertStatus(200);
     }
 
@@ -90,10 +90,10 @@ class FollowControllerTest extends TestCaseV2
 
         $response
         ->assertJsonStructure([
-            'following'
+            'followings'
         ])
         ->assertJson([
-            'following' => []
+            'followings' => []
         ])
         ->assertStatus(200);
     }

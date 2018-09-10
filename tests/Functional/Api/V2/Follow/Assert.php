@@ -14,7 +14,7 @@ class Assert extends AssertAbstract implements AssertInterface
 	{
         switch ($type) {
             case 'followers':
-            case 'following':
+            case 'followings':
                 return $this->getFollowersOrFollowingJsonStructureOnSuccess($type);
             case 'followed':
             case 'unfollowed':
@@ -29,7 +29,7 @@ class Assert extends AssertAbstract implements AssertInterface
 	{
 		switch ($type) {
             case 'followers':
-            case 'following':
+            case 'followings':
                 return $this->getFollowersOrFollowingJsonOnSuccess($data, $type);
             case 'followed':
             case 'unfollowed':  
