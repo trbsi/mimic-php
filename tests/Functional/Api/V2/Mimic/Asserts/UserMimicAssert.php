@@ -124,6 +124,12 @@ class UserMimicAssert
                     'updated_at' => $data['updated_at'],
                     'file_url' => $data['file_url'],
                     'video_thumb_url' => $data['video_thumb_url'],
+                    'meta' => [
+                        'width' => $data['meta']['width'],
+                        'height' => $data['meta']['height'],
+                        'thumbnail_width' => $data['meta']['thumbnail_width'],
+                        'thumbnail_height' => $data['meta']['thumbnail_height'],
+                    ],
                     'original_mimic' => [
                         'id' => $data['original_mimic']['id'],
                         'user_id' => $data['original_mimic']['user_id'],

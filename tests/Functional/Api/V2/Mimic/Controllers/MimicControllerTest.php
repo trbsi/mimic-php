@@ -83,18 +83,23 @@ class MimicControllerTest extends TestCaseV2
             'id' => 1,
             'user_id' => 2,
             'original_mimic_id' => 1,
-            'file' => '2-1.jpg',
+            'file' => '2-1.mp4',
             'aws_file' => null,
-            'video_thumb' => null,
+            'video_thumb' => "2-1.jpg",
             'aws_video_thumb' => null,
-            'mimic_type' => 'picture',
-            'is_private' => false,
+            'mimic_type' => 'video',
             'upvote' => '123M',
             'deleted_at' => null,
             'created_at' => '1970-01-01 12:00:00',
             'updated_at' => '1970-01-01 12:00:00',
-            'file_url' => 'http://mimic.loc/files/user/2/1970/01/2-1.jpg',
-            'video_thumb_url' => null,
+            'file_url' => 'http://mimic.loc/files/user/2/1970/01/2-1.mp4',
+            'video_thumb_url' => 'http://mimic.loc/files/user/2/1970/01/2-1.jpg',
+            'meta' => [
+                'width' => 600,
+                'height' => 900,
+                'thumbnail_width' => null,
+                'thumbnail_height' => null,
+            ],
             'original_mimic' => [
                 'id' => 1,
                 'user_id' => 1,
@@ -366,7 +371,7 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson([
             'meta' => [
                 'pagination' => [
-                    'total' => 11,
+                    'total' => 19,
                     'per_page' => 30,
                     'current_page' => 100,
                     'last_page' => 1,
@@ -432,7 +437,7 @@ class MimicControllerTest extends TestCaseV2
     public function testSuccessfullyUploadImageOriginalMimic()
     {
         $path = public_path().'/files/user/4/1970/01/';
-        $file = TestCaseHelper::returnNewUploadedFile($path, '4-13.jpg', 'image/jpg');
+        $file = TestCaseHelper::returnNewUploadedFile($path, '4-25.jpg', 'image/jpg');
 
         $data = [
             'hashtags' => '#skate #backflip #frontflip', 
@@ -620,8 +625,8 @@ class MimicControllerTest extends TestCaseV2
     public function testSuccessfullyUploadVideoResponseMimic()
     {
         $path = public_path().'/files/user/5/1970/01/';
-        $file = TestCaseHelper::returnNewUploadedFile($path, '5-14.mp4', 'video/mp4');
-        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '5-14.jpg', 'image/jpg');
+        $file = TestCaseHelper::returnNewUploadedFile($path, '5-22.mp4', 'video/mp4');
+        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '5-22.jpg', 'image/jpg');
 
         $data = [
             'mimic_file' => $file, 

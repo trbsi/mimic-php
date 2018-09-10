@@ -28,7 +28,7 @@
         "upvoted": 0,
         "i_am_following_you": true,
         "created_at": 43200,
-        "responses_count": 10,
+        "responses_count": 21,
         "meta": {
           "width": 600,
           "height": 900,
@@ -61,15 +61,414 @@
       "hashtags_flat": "#happydog #dog #dogs #cutedogs #cute",
       "mimic_responses": [
         {
-          "id": 26,
+          "id": 45,
+          "username": "Snowfox",
+          "profile_picture": "http://mimic.loc/files/hr/female/24.jpg",
+          "user_id": 24,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "24-45.jpg",
+          "file_url": "http://mimic.loc/files/user/24/1970/01/24-45.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 44,
+          "username": "omulus_",
+          "profile_picture": "http://mimic.loc/files/hr/female/23.jpg",
+          "user_id": 23,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "23-44.jpg",
+          "file_url": "http://mimic.loc/files/user/23/1970/01/23-44.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 43,
+          "username": "RandomGuy21",
+          "profile_picture": "http://mimic.loc/files/hr/female/22.jpg",
+          "user_id": 22,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "22-43.jpg",
+          "file_url": "http://mimic.loc/files/user/22/1970/01/22-43.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 42,
+          "username": "Kiki",
+          "profile_picture": "http://mimic.loc/files/hr/female/21.jpg",
+          "user_id": 21,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "21-42.jpg",
+          "file_url": "http://mimic.loc/files/user/21/1970/01/21-42.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 41,
+          "username": "PlasmaHam",
+          "profile_picture": "http://mimic.loc/files/hr/female/20.jpg",
+          "user_id": 20,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "20-41.jpg",
+          "file_url": "http://mimic.loc/files/user/20/1970/01/20-41.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 40,
+          "username": "piperpilot32",
+          "profile_picture": "http://mimic.loc/files/hr/female/19.jpg",
+          "user_id": 19,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "19-40.jpg",
+          "file_url": "http://mimic.loc/files/user/19/1970/01/19-40.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 39,
+          "username": "OrangeKenny",
+          "profile_picture": "http://mimic.loc/files/hr/female/18.jpg",
+          "user_id": 18,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "18-39.jpg",
+          "file_url": "http://mimic.loc/files/user/18/1970/01/18-39.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 38,
+          "username": "Nadin",
+          "profile_picture": "http://mimic.loc/files/hr/female/17.jpg",
+          "user_id": 17,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "17-38.jpg",
+          "file_url": "http://mimic.loc/files/user/17/1970/01/17-38.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 37,
+          "username": "mylanka",
+          "profile_picture": "http://mimic.loc/files/hr/female/16.jpg",
+          "user_id": 16,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "16-37.mp4",
+          "file_url": "http://mimic.loc/files/user/16/1970/01/16-37.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/16/1970/01/16-37.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 36,
+          "username": "Mollypop",
+          "profile_picture": "http://mimic.loc/files/hr/female/15.jpg",
+          "user_id": 15,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "15-36.mp4",
+          "file_url": "http://mimic.loc/files/user/15/1970/01/15-36.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/15/1970/01/15-36.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 35,
+          "username": "Mars",
+          "profile_picture": "http://mimic.loc/files/hr/female/14.jpg",
+          "user_id": 14,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "14-35.jpg",
+          "file_url": "http://mimic.loc/files/user/14/1970/01/14-35.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 34,
           "username": "Jrfoley5",
           "profile_picture": "http://mimic.loc/files/hr/female/13.jpg",
           "user_id": 13,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "13-34.mp4",
+          "file_url": "http://mimic.loc/files/user/13/1970/01/13-34.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/13/1970/01/13-34.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 33,
+          "username": "hogwartsthestral",
+          "profile_picture": "http://mimic.loc/files/hr/female/12.jpg",
+          "user_id": 12,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "12-33.mp4",
+          "file_url": "http://mimic.loc/files/user/12/1970/01/12-33.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/12/1970/01/12-33.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 32,
+          "username": "EmeraldDream",
+          "profile_picture": "http://mimic.loc/files/hr/female/11.jpg",
+          "user_id": 11,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "11-32.mp4",
+          "file_url": "http://mimic.loc/files/user/11/1970/01/11-32.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/11/1970/01/11-32.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 31,
+          "username": "DriveAlive",
+          "profile_picture": "http://mimic.loc/files/hr/female/10.jpg",
+          "user_id": 10,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "10-31.mp4",
+          "file_url": "http://mimic.loc/files/user/10/1970/01/10-31.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/10/1970/01/10-31.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 30,
+          "username": "Desynchronized",
+          "profile_picture": "http://mimic.loc/files/hr/female/9.jpg",
+          "user_id": 9,
           "mimic_type": "picture",
           "upvote": "123M",
-          "file": "13-26.jpg",
-          "file_url": "http://mimic.loc/files/user/13/1970/01/13-26.jpg",
+          "file": "9-30.jpg",
+          "file_url": "http://mimic.loc/files/user/9/1970/01/9-30.jpg",
           "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 29,
+          "username": "Desdemona",
+          "profile_picture": "http://mimic.loc/files/hr/female/8.jpg",
+          "user_id": 8,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "8-29.jpg",
+          "file_url": "http://mimic.loc/files/user/8/1970/01/8-29.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 28,
+          "username": "DerpyGirl",
+          "profile_picture": "http://mimic.loc/files/hr/female/7.jpg",
+          "user_id": 7,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "7-28.jpg",
+          "file_url": "http://mimic.loc/files/user/7/1970/01/7-28.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 27,
+          "username": "deeptt_tacos",
+          "profile_picture": "http://mimic.loc/files/hr/female/6.jpg",
+          "user_id": 6,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "6-27.jpg",
+          "file_url": "http://mimic.loc/files/user/6/1970/01/6-27.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 26,
+          "username": "Datguy1",
+          "profile_picture": "http://mimic.loc/files/hr/female/5.jpg",
+          "user_id": 5,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "5-26.mp4",
+          "file_url": "http://mimic.loc/files/user/5/1970/01/5-26.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/5/1970/01/5-26.jpg",
           "aws_file": null,
           "upvoted": 0,
           "i_am_following_you": false,
@@ -83,181 +482,13 @@
         },
         {
           "id": 25,
-          "username": "hogwartsthestral",
-          "profile_picture": "http://mimic.loc/files/hr/female/12.jpg",
-          "user_id": 12,
-          "mimic_type": "video",
-          "upvote": "123M",
-          "file": "12-25.mp4",
-          "file_url": "http://mimic.loc/files/user/12/1970/01/12-25.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/12/1970/01/12-25.jpg",
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null
-          }
-        },
-        {
-          "id": 24,
-          "username": "EmeraldDream",
-          "profile_picture": "http://mimic.loc/files/hr/female/11.jpg",
-          "user_id": 11,
-          "mimic_type": "video",
-          "upvote": "123M",
-          "file": "11-24.mp4",
-          "file_url": "http://mimic.loc/files/user/11/1970/01/11-24.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/11/1970/01/11-24.jpg",
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null
-          }
-        },
-        {
-          "id": 23,
-          "username": "DriveAlive",
-          "profile_picture": "http://mimic.loc/files/hr/female/10.jpg",
-          "user_id": 10,
-          "mimic_type": "video",
-          "upvote": "123M",
-          "file": "10-23.mp4",
-          "file_url": "http://mimic.loc/files/user/10/1970/01/10-23.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/10/1970/01/10-23.jpg",
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null
-          }
-        },
-        {
-          "id": 22,
-          "username": "Desynchronized",
-          "profile_picture": "http://mimic.loc/files/hr/female/9.jpg",
-          "user_id": 9,
-          "mimic_type": "video",
-          "upvote": "123M",
-          "file": "9-22.mp4",
-          "file_url": "http://mimic.loc/files/user/9/1970/01/9-22.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/9/1970/01/9-22.jpg",
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null
-          }
-        },
-        {
-          "id": 21,
-          "username": "Desdemona",
-          "profile_picture": "http://mimic.loc/files/hr/female/8.jpg",
-          "user_id": 8,
-          "mimic_type": "video",
-          "upvote": "123M",
-          "file": "8-21.mp4",
-          "file_url": "http://mimic.loc/files/user/8/1970/01/8-21.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/8/1970/01/8-21.jpg",
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null
-          }
-        },
-        {
-          "id": 20,
-          "username": "DerpyGirl",
-          "profile_picture": "http://mimic.loc/files/hr/female/7.jpg",
-          "user_id": 7,
-          "mimic_type": "video",
-          "upvote": "123M",
-          "file": "7-20.mp4",
-          "file_url": "http://mimic.loc/files/user/7/1970/01/7-20.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/7/1970/01/7-20.jpg",
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null
-          }
-        },
-        {
-          "id": 19,
-          "username": "deeptt_tacos",
-          "profile_picture": "http://mimic.loc/files/hr/female/6.jpg",
-          "user_id": 6,
-          "mimic_type": "picture",
-          "upvote": "123M",
-          "file": "6-19.jpg",
-          "file_url": "http://mimic.loc/files/user/6/1970/01/6-19.jpg",
-          "video_thumb_url": null,
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null
-          }
-        },
-        {
-          "id": 18,
-          "username": "Datguy1",
-          "profile_picture": "http://mimic.loc/files/hr/female/5.jpg",
-          "user_id": 5,
-          "mimic_type": "picture",
-          "upvote": "123M",
-          "file": "5-18.jpg",
-          "file_url": "http://mimic.loc/files/user/5/1970/01/5-18.jpg",
-          "video_thumb_url": null,
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null
-          }
-        },
-        {
-          "id": 17,
           "username": "Cognizant",
           "profile_picture": "http://mimic.loc/files/hr/female/4.jpg",
           "user_id": 4,
           "mimic_type": "picture",
           "upvote": "123M",
-          "file": "4-17.jpg",
-          "file_url": "http://mimic.loc/files/user/4/1970/01/4-17.jpg",
+          "file": "4-25.jpg",
+          "file_url": "http://mimic.loc/files/user/4/1970/01/4-25.jpg",
           "video_thumb_url": null,
           "aws_file": null,
           "upvoted": 0,
@@ -287,7 +518,7 @@
         "upvoted": 0,
         "i_am_following_you": true,
         "created_at": 43200,
-        "responses_count": 11,
+        "responses_count": 19,
         "meta": {
           "width": 600,
           "height": 900,
@@ -316,6 +547,174 @@
       "hashtags_flat": "#beatbox #box #beat #music",
       "mimic_responses": [
         {
+          "id": 19,
+          "username": "PlasmaHam",
+          "profile_picture": "http://mimic.loc/files/hr/female/20.jpg",
+          "user_id": 20,
+          "mimic_type": "picture",
+          "upvote": "123M",
+          "file": "20-19.jpg",
+          "file_url": "http://mimic.loc/files/user/20/1970/01/20-19.jpg",
+          "video_thumb_url": null,
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 18,
+          "username": "piperpilot32",
+          "profile_picture": "http://mimic.loc/files/hr/female/19.jpg",
+          "user_id": 19,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "19-18.mp4",
+          "file_url": "http://mimic.loc/files/user/19/1970/01/19-18.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/19/1970/01/19-18.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 17,
+          "username": "OrangeKenny",
+          "profile_picture": "http://mimic.loc/files/hr/female/18.jpg",
+          "user_id": 18,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "18-17.mp4",
+          "file_url": "http://mimic.loc/files/user/18/1970/01/18-17.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/18/1970/01/18-17.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 16,
+          "username": "Nadin",
+          "profile_picture": "http://mimic.loc/files/hr/female/17.jpg",
+          "user_id": 17,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "17-16.mp4",
+          "file_url": "http://mimic.loc/files/user/17/1970/01/17-16.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/17/1970/01/17-16.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 15,
+          "username": "mylanka",
+          "profile_picture": "http://mimic.loc/files/hr/female/16.jpg",
+          "user_id": 16,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "16-15.mp4",
+          "file_url": "http://mimic.loc/files/user/16/1970/01/16-15.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/16/1970/01/16-15.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 14,
+          "username": "Mollypop",
+          "profile_picture": "http://mimic.loc/files/hr/female/15.jpg",
+          "user_id": 15,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "15-14.mp4",
+          "file_url": "http://mimic.loc/files/user/15/1970/01/15-14.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/15/1970/01/15-14.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 13,
+          "username": "Mars",
+          "profile_picture": "http://mimic.loc/files/hr/female/14.jpg",
+          "user_id": 14,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "14-13.mp4",
+          "file_url": "http://mimic.loc/files/user/14/1970/01/14-13.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/14/1970/01/14-13.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 12,
+          "username": "Jrfoley5",
+          "profile_picture": "http://mimic.loc/files/hr/female/13.jpg",
+          "user_id": 13,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "13-12.mp4",
+          "file_url": "http://mimic.loc/files/user/13/1970/01/13-12.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/13/1970/01/13-12.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
           "id": 11,
           "username": "hogwartsthestral",
           "profile_picture": "http://mimic.loc/files/hr/female/12.jpg",
@@ -332,8 +731,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -353,8 +752,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -362,11 +761,11 @@
           "username": "DriveAlive",
           "profile_picture": "http://mimic.loc/files/hr/female/10.jpg",
           "user_id": 10,
-          "mimic_type": "picture",
+          "mimic_type": "video",
           "upvote": "123M",
-          "file": "10-9.jpg",
-          "file_url": "http://mimic.loc/files/user/10/1970/01/10-9.jpg",
-          "video_thumb_url": null,
+          "file": "10-9.mp4",
+          "file_url": "http://mimic.loc/files/user/10/1970/01/10-9.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/10/1970/01/10-9.jpg",
           "aws_file": null,
           "upvoted": 0,
           "i_am_following_you": false,
@@ -374,8 +773,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -395,8 +794,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -404,31 +803,10 @@
           "username": "Desdemona",
           "profile_picture": "http://mimic.loc/files/hr/female/8.jpg",
           "user_id": 8,
-          "mimic_type": "video",
-          "upvote": "123M",
-          "file": "8-7.mp4",
-          "file_url": "http://mimic.loc/files/user/8/1970/01/8-7.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/8/1970/01/8-7.jpg",
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
-          }
-        },
-        {
-          "id": 6,
-          "username": "DerpyGirl",
-          "profile_picture": "http://mimic.loc/files/hr/female/7.jpg",
-          "user_id": 7,
           "mimic_type": "picture",
           "upvote": "123M",
-          "file": "7-6.jpg",
-          "file_url": "http://mimic.loc/files/user/7/1970/01/7-6.jpg",
+          "file": "8-7.jpg",
+          "file_url": "http://mimic.loc/files/user/8/1970/01/8-7.jpg",
           "video_thumb_url": null,
           "aws_file": null,
           "upvoted": 0,
@@ -437,8 +815,29 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
+          }
+        },
+        {
+          "id": 6,
+          "username": "DerpyGirl",
+          "profile_picture": "http://mimic.loc/files/hr/female/7.jpg",
+          "user_id": 7,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "7-6.mp4",
+          "file_url": "http://mimic.loc/files/user/7/1970/01/7-6.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/7/1970/01/7-6.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -458,8 +857,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -467,11 +866,11 @@
           "username": "Datguy1",
           "profile_picture": "http://mimic.loc/files/hr/female/5.jpg",
           "user_id": 5,
-          "mimic_type": "video",
+          "mimic_type": "picture",
           "upvote": "123M",
-          "file": "5-4.mp4",
-          "file_url": "http://mimic.loc/files/user/5/1970/01/5-4.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/5/1970/01/5-4.jpg",
+          "file": "5-4.jpg",
+          "file_url": "http://mimic.loc/files/user/5/1970/01/5-4.jpg",
+          "video_thumb_url": null,
           "aws_file": null,
           "upvoted": 0,
           "i_am_following_you": false,
@@ -479,8 +878,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -500,8 +899,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -521,8 +920,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         },
         {
@@ -530,11 +929,11 @@
           "username": "beachdude",
           "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
           "user_id": 2,
-          "mimic_type": "picture",
+          "mimic_type": "video",
           "upvote": "123M",
-          "file": "2-1.jpg",
-          "file_url": "http://mimic.loc/files/user/2/1970/01/2-1.jpg",
-          "video_thumb_url": null,
+          "file": "2-1.mp4",
+          "file_url": "http://mimic.loc/files/user/2/1970/01/2-1.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/2/1970/01/2-1.jpg",
           "aws_file": null,
           "upvoted": 0,
           "i_am_following_you": false,
@@ -542,8 +941,8 @@
           "meta": {
             "width": 600,
             "height": 900,
-            "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_width": null,
+            "thumbnail_height": null
           }
         }
       ]
