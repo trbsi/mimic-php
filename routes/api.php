@@ -46,6 +46,10 @@ $api->version('v2', function (Router $api) {
                 $api->delete('/', ['uses' => 'App\Api\V2\User\Controllers\UserController@delete']);
             });
 
+            $api->group(['prefix' => 'push-notifications-token'], function (Router $api) {
+                $api->delete('delete-by-user', ['uses' => 'App\Api\V2\PushNotificationsToken\Controllers\PushNotificationsTokenController@deleteByUser']);
+            });
+
             $api->group(['prefix' => 'search'], function (Router $api) {
                 $api->get('/', ['uses' => 'App\Api\V2\Search\Controllers\SearchController@search']);
                 $api->get('top', ['uses' => 'App\Api\V2\Search\Controllers\SearchController@topHashtagsAndUsers']);
