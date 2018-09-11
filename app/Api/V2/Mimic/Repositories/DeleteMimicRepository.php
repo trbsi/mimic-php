@@ -5,9 +5,12 @@ namespace App\Api\V2\Mimic\Repositories;
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Models\MimicResponse;
 use App\Helpers\AwsHelper;
+use App\Api\V2\User\Models\User;
 
 class DeleteMimicRepository
 {
+    private const MODE_ADMIN = 'admin';
+
     /**
      * Absolute path to mimic and video thumbnail (original or response) files
      * @var null
@@ -29,30 +32,67 @@ class DeleteMimicRepository
         $this->awsHelper = $awsHelper;
     }
 
-    public function deleteMimic($request, $authUser)
+    /**
+     * Find Mimic or response by id and remove
+     * 
+     * @param  array  $data 
+     * @param  User   $authUser     
+     * @return void    
+     */
+    public function deleteSingleMimicOrResponseById(array $data, User $authUser)
     {
         $authUser->preventMutation = true;
         
-        if (array_key_exists('original_mimic_id', $request)) {
+        if (array_key_exists('original_mimic_id', $data)) {
             $model = $this->mimic;
-            $id = $request['original_mimic_id'];
+            $id = $data['original_mimic_id'];
         } else {
             $model = $this->mimicResponse;
-            $id = $request['response_mimic_id'];
+            $id = $data['response_mimic_id'];
         }
 
-        $mode = array_key_exists('mode', $request) ? $request['mode'] : null;
-
         $result = $model->find($id);
+        $this->startDeleteProcess($result, $data, $authUser);
+    }
 
-        if ($result && ($result->user_id === $authUser->id || $mode === 'admin')) {
+
+    /**
+     * Find user's mimics and responses and remove them
+     * 
+     * @param  User   $authUser 
+     * @return void           
+     */
+    public function deleteUserMimicsAndResponsesByUser(User $authUser)
+    {
+        $data['mode'] = self::MODE_ADMIN;
+        $mimics = $this->mimic->where('user_id', $authUser->id)->get();
+        $responses = $this->mimicResponse->where('user_id', $authUser->id)->get();
+
+        foreach ([$mimics, $responses] as $mimicsAndResponses) {
+            foreach ($mimicsAndResponses as $model) {
+               $this->startDeleteProcess($model, $data, $authUser);
+            }
+        }
+    }
+
+    /**
+     * @param  Mimic|MimicResponse $model
+     * @param  array  $data
+     * @param  User   $authUser
+     * @return void
+     */
+    private function startDeleteProcess(object $model, array $data, User $authUser)
+    {
+        $mode = array_key_exists('mode', $data) ? $data['mode'] : null;
+
+        if ($model && ($model->user_id === $authUser->id || $mode === self::MODE_ADMIN)) {
             //delete Mimic from disk
-            $this->removeMimicFromDisk($result);
+            $this->removeMimicFromDisk($model);
             //decrease number of mimics for this user
             if ($authUser->number_of_mimics > 0) {
                 $authUser->decrement('number_of_mimics');
             }
-            $result->delete();
+            $model->delete();
         } else {
             abort(403, trans('mimic.delete.mimic_not_yours'));
         }

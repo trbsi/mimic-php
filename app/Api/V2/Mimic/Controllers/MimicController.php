@@ -95,7 +95,7 @@ class MimicController extends BaseAuthController
     {
         DB::beginTransaction();
         try {
-            $deleteMimicRepository->deleteMimic($request->all(), $this->authUser);
+            $deleteMimicRepository->deleteSingleMimicOrResponseById($request->all(), $this->authUser);
             DB::commit();
             return response()->json(['success' => true]);
         } catch (\Exception $e) {

@@ -5,6 +5,7 @@ namespace App\Api\V2\User\Controllers;
 use App\Api\V2\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Api\V2\User\Repositories\UserRepository;
+use App\Api\V2\User\Repositories\DeleteUserRepository;
 use Exception;
 
 class UserController extends BaseAuthController
@@ -54,5 +55,16 @@ class UserController extends BaseAuthController
         } catch (Exception $e) {
             throw_exception($e);
         }
+    }
+
+    /**
+     * @param  Request              $request              
+     * @param  DeleteUserRepository $deleteUserRepository 
+     * @return Response                                     
+     */
+    public function delete(Request $request, DeleteUserRepository $deleteUserRepository)
+    {
+        $deleteUserRepository->delete($this->authUser, $request->all());
+        return response()->json([], 204);
     }
 }

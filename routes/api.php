@@ -42,6 +42,10 @@ $api->version('v2', function (Router $api) {
                 $api->get('following', ['uses' => 'App\Api\V2\Follow\Controllers\FollowController@following']);
             });
 
+            $api->group(['prefix' => 'user'], function (Router $api) {
+                $api->delete('/', ['uses' => 'App\Api\V2\User\Controllers\UserController@delete']);
+            });
+
             $api->group(['prefix' => 'search'], function (Router $api) {
                 $api->get('/', ['uses' => 'App\Api\V2\Search\Controllers\SearchController@search']);
                 $api->get('top', ['uses' => 'App\Api\V2\Search\Controllers\SearchController@topHashtagsAndUsers']);

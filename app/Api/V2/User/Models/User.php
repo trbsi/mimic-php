@@ -134,7 +134,10 @@ class User extends Authenticatable implements JWTSubject
         return User::where(['email' => $email])->first();
     }
 
-    // http://jwt-auth.readthedocs.io/en/develop/auth-guard/#userorfail
+    /**
+     * @see http://jwt-auth.readthedocs.io/en/develop/auth-guard/#userorfail
+     * @return User|null
+     */
     public function getAuthenticatedUser()
     {
         try {
