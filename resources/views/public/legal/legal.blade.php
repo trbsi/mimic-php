@@ -1,10 +1,4 @@
-<?php
-use yii\helpers\Url;
-use yii\helpers\Html;
-
-?>
-
-        <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -43,6 +37,9 @@ use yii\helpers\Html;
             var btn_pp = $(".btn-pp");
             var btn_eula = $(".btn-eula");
 
+            $('.content').hide();
+            $('#<?=$display?>').show();
+
             btn_tos.click(function () {
                 tos.show();
                 pp.hide();
@@ -77,12 +74,12 @@ use yii\helpers\Html;
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12" id="tos">
+        <div class="col-sm-12 content" id="tos">
             <?php echo view("public.legal.terms-of-use-content")->render() ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12" id="privacy" style="display:none">
+        <div class="col-sm-12 content" id="privacy">
             <?php echo view("public.legal.privacy-policy-content")->render() ?>
         </div>
     </div>
