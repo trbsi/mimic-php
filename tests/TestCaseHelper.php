@@ -10,19 +10,47 @@ class TestCaseHelper
 		return json_decode($response->getContent(), true);
 	}
 
-	public static function returnNewUploadedFile($path, $fileName, $fileType)
+	/**
+	 * @param  string $path     
+	 * @param  string $fileName 
+	 * @param  string $fileType 
+	 * @return UploadedFile           
+	 */
+	public static function returnNewUploadedFile(string $path, string $fileName, string $fileType): UploadedFile
 	{
+		//create a copy of a file
+		$fileNameNew = self::copyFile($path, $fileName);
+
 		return new UploadedFile(
-            $path.$fileName, 
-            $fileName, 
+            $path.$fileNameNew, 
+            $fileNameNew, 
             $fileType, 
-            filesize($path), 
+            filesize($path.$fileNameNew), 
             null, 
             true);
 	}
 
-	public static function returnFakeFile($name)
+	/**
+	 * @param  string $name
+	 * @return UploadedFile
+	 */
+	public static function returnFakeFile(string $name): UploadedFile
 	{
 		return UploadedFile::fake()->create($name, 100);
+	}
+
+	/**
+	 * Create a copy of a file so you don't move original file
+	 * @param  string $path    
+	 * @param  string $fileName 
+	 * @return string           
+	 */
+	private static function copyFile(string $path, string $fileName): string
+	{
+		$fileInfo = pathinfo($path.$fileName);
+		$fileNameNew = sprintf('%s.%s', md5($fileName.time()), $fileInfo['extension']);
+		copy($path.$fileName, $path.$fileNameNew);
+
+		return $fileNameNew;
 	}
 }

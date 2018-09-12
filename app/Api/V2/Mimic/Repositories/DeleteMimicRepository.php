@@ -40,9 +40,7 @@ class DeleteMimicRepository
      * @return void    
      */
     public function deleteSingleMimicOrResponseById(array $data, User $authUser)
-    {
-        $authUser->preventMutation = true;
-        
+    {        
         if (array_key_exists('original_mimic_id', $data)) {
             $model = $this->mimic;
             $id = $data['original_mimic_id'];
@@ -52,7 +50,7 @@ class DeleteMimicRepository
         }
 
         $result = $model->find($id);
-        $this->startDeleteProcess($result, $data, $authUser);
+        $this->startDeleteProcess($result, $authUser, $data);
     }
 
 
@@ -64,25 +62,25 @@ class DeleteMimicRepository
      */
     public function deleteUserMimicsAndResponsesByUser(User $authUser)
     {
-        $data['mode'] = self::MODE_ADMIN;
         $mimics = $this->mimic->where('user_id', $authUser->id)->get();
         $responses = $this->mimicResponse->where('user_id', $authUser->id)->get();
 
         foreach ([$mimics, $responses] as $mimicsAndResponses) {
             foreach ($mimicsAndResponses as $model) {
-               $this->startDeleteProcess($model, $data, $authUser);
+               $this->startDeleteProcess($model, $authUser);
             }
         }
     }
 
     /**
      * @param  Mimic|MimicResponse $model
-     * @param  array  $data
      * @param  User   $authUser
+     * @param  array  $data
      * @return void
      */
-    private function startDeleteProcess(object $model, array $data, User $authUser)
+    private function startDeleteProcess(object $model, User $authUser, array $data = [])
     {
+        $authUser->preventMutation = true;
         $mode = array_key_exists('mode', $data) ? $data['mode'] : null;
 
         if ($model && ($model->user_id === $authUser->id || $mode === self::MODE_ADMIN)) {

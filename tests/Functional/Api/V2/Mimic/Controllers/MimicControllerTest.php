@@ -11,6 +11,7 @@ use App\Api\V2\Mimic\Models\MimicResponse;
 use App\Api\V2\Mimic\Models\MimicUpvote;
 use App\Api\V2\Mimic\Models\MimicResponseUpvote;
 use Illuminate\Support\Facades\Storage;
+use Tests\Functional\Api\V2\Mimic\Helpers\MimicTestHelper;
 
 class MimicControllerTest extends TestCaseV2
 {
@@ -451,12 +452,12 @@ class MimicControllerTest extends TestCaseV2
         $response = $this->doPost('mimic/create', $data);
         $this->writeToFile('created_photo_mimic', $response);
 
-        $responseJSON = TestCaseHelper::decodeResponse($response);
-        $fileName = $responseJSON['mimic']['file'];
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $fileName = MimicTestHelper::getMimicFileName($responseArray);
 
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('mimic'))
-        ->assertJson($this->assert->getAssertJsonOnSuccess($responseJSON, 'created_photo_mimic'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($responseArray, 'created_photo_mimic'))
         ->assertStatus(200);
 
         Storage::disk('public')->assertExists(sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $fileName));
@@ -483,14 +484,13 @@ class MimicControllerTest extends TestCaseV2
         $response = $this->doPost('mimic/create', $data);
         $this->writeToFile('created_video_mimic', $response);
 
-        $responseJSON = TestCaseHelper::decodeResponse($response);
-        $fileName = $responseJSON['mimic']['file'];
-        $array = explode('/', $responseJSON['mimic']['video_thumb_url']);
-        $videoThumbFileName = end($array);
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $fileName = MimicTestHelper::getMimicFileName($responseArray);
+        $videoThumbFileName = MimicTestHelper::getMimicVideoThumbnailName($responseArray);
 
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('mimic'))
-        ->assertJson($this->assert->getAssertJsonOnSuccess($responseJSON, 'created_video_mimic'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($responseArray, 'created_video_mimic'))
         ->assertStatus(200);
 
         Storage::disk('public')->assertExists(sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $fileName));
@@ -561,7 +561,6 @@ class MimicControllerTest extends TestCaseV2
 
     public function testUploadVideoOriginalMimicVideoThumbnailSentAsText()
     {
-        $path = public_path().'/files/user/6/1970/01/';
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
@@ -611,12 +610,12 @@ class MimicControllerTest extends TestCaseV2
         $response = $this->doPost('mimic/create', $data);
         $this->writeToFile('created_photo_response_mimic', $response);
 
-        $responseJSON = TestCaseHelper::decodeResponse($response);
-        $fileName = $responseJSON['mimic']['file'];
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $fileName = MimicTestHelper::getMimicFileName($responseArray);
 
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('response_mimic'))
-        ->assertJson($this->assert->getAssertJsonOnSuccess($responseJSON, 'created_photo_response_mimic'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($responseArray, 'created_photo_response_mimic'))
         ->assertStatus(200);
 
         Storage::disk('public')->assertExists(sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $fileName));
@@ -643,14 +642,13 @@ class MimicControllerTest extends TestCaseV2
         $response = $this->doPost('mimic/create', $data);
         $this->writeToFile('created_video_response_mimic', $response);
 
-        $responseJSON = TestCaseHelper::decodeResponse($response);
-        $fileName = $responseJSON['mimic']['file'];
-        $array = explode('/', $responseJSON['mimic']['video_thumb_url']);
-        $videoThumbFileName = end($array);
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $fileName = MimicTestHelper::getMimicFileName($responseArray);
+        $videoThumbFileName = MimicTestHelper::getMimicVideoThumbnailName($responseArray);
 
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('response_mimic'))
-        ->assertJson($this->assert->getAssertJsonOnSuccess($responseJSON, 'created_video_response_mimic'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($responseArray, 'created_video_response_mimic'))
         ->assertStatus(200);
 
        Storage::disk('public')->assertExists(sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $fileName));
@@ -916,7 +914,8 @@ class MimicControllerTest extends TestCaseV2
 
 
     /**
-     * [writeToFile description]
+     * Write responses in json file
+     * 
      * @param  string $file    
      * @param  mixed $response 
      * @return void           

@@ -5,6 +5,14 @@ namespace Tests\Functional\Api\V2\User\Controllers;
 use Tests\Functional\Api\V2\TestCaseV2;
 use Tests\Functional\Api\V2\User\Assert;
 use App\Api\V2\User\Models\User;
+use App\Api\V2\Follow\Models\Follow;
+use App\Api\V2\Mimic\Models\MimicResponseUpvote;
+use App\Api\V2\Mimic\Models\MimicUpvote;
+use App\Api\V2\Mimic\Models\MimicTaguser;
+use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
+use Tests\TestCaseHelper;
+use Illuminate\Support\Facades\Storage;
+use Tests\Functional\Api\V2\Mimic\Helpers\MimicTestHelper;
 
 class UserControllerTest extends TestCaseV2
 {
@@ -95,4 +103,103 @@ class UserControllerTest extends TestCaseV2
         ->assertJson($this->assert->getAssertJsonOnError(trans('users.cant_block_yourself')))
         ->assertStatus(400);
     }
+
+    public function testDeleteAccount()
+    {
+        //insert followers
+        Follow::create(['followed_by' => $this->loggedUserId, 'following' => 1]);
+        Follow::create(['followed_by' => 1, 'following' => $this->loggedUserId]);
+
+        //insert upvotes
+        MimicUpvote::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
+        MimicResponseUpvote::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
+
+        //insert user tagging
+        MimicTaguser::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
+
+        //insert blockings
+        $user = User::find($this->loggedUserId);
+        $user->blockedUsers()->attach(['user_id' => 1]);
+        $user->blockedFrom()->attach(['blocked_by' => 1]);
+
+        //insert push tokens
+        for ($i=0; $i < 5 ; $i++) { 
+            PushNotificationsToken::create([
+                'user_id' => $this->loggedUserId, 
+                'token' => md5(mt_rand()), 
+                'device' => 'ios', 
+                'device_id' => md5(mt_rand()),
+            ]);
+        }
+
+        //create new mimic
+        $path = public_path().'/files/user/1/1970/01/';
+        $file = TestCaseHelper::returnNewUploadedFile($path, '1-1.mp4', 'video/mp4');
+        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '1-1.jpg', 'image/jpg');
+        $data = [
+            'hashtags' => '#skate #backflip #frontflip', 
+            'mimic_file' => $file,
+            'video_thumbnail' => $videoThumbnail,
+            'meta' => [
+                'width' => 900,
+                'height' => 600,
+                'thumbnail_width' => 900,
+                'thumbnail_height' => 600,
+            ],
+        ];
+        $response = $this->doPost('mimic/create', $data);
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $fileNames[] = MimicTestHelper::getMimicFileName($responseArray);
+        $fileNames[] = MimicTestHelper::getMimicVideoThumbnailName($responseArray);
+
+        //create response
+        $path = public_path().'/files/user/1/1970/01/';
+        $file = TestCaseHelper::returnNewUploadedFile($path, '1-1.mp4', 'video/mp4');
+        $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '1-1.jpg', 'image/jpg');
+        $data = [
+            'mimic_file' => $file, 
+            'original_mimic_id' => 1, 
+            'video_thumbnail' => $videoThumbnail,
+            'meta' => [
+                'width' => 900,
+                'height' => 600,
+                'thumbnail_width' => 900,
+                'thumbnail_height' => 600,
+            ],
+        ];
+
+        $response = $this->doPost('mimic/create', $data);
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $fileNames[] = MimicTestHelper::getMimicFileName($responseArray);
+        $fileNames[] = MimicTestHelper::getMimicVideoThumbnailName($responseArray);
+
+        //delete user
+        $response = $this->doDelete('user', []); 
+        $response->assertStatus(204);
+
+        //assert follow
+        $this->assertTrue(Follow::where('followed_by', $this->loggedUserId)->get()->isEmpty());
+        $this->assertTrue(Follow::where('following', $this->loggedUserId)->get()->isEmpty());
+
+        //assert upvotes
+        $this->assertTrue(MimicUpvote::where('user_id', $this->loggedUserId)->get()->isEmpty());
+        $this->assertTrue(MimicResponseUpvote::where('user_id', $this->loggedUserId)->get()->isEmpty());
+
+        //assert user tagging
+        $this->assertTrue(MimicTaguser::where('user_id', $this->loggedUserId)->get()->isEmpty());
+
+        //assert blockings
+        $this->assertTrue($user->blockedUsers()->get()->isEmpty());
+        $this->assertTrue($user->blockedFrom()->get()->isEmpty());
+
+        //assert push tokens
+        $this->assertTrue(PushNotificationsToken::where('user_id', $this->loggedUserId)->get()->isEmpty());
+
+        //assert files
+        foreach ($fileNames as $fileName) {
+            $path = sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $fileName);
+            Storage::disk('public')->assertMissing($path);
+        }
+    }
 }
+

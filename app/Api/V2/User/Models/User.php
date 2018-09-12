@@ -231,12 +231,18 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * Get all users specific user blocked
-     *
-     * @return void
+     * Get all users logged in user blocked
      */
     public function blockedUsers()
     {
         return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'users_blocks_pivot', 'blocked_by', 'user_id');
+    }
+
+    /**
+     * Get all users who blocked logged in user
+     */
+    public function blockedFrom()
+    {
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'users_blocks_pivot', 'user_id', 'blocked_by');
     }
 }
