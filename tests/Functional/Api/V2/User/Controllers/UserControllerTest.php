@@ -13,6 +13,7 @@ use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
 use Tests\TestCaseHelper;
 use Illuminate\Support\Facades\Storage;
 use Tests\Functional\Api\V2\Mimic\Helpers\MimicTestHelper;
+use App\Api\V2\User\Resources\Profile\Models\Profile;
 
 class UserControllerTest extends TestCaseV2
 {
@@ -38,6 +39,10 @@ class UserControllerTest extends TestCaseV2
             'number_of_mimics' => '123M',
             'i_am_following_you' => false,
             'is_blocked' => false,
+            'is_blocked' => false,
+            'profile' => [
+                'bio' => "This is my bio, which is little bit too big. I even user emojis and #hastags. 😀 😁 😂 \nI need to check it out!"
+            ]
         ];
 
         $response
@@ -176,6 +181,9 @@ class UserControllerTest extends TestCaseV2
         //delete user
         $response = $this->doDelete('user', []); 
         $response->assertStatus(204);
+
+        //assert profile
+        $this->assertTrue(empty(Profile::where('user_id', $this->loggedUserId)->first()));
 
         //assert follow
         $this->assertTrue(Follow::where('followed_by', $this->loggedUserId)->get()->isEmpty());

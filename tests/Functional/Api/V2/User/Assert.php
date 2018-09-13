@@ -46,6 +46,9 @@ class Assert extends AssertAbstract implements AssertInterface
             'updated_at',
             'i_am_following_you',
             'is_blocked',
+            'profile' => [
+            	'bio'
+            ]
         ];
 	}
 
@@ -65,6 +68,9 @@ class Assert extends AssertAbstract implements AssertInterface
             'number_of_mimics' => $data['number_of_mimics'],
             'i_am_following_you' => $data['i_am_following_you'],
             'is_blocked' => $data['is_blocked'],
+            'profile' => [
+            	'bio' => $data['profile']['bio'],
+            ]
         ];
 	}
 }

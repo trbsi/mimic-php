@@ -14,6 +14,7 @@ class AddLastSeenToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->dateTime('last_seen')->nullable()->after('deleted_at');
         });
     }

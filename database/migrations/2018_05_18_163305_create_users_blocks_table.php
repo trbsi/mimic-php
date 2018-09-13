@@ -14,6 +14,7 @@ class CreateUsersBlocksTable extends Migration
     public function up()
     {
         Schema::create('users_blocks_pivot', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('blocked_by')->comment('User who blocked');
             $table->bigInteger('user_id')->comment('User who is blocked');

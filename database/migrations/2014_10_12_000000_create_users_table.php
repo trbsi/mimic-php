@@ -16,8 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
-            $table->string('email')->unique()->nullable();
-            $table->string('username', 50)->unique()->nullable();
+            $table->string('email', 50)->unique()->nullable();
+            $table->string('username', 50)->unique()->nullable()->collation('utf8_general_ci');
             $table->string('profile_picture', 255)->nullable();
             $table->integer('followers')->default(0);
             $table->integer('following')->default(0);
@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
         });
 
         //https://laracasts.com/discuss/channels/general-discussion/fulltext-indexes-at-migrations
-        \DB::statement('ALTER TABLE users ADD FULLTEXT INDEX ft_users_username (username);');
+        DB::statement('ALTER TABLE users ADD FULLTEXT INDEX ft_users_username (username);');
     }
 
     /**

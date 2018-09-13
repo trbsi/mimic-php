@@ -29,25 +29,31 @@ class UsersTable extends Seeder
             }
             
             $insert =
-                [
-                    'email' => 'user' . $i . '@mail.com',
-                    'username' => $usernames[$i],
-                    'following' => 123456789,
-                    'followers' => 123456789,
-                    'number_of_mimics' => 123456789,
-                    'profile_picture' => env('APP_URL') . '/files/hr/' . $gender . '/' . $i . '.jpg',
-                ];
+            [
+                'email' => 'user' . $i . '@mail.com',
+                'username' => $usernames[$i],
+                'following' => 123456789,
+                'followers' => 123456789,
+                'number_of_mimics' => 123456789,
+                'profile_picture' => env('APP_URL') . '/files/hr/' . $gender . '/' . $i . '.jpg',
+            ];
 
             $socialAccounts =
+            [
                 [
-                    [
-                        'provider' => rand(0, 1) % 2 ? 'facebook' : 'twitter',
-                        'provider_id' => rand()
-                    ]
-                ];
+                    'provider' => rand(0, 1) % 2 ? 'facebook' : 'twitter',
+                    'provider_id' => rand()
+                ]
+            ];
+
+            $profile =
+            [
+                'bio' => "This is my bio, which is little bit too big. I even user emojis and #hastags. 😀 😁 😂 \nI need to check it out!"
+            ];
 
             $userTmp = $user->create($insert);
             $userTmp->socialAccounts()->createMany($socialAccounts);
+            $userTmp->profile()->create($profile);
         }
     }
 }

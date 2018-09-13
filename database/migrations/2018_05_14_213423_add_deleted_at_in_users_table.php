@@ -14,6 +14,7 @@ class AddDeletedAtInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->softDeletes();
         });
     }

@@ -14,6 +14,7 @@ class ChangeForeignKeyCascadeOnMimicsAndMimicResponsesTable extends Migration
     public function up()
     {
         Schema::table('mimics', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->dropForeign(['user_id']);
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
