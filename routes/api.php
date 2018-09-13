@@ -44,6 +44,10 @@ $api->version('v2', function (Router $api) {
 
             $api->group(['prefix' => 'user'], function (Router $api) {
                 $api->delete('/', ['uses' => 'App\Api\V2\User\Controllers\UserController@delete']);
+
+                $api->group(['prefix' => 'profile'], function (Router $api) {
+                    $api->put('/', ['uses' => 'App\Api\V2\User\Resources\Profile\Controllers\ProfileController@update']);
+                });
             });
 
             $api->group(['prefix' => 'push-notifications-token'], function (Router $api) {

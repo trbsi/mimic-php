@@ -30,6 +30,7 @@ class UserRepository
         $user = User::select("$userTable.*")
         ->selectRaw($user->getIAmFollowingYouQuery($authUser))
         ->selectRaw($user->getIsBlockedQuery($authUser))
+        ->with(['profile'])
         ->find($id);
 
         if ($user) {

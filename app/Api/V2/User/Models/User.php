@@ -12,6 +12,7 @@ use App\Api\V2\User\Traits\UserQueryTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Api\V2\Follow\Models\Follow;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
+use App\Api\V2\User\Resources\Profile\Models\Profile;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -29,14 +30,14 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     protected $casts =
-        [
-            'id' => 'int',
-            'followers' => 'int', //number of followers
-            'following' => 'int',  //number of user I'm following
-            'number_of_mimics' => 'int',
-            'i_am_following_you' => 'boolean', //when I open someone else's profile check if I (loggedin user) am following another user
-            'is_blocked' => 'boolean',
-        ];
+    [
+        'id' => 'int',
+        'followers' => 'int', //number of followers
+        'following' => 'int',  //number of user I'm following
+        'number_of_mimics' => 'int',
+        'i_am_following_you' => 'boolean', //when I open someone else's profile check if I (loggedin user) am following another user
+        'is_blocked' => 'boolean',
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -50,8 +51,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $hidden = [
-    ];
+    protected $hidden = [];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -183,6 +183,11 @@ class User extends Authenticatable implements JWTSubject
     public function followers()
     {
         return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'follow', 'following', 'followed_by')->withTimestamps();
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class, 'user_id');
     }
 
     /*
