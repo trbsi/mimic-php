@@ -29,7 +29,12 @@ class MimicControllerTest extends TestCaseV2
         $this->assert = $this->app->make(Assert::class);
     }
 
-
+    public function tearDown()
+    {
+        $this->assert = null;
+        parent::tearDown();
+    }
+    
     //--------------------------------Get mimics from a specific user--------------------------------
     public function testListMimicsFromUser()
     {

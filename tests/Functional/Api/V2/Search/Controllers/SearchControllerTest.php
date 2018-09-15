@@ -11,6 +11,12 @@ class SearchControllerTest extends TestCaseV2
         parent::setUp();
     }
 
+    public function tearDown()
+    {
+        $this->assert = null;
+        parent::tearDown();
+    }
+    
     public function testSearchByHashtag()
     {
     	$data = [];

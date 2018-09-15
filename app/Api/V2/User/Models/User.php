@@ -18,6 +18,8 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, UserQueryTrait, SoftDeletes;
 
+    public const USERNAME_REGEX = '/^[a-zA-Z0-9_.-]{4,20}$/';
+    
     protected $table = 'users';
 
     /**
@@ -26,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'email', 'username', 'profile_picture', 'followers', 'following', 'number_of_mimics', 'i_am_following_you'
+        'email', 'username',
     ];
 
     protected $casts =

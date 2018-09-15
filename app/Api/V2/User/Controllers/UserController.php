@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Api\V2\User\Repositories\UserRepository;
 use App\Api\V2\User\Repositories\DeleteUserRepository;
 use Exception;
+use App\Api\V2\User\Requests\UserRequest;
+use App\Api\V2\User\Repositories\UpdateRepository;
 
 class UserController extends BaseAuthController
 {
@@ -65,6 +67,17 @@ class UserController extends BaseAuthController
     public function delete(Request $request, DeleteUserRepository $deleteUserRepository)
     {
         $deleteUserRepository->delete($this->authUser, $request->all());
+        return response()->json([], 204);
+    }
+
+    /**
+     * @param  UserRequest      $request          
+     * @param  UpdateRepository $updateRepository 
+     * @return Response                             
+     */
+    public function update(UserRequest $request, UpdateRepository $updateRepository)
+    {
+        $updateRepository->update($this->authUser, $request->all());
         return response()->json([], 204);
     }
 }

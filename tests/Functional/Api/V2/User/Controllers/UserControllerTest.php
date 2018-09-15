@@ -23,6 +23,12 @@ class UserControllerTest extends TestCaseV2
         $this->assert = $this->app->make(Assert::class);
     }
 
+    public function tearDown()
+    {
+        $this->assert = null;
+        parent::tearDown();
+    }
+    
     //--------------------------------Get profile--------------------------------
     public function testGetUserProfileSuccessfully()
     {
@@ -58,7 +64,7 @@ class UserControllerTest extends TestCaseV2
 
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
-        ->assertJson($this->assert->getAssertJsonOnError( trans('core.user.user_not_found')))
+        ->assertJson($this->assert->getAssertJsonOnError('User not found'))
         ->assertStatus(404);
     }
 
@@ -105,10 +111,88 @@ class UserControllerTest extends TestCaseV2
 
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
-        ->assertJson($this->assert->getAssertJsonOnError(trans('users.cant_block_yourself')))
+        ->assertJson($this->assert->getAssertJsonOnError("You can't block yourself!"))
         ->assertStatus(400);
     }
 
+    //UPDATE PROFILE
+    public function testSuccessfullyUpdateUser()
+    {
+        $username = 'AndrewCG1';
+        $email = 'user1@mail1.com';
+        $data = [
+            'id' => $this->loggedUserId,
+            'username' => $username,
+            'email' => $email,
+        ];
+
+        $response = $this->doPut('user', $data);
+        $response->assertStatus(204);
+
+        $user = User::find($this->loggedUserId);
+        $this->assertEquals($username, $user->username);
+        $this->assertEquals($email, $user->email);
+    }
+
+    public function testUpdateUserWhenEmailAndUsernameAreNotValid()
+    {
+        $data = [
+            'id' => $this->loggedUserId,
+            'username' => 'abc%&/',
+            'email' => 'user1mail1.com',
+        ];
+
+        $errorsStructure = [
+            'email',
+            'username'
+        ];
+
+        $errors = [
+            'email' => [
+                'Email is not in valid format.',
+            ],
+            'username' => [
+                "Username can only contain letters, numbers, '.' and '-'. It should be min 4 characters long.",
+            ],
+        ];
+
+        $response = $this->doPut('user', $data);
+        $response
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnUnprocessableEntityError($errorsStructure))
+        ->assertJson($this->assert->getAssertJsonOnUnprocessableEntityError($errors))
+        ->assertStatus(422);
+    }
+
+    public function testUpdateUserWhenEmailAndUsernameExist()
+    {
+        $data = [
+            'id' => $this->loggedUserId,
+            'username' => 'AndrewCG',
+            'email' => 'user1@mail.com',
+        ];
+
+        $errorsStructure = [
+            'email',
+            'username'
+        ];
+
+        $errors = [
+            'email' => [
+                'This email already exists.',
+            ],
+            'username' => [
+                'This username already exists, try another one.',
+            ],
+        ];
+
+        $response = $this->doPut('user', $data);
+        $response
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnUnprocessableEntityError($errorsStructure))
+        ->assertJson($this->assert->getAssertJsonOnUnprocessableEntityError($errors))
+        ->assertStatus(422);
+    }
+
+    //DELETE USER
     public function testDeleteAccount()
     {
         //insert followers
@@ -209,5 +293,6 @@ class UserControllerTest extends TestCaseV2
             Storage::disk('public')->assertMissing($path);
         }
     }
+
 }
 

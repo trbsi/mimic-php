@@ -14,11 +14,12 @@ class ProfileControllerTest extends TestCaseV2
         $this->assert = $this->app->make(Assert::class);
     }
 
-	public function tearDown()
+    public function tearDown()
     {
-    	unset($this->assert);
+        $this->assert = null;
+        parent::tearDown();
     }
-
+    
     public function testProfileSuccessfullyUpdated()
     {
     	$bio = '😁 Totally new BIO! 😀';

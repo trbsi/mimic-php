@@ -19,6 +19,12 @@ class LoginControllerTest extends TestCaseV2
         $this->assert = $this->app->make(Assert::class);
     }
 
+    public function tearDown()
+    {
+        $this->assert = null;
+        parent::tearDown();
+    }
+
     //--------------------------------Facebook--------------------------------
     public function testFacebookFirstLoginSuccessfullyWithEmailIncluded()
     {
@@ -196,7 +202,7 @@ class LoginControllerTest extends TestCaseV2
 
         $response 
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
-        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.username_empty')))
+        ->assertJson($this->assert->getAssertJsonOnError('Username cannot be empty.'))
         ->assertStatus(403);
     }
 
@@ -210,7 +216,7 @@ class LoginControllerTest extends TestCaseV2
 
         $response 
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
-        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.username_contain')))
+        ->assertJson($this->assert->getAssertJsonOnError("Username can only contain letters, numbers, '.' and '-'. It should be min 4 characters long."))
         ->assertStatus(403);
     }
 
@@ -224,7 +230,7 @@ class LoginControllerTest extends TestCaseV2
 
         $response 
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
-        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.username_contain')))
+        ->assertJson($this->assert->getAssertJsonOnError("Username can only contain letters, numbers, '.' and '-'. It should be min 4 characters long."))
         ->assertStatus(403);
     }
 
@@ -238,7 +244,7 @@ class LoginControllerTest extends TestCaseV2
 
         $response 
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
-        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.username_exists')))
+        ->assertJson($this->assert->getAssertJsonOnError('This username already exists, try another one.'))
         ->assertStatus(403);
     }
 
@@ -246,7 +252,7 @@ class LoginControllerTest extends TestCaseV2
     //--------------------------------Email set--------------------------------
     public function testEmailExists()
     {
-    	$data = [
+        $data = [
             'username' => 'xyz123',
             'email' => 'user1@mail.com'
         ];
@@ -255,7 +261,22 @@ class LoginControllerTest extends TestCaseV2
 
         $response 
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
-        ->assertJson($this->assert->getAssertJsonOnError( trans('core.login.email_exists')))
+        ->assertJson($this->assert->getAssertJsonOnError('This email already exists.'))
+        ->assertStatus(403);
+    }
+
+    public function testEmailisNotInValidFormat()
+    {
+        $data = [
+            'username' => 'xyz123',
+            'email' => 'user1mail.com'
+        ];
+
+        $response = $this->doPost('set-username', $data);
+
+        $response 
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
+        ->assertJson($this->assert->getAssertJsonOnError('Email is not in valid format.'))
         ->assertStatus(403);
     }
 

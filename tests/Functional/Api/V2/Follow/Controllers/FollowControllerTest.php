@@ -15,6 +15,12 @@ class FollowControllerTest extends TestCaseV2
         $this->assert = $this->app->make(Assert::class);
     }
 
+    public function tearDown()
+    {
+        $this->assert = null;
+        parent::tearDown();
+    }
+
     //--------------------------------Listings--------------------------------
     public function testListUsersFollowers()
     {
@@ -102,7 +108,8 @@ class FollowControllerTest extends TestCaseV2
     public function testUserSuccessfullyFollowedAnotherUser()
     {
         $user = User::find(5);
-        $user->update(['followers' => 1]);
+        $user->followers = 1;
+        $user->save();
         
         $data = ['id' => 5];
 
@@ -127,7 +134,8 @@ class FollowControllerTest extends TestCaseV2
         ]);
         
         $user = User::find(5);
-        $user->update(['followers' => 2]);
+        $user->followers = 2;
+        $user->save();
         $data = ['id' => 5];
 
         $response = $this->doPost('profile/follow', $data);

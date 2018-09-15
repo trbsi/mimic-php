@@ -29,7 +29,7 @@ class Profile extends Model
     /**
      * @var array
      */
-    protected $fillable = ['bio', 'xxx'];
+    protected $fillable = ['bio'];
 
     /**
      * @var array

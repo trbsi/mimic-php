@@ -92,18 +92,21 @@ class LoginController extends Controller
         }
 
         //check username
-        if (!preg_match('/^[a-zA-Z0-9_.-]{4,20}$/', $request->username)) {
-            abort(403, trans('core.login.username_contain'));
+        if (!preg_match(User::USERNAME_REGEX, $request->username)) {
+            abort(403, __('api/user/validations.username.regex'));
         }
 
         //check if email exists
         if ($request->email) {
             //check if email exists
             if ($this->user->where('email', $request->email)->where('id', '!=', $this->authUser->id)->count()) {
-                abort(403, trans('core.login.email_exists'));
+                abort(403, __('api/user/validations.email.unique'));
+            }
+
+            if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+                abort(403, __('api/user/validations.email.email'));
             }
         }
-        
 
         //username doesn't exist, create it
         if (!$this->user->where('username', $request->username)->count()) {
@@ -119,7 +122,7 @@ class LoginController extends Controller
                     'status' => true,
                 ]);
         } else {
-            abort(403, trans('core.login.username_exists'));
+            abort(403, __('api/user/validations.username.unique'));
         }
     }
 }

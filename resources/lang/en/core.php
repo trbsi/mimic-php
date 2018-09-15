@@ -14,11 +14,7 @@ return
         [
             'login_failed_title' => 'Login failed',
             'login_failed_body' => "Current email address is already registered using Twitter or Facebook or it has been deleted.",
-
-            'username_exists' => 'This username already exists, try another one.',
             'username_empty' => 'Username cannot be empty.',
-            'email_exists' => 'This email already exists.',
-            'username_contain' => "Username can only contain letters, numbers, '.' and '-'. It should be min 4 characters long.",
         ],
         'alert' => 
         [

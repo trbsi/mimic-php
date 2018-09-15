@@ -13,6 +13,12 @@ class BootstrapControllerTest extends TestCaseV2
         $this->assert = $this->app->make(Assert::class);
     }
 
+    public function tearDown()
+    {
+        $this->assert = null;
+        parent::tearDown();
+    }
+    
     //--------------------------------Push notifications--------------------------------
     public function testPushTokenNotSet()
     {
