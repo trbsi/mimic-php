@@ -121,4 +121,20 @@ abstract class TestCase extends BaseTestCase
             'Accept' => 'application/vnd.app.'.$this->version.'+json',
         ]);
     }
+
+    /**
+     *
+     * @param  string $url  URL to send data to
+     * @param  array $data Array of data to post
+     * @return response
+     */
+    public function doPut($url, $data)
+    {
+        return $this->json('PUT', 'api/'.$url, $data,
+        [
+            'AllowEntry' => $this->allowEntry,
+            'Authorization' => $this->token,
+            'Accept' => 'application/vnd.app.'.$this->version.'+json',
+        ]);
+    }
 }

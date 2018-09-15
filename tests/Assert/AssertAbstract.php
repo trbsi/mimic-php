@@ -40,7 +40,8 @@ abstract class AssertAbstract
             'error' => [
                 'message',
                 'errors' => $errors,
-            ]
+                'status_code',
+            ],
         ];
     }
 
@@ -53,7 +54,8 @@ abstract class AssertAbstract
         return [
             'error' => [
                 'message' => '422 Unprocessable Entity',
-                'errors' => $errors
+                'errors' => $errors,
+                'status_code' => 422,
             ],
         ];
     }

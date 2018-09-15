@@ -2,7 +2,7 @@
 
 namespace App\Api\V2\User\Resources\Profile\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Dingo\Api\Http\FormRequest;
 
 class ProfileRequest extends FormRequest
 {
@@ -24,7 +24,7 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'bio' => 'string|nullable|max:10000',
+            'bio' => 'string|nullable|max:1000',
         ];
     }
 

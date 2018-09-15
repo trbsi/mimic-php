@@ -20,7 +20,7 @@ class UserControllerTest extends TestCaseV2
 	public function setUp()
     {
         parent::setUp();
-        $this->assert = new Assert();
+        $this->assert = $this->app->make(Assert::class);
     }
 
     //--------------------------------Get profile--------------------------------
