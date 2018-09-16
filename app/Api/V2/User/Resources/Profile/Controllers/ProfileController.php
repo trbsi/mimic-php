@@ -10,22 +10,22 @@ use Illuminate\Http\Request;
 
 class ProfileController extends BaseAuthController
 {
-	/**
-	 * @param  ProfileRequest          $request                 
-	 * @param  UpdateProfileRepository $updateProfileRepository 
-	 * @return Response
-	 */
-	public function update(ProfileRequest $request, UpdateProfileRepository $updateProfileRepository)
-	{
-		try {
-			$updateProfileRepository->update($this->authUser, $request->all());
-			return response()->json([], 204);
-		} catch (Exception $e) {
-			throw_error($e);
-		}
-	}
+    /**
+     * @param  ProfileRequest          $request
+     * @param  UpdateProfileRepository $updateProfileRepository
+     * @return Response
+     */
+    public function update(ProfileRequest $request, UpdateProfileRepository $updateProfileRepository)
+    {
+        try {
+            $updateProfileRepository->update($this->authUser, $request->all());
+            return response()->json([], 204);
+        } catch (Exception $e) {
+            throw_error($e);
+        }
+    }
 
-	/**
+    /**
      * Get user profile and return data
      * @param Request $request
      * @param GetProfileRepository $getProfileRepository

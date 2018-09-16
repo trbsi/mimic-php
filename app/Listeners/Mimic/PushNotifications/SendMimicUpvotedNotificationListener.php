@@ -56,7 +56,7 @@ class SendMimicUpvotedNotificationListener
                 'user_id' => $event->model->user_id,
                 'original_mimic_id' => $event->model->id,
             ];
-        } 
+        }
 
         return [
             'user_id' => $event->model->originalMimic->user_id,

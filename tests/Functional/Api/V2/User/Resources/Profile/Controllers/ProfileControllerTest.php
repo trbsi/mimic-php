@@ -8,7 +8,7 @@ use Tests\Functional\Api\V2\User\Resources\Profile\Assert;
 
 class ProfileControllerTest extends TestCaseV2
 {
-	public function setUp()
+    public function setUp()
     {
         parent::setUp();
         $this->assert = $this->app->make(Assert::class);
@@ -62,10 +62,10 @@ class ProfileControllerTest extends TestCaseV2
     //UPDATE PROFILE
     public function testProfileSuccessfullyUpdated()
     {
-    	$bio = '😁 Totally new BIO! 😀';
-    	$data = [
-			'bio' => $bio
-		];
+        $bio = '😁 Totally new BIO! 😀';
+        $data = [
+            'bio' => $bio
+        ];
 
         $response = $this->doPut('user/profile', $data);
         $response->assertStatus(204);
@@ -76,48 +76,47 @@ class ProfileControllerTest extends TestCaseV2
 
     public function testBioIsNotString()
     {
-    	$data = [
-			'bio' => 123
-		];
+        $data = [
+            'bio' => 123
+        ];
 
-		$errorsStructure = [
-			'bio'
-		];
+        $errorsStructure = [
+            'bio'
+        ];
 
-		$errors = [
-			'bio' => [
+        $errors = [
+            'bio' => [
                 'Bio should be text'
             ]
         ];
 
         $response = $this->doPut('user/profile', $data);
         $response
-        	->assertStatus(422)
-        	->assertJsonStructure($this->assert->getAssertJsonStructureOnUnprocessableEntityError($errorsStructure))
-        	->assertJson($this->assert->getAssertJsonOnUnprocessableEntityError($errors));
+            ->assertStatus(422)
+            ->assertJsonStructure($this->assert->getAssertJsonStructureOnUnprocessableEntityError($errorsStructure))
+            ->assertJson($this->assert->getAssertJsonOnUnprocessableEntityError($errors));
     }
 
     public function testBioIsTooLong()
     {
-    	$data = [
-			'bio' => str_repeat("This is test text. ", 1000),
-		];
+        $data = [
+            'bio' => str_repeat("This is test text. ", 1000),
+        ];
 
-		$errorsStructure = [
-			'bio'
-		];
+        $errorsStructure = [
+            'bio'
+        ];
 
-		$errors = [
-			'bio' => [
+        $errors = [
+            'bio' => [
                 'Bio can be 1000 characters long'
             ]
         ];
 
         $response = $this->doPut('user/profile', $data);
         $response
-        	->assertStatus(422)
-        	->assertJsonStructure($this->assert->getAssertJsonStructureOnUnprocessableEntityError($errorsStructure))
-        	->assertJson($this->assert->getAssertJsonOnUnprocessableEntityError($errors));
-
+            ->assertStatus(422)
+            ->assertJsonStructure($this->assert->getAssertJsonStructureOnUnprocessableEntityError($errorsStructure))
+            ->assertJson($this->assert->getAssertJsonOnUnprocessableEntityError($errors));
     }
 }

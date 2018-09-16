@@ -10,7 +10,7 @@ class LoginControllerTest extends TestCaseV2
     /**
      * @var Assert
      */
-    private $assert; 
+    private $assert;
 
     
     public function setUp()
@@ -28,7 +28,7 @@ class LoginControllerTest extends TestCaseV2
     //--------------------------------Facebook--------------------------------
     public function testFacebookFirstLoginSuccessfullyWithEmailIncluded()
     {
-    	$data = [
+        $data = [
             'provider' => 'facebook',
             'provider_data' => [
                 'birthday' => '12/29/1991',
@@ -37,7 +37,7 @@ class LoginControllerTest extends TestCaseV2
                 'gender' => 'male',
                 'id' => '2042074229356674',
                 'last_name' => 'Trbović',
-                'picture' => [ 
+                'picture' => [
                     'data' => [
                         'url' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg']
                     ]
@@ -49,15 +49,15 @@ class LoginControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
         ->assertJson($this->assert->getAssertJsonOnSuccess([
-	    	'username' => null,
-	        'email' => 'dario_facebook@yahoo.com',
-	    ]))
+            'username' => null,
+            'email' => 'dario_facebook@yahoo.com',
+        ]))
         ->assertStatus(200);
     }
 
     public function testFacebookSecondLoginSuccessfullyWithoutEmailIncluded()
     {
-    	$data = [
+        $data = [
             'provider' => 'facebook',
             'provider_data' => [
                 'birthday' => '12/29/1991',
@@ -65,7 +65,7 @@ class LoginControllerTest extends TestCaseV2
                 'gender' => 'male',
                 'id' => '2042074229356674',
                 'last_name' => 'Trbović',
-                'picture' => [ 
+                'picture' => [
                     'data' => [
                         'url' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg']
                     ]
@@ -85,7 +85,7 @@ class LoginControllerTest extends TestCaseV2
 
     public function testFacebookFirstLoginSuccessfullyWithoutEmailIncluded()
     {
-    	$data = [
+        $data = [
             'provider' => 'facebook',
             'provider_data' => [
                 'birthday' => '12/29/1991',
@@ -93,7 +93,7 @@ class LoginControllerTest extends TestCaseV2
                 'gender' => 'male',
                 'id' => '111000111',
                 'last_name' => 'Trbović',
-                'picture' => [ 
+                'picture' => [
                     'data' => [
                         'url' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg']
                     ]
@@ -114,8 +114,7 @@ class LoginControllerTest extends TestCaseV2
     //--------------------------------Twitter--------------------------------
     public function testTwitterFirstLoginSuccessfullyWithEmailIncluded()
     {
-
-    	$data = [
+        $data = [
             'provider' => 'twitter',
             'provider_data' => [
                 'birthday' => '12/29/1991',
@@ -141,8 +140,7 @@ class LoginControllerTest extends TestCaseV2
 
     public function testTwitterSecondLoginSuccessfullyWithoutEmailIncluded()
     {
-
-    	$data = [
+        $data = [
             'provider' => 'twitter',
             'provider_data' => [
                 'birthday' => '12/29/1991',
@@ -167,8 +165,7 @@ class LoginControllerTest extends TestCaseV2
 
     public function testTwitterLoginSuccessfullyWithoutEmailIncluded()
     {
-
-    	$data = [
+        $data = [
             'provider' => 'twitter',
             'provider_data' => [
                 'birthday' => '12/29/1991',
@@ -194,13 +191,13 @@ class LoginControllerTest extends TestCaseV2
     //--------------------------------Username set--------------------------------
     public function testSetUsernameWhereUsernameEmpty()
     {
-    	$data = [
+        $data = [
             'username' => '',
         ];
 
         $response = $this->doPost('set-username', $data);
 
-        $response 
+        $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
         ->assertJson($this->assert->getAssertJsonOnError('Username cannot be empty.'))
         ->assertStatus(403);
@@ -208,13 +205,13 @@ class LoginControllerTest extends TestCaseV2
 
     public function testUsernameMinFourLetters()
     {
-    	$data = [
+        $data = [
             'username' => 'xyz',
         ];
 
         $response = $this->doPost('set-username', $data);
 
-        $response 
+        $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
         ->assertJson($this->assert->getAssertJsonOnError("Username can only contain letters, numbers, '.' and '-'. It should be min 4 characters long."))
         ->assertStatus(403);
@@ -222,13 +219,13 @@ class LoginControllerTest extends TestCaseV2
 
     public function testUsernameOnlyNumbersAndLetters()
     {
-    	$data = [
+        $data = [
             'username' => 'xyz123&',
         ];
 
         $response = $this->doPost('set-username', $data);
 
-        $response 
+        $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
         ->assertJson($this->assert->getAssertJsonOnError("Username can only contain letters, numbers, '.' and '-'. It should be min 4 characters long."))
         ->assertStatus(403);
@@ -236,13 +233,13 @@ class LoginControllerTest extends TestCaseV2
 
     public function testUsernameExists()
     {
-    	$data = [
+        $data = [
             'username' => 'AndrewCG',
         ];
 
         $response = $this->doPost('set-username', $data);
 
-        $response 
+        $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
         ->assertJson($this->assert->getAssertJsonOnError('This username already exists, try another one.'))
         ->assertStatus(403);
@@ -259,7 +256,7 @@ class LoginControllerTest extends TestCaseV2
 
         $response = $this->doPost('set-username', $data);
 
-        $response 
+        $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
         ->assertJson($this->assert->getAssertJsonOnError('This email already exists.'))
         ->assertStatus(403);
@@ -274,7 +271,7 @@ class LoginControllerTest extends TestCaseV2
 
         $response = $this->doPost('set-username', $data);
 
-        $response 
+        $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
         ->assertJson($this->assert->getAssertJsonOnError('Email is not in valid format.'))
         ->assertStatus(403);
@@ -283,13 +280,13 @@ class LoginControllerTest extends TestCaseV2
     //--------------------------------Success save username/password--------------------------------
     public function testSuccessSaveUsername()
     {
-    	$data = [
+        $data = [
             'username' => 'xyz123',
         ];
 
         $response = $this->doPost('set-username', $data);
 
-        $response 
+        $response
         ->assertJsonStructure([
             'status'
         ])
@@ -302,14 +299,14 @@ class LoginControllerTest extends TestCaseV2
 
     public function testSuccessSaveUsernameAndEmail()
     {
-    	$data = [
+        $data = [
             'username' => 'xyz1234',
             'email' => 'unknow@mail.com'
         ];
 
         $response = $this->doPost('set-username', $data);
 
-        $response 
+        $response
         ->assertJsonStructure([
             'status'
         ])
@@ -319,4 +316,3 @@ class LoginControllerTest extends TestCaseV2
         ->assertStatus(200);
     }
 }
-

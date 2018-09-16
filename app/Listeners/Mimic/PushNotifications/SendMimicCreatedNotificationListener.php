@@ -19,7 +19,7 @@ class SendMimicCreatedNotificationListener
     public function handle(MimicCreatedEvent $event)
     {
         //Don't send notification if this is not response or if user is responding to his own Mimic
-        if (!$event->isResponseMimic 
+        if (!$event->isResponseMimic
             ||
             $event->isResponseMimic && $event->user->id === $event->model->originalMimic->user_id
         ) {
@@ -45,6 +45,6 @@ class SendMimicCreatedNotificationListener
             ],
         ];
 
-        SendPushNotification::sendNotification($event->model->originalMimic->user_id, $data);        
+        SendPushNotification::sendNotification($event->model->originalMimic->user_id, $data);
     }
 }

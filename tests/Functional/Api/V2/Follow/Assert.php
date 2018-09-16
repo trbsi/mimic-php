@@ -4,14 +4,14 @@ namespace Tests\Functional\Api\V2\Follow;
 use Tests\Assert\AssertInterface;
 use Tests\Assert\AssertAbstract;
 
-class Assert extends AssertAbstract implements AssertInterface 
+class Assert extends AssertAbstract implements AssertInterface
 {
 
-	/**
-	 * @inheritdoc 
-	 */
-	public function getAssertJsonStructureOnSuccess(?string $type = null): array
-	{
+    /**
+     * @inheritdoc
+     */
+    public function getAssertJsonStructureOnSuccess(?string $type = null): array
+    {
         switch ($type) {
             case 'followers':
             case 'followings':
@@ -20,22 +20,22 @@ class Assert extends AssertAbstract implements AssertInterface
             case 'unfollowed':
                 return $this->getFollowOrUnfollowJsonStructureOnSuccess();
         }
-	}
+    }
 
-	/**
-	 * @inheritdoc 
-	 */
-	public function getAssertJsonOnSuccess(array $data, ?string $type = null): array
-	{
-		switch ($type) {
+    /**
+     * @inheritdoc
+     */
+    public function getAssertJsonOnSuccess(array $data, ?string $type = null): array
+    {
+        switch ($type) {
             case 'followers':
             case 'followings':
                 return $this->getFollowersOrFollowingJsonOnSuccess($data, $type);
             case 'followed':
-            case 'unfollowed':  
+            case 'unfollowed':
                 return $this->getFollowedOrUnfollowedJsonOnSuccess($data);
         }
-	}
+    }
 
     /**
      * @param  string $type Values: following, followers
@@ -99,7 +99,7 @@ class Assert extends AssertAbstract implements AssertInterface
     /**
      * @return array
      */
-    private function getFollowOrUnfollowJsonStructureOnSuccess(): array 
+    private function getFollowOrUnfollowJsonStructureOnSuccess(): array
     {
         return [
             'type',

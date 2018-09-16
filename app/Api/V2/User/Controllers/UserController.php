@@ -44,9 +44,9 @@ class UserController extends BaseAuthController
     }
 
     /**
-     * @param  Request              $request              
-     * @param  DeleteUserRepository $deleteUserRepository 
-     * @return Response                                     
+     * @param  Request              $request
+     * @param  DeleteUserRepository $deleteUserRepository
+     * @return Response
      */
     public function delete(Request $request, DeleteUserRepository $deleteUserRepository)
     {
@@ -55,9 +55,9 @@ class UserController extends BaseAuthController
     }
 
     /**
-     * @param  UserRequest      $request          
-     * @param  UpdateRepository $updateRepository 
-     * @return Response                             
+     * @param  UserRequest      $request
+     * @param  UpdateRepository $updateRepository
+     * @return Response
      */
     public function update(UserRequest $request, UpdateRepository $updateRepository)
     {

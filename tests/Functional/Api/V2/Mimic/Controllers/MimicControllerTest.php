@@ -18,7 +18,7 @@ class MimicControllerTest extends TestCaseV2
 
     /**
      * Should you write responses to json file or not
-     * 
+     *
      * @var boolean
      */
     private $writeToFile = false;
@@ -61,7 +61,6 @@ class MimicControllerTest extends TestCaseV2
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('user_mimic'))
         ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'user_mimic'))
         ->assertStatus(200);
-        
     }
 
     public function testListMimicsFromUserThatDoesntHaveMimics()
@@ -77,7 +76,7 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson([
             'mimics' => []
         ])
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testListResponseMimicsFromUser()
@@ -126,7 +125,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('user_mimic_with_responses'))
         ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'user_mimic_with_responses'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testListResponseMimicsFromUserThatDoesntHaveMimics()
@@ -142,7 +141,7 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson([
             'mimics' => []
         ])
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     //--------------------------------Upvote/downvote--------------------------------
@@ -164,7 +163,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('upvote_downvote'))
         ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'upvote_downvote'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testDownvoteOriginalMimicSuccessfully()
@@ -190,7 +189,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('upvote_downvote'))
         ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'upvote_downvote'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testUpvoteResponseMimicSuccessfully()
@@ -211,7 +210,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('upvote_downvote'))
         ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'upvote_downvote'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testDownvoteResponseMimicSuccessfully()
@@ -238,7 +237,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('upvote_downvote'))
         ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'upvote_downvote'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     //--------------------------------Report--------------------------------
@@ -255,7 +254,7 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson([
             'success' => true
         ])
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
  
     public function testReportResponseMimicSuccessfully()
@@ -271,7 +270,7 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson([
             'success' => true
         ])
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
  
 
@@ -285,7 +284,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('mimics'))
         ->assertJson($this->assert->getAssertJsonOnSuccess([], 'mimics'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testIfThereIsntAnyMimicsOnMainScreen()
@@ -301,7 +300,7 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson([
             'mimics' => []
         ])
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testListOriginalMimicsOnMainScreenOfSpecificUser()
@@ -314,7 +313,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('mimics'))
         ->assertJson($this->assert->getAssertJsonOnSuccess([], 'user_mimics_with_original_on_first_place'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testDisplayResponseMimicOfSpecificUserWithItsOriginalMimicOnMainScreen()
@@ -333,7 +332,7 @@ class MimicControllerTest extends TestCaseV2
     //--------------------------------Load more original mimic's responses--------------------------------
     public function testLoadMoreResponsesForOriginalMimicOnMainScreen()
     {
-        for($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $mimic = MimicResponse::create([
                 'user_id' => 2,
                 'original_mimic_id' => 1,
@@ -362,12 +361,11 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('load_more_responses'))
         ->assertJson($this->assert->getAssertJsonOnSuccess([], 'load_more_responses'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testLoadMoreResponsesForOriginalMimicOnMainScreenNoMoreResponses()
     {
-
         $data = [];
 
         $response = $this->doGet('mimic/load-responses?page=100&original_mimic_id=1', $data);
@@ -390,12 +388,12 @@ class MimicControllerTest extends TestCaseV2
             ],
             'mimics' => []
         ])
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     
     public function testGetMimicsFromPeopleYouFollow()
-    { 
+    {
         //add some followers
         foreach ([1, 3] as $following) {
             Follow::create([
@@ -411,9 +409,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('mimics'))
         ->assertJson($this->assert->getAssertJsonOnSuccess([], 'mimics_from_people_you_follow'))
-        ->assertStatus(200); 
-       
-       
+        ->assertStatus(200);
     }
 
     public function testGetRecentMimics()
@@ -424,7 +420,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('mimics'))
         ->assertJson($this->assert->getAssertJsonOnSuccess([], 'mimics'))
-        ->assertStatus(200); 
+        ->assertStatus(200);
     }
 
     public function testGetPopularMimics()
@@ -446,7 +442,7 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnNewUploadedFile($path, '4-25.jpg', 'image/jpg');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
+            'hashtags' => '#skate #backflip #frontflip',
             'mimic_file' => $file,
             'meta' => [
                 'width' => 900,
@@ -475,8 +471,8 @@ class MimicControllerTest extends TestCaseV2
         $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '4-3.jpg', 'image/jpg');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
-            'mimic_file' => $file, 
+            'hashtags' => '#skate #backflip #frontflip',
+            'mimic_file' => $file,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
                 'width' => 900,
@@ -509,7 +505,7 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
+            'hashtags' => '#skate #backflip #frontflip',
             'mimic_file' => $file,
             'meta' => [
                 'width' => 900,
@@ -539,8 +535,8 @@ class MimicControllerTest extends TestCaseV2
         $videoThumbnail = TestCaseHelper::returnFakeFile('image.txt');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
-            'mimic_file' => $file, 
+            'hashtags' => '#skate #backflip #frontflip',
+            'mimic_file' => $file,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
                 'width' => 900,
@@ -569,8 +565,8 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
-            'mimic_file' => $file, 
+            'hashtags' => '#skate #backflip #frontflip',
+            'mimic_file' => $file,
             'video_thumbnail' => 'xyz',
             'meta' => [
                 'width' => 900,
@@ -602,7 +598,7 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnNewUploadedFile($path, '5-4.jpg', 'image/jpg');
 
         $data = [
-            'mimic_file' => $file, 
+            'mimic_file' => $file,
             'original_mimic_id' => 1,
             'meta' => [
                 'width' => 900,
@@ -633,8 +629,8 @@ class MimicControllerTest extends TestCaseV2
         $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '5-22.jpg', 'image/jpg');
 
         $data = [
-            'mimic_file' => $file, 
-            'original_mimic_id' => 1, 
+            'mimic_file' => $file,
+            'original_mimic_id' => 1,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
                 'width' => 900,
@@ -656,8 +652,8 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson($this->assert->getAssertJsonOnSuccess($responseArray, 'created_video_response_mimic'))
         ->assertStatus(200);
 
-       Storage::disk('public')->assertExists(sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $fileName));
-       Storage::disk('public')->assertExists(sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $videoThumbFileName));
+        Storage::disk('public')->assertExists(sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $fileName));
+        Storage::disk('public')->assertExists(sprintf('files/user/%s/%s/%s/%s', $this->loggedUserId, date('Y'), date('m'), $videoThumbFileName));
     }
 
     public function testUploadVideoResponseMimicVideoThumbnailNotSent()
@@ -665,7 +661,7 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
+            'hashtags' => '#skate #backflip #frontflip',
             'mimic_file' => $file,
             'meta' => [
                 'width' => 900,
@@ -696,8 +692,8 @@ class MimicControllerTest extends TestCaseV2
         $videoThumbnail = TestCaseHelper::returnFakeFile('image.txt');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
-            'mimic_file' => $file, 
+            'hashtags' => '#skate #backflip #frontflip',
+            'mimic_file' => $file,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
                 'width' => 900,
@@ -726,8 +722,8 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
-            'mimic_file' => $file, 
+            'hashtags' => '#skate #backflip #frontflip',
+            'mimic_file' => $file,
             'video_thumbnail' => 'xyz',
             'meta' => [
                 'width' => 900,
@@ -778,7 +774,7 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('test.jpg');
 
         $data = [
-            'mimic_file' => $file, 
+            'mimic_file' => $file,
             'original_mimic_id' => $mimicId,
             'meta' => [
                 'width' => 900,
@@ -838,21 +834,21 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson([
             'success' => true
         ])
-        ->assertStatus(200); 
+        ->assertStatus(200);
 
         //missing from local storage
         Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->file, $model, false, false));
 
-        if($model->video_thumb) {
+        if ($model->video_thumb) {
             Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
         }
 
         //missing from AWS
-        if($model->aws_file) {
+        if ($model->aws_file) {
             $this->doGet($model->aws_file, $data)->assertStatus(404);
         }
 
-        if($model->aws_video_thumb) {
+        if ($model->aws_video_thumb) {
             $this->doGet($model->aws_video_thumb, $data)->assertStatus(404);
         }
     }
@@ -872,25 +868,23 @@ class MimicControllerTest extends TestCaseV2
         ->assertJson([
             'success' => true
         ])
-        ->assertStatus(200); 
+        ->assertStatus(200);
 
         //missing from local storage
         Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->file, $model, false, false));
 
-        if($model->video_thumb) {
+        if ($model->video_thumb) {
             Storage::disk('public')->assertMissing($model->getFileOrPath($model->user_id, $model->video_thumb, $model, false, false));
         }
 
         //missing from AWS
-        if($model->aws_file) {
+        if ($model->aws_file) {
             $this->doGet($model->aws_file, $data)->assertStatus(404);
         }
 
-        if($model->aws_video_thumb) {
+        if ($model->aws_video_thumb) {
             $this->doGet($model->aws_video_thumb, $data)->assertStatus(404);
-
         }
-
     }
 
     public function testUserTriesToDeleteSomeoneElsesOriginalMimic()
@@ -902,7 +896,7 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
         ->assertJson($this->assert->getAssertJsonOnError(trans('mimic.delete.mimic_not_yours')))
-        ->assertStatus(403); 
+        ->assertStatus(403);
     }
 
     public function testUserTriesToDeleteSomeoneElsesResponseMimic()
@@ -914,16 +908,16 @@ class MimicControllerTest extends TestCaseV2
         $response
         ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
         ->assertJson($this->assert->getAssertJsonOnError(trans('mimic.delete.mimic_not_yours')))
-        ->assertStatus(403); 
+        ->assertStatus(403);
     }
 
 
     /**
      * Write responses in json file
-     * 
-     * @param  string $file    
-     * @param  mixed $response 
-     * @return void           
+     *
+     * @param  string $file
+     * @param  mixed $response
+     * @return void
      */
     private function writeToFile(string $file, $response): void
     {

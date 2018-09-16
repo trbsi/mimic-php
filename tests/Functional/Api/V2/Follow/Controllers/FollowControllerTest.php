@@ -126,11 +126,11 @@ class FollowControllerTest extends TestCaseV2
     }
 
     public function testUserSuccessfullyUnFollowedAnotherUser()
-    {        
+    {
         //first follow user
         Follow::create([
             'followed_by' => $this->loggedUserId,
-            'following' => 5 
+            'following' => 5
         ]);
         
         $user = User::find(5);
@@ -149,5 +149,4 @@ class FollowControllerTest extends TestCaseV2
         ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'unfollowed'))
         ->assertStatus(200);
     }
-
 }

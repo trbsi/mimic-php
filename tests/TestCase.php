@@ -82,12 +82,16 @@ abstract class TestCase extends BaseTestCase
      */
     public function doPost($url, $data)
     {
-        return $this->json('POST', 'api/'.$url, $data,
+        return $this->json(
+            'POST',
+            'api/'.$url,
+            $data,
         [
             'AllowEntry' => $this->allowEntry,
             'Authorization' => $this->token,
             'Accept' => 'application/vnd.app.'.$this->version.'+json',
-        ]);
+        ]
+        );
     }
 
     /**
@@ -98,12 +102,16 @@ abstract class TestCase extends BaseTestCase
      */
     public function doGet($url, $data)
     {
-        return $this->json('GET', 'api/'.$url, $data,
+        return $this->json(
+            'GET',
+            'api/'.$url,
+            $data,
         [
             'AllowEntry' => $this->allowEntry,
             'Authorization' => $this->token,
             'Accept' => 'application/vnd.app.'.$this->version.'+json',
-        ]);
+        ]
+        );
     }
 
     /**
@@ -114,12 +122,16 @@ abstract class TestCase extends BaseTestCase
      */
     public function doDelete($url, $data)
     {
-        return $this->json('DELETE', 'api/'.$url, $data,
+        return $this->json(
+            'DELETE',
+            'api/'.$url,
+            $data,
         [
             'AllowEntry' => $this->allowEntry,
             'Authorization' => $this->token,
             'Accept' => 'application/vnd.app.'.$this->version.'+json',
-        ]);
+        ]
+        );
     }
 
     /**
@@ -130,11 +142,15 @@ abstract class TestCase extends BaseTestCase
      */
     public function doPut($url, $data)
     {
-        return $this->json('PUT', 'api/'.$url, $data,
+        return $this->json(
+            'PUT',
+            'api/'.$url,
+            $data,
         [
             'AllowEntry' => $this->allowEntry,
             'Authorization' => $this->token,
             'Accept' => 'application/vnd.app.'.$this->version.'+json',
-        ]);
+        ]
+        );
     }
 }

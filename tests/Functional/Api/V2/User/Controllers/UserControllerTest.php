@@ -17,7 +17,7 @@ use App\Api\V2\User\Resources\Profile\Models\Profile;
 
 class UserControllerTest extends TestCaseV2
 {
-	public function setUp()
+    public function setUp()
     {
         parent::setUp();
         $this->assert = $this->app->make(Assert::class);
@@ -173,11 +173,11 @@ class UserControllerTest extends TestCaseV2
         $user->blockedFrom()->attach(['blocked_by' => 1]);
 
         //insert push tokens
-        for ($i=0; $i < 5 ; $i++) { 
+        for ($i=0; $i < 5 ; $i++) {
             PushNotificationsToken::create([
-                'user_id' => $this->loggedUserId, 
-                'token' => md5(mt_rand()), 
-                'device' => 'ios', 
+                'user_id' => $this->loggedUserId,
+                'token' => md5(mt_rand()),
+                'device' => 'ios',
                 'device_id' => md5(mt_rand()),
             ]);
         }
@@ -187,7 +187,7 @@ class UserControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnNewUploadedFile($path, '1-1.mp4', 'video/mp4');
         $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '1-1.jpg', 'image/jpg');
         $data = [
-            'hashtags' => '#skate #backflip #frontflip', 
+            'hashtags' => '#skate #backflip #frontflip',
             'mimic_file' => $file,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
@@ -207,8 +207,8 @@ class UserControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnNewUploadedFile($path, '1-1.mp4', 'video/mp4');
         $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '1-1.jpg', 'image/jpg');
         $data = [
-            'mimic_file' => $file, 
-            'original_mimic_id' => 1, 
+            'mimic_file' => $file,
+            'original_mimic_id' => 1,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
                 'width' => 900,
@@ -224,7 +224,7 @@ class UserControllerTest extends TestCaseV2
         $fileNames[] = MimicTestHelper::getMimicVideoThumbnailName($responseArray);
 
         //delete user
-        $response = $this->doDelete('user', []); 
+        $response = $this->doDelete('user', []);
         $response->assertStatus(204);
 
         //assert profile
@@ -254,6 +254,4 @@ class UserControllerTest extends TestCaseV2
             Storage::disk('public')->assertMissing($path);
         }
     }
-
 }
-

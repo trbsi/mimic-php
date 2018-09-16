@@ -58,9 +58,9 @@ class FakeUpvotes
      * @param string $key
      * @return array
      */
-    private function appendNewMimics(array $mimics, string $key): array 
+    private function appendNewMimics(array $mimics, string $key): array
     {
-        $mimicIds = array_column($mimics,'id');
+        $mimicIds = array_column($mimics, 'id');
 
         switch ($key) {
             case self::REDIS_MIMIC_NOTIFICATIONS:
@@ -92,7 +92,7 @@ class FakeUpvotes
      * @param string $key
      * @return array|null
      */
-    private function getDataFromJson(string $key): ?array 
+    private function getDataFromJson(string $key): ?array
     {
         $file = ResetFakeUpvotes::getFileName($key);
         $filePath = storage_path($file);
@@ -104,15 +104,15 @@ class FakeUpvotes
 
     /**
      * Score is a combination of time and stage: "time().stage"
-     * 
+     *
      * @param string $key
      * @param array $mimic
      * @return boolean
      */
-    private function handleNotification(string $key, array $mimic): bool 
+    private function handleNotification(string $key, array $mimic): bool
     {
         $sendNotificationCount = false;
-        $timeDiff = (time() - $mimic['time']) / 60; //minutes 
+        $timeDiff = (time() - $mimic['time']) / 60; //minutes
 
         switch ($mimic['stage']) {
             case 1:
@@ -153,7 +153,7 @@ class FakeUpvotes
     private function sendNotification(string $key, array $mimic): void
     {
         //get rand user who will "upvote" mimic
-        if(!self::$users) {
+        if (!self::$users) {
             self::$users = $this->getDataFromJson(self::REDIS_USER_IDS);
         }
 

@@ -5,36 +5,36 @@ namespace Tests\Functional\Api\V2\User\Resources\Profile;
 use Tests\Assert\AssertInterface;
 use Tests\Assert\AssertAbstract;
 
-class Assert extends AssertAbstract implements AssertInterface 
+class Assert extends AssertAbstract implements AssertInterface
 {
-	/**
-	 * @inheritdoc 
-	 */
-	public function getAssertJsonStructureOnSuccess(?string $type = null): array
-	{
-		switch ($type) {
-			case 'profile':
-				return $this->getProfileJsonStructureOnSuccess();
-		}
-	}
+    /**
+     * @inheritdoc
+     */
+    public function getAssertJsonStructureOnSuccess(?string $type = null): array
+    {
+        switch ($type) {
+            case 'profile':
+                return $this->getProfileJsonStructureOnSuccess();
+        }
+    }
 
-	/**
-	 * @inheritdoc 
-	 */
-	public function getAssertJsonOnSuccess(array $data, ?string $type = null): array
-	{
-		switch ($type) {
-			case 'profile':
-				return $this->getProfileJsonOnSuccess($data);
-		}
-	}
+    /**
+     * @inheritdoc
+     */
+    public function getAssertJsonOnSuccess(array $data, ?string $type = null): array
+    {
+        switch ($type) {
+            case 'profile':
+                return $this->getProfileJsonOnSuccess($data);
+        }
+    }
 
-	/**
-	 * @return array
-	 */
-	private function getProfileJsonStructureOnSuccess(): array
-	{
-		return [
+    /**
+     * @return array
+     */
+    private function getProfileJsonStructureOnSuccess(): array
+    {
+        return [
             'id',
             'email',
             'username',
@@ -47,18 +47,18 @@ class Assert extends AssertAbstract implements AssertInterface
             'i_am_following_you',
             'is_blocked',
             'profile' => [
-            	'bio'
+                'bio'
             ]
         ];
-	}
+    }
 
-	/**
-	 * @param array $data
-	 * @return array
-	 */
-	private function getProfileJsonOnSuccess(array $data): array
-	{
-		return [
+    /**
+     * @param array $data
+     * @return array
+     */
+    private function getProfileJsonOnSuccess(array $data): array
+    {
+        return [
             'id' => $data['id'],
             'email' => $data['email'],
             'username' => $data['username'],
@@ -69,8 +69,8 @@ class Assert extends AssertAbstract implements AssertInterface
             'i_am_following_you' => $data['i_am_following_you'],
             'is_blocked' => $data['is_blocked'],
             'profile' => [
-            	'bio' => $data['profile']['bio'],
+                'bio' => $data['profile']['bio'],
             ]
         ];
-	}
+    }
 }

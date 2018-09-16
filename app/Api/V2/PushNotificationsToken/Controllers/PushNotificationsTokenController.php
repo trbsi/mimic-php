@@ -7,14 +7,14 @@ use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
 
 class PushNotificationsTokenController extends BaseAuthController
 {
-	/**
-	 * Delete tokens of a logged in user
-	 * 
-	 * @return Response
-	 */
-	public function deleteByUser()
-	{
-		PushNotificationsToken::where('user_id', $this->authUser->id)->delete();
-		return response()->json([], 204);
-	}
+    /**
+     * Delete tokens of a logged in user
+     *
+     * @return Response
+     */
+    public function deleteByUser()
+    {
+        PushNotificationsToken::where('user_id', $this->authUser->id)->delete();
+        return response()->json([], 204);
+    }
 }

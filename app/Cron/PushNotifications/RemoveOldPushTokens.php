@@ -12,8 +12,8 @@ class RemoveOldPushTokens
      */
     public function run()
     {
-    	//current time - 7 days
-    	$date = date('Y-m-d H:i:s', time() - 604800);
+        //current time - 7 days
+        $date = date('Y-m-d H:i:s', time() - 604800);
         DB::statement(sprintf('DELETE FROM push_notifications_token WHERE updated_at <= "%s"', $date));
     }
 }

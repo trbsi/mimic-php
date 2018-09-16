@@ -7,7 +7,7 @@ use Tests\Functional\Api\V2\Bootstrap\Assert;
 
 class BootstrapControllerTest extends TestCaseV2
 {
-	public function setUp()
+    public function setUp()
     {
         parent::setUp();
         $this->assert = $this->app->make(Assert::class);
@@ -22,7 +22,7 @@ class BootstrapControllerTest extends TestCaseV2
     //--------------------------------Push notifications--------------------------------
     public function testPushTokenNotSet()
     {
-    	$data = [];
+        $data = [];
 
         $response = $this->doPost('bootstrap/save-push-token', $data);
 
@@ -34,7 +34,7 @@ class BootstrapControllerTest extends TestCaseV2
 
     public function testPushTokenSetButEmpty()
     {
-    	$data = ['push_token' => ''];
+        $data = ['push_token' => ''];
 
         $response = $this->doPost('bootstrap/save-push-token', $data);
 
@@ -46,7 +46,7 @@ class BootstrapControllerTest extends TestCaseV2
 
     public function testDeviceIdNotSetButPushTokenIsSet()
     {
-    	$data = ['push_token' => 'xxxyyyzzz'];
+        $data = ['push_token' => 'xxxyyyzzz'];
 
         $response = $this->doPost('bootstrap/save-push-token', $data);
 
@@ -58,7 +58,7 @@ class BootstrapControllerTest extends TestCaseV2
 
     public function testDeviceNotSetButEverythingElseIsSet()
     {
-    	$data = ['push_token' => 'xxxyyyzzz', 'device_id' => '111222333'];
+        $data = ['push_token' => 'xxxyyyzzz', 'device_id' => '111222333'];
 
         $response = $this->doPost('bootstrap/save-push-token', $data);
 
@@ -70,7 +70,7 @@ class BootstrapControllerTest extends TestCaseV2
 
     public function testSuccesSavePushToken()
     {
-    	$data = ['push_token' => 'xxxyyyzzz', 'device_id' => '111222333', 'device' => 'ios'];
+        $data = ['push_token' => 'xxxyyyzzz', 'device_id' => '111222333', 'device' => 'ios'];
 
         $response = $this->doPost('bootstrap/save-push-token', $data);
 
@@ -79,5 +79,4 @@ class BootstrapControllerTest extends TestCaseV2
         ->assertJson($this->assert->getAssertJsonOnSuccess(['success' => true]))
         ->assertStatus(200);
     }
-
 }

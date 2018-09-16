@@ -22,9 +22,9 @@ final class DeleteUserRepository
     }
 
     /**
-     * @param  User   $authUser 
-     * @param  array  $data     
-     * @return void           
+     * @param  User   $authUser
+     * @param  array  $data
+     * @return void
      */
     public function delete(User $authUser, array $data)
     {

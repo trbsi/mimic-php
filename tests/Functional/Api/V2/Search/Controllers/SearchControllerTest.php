@@ -6,7 +6,7 @@ use Tests\Functional\Api\V2\TestCaseV2;
 
 class SearchControllerTest extends TestCaseV2
 {
-	public function setUp()
+    public function setUp()
     {
         parent::setUp();
     }
@@ -19,19 +19,19 @@ class SearchControllerTest extends TestCaseV2
     
     public function testSearchByHashtag()
     {
-    	$data = [];
+        $data = [];
 
         $response = $this->doGet('search?term=%23jump', $data);
 
         $response
         ->assertJsonStructure([
             '*' => [
-            	'id',
-		        'name',
-		        'popularity',
-		        'created_at',
-		        'updated_at',
-		    ]
+                'id',
+                'name',
+                'popularity',
+                'created_at',
+                'updated_at',
+            ]
         ])
         ->assertJson([
             [
@@ -44,13 +44,13 @@ class SearchControllerTest extends TestCaseV2
                 'name' => '#jump',
                 'popularity' => "123,456,789",
             ]
-	    ])
+        ])
         ->assertStatus(200);
     }
 
     public function testSearchByHashtagWithoutResults()
     {
-    	$data = [];
+        $data = [];
 
         $response = $this->doGet('search?term=%23totallyfake', $data);
 
@@ -62,28 +62,28 @@ class SearchControllerTest extends TestCaseV2
 
     public function testSearchByUsername()
     {
-    	$data = [];
+        $data = [];
 
         $response = $this->doGet('search?term=@andr', $data);
 
         $response
         ->assertJsonStructure([
             '*' => [
-		        'id',
-		        'email',
-		        'username',
-		        'profile_picture',
-		        'followers',
-		        'following',
-		        'number_of_mimics',
-		        'created_at',
+                'id',
+                'email',
+                'username',
+                'profile_picture',
+                'followers',
+                'following',
+                'number_of_mimics',
+                'created_at',
                 'updated_at',
                 'i_am_following_you',
                 'is_blocked',
-		    ]
+            ]
         ])
         ->assertJson([
-		    [
+            [
                 'id' => 1,
                 'email' => 'user1@mail.com',
                 'username' => 'AndrewCG',
@@ -93,14 +93,14 @@ class SearchControllerTest extends TestCaseV2
                 'number_of_mimics' => '123M',
                 'i_am_following_you' => false,
                 'is_blocked' => false,
-		    ]
-	    ])
+            ]
+        ])
         ->assertStatus(200);
     }
 
     public function testSearchByUsernameWithoutResults()
     {
-    	$data = [];
+        $data = [];
 
         $response = $this->doGet('search?term=@totallyfake', $data);
 
@@ -112,7 +112,7 @@ class SearchControllerTest extends TestCaseV2
 
     public function testAtOrHashtagNotSetOnParameterTerm()
     {
-    	$data = [];
+        $data = [];
 
         $response = $this->doGet('search?term=totallyfake', $data);
 
@@ -318,7 +318,8 @@ class SearchControllerTest extends TestCaseV2
                 ]
 
             ]
-        ])
+        ]
+        )
         ->assertStatus(200);
     }
 }

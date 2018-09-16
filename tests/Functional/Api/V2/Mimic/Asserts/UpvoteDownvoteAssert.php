@@ -18,7 +18,7 @@ class UpvoteDownvoteAssert
      * @param  array  $data
      * @return array
      */
-    public function getUpvoteDownvoteJsonOnSuccess(array $data): array 
+    public function getUpvoteDownvoteJsonOnSuccess(array $data): array
     {
         return [
             'type' => $data['type'],

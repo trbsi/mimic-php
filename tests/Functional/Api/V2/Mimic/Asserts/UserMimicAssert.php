@@ -32,8 +32,8 @@ class UserMimicAssert
     }
 
     /**
-     * @param  array $data          
-     * @return array                      
+     * @param  array $data
+     * @return array
      */
     public function getUserMimicsJsonOnSuccess(array $data): array
     {
@@ -102,8 +102,8 @@ class UserMimicAssert
     }
 
     /**
-     * @param  array $data          
-     * @return array                      
+     * @param  array $data
+     * @return array
      */
     public function getUserResponsesJsonOnSuccess(array $data): array
     {
@@ -150,5 +150,4 @@ class UserMimicAssert
             ]
         ];
     }
-
 }

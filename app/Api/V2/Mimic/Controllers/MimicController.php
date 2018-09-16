@@ -106,9 +106,9 @@ class MimicController extends BaseAuthController
 
     /**
      * Get user's mimics so he can list them and delete them
-     * @param  Request             $request             
+     * @param  Request             $request
      * @param  ReadMimicRepository $readMimicRepository
-     * @return Response                                   
+     * @return Response
      */
     public function getUserMimics(Request $request, ReadMimicRepository $readMimicRepository)
     {

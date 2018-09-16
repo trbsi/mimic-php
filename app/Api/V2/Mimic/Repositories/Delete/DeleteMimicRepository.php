@@ -34,13 +34,13 @@ final class DeleteMimicRepository
 
     /**
      * Find Mimic or response by id and remove
-     * 
-     * @param  array  $data 
-     * @param  User   $authUser     
-     * @return void    
+     *
+     * @param  array  $data
+     * @param  User   $authUser
+     * @return void
      */
     public function deleteSingleMimicOrResponseById(array $data, User $authUser)
-    {        
+    {
         if (array_key_exists('original_mimic_id', $data)) {
             $model = $this->mimic;
             $id = $data['original_mimic_id'];
@@ -56,9 +56,9 @@ final class DeleteMimicRepository
 
     /**
      * Find user's mimics and responses and remove them
-     * 
-     * @param  User   $authUser 
-     * @return void           
+     *
+     * @param  User   $authUser
+     * @return void
      */
     public function deleteUserMimicsAndResponsesByUser(User $authUser)
     {
@@ -67,7 +67,7 @@ final class DeleteMimicRepository
 
         foreach ([$mimics, $responses] as $mimicsAndResponses) {
             foreach ($mimicsAndResponses as $model) {
-               $this->startDeleteProcess($model, $authUser);
+                $this->startDeleteProcess($model, $authUser);
             }
         }
     }

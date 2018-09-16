@@ -62,7 +62,7 @@ abstract class AssertAbstract
 
     /**
      * Get json file and decode it
-     * 
+     *
      * @param  string $file Path to a json file
      * @return array
      */
@@ -74,7 +74,7 @@ abstract class AssertAbstract
 
     /**
      * Get json file, alter it and decode it
-     * 
+     *
      * @param  string $file Path to a json file
      * @param  array $from Used for str_replace
      * @param  array $to Used for str_replace

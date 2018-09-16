@@ -9,17 +9,17 @@ use Illuminate\Http\Request;
 
 final class ReadMimicRepository
 {
-	public function __construct(Mimic $mimic, MimicResponse $mimicResponse) 
-	{
+    public function __construct(Mimic $mimic, MimicResponse $mimicResponse)
+    {
         $this->mimic = $mimic;
         $this->mimicResponse = $mimicResponse;
     }
 
-	public function getUserMimics(Request $request, User $authUser)
-	{
-		$relations = ['meta'];
-		if ($request->get_responses && ($request->get_responses === 'true' || $request->get_responses === true)) {
-			$relations = array_merge($relations, ['originalMimic']);
+    public function getUserMimics(Request $request, User $authUser)
+    {
+        $relations = ['meta'];
+        if ($request->get_responses && ($request->get_responses === 'true' || $request->get_responses === true)) {
+            $relations = array_merge($relations, ['originalMimic']);
             $model = $this->mimicResponse;
         } else {
             $model = $this->mimic;
@@ -35,5 +35,5 @@ final class ReadMimicRepository
         ->orderBy('id', 'DESC')
         ->with($relations)
         ->get();
-	}
+    }
 }
