@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Models\CoreUser;
+use App\Api\V2\Hashtag\Repositories\Post\CreateHashtagsRepository;
 
 class MimicsTable extends Seeder
 {
@@ -29,7 +30,7 @@ class MimicsTable extends Seeder
      *
      * @return void
      */
-    public function run(Mimic $mimic, CoreUser $user)
+    public function run(Mimic $mimic, CoreUser $user, CreateHashtagsRepository $createHashtagsRepository)
     {
         $this->rootDir = public_path() . '/files/seeds';
 
@@ -67,7 +68,7 @@ class MimicsTable extends Seeder
                 //insert into database
                 //main mimic
                 if ($arrayKey === 0) {
-                    $originalMimic = $this->saveOriginalMimic($mimic, $data, $dirName);
+                    $originalMimic = $this->saveOriginalMimic($mimic, $createHashtagsRepository, $data, $dirName);
                     $this->originalMimicId++;
                 } else { //response mimic
                     $mimicResponses[] = $data;
@@ -184,7 +185,7 @@ class MimicsTable extends Seeder
 
     /**
      * @todo  $width and $height are not used because of expected responses from .json file. If we put different images/videos those values won't be the same and we'll need to adjust tests all the tim
-     * 
+     *
      * @param  array  $pathParts
      * @param  string $fileName
      * @param  string|null $videoThumbFileName
@@ -216,7 +217,7 @@ class MimicsTable extends Seeder
             'video_thumb' => $videoThumbFileName,
             'meta' => [
                 'height' => 900,
-                'width' => 600, 
+                'width' => 600,
             ]
         ];
 
@@ -232,19 +233,24 @@ class MimicsTable extends Seeder
     }
 
     /**
-     * @param  Mimic  $mimic
-     * @param  array  $data
-     * @param  string $dirName
+     * @param  Mimic                    $mimic
+     * @param  CreateHashtagsRepository $createHashtagsRepository
+     * @param  array                    $data
+     * @param  string                   $dirName
      * @return Mimic
      */
-    private function saveOriginalMimic(Mimic $mimic, array $data, string $dirName): Mimic
-    {
+    private function saveOriginalMimic(
+        Mimic $mimic,
+        CreateHashtagsRepository $createHashtagsRepository,
+        array $data,
+        string $dirName
+    ): Mimic {
         //create mimic
         $originalMimic = $mimic->create(array_except($data, ['meta']));
         //insert meta
         $originalMimic->meta()->create(array_get($data, 'meta'));
         //add hashtags for this mimic
-        $mimic->saveHashtags(file_get_contents($this->rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $originalMimic);
+        $createHashtagsRepository->extractAndSaveHashtags(file_get_contents($this->rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $originalMimic);
 
         return $originalMimic;
     }

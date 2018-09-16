@@ -10,6 +10,7 @@ use App\Api\V2\Mimic\Models\MimicHashtag;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 use App\Events\Mimic\MimicCreatedEvent;
+use App\Api\V2\Hashtag\Repositories\Post\CreateHashtagsRepository;
 
 final class CreateMimicRepository
 {
@@ -19,15 +20,29 @@ final class CreateMimicRepository
     /** @var array Holds information about uploaded Mimic file */
     private $mimicFileInfo;
 
+    /** @var Mimic */
+    private $mimic;
+
+    /** @var MimicResponse */
+    private $mimicResponse;
+
+    /** @var FileUpload */
+    private $fileUpload;
+
+    /** @var CreateHashtagsRepository */
+    private $createHashtagsRepository;
+
     public function __construct(
         Mimic $mimic,
         MimicResponse $mimicResponse,
-        FileUpload $fileUpload
+        FileUpload $fileUpload,
+        CreateHashtagsRepository $createHashtagsRepository
     ) {
         $this->mimic = $mimic;
         $this->mimicResponse = $mimicResponse;
         $this->fileUpload = $fileUpload;
         $this->additionalFields = [];
+        $this->createHashtagsRepository = $createHashtagsRepository;
     }
 
     /**
@@ -75,7 +90,7 @@ final class CreateMimicRepository
 
         if ($this->createdModel) {
             //check for hashtags
-            $this->mimic->saveHashtags(array_get($data, 'hashtags'), $this->createdModel);
+            $this->createHashtagsRepository->extractAndSaveHashtags(array_get($data, 'hashtags'), $this->createdModel);
 
             //upload video thumbnail
             $this->uploadVideoThumbnail($data);
