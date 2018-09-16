@@ -8,7 +8,7 @@ use App\Api\V2\Follow\Models\Follow;
 use App\Api\V2\User\Models\User;
 use DB;
 use App\Helpers\Constants;
-use App\Api\V2\Follow\Repositories\FollowUserRepository;
+use App\Api\V2\Follow\Repositories\Get\FollowUserRepository;
 use App\Api\V2\Follow\JsonResources\FollowersCollection;
 use App\Api\V2\Follow\JsonResources\FollowingsCollection;
 

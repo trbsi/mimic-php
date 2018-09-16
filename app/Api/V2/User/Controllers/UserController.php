@@ -4,11 +4,11 @@ namespace App\Api\V2\User\Controllers;
 
 use App\Api\V2\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
-use App\Api\V2\User\Repositories\UserRepository;
-use App\Api\V2\User\Repositories\DeleteUserRepository;
+use App\Api\V2\User\Repositories\Post\BlockUserRepository;
+use App\Api\V2\User\Repositories\Delete\DeleteUserRepository;
 use Exception;
 use App\Api\V2\User\Requests\UserRequest;
-use App\Api\V2\User\Repositories\UpdateRepository;
+use App\Api\V2\User\Repositories\Put\UpdateRepository;
 
 class UserController extends BaseAuthController
 {
@@ -26,33 +26,17 @@ class UserController extends BaseAuthController
     }
 
     /**
-     * Get user profile and return data
-     * @param Request $request
-     * @param UserRepository $userRepository
-     * @throws Exception
-     * @return Response
-     */
-    public function userProfile(Request $request, UserRepository $userRepository)
-    {
-        try {
-            return $userRepository->getProfile($request, $this->authUser, $this->user);
-        } catch (Exception $e) {
-            throw_exception($e);
-        }
-    }
-
-    /**
      * Block user
      *
      * @param Request $request
-     * @param UserRepository $userRepository
+     * @param BlockUserRepository $blockUserRepository
      * @throws Exception
      * @return Response
      */
-    public function blockUser(Request $request, UserRepository $userRepository)
+    public function blockUser(Request $request, BlockUserRepository $blockUserRepository)
     {
         try {
-            $response = $userRepository->blockUser($request, $this->authUser);
+            $response = $blockUserRepository->blockUser($request, $this->authUser);
             return response()->json($response);
         } catch (Exception $e) {
             throw_exception($e);

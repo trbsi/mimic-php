@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\V2\User\Resources\Profile\Repositories;
+namespace App\Api\V2\User\Resources\Profile\Repositories\Put;
 
 use App\Api\V2\User\Models\User;
 use Exception;

@@ -8,7 +8,7 @@ use App\Api\V2\Hashtag\Models\Hashtag;
 use App\Api\V2\User\Models\User;
 use App\Helpers\Constants;
 use DB;
-use App\Api\V2\Search\Repositories\SearchRepository;
+use App\Api\V2\Search\Repositories\Get\SearchRepository;
 
 class SearchController extends BaseAuthController
 {

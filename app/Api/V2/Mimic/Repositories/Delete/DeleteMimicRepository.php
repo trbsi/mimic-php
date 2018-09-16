@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Api\V2\Mimic\Repositories;
+namespace App\Api\V2\Mimic\Repositories\Delete;
 
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Models\MimicResponse;
 use App\Helpers\AwsHelper;
 use App\Api\V2\User\Models\User;
 
-class DeleteMimicRepository
+final class DeleteMimicRepository
 {
     private const MODE_ADMIN = 'admin';
 

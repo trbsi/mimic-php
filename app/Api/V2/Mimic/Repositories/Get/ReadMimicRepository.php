@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Api\V2\Mimic\Repositories;
+namespace App\Api\V2\Mimic\Repositories\Get;
 
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Models\MimicResponse;
 use Illuminate\Http\Request;
 
-class ReadMimicRepository
+final class ReadMimicRepository
 {
 	public function __construct(Mimic $mimic, MimicResponse $mimicResponse) 
 	{

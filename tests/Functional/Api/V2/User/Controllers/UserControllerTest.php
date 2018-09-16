@@ -28,45 +28,6 @@ class UserControllerTest extends TestCaseV2
         $this->assert = null;
         parent::tearDown();
     }
-    
-    //--------------------------------Get profile--------------------------------
-    public function testGetUserProfileSuccessfully()
-    {
-    	$data = [];
-
-        $response = $this->doGet('profile/user?id=1', $data);
-        $assertData = [
-            'id' => 1,
-            'email' => 'user1@mail.com',
-            'username' => 'AndrewCG',
-            'profile_picture' => 'http://mimic.loc/files/hr/male/1.jpg',
-            'followers' => '123M',
-            'following' => '123M',
-            'number_of_mimics' => '123M',
-            'i_am_following_you' => false,
-            'is_blocked' => false,
-            'is_blocked' => false,
-            'profile' => [
-                'bio' => "This is my bio, which is little bit too big. I even user emojis and #hastags. 😀 😁 😂 \nI need to check it out!"
-            ]
-        ];
-
-        $response
-        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('profile'))
-        ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'profile'))
-        ->assertStatus(200);
-    }
-
-    public function testUserNotFound()
-    {
-        $data = [];
-        $response = $this->doGet('profile/user?id=20000', $data);
-
-        $response
-        ->assertJsonStructure($this->assert->getAssertJsonStructureOnError())
-        ->assertJson($this->assert->getAssertJsonOnError('User not found'))
-        ->assertStatus(404);
-    }
 
     //--------------------------------Block profile--------------------------------
     public function testSuccessfullyBlockUser()

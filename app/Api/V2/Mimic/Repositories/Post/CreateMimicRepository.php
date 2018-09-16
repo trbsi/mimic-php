@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\V2\Mimic\Repositories;
+namespace App\Api\V2\Mimic\Repositories\Post;
 
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Models\MimicResponse;
@@ -11,7 +11,7 @@ use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 use App\Events\Mimic\MimicCreatedEvent;
 
-class CreateMimicRepository
+final class CreateMimicRepository
 {
     /** @var Mimic|MimicReponse This is created model of Mimic or MimicResponse */
     private $createdModel;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Api\V2\Follow\Repositories;
+namespace App\Api\V2\Follow\Repositories\Get;
 
 use App\Api\V2\User\Models\User;
 use DB;
 use App\Helpers\Constants;
 use App\Events\User\UserFollowedEvent;
 
-class FollowUserRepository
+final class FollowUserRepository
 {
     /**
      * Follow or unfollow user

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\V2\Mimic\Repositories;
+namespace App\Api\V2\Mimic\Repositories\Post;
 
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Models\MimicResponse;
@@ -9,7 +9,7 @@ use App\Helpers\Constants;
 use DB;
 use App\Events\Mimic\MimicUpvotedEvent;
 
-class UpvoteMimicRepository
+final class UpvoteMimicRepository
 {
     public function __construct(
         Mimic $mimic,

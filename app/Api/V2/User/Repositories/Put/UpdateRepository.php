@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Api\V2\User\Repositories;
+namespace App\Api\V2\User\Repositories\Put;
 
 use App\Api\V2\User\Models\User;
 
-class UpdateRepository
+final class UpdateRepository
 {	
 	/**
 	 * @param  User   $authUser 

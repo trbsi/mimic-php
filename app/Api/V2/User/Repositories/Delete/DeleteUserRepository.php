@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Api\V2\User\Repositories;
+namespace App\Api\V2\User\Repositories\Delete;
 
 use App\Api\V2\User\Models\User;
 use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
-use App\Api\V2\Mimic\Repositories\DeleteMimicRepository;
+use App\Api\V2\Mimic\Repositories\Delete\DeleteMimicRepository;
 
-class DeleteUserRepository
+final class DeleteUserRepository
 {
     /**
      * @var DeleteMimicRepository

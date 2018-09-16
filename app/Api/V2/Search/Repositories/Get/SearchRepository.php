@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Api\V2\Search\Repositories;
+namespace App\Api\V2\Search\Repositories\Get;
 
 use App\Api\V2\Hashtag\Models\Hashtag;
 use App\Api\V2\User\Models\User;
 
-class SearchRepository
+final class SearchRepository
 {
     public function __construct(Hashtag $hashtag, User $user)
     {
