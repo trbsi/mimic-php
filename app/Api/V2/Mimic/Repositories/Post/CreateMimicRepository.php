@@ -89,8 +89,14 @@ final class CreateMimicRepository
         ], $this->additionalFields));
 
         if ($this->createdModel) {
-            //check for hashtags
-            $this->createHashtagsRepository->extractAndSaveHashtags(array_get($data, 'hashtags'), $this->createdModel);
+
+            if (!$isResponseMimic) {
+                //check for hashtags
+                $this->createHashtagsRepository->extractAndSaveHashtags(
+                    array_get($data, 'hashtags'), 
+                    $this->createdModel
+                );
+            }
 
             //upload video thumbnail
             $this->uploadVideoThumbnail($data);

@@ -39,6 +39,12 @@ abstract class TestCase extends BaseTestCase
     protected $allowEntry;
 
     /**
+     * Indicates whether database was already seeded or not
+     * @var boolean
+     */
+    private static $databaseSeeded = false;
+
+    /**
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application
@@ -70,8 +76,12 @@ abstract class TestCase extends BaseTestCase
     public function refreshTestDatabase()
     {
         $this->customRefreshTestDatabase();
-        //seed database
-        shell_exec('php artisan db:seed');
+
+        if (self::$databaseSeeded === false) {
+            //seed database. Leave var_dump so we can see if there are any errors
+            var_dump(shell_exec('php artisan db:seed'));
+            self::$databaseSeeded = true;
+        }
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Tests\Functional\Api\V2\User\Resources\Profile\Controllers;
 
 use Tests\Functional\Api\V2\TestCaseV2;
 use App\Api\V2\User\Models\User;
+use App\Api\V2\Hashtag\Models\Hashtag;
 use Tests\Functional\Api\V2\User\Resources\Profile\Assert;
 
 class ProfileControllerTest extends TestCaseV2
@@ -36,10 +37,23 @@ class ProfileControllerTest extends TestCaseV2
             'number_of_mimics' => '123M',
             'i_am_following_you' => false,
             'is_blocked' => false,
-            'is_blocked' => false,
             'profile' => [
-                'bio' => "This is my bio, which is little bit too big. I even user emojis and #hastags. 😀 😁 😂 \nI need to check it out!"
-            ]
+                'bio' => "This is my bio, which is little bit too big. I even user emojis and #swag. 😀 😁 😂 \nI need to check it out! I Like #kissing and #dance",
+                'hashtags' => [
+                    [
+                        'hashtag_id' => 4,
+                        'hashtag_name' => '#kissing'
+                    ],
+                    [
+                        'hashtag_id' => 8,
+                        'hashtag_name' => '#dance'
+                    ],
+                    [
+                        'hashtag_id' => 11,
+                        'hashtag_name' => '#swag'
+                    ],
+                ],
+            ],
         ];
 
         $response
@@ -60,19 +74,122 @@ class ProfileControllerTest extends TestCaseV2
     }
 
     //UPDATE PROFILE
-    public function testProfileSuccessfullyUpdated()
+    public function testBioUpdatedSuccessfullyWithoutHashtags()
     {
         $bio = '😁 Totally new BIO! 😀';
         $data = [
             'bio' => $bio
         ];
 
+        $assertData = [
+            'id' => 95,
+            'email' => 'user95@mail.com',
+            'username' => 'sanjas',
+            'profile_picture' => 'http://mimic.loc/files/hr/female/95.jpg',
+            'followers' => '123M',
+            'following' => '123M',
+            'number_of_mimics' => '123M',
+            'i_am_following_you' => false,
+            'is_blocked' => false,
+            'profile' => [
+                'bio' => $bio,
+                'hashtags' => [],
+            ],
+        ];
+
         $response = $this->doPut('user/profile', $data);
-        $response->assertStatus(204);
+
+        $response->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('profile'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'profile'))
+        ->assertStatus(200);
 
         $user = User::find($this->loggedUserId);
         $this->assertEquals($bio, $user->profile->bio);
     }
+
+    public function testBioUpdatedSuccessfullyWithNewHashtags()
+    {
+        $bio = '😁 Totally new BIO with #hashtag #totallynew! 😀';
+        $data = [
+            'bio' => $bio
+        ];
+
+        $assertData = [
+            'id' => 95,
+            'email' => 'user95@mail.com',
+            'username' => 'sanjas',
+            'profile_picture' => 'http://mimic.loc/files/hr/female/95.jpg',
+            'followers' => '123M',
+            'following' => '123M',
+            'number_of_mimics' => '123M',
+            'i_am_following_you' => false,
+            'is_blocked' => false,
+            'profile' => [
+                'bio' => $bio,
+                'hashtags' => [
+                    [
+                        'hashtag_name' => '#hashtag'
+                    ],
+                    [
+                        'hashtag_name' => '#totallynew'
+                    ],
+                ],
+            ],
+        ];
+
+        $response = $this->doPut('user/profile', $data);
+
+        $response->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('profile'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'profile'))
+        ->assertStatus(200);
+
+        $user = User::find($this->loggedUserId);
+        $this->assertEquals($bio, $user->profile->bio);
+    }
+
+    public function testBioUpdatedSuccessfullyWithExistingHashtags()
+    {
+        //get number of hashtags before updating profile
+        $numberBeforeUpdate = Hashtag::count();
+
+        $bio = '😁 Totally new BIO with #swag #yolo! 😀';
+        $data = [
+            'bio' => $bio
+        ];
+
+        $assertData = [
+            'id' => 95,
+            'email' => 'user95@mail.com',
+            'username' => 'sanjas',
+            'profile_picture' => 'http://mimic.loc/files/hr/female/95.jpg',
+            'followers' => '123M',
+            'following' => '123M',
+            'number_of_mimics' => '123M',
+            'i_am_following_you' => false,
+            'is_blocked' => false,
+            'profile' => [
+                'bio' => $bio,
+                'hashtags' => [
+                    [
+                        'hashtag_name' => '#swag'
+                    ],
+                    [
+                        'hashtag_name' => '#yolo'
+                    ],
+                ],
+            ],
+        ];
+
+        $response = $this->doPut('user/profile', $data);
+
+        $response->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('profile'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'profile'))
+        ->assertStatus(200);
+
+        $numberAfterUpdate = Hashtag::count();
+        $this->assertEquals($numberBeforeUpdate, $numberAfterUpdate);
+    }
+
 
     public function testBioIsNotString()
     {

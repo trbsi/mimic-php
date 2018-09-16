@@ -46,14 +46,42 @@ class UsersTable extends Seeder
                 ]
             ];
 
-            $profile =
-            [
-                'bio' => "This is my bio, which is little bit too big. I even user emojis and #hastags. 😀 😁 😂 \nI need to check it out!"
-            ];
-
             $userTmp = $user->create($insert);
             $userTmp->socialAccounts()->createMany($socialAccounts);
-            $userTmp->profile()->create($profile);
+            $this->createProfile($userTmp);
         }
+    }
+
+    /**
+     * @param User $user
+     * @return void
+     */
+    private function createProfile($user) 
+    {
+        $hashtags = 
+        [
+            '#swag', '#kissing', '#dance'
+        ];
+
+        $profile =
+        [
+            'bio' => sprintf("This is my bio, which is little bit too big. I even user emojis and %s. 😀 😁 😂 \nI need to check it out! I Like %s and %s", $hashtags[0], $hashtags[1], $hashtags[2])
+        ];
+
+        $profile = $user->profile()->create($profile);
+
+        $this->saveBioHashtags($profile, $hashtags);
+    }
+
+    /**
+     * @param  Profile $profile  
+     * @param  array  $hashtags 
+     * @return void           
+     */
+    private function saveBioHashtags($profile, array $hashtags)
+    {
+        $model = resolve('HashtagModel');
+        $ids = $model->whereIn('name', $hashtags)->get()->pluck('id')->toArray();
+        $profile->hashtags()->attach($ids);
     }
 }

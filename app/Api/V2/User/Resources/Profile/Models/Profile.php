@@ -2,6 +2,8 @@
 
 namespace App\Api\V2\User\Resources\Profile\Models;
 
+use App\Api\V2\Hashtag\Models\Hashtag;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -39,4 +41,9 @@ class Profile extends Model
         'id' => 'int',
         'user_id' => 'int',
     ];
+
+    public function hashtags()
+    {
+        return $this->belongsToMany(Hashtag::class, 'users_profiles_hasthags_pivot', 'profile_id', 'hashtag_id');
+    }
 }

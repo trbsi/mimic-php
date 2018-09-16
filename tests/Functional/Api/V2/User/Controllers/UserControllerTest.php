@@ -76,7 +76,7 @@ class UserControllerTest extends TestCaseV2
         ->assertStatus(400);
     }
 
-    //UPDATE PROFILE
+    //UPDATE USER
     public function testSuccessfullyUpdateUser()
     {
         $username = 'AndrewCG1';

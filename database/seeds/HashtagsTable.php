@@ -13,16 +13,16 @@ class HashtagsTable extends Seeder
     public function run(Hashtag $model)
     {
         $data =
-            [
-                '#jumping', '#jump','#playingaround', '#kissing', '#comewithme', '#playingsport', '#meandmycrew', '#dance', '#swim', '#yolo', '#swag',
-            ];
+        [
+            '#jumping', '#jump','#playingaround', '#kissing', '#comewithme', '#playingsport', '#meandmycrew', '#dance', '#swim', '#yolo', '#swag',
+        ];
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $value) {
             $insert =
-                [
-                    'popularity' => 123456789,
-                    'name' => $value
-                ];
+            [
+                'popularity' => 123456789,
+                'name' => $value
+            ];
 
             $model->create($insert);
         }

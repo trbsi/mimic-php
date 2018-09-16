@@ -39,10 +39,8 @@ final class CreateHashtagsRepository
             }
         }
         
-        if (!empty($hashtagsArray)) {
-            //save to mimic_hahstag table
-            $model->hashtags()->attach(array_flip($hashtagsArray));
-        }
+        //save pivot table, but sync, don't attach
+        $model->hashtags()->sync(array_flip($hashtagsArray));
 
         return $hashtagsArray;
     }

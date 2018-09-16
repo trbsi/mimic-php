@@ -18,8 +18,8 @@ class ProfileController extends BaseAuthController
     public function update(ProfileRequest $request, UpdateProfileRepository $updateProfileRepository)
     {
         try {
-            $updateProfileRepository->update($this->authUser, $request->all());
-            return response()->json([], 204);
+            $user = $updateProfileRepository->update($this->authUser, $request->all());
+            return response()->json($user);
         } catch (Exception $e) {
             throw_error($e);
         }
@@ -35,7 +35,8 @@ class ProfileController extends BaseAuthController
     public function get(Request $request, GetProfileRepository $getProfileRepository)
     {
         try {
-            return $getProfileRepository->getProfile($request->all(), $this->authUser, $this->user);
+            $user = $getProfileRepository->getProfile($request->all(), $this->authUser, $this->user);
+            return response()->json($user);
         } catch (Exception $e) {
             throw_exception($e);
         }

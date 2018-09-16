@@ -187,6 +187,7 @@ return [
         //Custom providers
         App\Providers\Models\Mimic\MimicModelProvider::class,
         App\Providers\Models\Mimic\MimicResponseModelProvider::class,
+        App\Providers\Models\Hashtag\HashtagModelProvider::class,
 
     ],
 
