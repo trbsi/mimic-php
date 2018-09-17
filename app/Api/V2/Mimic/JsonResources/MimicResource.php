@@ -25,6 +25,7 @@ class MimicResource extends JsonResource
                 'username' => $this->when($this->isLoaded($this->whenLoaded('user')), $this->user->username),
                 'profile_picture' => $this->when($this->isLoaded($this->whenLoaded('user')), $this->user->profile_picture),
                 'user_id' => $this->user_id,
+                'description' => $this->description,
                 'mimic_type' => $this->mimic_type,
                 'upvote' => $this->upvote,
                 'file' => $this->file,
@@ -38,23 +39,8 @@ class MimicResource extends JsonResource
                 'meta' => new MetaResource($this->whenLoaded('meta')),
             ],
             'hashtags' => HashtagResource::collection($this->whenLoaded('hashtags')),
-            'hashtags_flat' => $this->when($this->isLoaded($this->whenLoaded('hashtags')), $this->getHashtagsFlat()),
             'mimic_responses' => ResponseResource::collection($this->whenLoaded('responses')),
         ];
-    }
-
-    /**
-     * Get flat hashtags
-     *
-     * @return string
-     */
-    private function getHashtagsFlat(): ?string
-    {
-        if (!$this->hashtags) {
-            return null;
-        }
-
-        return $this->hashtags->implode('name', ' ');
     }
 
     /**

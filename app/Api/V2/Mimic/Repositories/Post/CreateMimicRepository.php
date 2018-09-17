@@ -76,16 +76,20 @@ final class CreateMimicRepository
         //set uploaded Mimic file information
         $this->setMimicFileInfo($data['mimic_file']);
 
+        //upload file
+        $fileName = $this->fileUpload->upload(
+            $this->mimicFileInfo['file'],
+            $this->mimic->getFileOrPath($user->id),
+            ['image', 'video'],
+            FileUpload::FILE_UPLOAD_SERVER
+        );
+
         //create mimic
         $this->createdModel = $model->create(array_merge([
             'mimic_type' => $this->getFileType(),
-            'file' => $this->fileUpload->upload(
-                $this->mimicFileInfo['file'],
-                $this->mimic->getFileOrPath($user->id),
-                ['image', 'video'],
-                FileUpload::FILE_UPLOAD_SERVER
-            ),
-            'user_id' => $user->id
+            'file' => $fileName,
+            'user_id' => $user->id,
+            'description' => array_get($data, 'description'),
         ], $this->additionalFields));
 
         if ($this->createdModel) {
@@ -93,7 +97,7 @@ final class CreateMimicRepository
             if (!$isResponseMimic) {
                 //check for hashtags
                 $this->createHashtagsRepository->extractAndSaveHashtags(
-                    array_get($data, 'hashtags'), 
+                    array_get($data, 'description'), 
                     $this->createdModel
                 );
             }
