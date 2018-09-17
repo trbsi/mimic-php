@@ -38,7 +38,7 @@ final class CreateHashtagsRepository
                 $hashtagsArray[$tag->id] = $hashtag;
             }
         }
-        
+
         //save pivot table, but sync, don't attach
         $model->hashtags()->sync(array_flip($hashtagsArray));
 

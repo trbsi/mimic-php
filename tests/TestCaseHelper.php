@@ -2,10 +2,14 @@
 namespace Tests;
 
 use Illuminate\Http\UploadedFile;
-
+use Illuminate\Foundation\Testing\TestResponse;
 class TestCaseHelper
-{
-    public static function decodeResponse($response)
+{   
+    /**
+     * @param  TestResponse $response 
+     * @return void                 
+     */
+    public static function decodeResponse(TestResponse $response)
     {
         return json_decode($response->getContent(), true);
     }

@@ -9,9 +9,18 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\JWTAuth;
 use DB;
+use Exception;
 
 class LoginController extends Controller
 {
+    /**
+     * @var User
+     */
+    private $user;
+
+    /**
+     * @param User $user
+     */
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -22,33 +31,33 @@ class LoginController extends Controller
         //init var
         $token = false;
 
-        $provider_data = Helper::getOauthProviderData($request->provider, $request->provider_data);
+        $providerData = Helper::getOauthProviderData($request->provider, $request->provider_data);
         DB::beginTransaction();
 
         //try to get user
-        $user = User::whereHas('socialAccounts', function ($query) use ($provider_data) {
-            $query->where('provider_id', $provider_data['provider_id']);
-            $query->where('provider', $provider_data['provider']);
+        $user = User::whereHas('socialAccounts', function ($query) use ($providerData) {
+            $query->where('provider_id', $providerData['provider_id']);
+            $query->where('provider', $providerData['provider']);
         })->first();
 
+        //register user
         if (!$user) {
             try {
-                $user = $this->user->create(array_only($provider_data, ['email', 'profile_picture']));
-                $user->socialAccounts()->create(array_only($provider_data, ['provider', 'provider_id']));
+                $user = $this->user->create(array_only($providerData, ['email', 'profile_picture']));
+                $user->socialAccounts()->create(array_only($providerData, ['provider', 'provider_id']));
+                $user->profile()->create();
                 DB::commit();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 DB::rollBack();
                 abort(400, trans('core.login.login_failed_body'));
             }
-        }
-        //update user
-        else {
-            $updateData = array_only($provider_data, ['email', 'profile_picture']);
-            if (!array_get($provider_data, 'email')) {
-                $updateData = array_only($provider_data, ['profile_picture']);
-            }
-
+        } else {  //update user
             try {
+                $updateData = array_only($providerData, ['email', 'profile_picture']);
+                if (!array_get($providerData, 'email')) {
+                    $updateData = array_only($providerData, ['profile_picture']);
+                }
+
                 $user->update($updateData);
                 DB::commit();
             } catch (\Exception $e) {
@@ -56,6 +65,7 @@ class LoginController extends Controller
             }
         }
 
+        //try to get token
         if ($user) {
             try {
                 $token = auth()->login($user);

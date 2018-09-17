@@ -14,13 +14,25 @@ use Tests\TestCaseHelper;
 use Illuminate\Support\Facades\Storage;
 use Tests\Functional\Api\V2\Mimic\Helpers\MimicTestHelper;
 use App\Api\V2\User\Resources\Profile\Models\Profile;
+use Tests\Functional\Api\V2\User\Resources\Profile\Assert as AssertProfile;
 
 class UserControllerTest extends TestCaseV2
 {
+    /**
+     * @var Assert
+     */
+    private $assert;
+
+    /**
+     * @var AssertProfile
+     */
+    private $assertProfile;
+
     public function setUp()
     {
         parent::setUp();
         $this->assert = $this->app->make(Assert::class);
+        $this->assertProfile = $this->app->make(AssertProfile::class);
     }
 
     public function tearDown()
@@ -87,8 +99,36 @@ class UserControllerTest extends TestCaseV2
             'email' => $email,
         ];
 
+        $assertData = [
+            'id' => 95,
+            'email' => $email,
+            'username' => $username,
+            'profile_picture' => 'http://mimic.loc/files/hr/female/95.jpg',
+            'followers' => '123M',
+            'following' => '123M',
+            'number_of_mimics' => '123M',
+            'i_am_following_you' => false,
+            'is_blocked' => false,
+            'profile' => [
+                'bio' => "This is my bio, which is little bit too big. I even user emojis and #swag. 😀 😁 😂 \nI need to check it out! I Like #kissing and #dance",
+                'hashtags' => [
+                    [
+                        'hashtag_name' => '#kissing'
+                    ],
+                    [
+                        'hashtag_name' => '#dance'
+                    ],
+                    [
+                        'hashtag_name' => '#swag'
+                    ],
+                ],
+            ],
+        ];
+
         $response = $this->doPut('user', $data);
-        $response->assertStatus(204);
+        $response->assertJsonStructure($this->assertProfile->getAssertJsonStructureOnSuccess('profile'))
+        ->assertJson($this->assertProfile->getAssertJsonOnSuccess($assertData, 'profile'))
+        ->assertStatus(200);
 
         $user = User::find($this->loggedUserId);
         $this->assertEquals($username, $user->username);

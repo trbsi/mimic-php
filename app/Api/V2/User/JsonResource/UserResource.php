@@ -22,8 +22,8 @@ class UserResource extends JsonResource
             'followers' => $this->followers,
             'following' => $this->following,
             'number_of_mimics' => $this->number_of_mimics,
-            'created_at' => date('Y-m-d H:i:s', strtotime($this->created_at)),
-            'updated_at' => date('Y-m-d H:i:s', strtotime($this->updated_at)),
+            'created_at' => strtotime($this->created_at),
+            'updated_at' => strtotime($this->updated_at),
             'i_am_following_you' => $this->i_am_following_you ?? false,
             'is_blocked' => $this->is_blocked ?? false,
         ];

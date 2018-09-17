@@ -26,10 +26,10 @@ final class UpdateProfileRepository
     public function update(User $authUser, array $data): ProfileResource
     {
         try {
-            $profile = $authUser->profile()->updateOrCreate(['user_id' => $authUser->id], $data);
-            $this->createHashtagsRepository->extractAndSaveHashtags($data['bio'], $profile);
+            $profile = $authUser->profile()->update($data);
+            $this->createHashtagsRepository->extractAndSaveHashtags($data['bio'], $authUser->profile);
             return new ProfileResource($authUser->load(['profile.hashtags']));
-        } catch (Exception $e) {
+        } catch (Exception $e) {dd($e->getMessage());
             abort(400, __('api/user/profile/errors.profile_not_updated'));
         }
     }

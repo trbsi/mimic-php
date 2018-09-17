@@ -4,6 +4,8 @@ namespace Tests\Functional\Api\V2\Auth\Controllers;
 
 use Tests\Functional\Api\V2\TestCaseV2;
 use Tests\Functional\Api\V2\Auth\Assert;
+use Tests\TestCaseHelper;
+use App\Api\V2\User\Models\User;
 
 class LoginControllerTest extends TestCaseV2
 {
@@ -26,7 +28,7 @@ class LoginControllerTest extends TestCaseV2
     }
 
     //--------------------------------Facebook--------------------------------
-    public function testFacebookFirstLoginSuccessfullyWithEmailIncluded()
+    public function testFacebookLoginSuccessfullyWithEmailIncluded()
     {
         $data = [
             'provider' => 'facebook',
@@ -53,37 +55,13 @@ class LoginControllerTest extends TestCaseV2
             'email' => 'dario_facebook@yahoo.com',
         ]))
         ->assertStatus(200);
+
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $profileCount = User::find($responseArray['user_id'])->profile()->count();
+        $this->assertEquals(1, $profileCount);
     }
 
-    public function testFacebookSecondLoginSuccessfullyWithoutEmailIncluded()
-    {
-        $data = [
-            'provider' => 'facebook',
-            'provider_data' => [
-                'birthday' => '12/29/1991',
-                'first_name' => 'Dario',
-                'gender' => 'male',
-                'id' => '2042074229356674',
-                'last_name' => 'Trbović',
-                'picture' => [
-                    'data' => [
-                        'url' => 'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg']
-                    ]
-              ]
-        ];
-
-        $response = $this->doPost('auth/login', $data);
-
-        $response
-        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
-        ->assertJson($this->assert->getAssertJsonOnSuccess([
-            'username' => null,
-            'email' => null,
-        ]))
-        ->assertStatus(200);
-    }
-
-    public function testFacebookFirstLoginSuccessfullyWithoutEmailIncluded()
+    public function testFacebookLoginSuccessfullyWithoutEmailIncluded()
     {
         $data = [
             'provider' => 'facebook',
@@ -109,10 +87,14 @@ class LoginControllerTest extends TestCaseV2
             'email' => null,
         ]))
         ->assertStatus(200);
+
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $profileCount = User::find($responseArray['user_id'])->profile()->count();
+        $this->assertEquals(1, $profileCount);
     }
 
     //--------------------------------Twitter--------------------------------
-    public function testTwitterFirstLoginSuccessfullyWithEmailIncluded()
+    public function testTwitterLoginSuccessfullyWithEmailIncluded()
     {
         $data = [
             'provider' => 'twitter',
@@ -136,9 +118,13 @@ class LoginControllerTest extends TestCaseV2
             'email' => 'dario_twitter@yahoo.com',
         ]))
         ->assertStatus(200);
+
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $profileCount = User::find($responseArray['user_id'])->profile()->count();
+        $this->assertEquals(1, $profileCount);    
     }
 
-    public function testTwitterSecondLoginSuccessfullyWithoutEmailIncluded()
+    public function testTwitterLoginSuccessfullyWithoutEmailIncluded()
     {
         $data = [
             'provider' => 'twitter',
@@ -161,32 +147,13 @@ class LoginControllerTest extends TestCaseV2
             'email' => null,
         ]))
         ->assertStatus(200);
+
+
+        $responseArray = TestCaseHelper::decodeResponse($response);
+        $profileCount = User::find($responseArray['user_id'])->profile()->count();
+        $this->assertEquals(1, $profileCount);
     }
 
-    public function testTwitterLoginSuccessfullyWithoutEmailIncluded()
-    {
-        $data = [
-            'provider' => 'twitter',
-            'provider_data' => [
-                'birthday' => '12/29/1991',
-                'first_name' => 'Dario',
-                'gender' => 'male',
-                'id' => '000111000',
-                'last_name' => 'Trbović',
-                'profile_image_url' =>  'http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg'
-            ]
-        ];
-
-        $response = $this->doPost('auth/login', $data);
-
-        $response
-        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess())
-        ->assertJson($this->assert->getAssertJsonOnSuccess([
-            'username' => null,
-            'email' => null,
-        ]))
-        ->assertStatus(200);
-    }
 
     //--------------------------------Username set--------------------------------
     public function testSetUsernameWhereUsernameEmpty()
@@ -294,6 +261,9 @@ class LoginControllerTest extends TestCaseV2
             'status' => true
         ])
         ->assertStatus(200);
+
+        $user = User::find($this->loggedUserId);
+        $this->assertEquals('xyz123', $user->username);
     }
 
 
@@ -314,5 +284,9 @@ class LoginControllerTest extends TestCaseV2
             'status' => true
         ])
         ->assertStatus(200);
+
+        $user = User::find($this->loggedUserId);
+        $this->assertEquals('xyz1234', $user->username);
+        $this->assertEquals('unknow@mail.com', $user->email);
     }
 }
