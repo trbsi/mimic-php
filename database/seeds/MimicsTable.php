@@ -58,17 +58,38 @@ class MimicsTable extends Seeder
                 }
 
                 //get file info
-                ['pathParts' => $pathParts, 'mime' => $mime, 'width' => $width, 'height' => $height] = $this->getFileInfo($file, $dirName);
+                ['pathParts' => $pathParts, 'mime' => $mime, 'width' => $width, 'height' => $height] 
+                = $this->getFileInfo($file, $dirName);
 
                 //copy files to another directory
-                ['file_name' => $fileName, 'video_thumb_file_name' => $videoThumbFileName] = $this->copyFilesToDirectory($userIdTmp, $dirName, $file, $pathParts, $mime);
+                ['file_name' => $fileName, 'video_thumb_file_name' => $videoThumbFileName] 
+                = $this->copyFilesToDirectory($userIdTmp, $dirName, $file, $pathParts, $mime);
 
-                $data = $this->prepareDataForInsert($pathParts, $fileName, $videoThumbFileName, $dirName, $userIdTmp, $mime, $width, $height);
+                //get hashtags
+                $hashtags = $this->getHashtagsFromFile($dirName);
+
+                $data = $this->prepareDataForInsert(
+                    $pathParts, 
+                    $fileName, 
+                    $videoThumbFileName, 
+                    $dirName, 
+                    $userIdTmp, 
+                    $mime, 
+                    $width, 
+                    $height,
+                    $hashtags
+                );
 
                 //insert into database
                 //main mimic
                 if ($arrayKey === 0) {
-                    $originalMimic = $this->saveOriginalMimic($mimic, $createHashtagsRepository, $data, $dirName);
+                    $originalMimic = $this->saveOriginalMimic(
+                        $mimic, 
+                        $createHashtagsRepository, 
+                        $data, 
+                        $dirName, 
+                        $hashtags
+                    );
                     $this->originalMimicId++;
                 } else { //response mimic
                     $mimicResponses[] = $data;
@@ -79,6 +100,15 @@ class MimicsTable extends Seeder
             $this->saveResponses($originalMimic, $mimicResponses, $data);
             $mainUserId++;
         }
+    }
+
+    /**
+     * @param  string $dirName 
+     * @return string          
+     */
+    private function getHashtagsFromFile(string $dirName): string
+    {
+        return file_get_contents($this->rootDir . '/' . $dirName . '/' . 'hashtags.txt');
     }
 
     /**
@@ -194,6 +224,7 @@ class MimicsTable extends Seeder
      * @param  string $mime
      * @param  string $width
      * @param  string $height
+     * @param  string $hashtags
      * @return array
      */
     private function prepareDataForInsert(
@@ -204,13 +235,15 @@ class MimicsTable extends Seeder
         int $userIdTmp,
         string $mime,
         string $width,
-        string $height
+        string $height,
+        string $hashtags
     ): array {
         $data =
         [
             'file' => $fileName,
             'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PHOTO : Mimic::TYPE_VIDEO,
             'upvote' => 123456789,
+            'description' => sprintf('This is description of a Mimic. %s 😱 😷 😵', $hashtags),
             'user_id' => $userIdTmp,
             'created_at' => self::DATE,
             'updated_at' => self::DATE,
@@ -218,15 +251,18 @@ class MimicsTable extends Seeder
             'meta' => [
                 'height' => 900,
                 'width' => 600,
+                'color' => '#b1b2b3',
             ]
         ];
 
         if ($videoThumbFileName !== null) {
             $originalThumbName = $this->getOriginalThumbName($pathParts);
-            ['width' => $width, 'height' => $height] = $this->getFileInfo($originalThumbName, $dirName);
+            //Read functions' description above
+            //['width' => $width, 'height' => $height] = $this->getFileInfo($originalThumbName, $dirName);
 
             $data['meta']['thumbnail_height'] = 300;
             $data['meta']['thumbnail_width'] = 200;
+            $data['meta']['color'] = '#b1b2b3';
         }
 
         return $data;
@@ -237,20 +273,22 @@ class MimicsTable extends Seeder
      * @param  CreateHashtagsRepository $createHashtagsRepository
      * @param  array                    $data
      * @param  string                   $dirName
+     * @param  string                   $hashtags
      * @return Mimic
      */
     private function saveOriginalMimic(
         Mimic $mimic,
         CreateHashtagsRepository $createHashtagsRepository,
         array $data,
-        string $dirName
+        string $dirName,
+        string $hashtags
     ): Mimic {
         //create mimic
         $originalMimic = $mimic->create(array_except($data, ['meta']));
         //insert meta
         $originalMimic->meta()->create(array_get($data, 'meta'));
         //add hashtags for this mimic
-        $createHashtagsRepository->extractAndSaveHashtags(file_get_contents($this->rootDir . '/' . $dirName . '/' . 'hashtags.txt'), $originalMimic);
+        $createHashtagsRepository->extractAndSaveHashtags($hashtags, $originalMimic);
 
         return $originalMimic;
     }
@@ -264,7 +302,8 @@ class MimicsTable extends Seeder
     private function saveResponses(Mimic $originalMimic, array $mimicResponses, array $data): void
     {
         foreach ($mimicResponses as $mimicResponse) {
-            $response = $originalMimic->responses()->create(array_except($mimicResponse, ['meta']));
+            $mimicData = array_except($mimicResponse, ['meta', 'description']);
+            $response = $originalMimic->responses()->create($mimicData);
             $response->meta()->create(array_get($data, 'meta'));
         }
     }

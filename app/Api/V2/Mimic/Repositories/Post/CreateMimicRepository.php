@@ -85,12 +85,14 @@ final class CreateMimicRepository
         );
 
         //create mimic
-        $this->createdModel = $model->create(array_merge([
-            'mimic_type' => $this->getFileType(),
-            'file' => $fileName,
-            'user_id' => $user->id,
-            'description' => array_get($data, 'description'),
-        ], $this->additionalFields));
+        $this->createdModel = $model->create(
+            array_merge([
+                'mimic_type' => $this->getFileType(),
+                'file' => $fileName,
+                'user_id' => $user->id,
+                'description' => trim(array_get($data, 'description')),
+            ], $this->additionalFields)
+        );
 
         if ($this->createdModel) {
 

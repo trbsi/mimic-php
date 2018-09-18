@@ -57,8 +57,12 @@ class LoginControllerTest extends TestCaseV2
         ->assertStatus(200);
 
         $responseArray = TestCaseHelper::decodeResponse($response);
-        $profileCount = User::find($responseArray['user_id'])->profile()->count();
+        $user = User::find($responseArray['user_id']);
+        $profileCount = $user->profile()->count();
+
         $this->assertEquals(1, $profileCount);
+        $this->assertEquals('https://graph.facebook.com/2042074229356674/picture?type=large', $user->profile_picture);
+        $this->assertEquals('dario_facebook@yahoo.com', $user->email);
     }
 
     public function testFacebookLoginSuccessfullyWithoutEmailIncluded()
@@ -89,8 +93,12 @@ class LoginControllerTest extends TestCaseV2
         ->assertStatus(200);
 
         $responseArray = TestCaseHelper::decodeResponse($response);
-        $profileCount = User::find($responseArray['user_id'])->profile()->count();
+        $user = User::find($responseArray['user_id']);
+        $profileCount = $user->profile()->count();
+
         $this->assertEquals(1, $profileCount);
+        $this->assertEquals('https://graph.facebook.com/111000111/picture?type=large', $user->profile_picture);
+        $this->assertEquals(null, $user->email);
     }
 
     //--------------------------------Twitter--------------------------------
@@ -120,8 +128,12 @@ class LoginControllerTest extends TestCaseV2
         ->assertStatus(200);
 
         $responseArray = TestCaseHelper::decodeResponse($response);
-        $profileCount = User::find($responseArray['user_id'])->profile()->count();
+        $user = User::find($responseArray['user_id']);
+        $profileCount = $user->profile()->count();
+
         $this->assertEquals(1, $profileCount);    
+        $this->assertEquals('http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg', $user->profile_picture);
+        $this->assertEquals('dario_twitter@yahoo.com', $user->email);
     }
 
     public function testTwitterLoginSuccessfullyWithoutEmailIncluded()
@@ -150,8 +162,12 @@ class LoginControllerTest extends TestCaseV2
 
 
         $responseArray = TestCaseHelper::decodeResponse($response);
-        $profileCount = User::find($responseArray['user_id'])->profile()->count();
-        $this->assertEquals(1, $profileCount);
+        $user = User::find($responseArray['user_id']);
+        $profileCount = $user->profile()->count();
+
+        $this->assertEquals(1, $profileCount);    
+        $this->assertEquals('http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg', $user->profile_picture);
+        $this->assertEquals(null, $user->email);
     }
 
 
