@@ -16,7 +16,6 @@ class MimicAssert
                 '*' => [
                     'mimic' => $this->mimic(),
                     'hashtags' => $this->hashtags(),
-                    'hashtags_flat',
                     'mimic_responses' => $this->responses(),
                 ]
             ]
@@ -31,7 +30,6 @@ class MimicAssert
         return [
             'mimic' => $this->mimic(),
             'hashtags' => $this->hashtags(),
-            'hashtags_flat',
             'mimic_responses' => $this->responses(),
         ];
     }

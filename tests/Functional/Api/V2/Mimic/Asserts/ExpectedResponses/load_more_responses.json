@@ -19,6 +19,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -33,7 +34,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -43,6 +45,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -57,7 +60,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -67,6 +71,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -81,7 +86,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -91,6 +97,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -105,7 +112,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -115,6 +123,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -129,7 +138,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -139,6 +149,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -153,7 +164,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -163,6 +175,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -177,7 +190,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -187,6 +201,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -201,7 +216,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -211,6 +227,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -225,7 +242,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -235,6 +253,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -249,7 +268,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -259,6 +279,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -273,7 +294,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -283,6 +305,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -297,7 +320,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -307,6 +331,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -321,7 +346,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -331,6 +357,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -345,7 +372,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -355,6 +383,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -369,7 +398,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -379,6 +409,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -393,7 +424,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -403,6 +435,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -417,7 +450,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -427,6 +461,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -441,7 +476,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -451,6 +487,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -465,7 +502,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -475,6 +513,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "xyz.jpg",
@@ -489,7 +528,8 @@
           "width": 200,
           "height": 300,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": null
         }
       }
     },
@@ -499,6 +539,7 @@
         "username": "PlasmaHam",
         "profile_picture": "http://mimic.loc/files/hr/female/20.jpg",
         "user_id": 20,
+        "description": null,
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "20-19.jpg",
@@ -513,7 +554,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -523,6 +565,7 @@
         "username": "piperpilot32",
         "profile_picture": "http://mimic.loc/files/hr/female/19.jpg",
         "user_id": 19,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "19-18.mp4",
@@ -537,7 +580,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -547,6 +591,7 @@
         "username": "OrangeKenny",
         "profile_picture": "http://mimic.loc/files/hr/female/18.jpg",
         "user_id": 18,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "18-17.mp4",
@@ -561,7 +606,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -571,6 +617,7 @@
         "username": "Nadin",
         "profile_picture": "http://mimic.loc/files/hr/female/17.jpg",
         "user_id": 17,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "17-16.mp4",
@@ -585,7 +632,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -595,6 +643,7 @@
         "username": "mylanka",
         "profile_picture": "http://mimic.loc/files/hr/female/16.jpg",
         "user_id": 16,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "16-15.mp4",
@@ -609,7 +658,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -619,6 +669,7 @@
         "username": "Mollypop",
         "profile_picture": "http://mimic.loc/files/hr/female/15.jpg",
         "user_id": 15,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "15-14.mp4",
@@ -633,7 +684,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -643,6 +695,7 @@
         "username": "Mars",
         "profile_picture": "http://mimic.loc/files/hr/female/14.jpg",
         "user_id": 14,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "14-13.mp4",
@@ -657,7 +710,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -667,6 +721,7 @@
         "username": "Jrfoley5",
         "profile_picture": "http://mimic.loc/files/hr/female/13.jpg",
         "user_id": 13,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "13-12.mp4",
@@ -681,7 +736,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -691,6 +747,7 @@
         "username": "hogwartsthestral",
         "profile_picture": "http://mimic.loc/files/hr/female/12.jpg",
         "user_id": 12,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "12-11.mp4",
@@ -705,7 +762,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     },
@@ -715,6 +773,7 @@
         "username": "EmeraldDream",
         "profile_picture": "http://mimic.loc/files/hr/female/11.jpg",
         "user_id": 11,
+        "description": null,
         "mimic_type": "video",
         "upvote": "123M",
         "file": "11-10.mp4",
@@ -729,7 +788,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       }
     }

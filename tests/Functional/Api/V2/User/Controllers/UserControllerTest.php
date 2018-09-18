@@ -227,7 +227,7 @@ class UserControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnNewUploadedFile($path, '1-1.mp4', 'video/mp4');
         $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '1-1.jpg', 'image/jpg');
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => '#skate #backflip #frontflip',
             'mimic_file' => $file,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
@@ -235,6 +235,7 @@ class UserControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
         $response = $this->doPost('mimic/create', $data);
@@ -255,6 +256,7 @@ class UserControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 

@@ -19,6 +19,7 @@
         "username": "Desynchronized",
         "profile_picture": "http://mimic.loc/files/hr/female/9.jpg",
         "user_id": 9,
+        "description": "This is description of a Mimic. #videogame #shoot 😱 😷 😵",
         "mimic_type": "video",
         "upvote": "123M",
         "file": "9-9.mp4",
@@ -33,7 +34,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -46,7 +48,6 @@
           "hashtag_name": "#shoot"
         }
       ],
-      "hashtags_flat": "#videogame #shoot",
       "mimic_responses": [
         {
           "id": 107,
@@ -66,7 +67,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -87,7 +89,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -108,7 +111,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -129,7 +133,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -150,7 +155,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -171,7 +177,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -192,7 +199,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -213,7 +221,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -234,7 +243,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -255,7 +265,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -276,7 +287,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -297,7 +309,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -318,7 +331,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         }
       ]
@@ -329,6 +343,7 @@
         "username": "Desdemona",
         "profile_picture": "http://mimic.loc/files/hr/female/8.jpg",
         "user_id": 8,
+        "description": "This is description of a Mimic. #vertical 😱 😷 😵",
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "8-8.jpg",
@@ -343,7 +358,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -352,7 +368,6 @@
           "hashtag_name": "#vertical"
         }
       ],
-      "hashtags_flat": "#vertical",
       "mimic_responses": [
         {
           "id": 94,
@@ -372,7 +387,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -393,7 +409,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -414,7 +431,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -435,7 +453,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -456,7 +475,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -477,7 +497,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -498,7 +519,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -519,7 +541,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -540,7 +563,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -561,7 +585,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -582,7 +607,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         }
       ]
@@ -593,6 +619,7 @@
         "username": "DerpyGirl",
         "profile_picture": "http://mimic.loc/files/hr/female/7.jpg",
         "user_id": 7,
+        "description": "This is description of a Mimic. #trump #trumpface #usa #trumptower #america 😱 😷 😵",
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "7-7.jpg",
@@ -607,7 +634,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -632,7 +660,6 @@
           "hashtag_name": "#america"
         }
       ],
-      "hashtags_flat": "#trump #trumpface #usa #trumptower #america",
       "mimic_responses": [
         {
           "id": 83,
@@ -652,7 +679,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -673,7 +701,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -694,7 +723,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -715,7 +745,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -736,7 +767,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -757,7 +789,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         }
       ]
@@ -768,6 +801,7 @@
         "username": "deeptt_tacos",
         "profile_picture": "http://mimic.loc/files/hr/female/6.jpg",
         "user_id": 6,
+        "description": "This is description of a Mimic. #nba #3pt #3point #threepoint #shoutout #basketball 😱 😷 😵",
         "mimic_type": "video",
         "upvote": "123M",
         "file": "6-6.mp4",
@@ -782,7 +816,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -811,7 +846,6 @@
           "hashtag_name": "#basketball"
         }
       ],
-      "hashtags_flat": "#nba #3pt #3point #threepoint #shoutout #basketball",
       "mimic_responses": [
         {
           "id": 77,
@@ -831,7 +865,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -852,7 +887,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -873,7 +909,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -894,7 +931,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -915,7 +953,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -936,7 +975,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -957,7 +997,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -978,7 +1019,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -999,7 +1041,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1020,7 +1063,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1041,7 +1085,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1062,7 +1107,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1083,7 +1129,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1104,7 +1151,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1125,7 +1173,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1146,7 +1195,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1167,7 +1217,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         }
       ]
@@ -1178,6 +1229,7 @@
         "username": "Datguy1",
         "profile_picture": "http://mimic.loc/files/hr/female/5.jpg",
         "user_id": 5,
+        "description": "This is description of a Mimic. #teacher #school #test 😱 😷 😵",
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "5-5.jpg",
@@ -1192,7 +1244,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -1209,7 +1262,6 @@
           "hashtag_name": "#test"
         }
       ],
-      "hashtags_flat": "#teacher #school #test",
       "mimic_responses": [
         {
           "id": 60,
@@ -1229,7 +1281,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1250,7 +1303,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1271,7 +1325,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1292,7 +1347,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1313,7 +1369,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1334,7 +1391,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         }
       ]
@@ -1345,6 +1403,7 @@
         "username": "Cognizant",
         "profile_picture": "http://mimic.loc/files/hr/female/4.jpg",
         "user_id": 4,
+        "description": "This is description of a Mimic. #flex #muscle #gym 😱 😷 😵",
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "4-4.jpg",
@@ -1359,7 +1418,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -1376,7 +1436,6 @@
           "hashtag_name": "#gym"
         }
       ],
-      "hashtags_flat": "#flex #muscle #gym",
       "mimic_responses": [
         {
           "id": 54,
@@ -1396,7 +1455,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1417,7 +1477,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1438,7 +1499,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1459,7 +1521,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1480,7 +1543,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1501,7 +1565,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1522,7 +1587,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1543,7 +1609,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1564,7 +1631,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         }
       ]
@@ -1575,6 +1643,7 @@
         "username": "Chrisburke04",
         "profile_picture": "http://mimic.loc/files/hr/female/3.jpg",
         "user_id": 3,
+        "description": "This is description of a Mimic. #happydog #dog #dogs #cutedogs #cute 😱 😷 😵",
         "mimic_type": "picture",
         "upvote": "123M",
         "file": "3-3.jpg",
@@ -1589,7 +1658,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": null,
-          "thumbnail_height": null
+          "thumbnail_height": null,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -1614,7 +1684,6 @@
           "hashtag_name": "#cute"
         }
       ],
-      "hashtags_flat": "#happydog #dog #dogs #cutedogs #cute",
       "mimic_responses": [
         {
           "id": 45,
@@ -1634,7 +1703,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1655,7 +1725,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1676,7 +1747,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1697,7 +1769,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1718,7 +1791,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1739,7 +1813,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1760,7 +1835,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1781,7 +1857,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1802,7 +1879,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1823,7 +1901,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1844,7 +1923,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1865,7 +1945,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1886,7 +1967,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1907,7 +1989,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1928,7 +2011,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1949,7 +2033,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1970,7 +2055,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -1991,7 +2077,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2012,7 +2099,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2033,7 +2121,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2054,7 +2143,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         }
       ]
@@ -2065,6 +2155,7 @@
         "username": "beachdude",
         "profile_picture": "http://mimic.loc/files/hr/female/2.jpg",
         "user_id": 2,
+        "description": "This is description of a Mimic. #eyebrow #got #funny #eyebrowdance 😱 😷 😵",
         "mimic_type": "video",
         "upvote": "123M",
         "file": "2-2.mp4",
@@ -2079,7 +2170,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -2100,7 +2192,6 @@
           "hashtag_name": "#eyebrowdance"
         }
       ],
-      "hashtags_flat": "#eyebrow #got #funny #eyebrowdance",
       "mimic_responses": [
         {
           "id": 24,
@@ -2120,7 +2211,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2141,7 +2233,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2162,7 +2255,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2183,7 +2277,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2204,7 +2299,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": 200,
-            "thumbnail_height": 300
+            "thumbnail_height": 300,
+            "color": "#b1b2b3"
           }
         }
       ]
@@ -2215,6 +2311,7 @@
         "username": "AndrewCG",
         "profile_picture": "http://mimic.loc/files/hr/male/1.jpg",
         "user_id": 1,
+        "description": "This is description of a Mimic. #beatbox #box #beat #music 😱 😷 😵",
         "mimic_type": "video",
         "upvote": "123M",
         "file": "1-1.mp4",
@@ -2229,7 +2326,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -2250,7 +2348,6 @@
           "hashtag_name": "#music"
         }
       ],
-      "hashtags_flat": "#beatbox #box #beat #music",
       "mimic_responses": [
         {
           "id": 19,
@@ -2270,7 +2367,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2291,7 +2389,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2312,7 +2411,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2333,7 +2433,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2354,7 +2455,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2375,7 +2477,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2396,7 +2499,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2417,7 +2521,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2438,7 +2543,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2459,7 +2565,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2480,7 +2587,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2501,7 +2609,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2522,7 +2631,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2543,7 +2653,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2564,7 +2675,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2585,7 +2697,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2606,7 +2719,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2627,7 +2741,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -2648,7 +2763,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         }
       ]

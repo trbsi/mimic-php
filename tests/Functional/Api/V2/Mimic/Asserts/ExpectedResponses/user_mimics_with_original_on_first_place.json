@@ -19,6 +19,7 @@
         "username": "AndrewCG",
         "profile_picture": "http://mimic.loc/files/hr/male/1.jpg",
         "user_id": 1,
+        "description": "This is description of a Mimic. #beatbox #box #beat #music 😱 😷 😵",
         "mimic_type": "video",
         "upvote": "123M",
         "file": "1-1.mp4",
@@ -33,7 +34,8 @@
           "width": 600,
           "height": 900,
           "thumbnail_width": 200,
-          "thumbnail_height": 300
+          "thumbnail_height": 300,
+          "color": "#b1b2b3"
         }
       },
       "hashtags": [
@@ -54,7 +56,6 @@
           "hashtag_name": "#music"
         }
       ],
-      "hashtags_flat": "#beatbox #box #beat #music",
       "mimic_responses": [
         {
           "id": 19,
@@ -74,7 +75,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -95,7 +97,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -116,7 +119,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -137,7 +141,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -158,7 +163,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -179,7 +185,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -200,7 +207,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -221,7 +229,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -242,7 +251,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -263,7 +273,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -284,7 +295,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -305,7 +317,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -326,7 +339,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -347,7 +361,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -368,7 +383,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -389,7 +405,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -410,7 +427,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -431,7 +449,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         },
         {
@@ -452,7 +471,8 @@
             "width": 600,
             "height": 900,
             "thumbnail_width": null,
-            "thumbnail_height": null
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
           }
         }
       ]

@@ -434,19 +434,20 @@ class MimicControllerTest extends TestCaseV2
         ->assertStatus(200);
     }
 
-    //--------------------------------Upload mimics--------------------------------
-    //original
+    //--------------------------------UPLOAD MIMICS--------------------------------
+    //ORIGINAL
     public function testSuccessfullyUploadImageOriginalMimic()
     {
         $path = public_path().'/files/user/4/1970/01/';
         $file = TestCaseHelper::returnNewUploadedFile($path, '4-25.jpg', 'image/jpg');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => 'This is a description #skate #backflip #frontflip 😀 😝 😍',
             'mimic_file' => $file,
             'meta' => [
                 'width' => 900,
                 'height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -471,7 +472,7 @@ class MimicControllerTest extends TestCaseV2
         $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '4-3.jpg', 'image/jpg');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
             'mimic_file' => $file,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
@@ -479,6 +480,7 @@ class MimicControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -505,13 +507,14 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
             'mimic_file' => $file,
             'meta' => [
                 'width' => 900,
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -519,7 +522,7 @@ class MimicControllerTest extends TestCaseV2
 
         $errors = [
             'video_thumbnail' => [
-                trans('validation.mimic.create.video_thumbnail_required')
+                __('api/mimic/validations.create.video_thumbnail_required')
             ]
         ];
         $response
@@ -535,7 +538,7 @@ class MimicControllerTest extends TestCaseV2
         $videoThumbnail = TestCaseHelper::returnFakeFile('image.txt');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
             'mimic_file' => $file,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
@@ -543,6 +546,7 @@ class MimicControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -550,7 +554,7 @@ class MimicControllerTest extends TestCaseV2
         
         $errors = [
             'video_thumbnail' => [
-                trans('validation.mimic.create.video_thumbnail_mimes_only_photo')
+                __('api/mimic/validations.create.video_thumbnail_mimes_only_photo')
             ]
         ];
 
@@ -565,7 +569,7 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
             'mimic_file' => $file,
             'video_thumbnail' => 'xyz',
             'meta' => [
@@ -573,6 +577,7 @@ class MimicControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -580,8 +585,8 @@ class MimicControllerTest extends TestCaseV2
 
         $errors = [
             'video_thumbnail' => [
-                trans('validation.mimic.create.file_should_be_image_video'),
-                trans('validation.mimic.create.video_thumbnail_mimes_only_photo'),
+                __('api/mimic/validations.create.file_should_be_image_video'),
+                __('api/mimic/validations.create.video_thumbnail_mimes_only_photo'),
             ]
         ];
 
@@ -591,7 +596,7 @@ class MimicControllerTest extends TestCaseV2
         ->assertStatus(422);
     }
 
-    //response
+    //RESPONSE
     public function testSuccessfullyUploadImageResponseMimic()
     {
         $path = public_path().'/files/user/5/1970/01/';
@@ -605,6 +610,7 @@ class MimicControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -637,6 +643,7 @@ class MimicControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -661,13 +668,14 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
             'mimic_file' => $file,
             'meta' => [
                 'width' => 900,
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -675,7 +683,7 @@ class MimicControllerTest extends TestCaseV2
         
         $errors = [
             'video_thumbnail' => [
-                trans('validation.mimic.create.video_thumbnail_required')
+                __('api/mimic/validations.create.video_thumbnail_required')
             ]
         ];
 
@@ -692,7 +700,7 @@ class MimicControllerTest extends TestCaseV2
         $videoThumbnail = TestCaseHelper::returnFakeFile('image.txt');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
             'mimic_file' => $file,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
@@ -700,6 +708,7 @@ class MimicControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -707,7 +716,7 @@ class MimicControllerTest extends TestCaseV2
         
         $errors = [
             'video_thumbnail' => [
-                trans('validation.mimic.create.video_thumbnail_mimes_only_photo')
+                __('api/mimic/validations.create.video_thumbnail_mimes_only_photo')
             ]
         ];
 
@@ -722,7 +731,7 @@ class MimicControllerTest extends TestCaseV2
         $file = TestCaseHelper::returnFakeFile('video.mp4');
 
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
             'mimic_file' => $file,
             'video_thumbnail' => 'xyz',
             'meta' => [
@@ -730,6 +739,7 @@ class MimicControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF',
             ],
         ];
 
@@ -737,8 +747,8 @@ class MimicControllerTest extends TestCaseV2
 
         $errors = [
             'video_thumbnail' => [
-                trans('validation.mimic.create.file_should_be_image_video'),
-                trans('validation.mimic.create.video_thumbnail_mimes_only_photo'),
+                __('api/mimic/validations.create.file_should_be_image_video'),
+                __('api/mimic/validations.create.video_thumbnail_mimes_only_photo'),
             ]
         ];
 
@@ -748,7 +758,76 @@ class MimicControllerTest extends TestCaseV2
         ->assertStatus(422);
     }
 
-    //general errors
+    public function testUploadOriginalVideoMimicMetaIsMissing()
+    {
+        $file = TestCaseHelper::returnFakeFile('video.mp4');
+        $videoThumb = TestCaseHelper::returnFakeFile('image.jpg');
+
+        $data = [
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
+            'mimic_file' => $file,
+            'original_mimic_id' => 1,
+            'video_thumbnail' => $videoThumb,
+        ];
+
+        $response = $this->doPost('mimic/create', $data);
+
+        $unprocessableEntities = ['meta.height', 'meta.width', 'meta.color', 'meta.thumbnail_height', 'meta.thumbnail_width']; 
+        $errors = [
+            'meta.height' => [
+                __('api/mimic/validations.create.height_is_required')
+            ],
+            'meta.width' => [
+                __('api/mimic/validations.create.width_is_required')
+            ],
+            'meta.color' => [
+                __('api/mimic/validations.create.meta_color'),
+            ],
+            'meta.thumbnail_height' => [
+                __('api/mimic/validations.create.thumb_height_is_required'),
+            ],
+            'meta.thumbnail_width' => [
+                __('api/mimic/validations.create.thumb_width_is_required'),
+            ]
+        ];
+
+        $response
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnUnprocessableEntityError($unprocessableEntities))
+        ->assertJson($this->assert->getAssertJsonOnUnprocessableEntityError($errors))
+        ->assertStatus(422);
+    }
+
+    public function testUploadOriginalImageMimicMetaIsMissing()
+    {
+        $file = TestCaseHelper::returnFakeFile('image.jpg');
+
+        $data = [
+            'description' => ' This is a description #skate #backflip #frontflip 😀 😝 😍',
+            'mimic_file' => $file,
+        ];
+
+        $response = $this->doPost('mimic/create', $data);
+
+        $unprocessableEntities = ['meta.height', 'meta.width', 'meta.color']; 
+        $errors = [
+            'meta.height' => [
+                __('api/mimic/validations.create.height_is_required')
+            ],
+            'meta.width' => [
+                __('api/mimic/validations.create.width_is_required')
+            ],
+            'meta.color' => [
+                __('api/mimic/validations.create.meta_color'),
+            ]
+        ];
+
+        $response
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnUnprocessableEntityError($unprocessableEntities))
+        ->assertJson($this->assert->getAssertJsonOnUnprocessableEntityError($errors))
+        ->assertStatus(422);
+    }
+
+    //---------------------GENERAL ERRORS--------------------------
     public function testUploadedOriginalOrResponseMimicIsNotVideoOrImage()
     {
         $file = TestCaseHelper::returnFakeFile('test.pdf');
@@ -758,7 +837,7 @@ class MimicControllerTest extends TestCaseV2
         
         $errors = [
             'mimic_file' => [
-                    trans('validation.mimic.create.file_mimes_only_photo_or_video')
+                    __('api/mimic/validations.create.file_mimes_only_photo_or_video')
                 ]
         ];
         $response
@@ -781,6 +860,7 @@ class MimicControllerTest extends TestCaseV2
                 'height' => 600,
                 'thumbnail_width' => 900,
                 'thumbnail_height' => 600,
+                'color' => '#FFFFFF'
             ],
         ];
 
@@ -795,7 +875,7 @@ class MimicControllerTest extends TestCaseV2
     public function testParameterForMimicFileIsNotSentForOriginalOrResponseForVideoOrImage()
     {
         $data = [
-            'hashtags' => '#skate #backflip #frontflip',
+            'description' => '#skate #backflip #frontflip',
             'meta' => [
                 'width' => 900,
                 'height' => 600,
@@ -808,7 +888,7 @@ class MimicControllerTest extends TestCaseV2
         
         $errors = [
             'mimic_file' => [
-                trans('validation.mimic.create.file_should_be_image_video')
+                __('api/mimic/validations.create.file_should_be_image_video')
             ]
         ];
 

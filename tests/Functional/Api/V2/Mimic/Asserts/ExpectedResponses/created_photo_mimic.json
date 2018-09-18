@@ -3,6 +3,7 @@
     "username": "sanjas",
     "profile_picture": "http://mimic.loc/files/hr/female/95.jpg",
     "user_id": 95,
+    "description": "This is a description #skate #backflip #frontflip 😀 😝 😍",
     "mimic_type": "picture",
     "upvote": "1",
     "file": "{file}",
@@ -17,7 +18,8 @@
       "width": 900,
       "height": 600,
       "thumbnail_width": null,
-      "thumbnail_height": null
+      "thumbnail_height": null,
+      "color": "#FFFFFF"
     }
   },
   "hashtags": [
@@ -34,6 +36,5 @@
       "hashtag_name": "#frontflip"
     }
   ],
-  "hashtags_flat": "#skate #backflip #frontflip",
   "mimic_responses": []
 }

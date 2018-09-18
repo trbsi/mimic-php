@@ -14,3 +14,4 @@ return [
 		'meta_color' => 'Color is missing',
 	]
 ];
+
