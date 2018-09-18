@@ -32,6 +32,7 @@ class CreateMimicRequest extends FormRequest
             'mimic_file' => 'required|file|mimes:jpeg,png,jpg,mp4',
             'meta.height' => 'required|integer',
             'meta.width' => 'required|integer',
+            'meta.color' => 'required',
             'description' => 'max:1000',
         ];
 
@@ -48,21 +49,22 @@ class CreateMimicRequest extends FormRequest
     public function messages()
     {
         return [
-            'mimic_file.required' => trans('validation.mimic.create.file_should_be_image_video'),
-            'mimic_file.file' => trans('validation.mimic.create.file_should_be_image_video'),
-            'mimic_file.mimes' => trans('validation.mimic.create.file_mimes_only_photo_or_video'),
-            'video_thumbnail.mimes' => trans('validation.mimic.create.video_thumbnail_mimes_only_photo'),
-            'video_thumbnail.file' => trans('validation.mimic.create.file_should_be_image_video'),
-            'video_thumbnail.required' => trans('validation.mimic.create.video_thumbnail_required'),
-            'meta.height.required' =>  trans('validation.mimic.create.height_is_required'),
-            'meta.height.integer' =>  trans('validation.mimic.create.height_is_required'),
-            'meta.width.required' =>  trans('validation.mimic.create.width_is_required'),
-            'meta.width.integer' =>  trans('validation.mimic.create.width_is_required'),
-            'meta.thumbnail_height.required' =>  trans('validation.mimic.create.thumb_height_is_required'),
-            'meta.thumbnail_height.integer' =>  trans('validation.mimic.create.thumb_height_is_required'),
-            'meta.thumbnail_width.required' =>  trans('validation.mimic.create.thumb_width_is_required'),
-            'meta.thumbnail_width.integer' =>  trans('validation.mimic.create.thumb_width_is_required'),
-            'description.max' =>  trans('validation.mimic.create.description_max'),
+            'mimic_file.required' => __('api/mimic/validations.create.file_should_be_image_video'),
+            'mimic_file.file' => __('api/mimic/validations.create.file_should_be_image_video'),
+            'mimic_file.mimes' => __('api/mimic/validations.create.file_mimes_only_photo_or_video'),
+            'video_thumbnail.mimes' => __('api/mimic/validations.create.video_thumbnail_mimes_only_photo'),
+            'video_thumbnail.file' => __('api/mimic/validations.create.file_should_be_image_video'),
+            'video_thumbnail.required' => __('api/mimic/validations.create.video_thumbnail_required'),
+            'meta.height.required' =>  __('api/mimic/validations.create.height_is_required'),
+            'meta.height.integer' =>  __('api/mimic/validations.create.height_is_required'),
+            'meta.width.required' =>  __('api/mimic/validations.create.width_is_required'),
+            'meta.width.integer' =>  __('api/mimic/validations.create.width_is_required'),
+            'meta.thumbnail_height.required' =>  __('api/mimic/validations.create.thumb_height_is_required'),
+            'meta.thumbnail_height.integer' =>  __('api/mimic/validations.create.thumb_height_is_required'),
+            'meta.thumbnail_width.required' =>  __('api/mimic/validations.create.thumb_width_is_required'),
+            'meta.thumbnail_width.integer' =>  __('api/mimic/validations.create.thumb_width_is_required'),
+            'description.max' =>  __('api/mimic/validations.create.description_max'),
+            'meta.color.required' => __('api/mimic/validations.create.meta_color'),
         ];
     }
 

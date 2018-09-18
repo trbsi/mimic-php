@@ -32,7 +32,7 @@ class Meta extends Model
     /**
      * @var array
      */
-    protected $fillable = ['mimic_id', 'width', 'height', 'thumbnail_width', 'thumbnail_height'];
+    protected $fillable = ['mimic_id', 'width', 'height', 'thumbnail_width', 'thumbnail_height', 'color'];
 
     /**
      * @var array
@@ -44,6 +44,7 @@ class Meta extends Model
         'height' => 'int',
         'thumbnail_width' => 'int',
         'thumbnail_height' => 'int',
+        'color' => 'string'
     ];
 
     /**

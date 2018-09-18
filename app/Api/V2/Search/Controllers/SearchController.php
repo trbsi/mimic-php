@@ -19,7 +19,8 @@ class SearchController extends BaseAuthController
      */
     public function search(Request $request, SearchRepository $searchRepository)
     {
-        return $searchRepository->search($request->all(), $this->authUser);
+        $result = $searchRepository->search($request->all(), $this->authUser);
+        return response()->json($result);
     }
 
     /**

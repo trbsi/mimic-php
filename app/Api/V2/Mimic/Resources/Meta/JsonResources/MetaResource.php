@@ -19,6 +19,7 @@ class MetaResource extends JsonResource
             'height' => $this->height,
             'thumbnail_width' => $this->thumbnail_width,
             'thumbnail_height' => $this->thumbnail_height,
+            'color' => $this->color,
         ];
     }
 }

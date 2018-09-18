@@ -40,14 +40,14 @@ final class SearchRepository
                 ->selectRaw($this->user->getIAmFollowingYouQuery($authUser))
                 ->selectRaw($this->user->getIsBlockedQuery($authUser));
             } else {
-                return response()->json([]);
+                return [];
             }
         } else {
-            return response()->json([]);
+            return [];
         }
 
         return $model
-        ->whereRaw("(MATCH($match) AGAINST(? IN BOOLEAN MODE))", ["$term*"])
+        ->whereRaw("(MATCH($match) AGAINST(? IN BOOLEAN MODE))", [$term."*"])
         ->orderBy($orderBy, 'DESC')
         ->get();
     }
