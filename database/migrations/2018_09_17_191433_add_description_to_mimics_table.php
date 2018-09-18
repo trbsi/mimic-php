@@ -14,7 +14,7 @@ class AddDescriptionToMimicsTable extends Migration
     public function up()
     {
         Schema::table('mimics', function (Blueprint $table) {
-            $table->text('description')->after('user_id')->nullable();
+            $table->text('description')->after('user_id')->nullable()->collation('utf8mb4_bin');
         });
     }
 
