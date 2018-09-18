@@ -74,12 +74,10 @@ class BootstrapController extends BaseAuthController
 
         $fileName = '/feedbackovi.html';
         $path = public_path().$fileName;
-        $firstTimeCreation = file_exists($path) ? false : true;
 
         $contents = view('api.bootstrap.send-feedback', [
             'user' => $this->authUser,
             'body' => $request->body,
-            'firstTimeCreation' => $firstTimeCreation,
             'filePath' => $filePath,
         ])->render();
 
