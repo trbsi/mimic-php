@@ -38,31 +38,36 @@ class Assert extends AssertAbstract implements AssertInterface
     }
 
     /**
-     * @param  string $type Values: following, followers
+     * @param  string $type Values: followings, followers
      * @return array
      */
     private function getFollowersOrFollowingJsonStructureOnSuccess(string $type): array
     {
         return [
+            'meta' => [
+                'pagination' => [
+                    'current_page',
+                    'first_page_url',
+                    'from',
+                    'last_page',
+                    'last_page_url',
+                    'next_page_url',
+                    'path',
+                    'per_page',
+                    'prev_page_url',
+                    'to',
+                    'total',
+                ]
+            ],
             $type => [
                 '*' => [
                     'id',
-                    'email',
                     'username',
-                    'profile_picture',
-                    'followers',
-                    'following',
-                    'number_of_mimics',
-                    'created_at',
-                    'updated_at',
                     'i_am_following_you',
                     'is_blocked',
-                    'pivot' => [
-                        'following',
-                        'followed_by',
-                        'created_at',
-                        'updated_at'
-                    ]
+                    'profile_picture',
+                    'followers',
+                    'number_of_mimics',
                 ]
             ]
         ];
@@ -70,29 +75,16 @@ class Assert extends AssertAbstract implements AssertInterface
 
     /**
      * @param  array $data
-     * @param  string $type Values: following, followers
+     * @param  string $type Values: followings, followers
      * @return array
      */
     private function getFollowersOrFollowingJsonOnSuccess(array $data, string $type): array
     {
         return [
-            $type => [
-                [
-                    'id' => $data['id'],
-                    'email' => $data['email'],
-                    'username' => $data['username'],
-                    'profile_picture' => $data['profile_picture'],
-                    'followers' => $data['followers'],
-                    'following' => $data['following'],
-                    'number_of_mimics' => $data['number_of_mimics'],
-                    'i_am_following_you' =>$data['i_am_following_you'],
-                    'is_blocked' => $data['is_blocked'],
-                    'pivot' => [
-                        'followed_by' => $data['pivot_followed_by'],
-                        'following' => $data['pivot_following'],
-                    ]
-                ]
-            ]
+            'meta' => [
+                'pagination' => $data['pagination']
+            ],
+            $type => $data[$type]
         ];
     }
 

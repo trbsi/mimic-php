@@ -4,13 +4,9 @@ namespace App\Api\V2\Follow\Controllers;
 
 use App\Api\V2\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
-use App\Api\V2\Follow\Models\Follow;
-use App\Api\V2\User\Models\User;
-use DB;
-use App\Helpers\Constants;
 use App\Api\V2\Follow\Repositories\Get\FollowUserRepository;
-use App\Api\V2\Follow\JsonResources\FollowersCollection;
-use App\Api\V2\Follow\JsonResources\FollowingsCollection;
+use App\Api\V2\Follow\Repositories\Get\GetFollowersRepository;
+use App\Api\V2\Follow\Repositories\Get\GetFollowingsRepository;
 
 class FollowController extends BaseAuthController
 {
@@ -32,44 +28,30 @@ class FollowController extends BaseAuthController
     /**
      * Get all followers of a specific user
      */
-    public function followers(Request $request, User $user)
+    public function followers(Request $request, GetFollowersRepository $getFollowersRepository)
     {
         if ($request->user_id) {
-            $user_id = $request->user_id;
+            $userId = $request->user_id;
         } else {
-            $user_id = $this->authUser->id;
+            $userId = $this->authUser->id;
         }
 
-        $result = $user->find($user_id)
-        ->followers()
-        ->select($user->getTable().'.*')
-        ->selectRaw($user->getIAmFollowingYouQuery($this->authUser))
-        ->selectRaw($user->getIsBlockedQuery($this->authUser))
-        ->get();
-
-        $collection = new FollowersCollection($result);
-        return response()->json($collection);
+        $result = $getFollowersRepository->getFollowers($userId, $this->authUser);
+        return response()->json($result);
     }
 
     /**
      * Get all users that current user (user_id) is following
      */
-    public function following(Request $request, User $user)
+    public function following(Request $request, GetFollowingsRepository $getFollowingsRepository)
     {
         if ($request->user_id) {
-            $user_id = $request->user_id;
+            $userId = $request->user_id;
         } else {
-            $user_id = $this->authUser->id;
+            $userId = $this->authUser->id;
         }
 
-        $result = $user->find($user_id)
-        ->following()
-        ->select($user->getTable().'.*')
-        ->selectRaw($user->getIAmFollowingYouQuery($this->authUser))
-        ->selectRaw($user->getIsBlockedQuery($this->authUser))
-        ->get();
-
-        $collection = new FollowingsCollection($result);
-        return response()->json($collection);
+        $result = $getFollowingsRepository->getFollowings($userId, $this->authUser);
+        return response()->json($result);
     }
 }

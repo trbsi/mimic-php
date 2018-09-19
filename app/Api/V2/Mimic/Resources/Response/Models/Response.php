@@ -114,14 +114,9 @@ class Response extends Model
         return $this->belongsTo(\App\Api\V2\User\Models\User::class, 'user_id', 'id');
     }
 
-    public function userUpvotes()
-    {
-        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'mimic_response_upvote', 'mimic_id', 'user_id')->withTimestamps();
-    }
-
     public function upvotes()
     {
-        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicResponseUpvote::class, 'mimic_id', 'id');
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'mimic_response_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
     public function meta()

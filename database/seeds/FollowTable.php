@@ -15,14 +15,32 @@ class FollowTable extends Seeder
     {
         $items =
         [
+            //followings of user 1
             [
                 'followed_by' => 1,
                 'following' => 2,
             ],
             [
-                'followed_by' => 2,
+                'followed_by' => 1,
+                'following' => 3,
+            ],
+            [
+                'followed_by' => 1,
+                'following' => 4,
+            ],
+            //followers of user 1
+            [
+                'followed_by' => 10,
                 'following' => 1,
-            ]
+            ],
+            [
+                'followed_by' => 11,
+                'following' => 1,
+            ],
+            [
+                'followed_by' => 12,
+                'following' => 1,
+            ],
             
         ];
 

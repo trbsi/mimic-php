@@ -41,7 +41,7 @@ final class UpvoteMimicRepository
         //try to upvote
         try {
             $model->increment('upvote');
-            $model->userUpvotes()->attach($user->id);
+            $model->upvotes()->attach($user->id);
             DB::commit();
 
             $type = Constants::UPVOTED;
@@ -51,7 +51,7 @@ final class UpvoteMimicRepository
             DB::rollBack();
 
             $model->decrement('upvote');
-            $model->userUpvotes()->detach($user->id);
+            $model->upvotes()->detach($user->id);
             $type = Constants::DOWNVOTED;
         }
 

@@ -10,8 +10,8 @@ use App\Helpers\Traits\PaginationTrait;
 final class GetUpvotesRepository
 {
 	use PaginationTrait;
-	
-	private const PAGINATION = 2;
+
+	private const PAGINATION = 30;
 
 	/**
 	 * @var Mimic
@@ -53,6 +53,4 @@ final class GetUpvotesRepository
 			'upvotes' => UpvotesResource::collection($upvotes),
 		];
 	}
-
-	
 }

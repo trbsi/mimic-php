@@ -26,19 +26,50 @@ class FollowControllerTest extends TestCaseV2
     {
         $data = [];
 
-        $response = $this->doGet('profile/followers?user_id=1', $data);
+        $response = $this->doGet('profile/followers?user_id=1&page=1', $data);
         $assertData = [
-            'id' => 2,
-            'email' => 'user2@mail.com',
-            'username' => 'beachdude',
-            'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
-            'followers' => '123M',
-            'following' => '123M',
-            'number_of_mimics' => '123M',
-            'pivot_following' => 1,
-            'pivot_followed_by' => 2,
-            'i_am_following_you' => false,
-            'is_blocked' => false,
+            'pagination' => [
+                'current_page' => 1,
+                'first_page_url' => 'http://mimic.loc/api/profile/followers?page=1',
+                'from' => 1,
+                'last_page' => 1,
+                'last_page_url' => 'http://mimic.loc/api/profile/followers?page=1',
+                'next_page_url' => null,
+                'path' => 'http://mimic.loc/api/profile/followers',
+                'per_page' => 30,
+                'prev_page_url' => null,
+                'to' => 3,
+                'total' => 3
+            ],
+            'followers' => [
+                [
+                    'id' => 12,
+                    'username' => 'hogwartsthestral',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/12.jpg',
+                    'followers' => '123M',
+                    'number_of_mimics' => '123M'
+                ],
+                [
+                    'id' => 11,
+                    'username' => 'EmeraldDream',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/11.jpg',
+                    'followers' => '123M',
+                    'number_of_mimics' => '123M'
+                ],
+                [
+                    'id' => 10,
+                    'username' => 'DriveAlive',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/10.jpg',
+                    'followers' => '123M',
+                    'number_of_mimics' => '123M'
+                ]
+            ]
         ];
 
         $response
@@ -51,15 +82,27 @@ class FollowControllerTest extends TestCaseV2
     {
         $data = [];
 
-        $response = $this->doGet('profile/followers?user_id=10', $data);
-
-        $response
-        ->assertJsonStructure([
-            'followers'
-        ])
-        ->assertJson([
+        $assertData = [
+            'pagination' => [
+                'current_page' => 1,
+                'first_page_url' => 'http://mimic.loc/api/profile/followers?page=1',
+                'from' => null,
+                'last_page' => 1,
+                'last_page_url' => 'http://mimic.loc/api/profile/followers?page=1',
+                'next_page_url' => null,
+                'path' => 'http://mimic.loc/api/profile/followers',
+                'per_page' => 30,
+                'prev_page_url' => null,
+                'to' => null,
+                'total' => 0
+            ],
             'followers' => []
-        ])
+        ];
+
+        $response = $this->doGet('profile/followers?user_id=90', $data);
+        $response
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('followers'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'followers'))
         ->assertStatus(200);
     }
 
@@ -67,19 +110,50 @@ class FollowControllerTest extends TestCaseV2
     {
         $data = [];
 
-        $response = $this->doGet('profile/following?user_id=1', $data);
+        $response = $this->doGet('profile/following?user_id=1&page=1', $data);
         $assertData = [
-            'id' => 2,
-            'email' => 'user2@mail.com',
-            'username' => 'beachdude',
-            'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
-            'followers' => '123M',
-            'following' => '123M',
-            'number_of_mimics' => '123M',
-            'pivot_followed_by' => 1,
-            'pivot_following' => 2,
-            'i_am_following_you' => false,
-            'is_blocked' => false,
+            'pagination' => [
+                'current_page' => 1,
+                'first_page_url' => 'http://mimic.loc/api/profile/following?page=1',
+                'from' => 1,
+                'last_page' => 1,
+                'last_page_url' => 'http://mimic.loc/api/profile/following?page=1',
+                'next_page_url' => null,
+                'path' => 'http://mimic.loc/api/profile/following',
+                'per_page' => 30,
+                'prev_page_url' => null,
+                'to' => 3,
+                'total' => 3
+            ],
+            'followings' => [
+                [
+                    'id' => 4,
+                    'username' => 'Cognizant',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/4.jpg',
+                    'followers' => '123M',
+                    'number_of_mimics' => '123M'
+                ],
+                [
+                    'id' => 3,
+                    'username' => 'Chrisburke04',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/3.jpg',
+                    'followers' => '123M',
+                    'number_of_mimics' => '123M'
+                ],
+                [
+                    'id' => 2,
+                    'username' => 'beachdude',
+                    'i_am_following_you' => false,
+                    'is_blocked' => false,
+                    'profile_picture' => 'http://mimic.loc/files/hr/female/2.jpg',
+                    'followers' => '123M',
+                    'number_of_mimics' => '123M'
+                ]
+            ]
         ];
 
         $response
@@ -92,15 +166,27 @@ class FollowControllerTest extends TestCaseV2
     {
         $data = [];
 
-        $response = $this->doGet('profile/following?user_id=10', $data);
-
-        $response
-        ->assertJsonStructure([
-            'followings'
-        ])
-        ->assertJson([
+        $assertData = [
+            'pagination' => [
+                'current_page' => 1,
+                'first_page_url' => 'http://mimic.loc/api/profile/following?page=1',
+                'from' => null,
+                'last_page' => 1,
+                'last_page_url' => 'http://mimic.loc/api/profile/following?page=1',
+                'next_page_url' => null,
+                'path' => 'http://mimic.loc/api/profile/following',
+                'per_page' => 30,
+                'prev_page_url' => null,
+                'to' => null,
+                'total' => 0
+            ],
             'followings' => []
-        ])
+        ];
+
+        $response = $this->doGet('profile/following?user_id=90', $data);
+        $response
+        ->assertJsonStructure($this->assert->getAssertJsonStructureOnSuccess('followings'))
+        ->assertJson($this->assert->getAssertJsonOnSuccess($assertData, 'followings'))
         ->assertStatus(200);
     }
 
