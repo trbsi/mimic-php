@@ -6,7 +6,7 @@ use App\Api\V2\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Helpers\FileUpload;
 use App\Api\V2\Mimic\Requests\CreateMimicRequest;
 use App\Helpers\Constants;
@@ -23,11 +23,11 @@ class MimicController extends BaseAuthController
     public function __construct(
         User $user,
         Mimic $mimic,
-        MimicResponse $mimicResponse
+        Response $response
     ) {
         parent::__construct($user);
         $this->mimic = $mimic;
-        $this->mimicResponse = $mimicResponse;
+        $this->response = $response;
     }
 
     /**
@@ -72,7 +72,7 @@ class MimicController extends BaseAuthController
      */
     public function loadResponses(Request $request)
     {
-        $responses = $this->mimicResponse->getMimicResponses($request, $this->authUser);
+        $responses = $this->response->getMimicResponses($request, $this->authUser);
         $result = $this->mimic->getPaginatedResponseContent($responses);
         return response()->json($result);
     }

@@ -2,6 +2,7 @@
 namespace App\Api\V2\Mimic\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 
 class MimicResponseUpvote extends Model
 {
@@ -21,7 +22,7 @@ class MimicResponseUpvote extends Model
 
     public function mimicResponse()
     {
-        return $this->belongsTo(\App\Api\V2\Mimic\Models\MimicResponse::class, 'mimic_id', 'id');
+        return $this->belongsTo(Response::class, 'mimic_id', 'id');
     }
 
     public function user()

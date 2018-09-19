@@ -4,15 +4,15 @@ namespace App\Api\V2\Mimic\Repositories\Get;
 
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use Illuminate\Http\Request;
 
 final class ReadMimicRepository
 {
-    public function __construct(Mimic $mimic, MimicResponse $mimicResponse)
+    public function __construct(Mimic $mimic, Response $response)
     {
         $this->mimic = $mimic;
-        $this->mimicResponse = $mimicResponse;
+        $this->response = $response;
     }
 
     public function getUserMimics(Request $request, User $authUser)
@@ -20,7 +20,7 @@ final class ReadMimicRepository
         $relations = ['meta'];
         if ($request->get_responses && ($request->get_responses === 'true' || $request->get_responses === true)) {
             $relations = array_merge($relations, ['originalMimic']);
-            $model = $this->mimicResponse;
+            $model = $this->response;
         } else {
             $model = $this->mimic;
         }

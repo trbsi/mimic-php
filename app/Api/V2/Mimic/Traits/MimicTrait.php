@@ -4,7 +4,7 @@ namespace App\Api\V2\Mimic\Traits;
 use DB;
 use App\Helpers\SendPushNotification;
 use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Api\V2\Mimic\JsonResources\MimicResource;
 
 trait MimicTrait
@@ -47,7 +47,7 @@ trait MimicTrait
      *
      * @param int $user_id
      * @param string $file
-     * @param Mimic|MimicResponse $model
+     * @param Mimic|Response $model
      * @return void
      */
     public function getAbsolutePathToFile(int $user_id, string $file, object $model): string
@@ -58,7 +58,7 @@ trait MimicTrait
     /**
      * Get mimic model and return response
      *
-     * @param  Mimic|MimicResponse $mimic Mimic or MimicResponse loaded result
+     * @param  Mimic|Response $mimic Mimic or Response loaded result
      * @return array Generated mimic response
      */
     public function getSingleMimicResponseContent($mimic)

@@ -3,7 +3,7 @@
 namespace App\Api\V2\Mimic\Repositories\Post;
 
 use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Helpers\FileUpload;
 use App\Api\V2\Mimic\Models\MimicTaguser;
 use App\Api\V2\Mimic\Models\MimicHashtag;
@@ -14,7 +14,7 @@ use App\Api\V2\Hashtag\Repositories\Post\CreateHashtagsRepository;
 
 final class CreateMimicRepository
 {
-    /** @var Mimic|MimicReponse This is created model of Mimic or MimicResponse */
+    /** @var Mimic|Reponse This is created model of Mimic or Response */
     private $createdModel;
 
     /** @var array Holds information about uploaded Mimic file */
@@ -23,8 +23,8 @@ final class CreateMimicRepository
     /** @var Mimic */
     private $mimic;
 
-    /** @var MimicResponse */
-    private $mimicResponse;
+    /** @var Response */
+    private $response;
 
     /** @var FileUpload */
     private $fileUpload;
@@ -34,12 +34,12 @@ final class CreateMimicRepository
 
     public function __construct(
         Mimic $mimic,
-        MimicResponse $mimicResponse,
+        Response $response,
         FileUpload $fileUpload,
         CreateHashtagsRepository $createHashtagsRepository
     ) {
         $this->mimic = $mimic;
-        $this->mimicResponse = $mimicResponse;
+        $this->response = $response;
         $this->fileUpload = $fileUpload;
         $this->additionalFields = [];
         $this->createHashtagsRepository = $createHashtagsRepository;
@@ -50,7 +50,7 @@ final class CreateMimicRepository
      *
      * @param User $authUser Authenticated user
      * @param array $data This is array of data from request
-     * @return boolean|object Return false or single created Mimic|MimicResponse
+     * @return boolean|object Return false or single created Mimic|Response
      */
     public function create($authUser, $data)
     {
@@ -65,7 +65,7 @@ final class CreateMimicRepository
 
         //if this is response mimic upload - init variables
         if (array_key_exists('original_mimic_id', $data)) {
-            $model = $this->mimicResponse;
+            $model = $this->response;
             $this->additionalFields['original_mimic_id'] = $data['original_mimic_id'];
             $isResponseMimic = true;
             $relations = ['user', 'meta'];

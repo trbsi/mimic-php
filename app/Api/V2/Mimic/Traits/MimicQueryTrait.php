@@ -2,7 +2,7 @@
 namespace App\Api\V2\Mimic\Traits;
 
 use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Api\V2\Mimic\Models\MimicHashtag;
 use App\Api\V2\Follow\Models\Follow;
 use App\Api\V2\Mimic\Models\MimicUpvote;
@@ -102,29 +102,29 @@ trait MimicQueryTrait
     private function buildQueryCore($request, $authUser)
     {
         $mimicsTable = $this->getTable();
-        $mimicResponseTable = (new MimicResponse)->getTable();
+        $responseTable = (new Response)->getTable();
         $followTable = (new Follow)->getTable();
 
         return $this->mimicsQuery
         ->select("$mimicsTable.*")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicsTable.".user_id),1,0) AS i_am_following_you")
-        ->with(['responses' => function ($query) use ($authUser, $mimicResponseTable, $request, $followTable) {
-            $query->select("$mimicResponseTable.*");
+        ->with(['responses' => function ($query) use ($authUser, $responseTable, $request, $followTable) {
+            $query->select("$responseTable.*");
             //check if user upvoted this mimic response
             $query
-            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicResponseTable.id), 1, 0) AS upvoted")
-            ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicResponseTable.".user_id),1,0) AS i_am_following_you");
+            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $responseTable.id), 1, 0) AS upvoted")
+            ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$responseTable.".user_id),1,0) AS i_am_following_you");
             //get user info for responses
             $query->with(['user', 'meta']);
 
             //first order by this specific id then by upvote
             //if someone clicked on response mimic on user's profile make this response on the first place
             if ($request->response_mimic_id) {
-                $query->orderBy(DB::raw("$mimicResponseTable.id=$request->response_mimic_id"), 'DESC');
+                $query->orderBy(DB::raw("$responseTable.id=$request->response_mimic_id"), 'DESC');
             }
             //load responses by most recent
-            $query->orderBy("$mimicResponseTable.id", "DESC");
+            $query->orderBy("$responseTable.id", "DESC");
         }, 'user', 'hashtags', 'meta'])
         ->withCount('responses')
         ->groupBy("$mimicsTable.id")

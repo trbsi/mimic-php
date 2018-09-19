@@ -6,7 +6,7 @@ use App\Api\V2\Hashtag\Models\Hashtag;
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Mimic\Traits\MimicTrait;
 use App\Api\V2\Mimic\Traits\MimicQueryTrait;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use Illuminate\Support\Collection;
 use App\Helpers\Constants;
 use App\Helpers\SendPushNotification;
@@ -195,7 +195,7 @@ class Mimic extends Model
 
     public function responses()
     {
-        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicResponse::class, 'original_mimic_id', 'id');
+        return $this->hasMany(Response::class, 'original_mimic_id', 'id');
     }
 
     public function mimicTagusers()

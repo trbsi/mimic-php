@@ -23,8 +23,8 @@ class MimicResponseModelProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('MimicResponseModel', function ($app) {
-            $class = 'App\Api\\'.strtoupper(env('API_VERSION')).'\Mimic\Models\MimicResponse';
+        $this->app->bind('ResponseModel', function ($app) {
+            $class = 'App\Api\\'.strtoupper(env('API_VERSION')).'\Mimic\Resources\Response\Models\Response';
             return app()->make($class);
         });
     }

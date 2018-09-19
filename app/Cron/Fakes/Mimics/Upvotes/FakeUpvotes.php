@@ -1,10 +1,6 @@
 <?php
 namespace App\Cron\Fakes\Mimics\Upvotes;
 
-use App\Api\V2\User\Models\User;
-use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
-use Illuminate\Support\Facades\Redis;
 use App\Events\Mimic\MimicUpvotedEvent;
 use App\Models\CoreUser;
 use App\Cron\Fakes\Mimics\Upvotes\ResetFakeUpvotes;
@@ -67,7 +63,7 @@ class FakeUpvotes
                 $model = resolve('MimicModel');
                 break;
             case self::REDIS_RESPONSES_NOTIFICATIONS:
-                $model = resolve('MimicResponseModel');
+                $model = resolve('ResponseModel');
                 break;
         }
 
@@ -163,7 +159,7 @@ class FakeUpvotes
                 $data = ['original_mimic_id' => $mimic['id']];
                 break;
             case self::REDIS_RESPONSES_NOTIFICATIONS:
-                $model = resolve('MimicResponseModel');
+                $model = resolve('ResponseModel');
                 $data = ['response_mimic_id' => $mimic['id']];
                 break;
         }

@@ -1,5 +1,5 @@
 <?php 
-namespace App\Api\V2\Mimic\Models;
+namespace App\Api\V2\Mimic\Resources\Response\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Api\V2\Mimic\Models\Mimic;
@@ -8,7 +8,7 @@ use App\Api\V2\Mimic\Models\MimicResponseUpvote;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\Helper;
 
-class MimicResponse extends Model
+class Response extends Model
 {
     use MimicTrait, SoftDeletes;
 

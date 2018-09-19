@@ -7,7 +7,7 @@ use Tests\Functional\Api\V2\Mimic\Assert;
 use Tests\TestCaseHelper;
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Follow\Models\Follow;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Api\V2\Mimic\Models\MimicUpvote;
 use App\Api\V2\Mimic\Models\MimicResponseUpvote;
 use Illuminate\Support\Facades\Storage;
@@ -195,7 +195,7 @@ class MimicControllerTest extends TestCaseV2
     public function testUpvoteResponseMimicSuccessfully()
     {
         //change number of upvotes to 5
-        $model = MimicResponse::find(1);
+        $model = Response::find(1);
         $model->upvote = 5;
         $model->save();
 
@@ -221,7 +221,7 @@ class MimicControllerTest extends TestCaseV2
             'user_id' => $this->loggedUserId
         ]);
         
-        $model = MimicResponse::find(1);
+        $model = Response::find(1);
         $model->upvote = 5;
         $model->save();
 
@@ -333,7 +333,7 @@ class MimicControllerTest extends TestCaseV2
     public function testLoadMoreResponsesForOriginalMimicOnMainScreen()
     {
         for ($i = 0; $i < 50; $i++) {
-            $mimic = MimicResponse::create([
+            $mimic = Response::create([
                 'user_id' => 2,
                 'original_mimic_id' => 1,
                 'file' => 'xyz.jpg',
@@ -936,7 +936,7 @@ class MimicControllerTest extends TestCaseV2
     public function testDeleteResponseMimicSuccessfully()
     {
         $mimicId = 7;
-        $model = MimicResponse::find($mimicId);
+        $model = Response::find($mimicId);
         $data = [];
 
         $response = $this->doDelete('mimic/delete?mode=admin&response_mimic_id='.$mimicId, $data);

@@ -3,7 +3,7 @@
 namespace App\Api\V2\Mimic\Repositories\Delete;
 
 use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Helpers\AwsHelper;
 use App\Api\V2\User\Models\User;
 
@@ -25,10 +25,10 @@ final class DeleteMimicRepository
     private $relativeAwsFilePath = null;
     private $relativeAwsThumbPath = null;
 
-    public function __construct(Mimic $mimic, MimicResponse $mimicResponse, AwsHelper $awsHelper)
+    public function __construct(Mimic $mimic, Response $response, AwsHelper $awsHelper)
     {
         $this->mimic = $mimic;
-        $this->mimicResponse = $mimicResponse;
+        $this->response = $response;
         $this->awsHelper = $awsHelper;
     }
 
@@ -45,7 +45,7 @@ final class DeleteMimicRepository
             $model = $this->mimic;
             $id = $data['original_mimic_id'];
         } else {
-            $model = $this->mimicResponse;
+            $model = $this->response;
             $id = $data['response_mimic_id'];
         }
 
@@ -63,7 +63,7 @@ final class DeleteMimicRepository
     public function deleteUserMimicsAndResponsesByUser(User $authUser)
     {
         $mimics = $this->mimic->where('user_id', $authUser->id)->get();
-        $responses = $this->mimicResponse->where('user_id', $authUser->id)->get();
+        $responses = $this->response->where('user_id', $authUser->id)->get();
 
         foreach ([$mimics, $responses] as $mimicsAndResponses) {
             foreach ($mimicsAndResponses as $model) {
@@ -73,7 +73,7 @@ final class DeleteMimicRepository
     }
 
     /**
-     * @param  Mimic|MimicResponse $model
+     * @param  Mimic|Response $model
      * @param  User   $authUser
      * @param  array  $data
      * @return void
@@ -99,7 +99,7 @@ final class DeleteMimicRepository
     /**
      * Start with process of removing Mimic files, set relative and absolute file paths
      *
-     * @param Mimic|MimicResponse $model Loaded model from database
+     * @param Mimic|Response $model Loaded model from database
      * @return void
      */
     private function removeMimicFromDisk($model)
@@ -120,7 +120,7 @@ final class DeleteMimicRepository
     /**
      * Get file paths for local disk
      *
-     * @param Mimic|MimicResponse $model Loaded model from a database
+     * @param Mimic|Response $model Loaded model from a database
      * @return void
      */
     private function getFilePathsForLocalDisk($model)
@@ -135,7 +135,7 @@ final class DeleteMimicRepository
     /**
      * Get file paths for AWS
      *
-     * @param Mimic|MimicResponse $model Loaded model from a database
+     * @param Mimic|Response $model Loaded model from a database
      * @return void
      */
     private function getFilePathsForAws($model)

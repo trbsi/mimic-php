@@ -3,7 +3,7 @@
 namespace App\Api\V2\Mimic\Repositories\Post;
 
 use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 use DB;
@@ -13,10 +13,10 @@ final class UpvoteMimicRepository
 {
     public function __construct(
         Mimic $mimic,
-        MimicResponse $mimicResponse
+        Response $response
     ) {
         $this->mimic = $mimic;
-        $this->mimicResponse = $mimicResponse;
+        $this->response = $response;
     }
 
     /**
@@ -31,7 +31,7 @@ final class UpvoteMimicRepository
         $user = $this->mimic->getUser($authUser);
         //@TODO REMOVE - fake user
 
-        $model = array_get($data, 'original_mimic_id') ? $this->mimic : $this->mimicResponse;
+        $model = array_get($data, 'original_mimic_id') ? $this->mimic : $this->response;
         $id = array_get($data, 'original_mimic_id') ?? array_get($data, 'response_mimic_id');
         $model = $model->find($id);
         $model->preventMutation = true;

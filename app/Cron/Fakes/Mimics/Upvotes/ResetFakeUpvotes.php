@@ -18,7 +18,7 @@ class ResetFakeUpvotes
 
         //insert newest mimics in redis with score 0
         $this->insert(resolve('MimicModel'), FakeUpvotes::REDIS_MIMIC_NOTIFICATIONS);
-        $this->insert(resolve('MimicResponseModel'), FakeUpvotes::REDIS_RESPONSES_NOTIFICATIONS);
+        $this->insert(resolve('ResponseModel'), FakeUpvotes::REDIS_RESPONSES_NOTIFICATIONS);
 
         //insert userids in set
         $this->insertUserIds();

@@ -3,6 +3,7 @@
 namespace App\Api\V2\Mimic\Resources\Response\Resources\Meta\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 
 /**
  * @property integer $id
@@ -66,6 +67,6 @@ class Meta extends Model
      */
     public function response()
     {
-        return $this->belongsTo('App\Api\V2\Mimic\Models\MimicResponse', 'mimic_id');
+        return $this->belongsTo(Response::class, 'mimic_id');
     }
 }

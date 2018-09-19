@@ -2,7 +2,7 @@
 namespace App\Cron;
 
 use App\Api\V2\Mimic\Models\Mimic;
-use App\Api\V2\Mimic\Models\MimicResponse;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Helpers\FileUpload;
 
 /**
@@ -35,7 +35,7 @@ class UploadToAws
     public function uploadResponseMimicsToAws()
     {
         //get 2 mimics where aws_file is null
-        foreach (MimicResponse::whereNull('aws_file')->limit(self::LIMIT)->get() as $model) {
+        foreach (Response::whereNull('aws_file')->limit(self::LIMIT)->get() as $model) {
             $this->upload($model);
         }
     }
@@ -43,7 +43,7 @@ class UploadToAws
     /**
      * Actually upload to AWS
      *
-     * @param  Model $model This is model of Mimic or MimicResponse
+     * @param  Model $model This is model of Mimic or Response
      */
     private function upload($model)
     {
