@@ -9,7 +9,6 @@ use App\Api\V2\User\Repositories\Delete\DeleteUserRepository;
 use Exception;
 use App\Api\V2\User\Requests\UserRequest;
 use App\Api\V2\User\Repositories\Put\UpdateRepository;
-use App\Api\V2\User\Resources\Profile\JsonResource\ProfileResource;
 
 class UserController extends BaseAuthController
 {
@@ -62,9 +61,7 @@ class UserController extends BaseAuthController
      */
     public function update(UserRequest $request, UpdateRepository $updateRepository)
     {
-        $updateRepository->update($this->authUser, $request->all());
-        $user = $this->authUser->load(['profile.hashtags']);
-        $profile = new ProfileResource($user);
+        $profile = $updateRepository->update($this->authUser, $request->all());
         return response()->json($profile);
     }
 }

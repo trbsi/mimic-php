@@ -17,6 +17,7 @@ use App\Api\V2\Mimic\Repositories\Get\ReadMimicRepository;
 use DB;
 use Validator;
 use Exception;
+use App\Api\V2\Mimic\Repositories\Get\GetUpvotesRepository;
 
 class MimicController extends BaseAuthController
 {
@@ -128,5 +129,18 @@ class MimicController extends BaseAuthController
     {
         //$request->original_mimic_id
         return response()->json(['success' => true, 'message' => trans('mimic.report.mimic_has_been_reported')]);
+    }
+
+
+    /**
+     * Get people who upvoted specific mimic
+     * @param  int $id                   
+     * @param  GetUpvotesRepository $getUpvotesRepository 
+     * @return Response                                     
+     */
+    public function upvotes($id, GetUpvotesRepository $GetUpvotesRepository) 
+    {
+        $result = $GetUpvotesRepository->getUpvotes($id, $this->authUser);
+        return response()->json($result);
     }
 }

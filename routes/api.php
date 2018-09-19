@@ -25,13 +25,16 @@ $api->version('v2', function (Router $api) {
             });
            
             $api->group(['prefix' => 'mimic'], function (Router $api) {
+                $api->post('upvote', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@upvote']);
                 $api->post('create', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@createMimic']);
+                $api->post('report', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@reportMimic']);
+
+                $api->delete('delete', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@delete']);
+
                 $api->get('list', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@getMimics', 'as' => 'mimic.list']);
                 $api->get('load-responses', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@loadResponses']);
-                $api->post('upvote', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@upvote']);
-                $api->delete('delete', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@delete']);
                 $api->get('user-mimics', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@getUserMimics']);
-                $api->post('report', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@reportMimic']);
+                $api->get('{id}/upvotes', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@upvotes']);
             });
 
             $api->group(['prefix' => 'profile'], function (Router $api) {

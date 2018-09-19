@@ -185,12 +185,7 @@ class Mimic extends Model
 
     public function upvotes()
     {
-        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicUpvote::class, 'mimic_id', 'id');
-    }
-
-    public function userUpvotes()
-    {
-        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
     }
 
     public function responses()

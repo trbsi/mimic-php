@@ -67,4 +67,5 @@ class Helper
 
         return $n_format;
     }
+
 }
