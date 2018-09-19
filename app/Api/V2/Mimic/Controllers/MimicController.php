@@ -2,21 +2,19 @@
 
 namespace App\Api\V2\Mimic\Controllers;
 
+use DB;
+use Exception;
 use App\Api\V2\Auth\Controllers\BaseAuthController;
 use Illuminate\Http\Request;
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Resources\Response\Models\Response;
-use App\Helpers\FileUpload;
 use App\Api\V2\Mimic\Requests\CreateMimicRequest;
 use App\Helpers\Constants;
 use App\Api\V2\Mimic\Repositories\Post\CreateMimicRepository;
 use App\Api\V2\Mimic\Repositories\Delete\DeleteMimicRepository;
 use App\Api\V2\Mimic\Repositories\Post\UpvoteMimicRepository;
-use App\Api\V2\Mimic\Repositories\Get\ReadMimicRepository;
-use DB;
-use Validator;
-use Exception;
+use App\Api\V2\Mimic\Repositories\Get\GetUserMimicsRepository;
 use App\Api\V2\Mimic\Repositories\Get\GetUpvotesRepository;
 
 class MimicController extends BaseAuthController
@@ -99,7 +97,7 @@ class MimicController extends BaseAuthController
             $deleteMimicRepository->deleteSingleMimicOrResponseById($request->all(), $this->authUser);
             DB::commit();
             return response()->json(['success' => true]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             throw_exception($e);
         }
@@ -108,13 +106,13 @@ class MimicController extends BaseAuthController
     /**
      * Get user's mimics so he can list them and delete them
      * @param  Request             $request
-     * @param  ReadMimicRepository $readMimicRepository
+     * @param  GetUserMimicsRepository $getUserMimicsRepository
      * @return Response
      */
-    public function getUserMimics(Request $request, ReadMimicRepository $readMimicRepository)
+    public function getUserMimics(Request $request, GetUserMimicsRepository $getUserMimicsRepository)
     {
         try {
-            $result = $readMimicRepository->getUserMimics($request, $this->authUser);
+            $result = $getUserMimicsRepository->getUserMimics($request, $this->authUser);
             return response()->json(['mimics' => $result]);
         } catch (\Exception $e) {
             throw_exception($e);
@@ -140,7 +138,7 @@ class MimicController extends BaseAuthController
      */
     public function upvotes($id, GetUpvotesRepository $GetUpvotesRepository) 
     {
-        $result = $GetUpvotesRepository->getUpvotes($id, $this->authUser);
+        $result = $GetUpvotesRepository->getUpvotes($id, $this->authUser, Constants::MIMIC_ORIGINAL);
         return response()->json($result);
     }
 }

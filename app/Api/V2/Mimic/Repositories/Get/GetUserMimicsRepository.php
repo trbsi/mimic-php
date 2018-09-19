@@ -7,7 +7,7 @@ use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use Illuminate\Http\Request;
 
-final class ReadMimicRepository
+final class GetUserMimicsRepository
 {
     public function __construct(Mimic $mimic, Response $response)
     {
@@ -15,6 +15,11 @@ final class ReadMimicRepository
         $this->response = $response;
     }
 
+    /**
+     * @param  Request $request  
+     * @param  User    $authUser 
+     * @return             
+     */
     public function getUserMimics(Request $request, User $authUser)
     {
         $relations = ['meta'];

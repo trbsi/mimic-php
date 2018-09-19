@@ -35,6 +35,10 @@ $api->version('v2', function (Router $api) {
                 $api->get('load-responses', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@loadResponses']);
                 $api->get('user-mimics', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@getUserMimics']);
                 $api->get('{id}/upvotes', ['uses' => 'App\Api\V2\Mimic\Controllers\MimicController@upvotes']);
+
+                $api->group(['prefix' => 'response'], function (Router $api) {
+                    $api->get('{id}/upvotes', ['uses' => 'App\Api\V2\Mimic\Resources\Response\Controllers\ResponseController@upvotes']);
+                });
             });
 
             $api->group(['prefix' => 'profile'], function (Router $api) {
