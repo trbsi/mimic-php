@@ -15,3 +15,8 @@ Route::get('/', 'Controller@index');
 Route::get('legal', 'Controller@legal');
 Route::get('appstore', 'Controller@appStore');
 Route::get('share/{id}', 'Controller@shareMimic')->name('share.mimic');
+
+//ADMIN
+Route::namespace('Admin')->prefix('admin')->group(function () {
+	Route::get('push-notifications/send', 'AdminController@sendNotificationToEveryone');
+});

@@ -2,9 +2,6 @@
 
 namespace App\Helpers;
 
-use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
-use App;
-
 class SendPushNotification
 {
 
@@ -209,15 +206,38 @@ class SendPushNotification
     }
 
     /**
-     * send notification to a user
-     * @param $user_id - whom to send a notification
-     * @param $data - notification payload
-     * @return bool
+     * Send notification to a user
+     * 
+     * @param int $userId Whom to send a notification
+     * @param array $data Notification payload
+     * @return void
      */
-    public static function sendNotification($user_id, $data)
+    public static function sendNotification(int $userId, array $data): void
+    {   
+        $model = resolve('PushNotificationsTokenModel');
+        $tokens = $model->getNotificationTokens($userId);
+        self::send($tokens, $data);
+    }
+
+    /**
+     * Send push notifications to everyone
+     * @param  array $data 
+     * @return void
+     */
+    public static function sendNotificationToEveryone(array $data)
     {
-        $tokens = PushNotificationsToken::getNotificationTokens($user_id);
-        $return = true;
+        $model = resolve('PushNotificationsTokenModel');
+        $tokens = $model->get();
+        self::send($tokens, $data);
+    }
+
+    /**
+     * @param  object $tokens 
+     * @param  array  $data   
+     * @return void         
+     */
+    private static function send(object $tokens, array $data): void
+    {
         $iOStokens = $Androidtokens = [];
         foreach ($tokens as $token) {
             if (!empty($token->token)) {
@@ -235,8 +255,8 @@ class SendPushNotification
         }
 
         //send android notifications
-        /*if (!empty($Androidtokens)) {
-        $return = SendPushNotification::android($data, $Androidtokens);
-        }*/
+        if (!empty($Androidtokens)) {
+            SendPushNotification::android($data, $Androidtokens);
+        }
     }
 }
