@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\CoreUser;
-use App\Api\V2\Follow\Models\Follow;
 
 class FollowTable extends Seeder
 {
@@ -11,8 +10,10 @@ class FollowTable extends Seeder
      *
      * @return void
      */
-    public function run(CoreUser $user, Follow $follow)
+    public function run(CoreUser $user)
     {
+        $follow = resolve('FollowModel');
+
         $items =
         [
             //followings of user 1

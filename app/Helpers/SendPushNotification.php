@@ -227,7 +227,7 @@ class SendPushNotification
     public static function sendNotificationToEveryone(array $data)
     {
         $model = resolve('PushNotificationsTokenModel');
-        $tokens = $model->get();
+        $tokens = $model->orderBy('updated_at', 'DESC')->get();
         self::send($tokens, $data);
     }
 

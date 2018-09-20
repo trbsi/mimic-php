@@ -13,7 +13,7 @@ class CreateUsersProfilesHashtagsPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_profiles_hasthags_pivot', function (Blueprint $table) {
+        Schema::create('users_profiles_hashtags_pivot', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->bigInteger('profile_id');
             $table->bigInteger('hashtag_id');
@@ -39,6 +39,6 @@ class CreateUsersProfilesHashtagsPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_profiles_hasthags_pivot');
+        Schema::dropIfExists('users_profiles_hashtags_pivot');
     }
 }

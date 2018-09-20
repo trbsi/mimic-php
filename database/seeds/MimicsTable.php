@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Api\V2\Mimic\Models\Mimic;
 use App\Models\CoreUser;
 use App\Api\V2\Hashtag\Repositories\Post\CreateHashtagsRepository;
 
@@ -18,7 +17,7 @@ class MimicsTable extends Seeder
     private $rootDir;
 
     /**
-     * Acts like autoincrement so it's always unique
+     * Acts like autoincrement so it's always unique. All 3 variables.
      * @var integer
      */
     private $id;
@@ -26,12 +25,18 @@ class MimicsTable extends Seeder
     private $responseMimicId = 1;
 
     /**
+     * @var Mimic
+     */
+    private static $mimic;
+
+    /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run(Mimic $mimic, CoreUser $user, CreateHashtagsRepository $createHashtagsRepository)
+    public function run(CoreUser $user, CreateHashtagsRepository $createHashtagsRepository)
     {
+        $mimic = self::$mimic = resolve('MimicModel');
         $this->rootDir = public_path() . '/files/seeds';
 
         $files = $this->generateArrayOfFilesFromSeedFolder();
@@ -241,7 +246,7 @@ class MimicsTable extends Seeder
         $data =
         [
             'file' => $fileName,
-            'mimic_type' => (strpos($mime, 'image') !== false) ? Mimic::TYPE_PHOTO : Mimic::TYPE_VIDEO,
+            'mimic_type' => (strpos($mime, 'image') !== false) ? self::$mimic::TYPE_PHOTO : self::$mimic::TYPE_VIDEO,
             'upvote' => 123456789,
             'description' => sprintf('This is description of a Mimic. %s 😱 😷 😵', $hashtags),
             'user_id' => $userIdTmp,
@@ -277,12 +282,12 @@ class MimicsTable extends Seeder
      * @return Mimic
      */
     private function saveOriginalMimic(
-        Mimic $mimic,
+        $mimic,
         CreateHashtagsRepository $createHashtagsRepository,
         array $data,
         string $dirName,
         string $hashtags
-    ): Mimic {
+    ) {
         //create mimic
         $originalMimic = $mimic->create(array_except($data, ['meta']));
         //insert meta
@@ -299,7 +304,7 @@ class MimicsTable extends Seeder
      * @param  array  $data
      * @return void
      */
-    private function saveResponses(Mimic $originalMimic, array $mimicResponses, array $data): void
+    private function saveResponses($originalMimic, array $mimicResponses, array $data): void
     {
         foreach ($mimicResponses as $mimicResponse) {
             $mimicData = array_except($mimicResponse, ['meta', 'description']);

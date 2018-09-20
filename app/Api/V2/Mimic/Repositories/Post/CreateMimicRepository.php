@@ -6,7 +6,6 @@ use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Helpers\FileUpload;
 use App\Api\V2\Mimic\Models\MimicTaguser;
-use App\Api\V2\Mimic\Models\MimicHashtag;
 use App\Helpers\SendPushNotification;
 use App\Helpers\Constants;
 use App\Events\Mimic\MimicCreatedEvent;

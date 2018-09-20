@@ -176,11 +176,6 @@ class Mimic extends Model
     /*public function users() {
         return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
     }
-
-    public function mimicHashtags() {
-        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicHashtag::class, 'mimic_id', 'id');
-    }
-
     */
 
     public function upvotes()

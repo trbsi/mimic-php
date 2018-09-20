@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Api\V2\Follow\Models\Follow;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 use App\Api\V2\User\Resources\Profile\Models\Profile;
+use App\Helpers\Constants;
+use App\Helpers\Constants\DatabaseTableConstants;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -168,7 +170,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getIsBlockedQuery(object $authUser): string
     {
-        return "IF(EXISTS(SELECT id FROM users_blocks_pivot WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
+        return "IF(EXISTS(SELECT id FROM ".DatabaseTableConstants::PIVOT_TABLE_USERS_BLOCKS." WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
     }
 
     /**

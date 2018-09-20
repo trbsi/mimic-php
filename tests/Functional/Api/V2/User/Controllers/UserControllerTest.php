@@ -6,8 +6,8 @@ use Tests\Functional\Api\V2\TestCaseV2;
 use Tests\Functional\Api\V2\User\Assert;
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Follow\Models\Follow;
-use App\Api\V2\Mimic\Models\MimicResponseUpvote;
-use App\Api\V2\Mimic\Models\MimicUpvote;
+use App\Api\V2\Mimic\Resources\Response\Resources\Upvote\Models\Upvote as ResponseUpvote;
+use App\Api\V2\Mimic\Resources\Upvote\Models\Upvote as MimicUpvote;
 use App\Api\V2\Mimic\Models\MimicTaguser;
 use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
 use Tests\TestCaseHelper;
@@ -202,7 +202,7 @@ class UserControllerTest extends TestCaseV2
 
         //insert upvotes
         MimicUpvote::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
-        MimicResponseUpvote::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
+        ResponseUpvote::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
 
         //insert user tagging
         MimicTaguser::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
@@ -278,7 +278,7 @@ class UserControllerTest extends TestCaseV2
 
         //assert upvotes
         $this->assertTrue(MimicUpvote::where('user_id', $this->loggedUserId)->get()->isEmpty());
-        $this->assertTrue(MimicResponseUpvote::where('user_id', $this->loggedUserId)->get()->isEmpty());
+        $this->assertTrue(ResponseUpvote::where('user_id', $this->loggedUserId)->get()->isEmpty());
 
         //assert user tagging
         $this->assertTrue(MimicTaguser::where('user_id', $this->loggedUserId)->get()->isEmpty());

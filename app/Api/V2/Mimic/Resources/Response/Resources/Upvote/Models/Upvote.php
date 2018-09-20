@@ -1,24 +1,21 @@
 <?php 
-namespace App\Api\V2\Mimic\Models;
+namespace App\Api\V2\Mimic\Resources\Response\Resources\Upvote\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Api\V2\Mimic\Resources\Response\Models\Response;
+use App\Api\V2\User\Models\User;
 
-class MimicResponseUpvote extends Model
+class Upvote extends Model
 {
-
-    /**
-     * Generated
-     */
 
     protected $table = 'mimic_response_upvote';
     protected $fillable = ['id', 'mimic_id', 'user_id'];
     protected $casts =
-        [
-            'id' => 'int',
-            'mimic_id' => 'int',
-            'user_id' => 'int',
-        ];
+    [
+        'id' => 'int',
+        'mimic_id' => 'int',
+        'user_id' => 'int',
+    ];
 
     public function mimicResponse()
     {
@@ -27,6 +24,6 @@ class MimicResponseUpvote extends Model
 
     public function user()
     {
-        return $this->belongsTo(\App\Api\V2\User\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

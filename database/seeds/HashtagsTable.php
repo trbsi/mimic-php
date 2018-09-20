@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Api\V2\Hashtag\Models\Hashtag;
 
 class HashtagsTable extends Seeder
 {
@@ -10,8 +9,9 @@ class HashtagsTable extends Seeder
      *
      * @return void
      */
-    public function run(Hashtag $model)
+    public function run()
     {
+        $model = resolve('HashtagModel');
         $data =
         [
             '#jumping', '#jump','#playingaround', '#kissing', '#comewithme', '#playingsport', '#meandmycrew', '#dance', '#swim', '#yolo', '#swag',

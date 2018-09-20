@@ -189,6 +189,7 @@ return [
         App\Providers\Models\Mimic\MimicResponseModelProvider::class,
         App\Providers\Models\Hashtag\HashtagModelProvider::class,
         App\Providers\Models\PushNotificationsToken\PushNotificationsTokenModelProvider::class,
+        App\Providers\Models\Follow\FollowModelProvider::class,
 
     ],
 
