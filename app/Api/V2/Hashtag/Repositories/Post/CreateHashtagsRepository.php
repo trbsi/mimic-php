@@ -33,6 +33,7 @@ final class CreateHashtagsRepository
 
                 $tag = Hashtag::updateOrCreate(['name' => $hashtag]);
                 $tag->preventMutation = true;
+                //if tag was newly created, it will get popularity=1 by default from mysql, otherwise you need to increase popularity
                 if (!$tag->wasRecentlyCreated) {
                     $tag->increment("popularity");
                 }
