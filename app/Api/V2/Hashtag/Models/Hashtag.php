@@ -3,6 +3,7 @@ namespace App\Api\V2\Hashtag\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Api\V2\Hashtag\Traits\HashtagQueryTrait;
+use App\Api\V2\Mimic\Models\Mimic;
 
 class Hashtag extends Model
 {
@@ -36,6 +37,6 @@ class Hashtag extends Model
 
     public function mimics()
     {
-        return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_hashtag', 'hashtag_id', 'mimic_id');
+        return $this->belongsToMany(Mimic::class, db_table('mimic_hashtag'), 'hashtag_id', 'mimic_id');
     }
 }

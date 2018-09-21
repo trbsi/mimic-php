@@ -8,7 +8,6 @@ use App\Api\V2\User\Models\User;
 use App\Api\V2\Mimic\JsonResources\UpvotesResource;
 use App\Helpers\Traits\PaginationTrait;
 use App\Helpers\Constants;
-use App\Helpers\Constants\DatabaseTableConstants;
 
 final class GetUpvotesRepository
 {
@@ -47,7 +46,7 @@ final class GetUpvotesRepository
 	public function getUpvotes(int $id, User $authUser, string $type): array
 	{
 		$model = $type === Constants::MIMIC_ORIGINAL ? $this->mimic : $this->response;
-		$upvoteTable = $type === Constants::MIMIC_ORIGINAL ? DatabaseTableConstants::PIVOT_TABLE_MIMIC_UPVOTE : DatabaseTableConstants::PIVOT_TABLE_MIMIC_RESPONSE_UPVOTE;
+		$upvoteTable = $type === Constants::MIMIC_ORIGINAL ? db_table('mimic_upvote') : db_table('mimic_response_upvote');
 
 		$upvotes = $model
 		->find($id)

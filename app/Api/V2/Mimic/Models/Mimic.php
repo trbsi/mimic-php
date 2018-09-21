@@ -170,17 +170,12 @@ class Mimic extends Model
 
     public function hashtags()
     {
-        return $this->belongsToMany(Hashtag::class, 'mimic_hashtag', 'mimic_id', 'hashtag_id');
+        return $this->belongsToMany(Hashtag::class, db_table('mimic_hashtag'), 'mimic_id', 'hashtag_id');
     }
-
-    /*public function users() {
-        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'mimic_taguser', 'mimic_id', 'user_id');
-    }
-    */
 
     public function upvotes()
     {
-        return $this->belongsToMany(User::class, 'mimic_upvote', 'mimic_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, db_table('mimic_upvote'), 'mimic_id', 'user_id')->withTimestamps();
     }
 
     public function responses()

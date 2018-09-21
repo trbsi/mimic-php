@@ -6,7 +6,7 @@ use DB;
 class RemoveOldPushTokens
 {
     /**
-     * Update hashtags popularty based on how many times that hastags has been used per mimic
+     * Remove old push tokens
      *
      * @return void
      */
@@ -14,6 +14,6 @@ class RemoveOldPushTokens
     {
         //current time - 7 days
         $date = date('Y-m-d H:i:s', time() - 604800);
-        DB::statement(sprintf('DELETE FROM push_notifications_token WHERE updated_at <= "%s"', $date));
+        DB::statement(sprintf('DELETE FROM %s WHERE updated_at <= "%s"', db_table('push_notifications_token'), $date));
     }
 }

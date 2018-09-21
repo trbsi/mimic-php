@@ -44,6 +44,6 @@ class Profile extends Model
 
     public function hashtags()
     {
-        return $this->belongsToMany(Hashtag::class, 'users_profiles_hashtags_pivot', 'profile_id', 'hashtag_id');
+        return $this->belongsToMany(Hashtag::class, db_table('user_profile_hashtag_pivot'), 'profile_id', 'hashtag_id');
     }
 }

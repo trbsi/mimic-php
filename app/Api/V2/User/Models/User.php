@@ -14,7 +14,6 @@ use App\Api\V2\Follow\Models\Follow;
 use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 use App\Api\V2\User\Resources\Profile\Models\Profile;
 use App\Helpers\Constants;
-use App\Helpers\Constants\DatabaseTableConstants;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -170,7 +169,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getIsBlockedQuery(object $authUser): string
     {
-        return "IF(EXISTS(SELECT id FROM ".DatabaseTableConstants::PIVOT_TABLE_USERS_BLOCKS." WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
+        return "IF(EXISTS(SELECT id FROM ".db_table('user_block_pivot')." WHERE blocked_by = ".$authUser->id." AND user_id = ".$this->getTable().".id),1,0) AS is_blocked";
     }
 
     /**
@@ -178,7 +177,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function following()
     {
-        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'follow', 'followed_by', 'following')->withTimestamps();
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, db_table('follow'), 'followed_by', 'following')->withTimestamps();
     }
 
     /**
@@ -186,48 +185,13 @@ class User extends Authenticatable implements JWTSubject
      */
     public function followers()
     {
-        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'follow', 'following', 'followed_by')->withTimestamps();
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, db_table('follow'), 'following', 'followed_by')->withTimestamps();
     }
 
     public function profile()
     {
         return $this->hasOne(Profile::class, 'user_id');
     }
-
-    /*
-
-    public function users() {
-        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'follow', 'following', 'followed_by');
-    }
-
-
-    public function mimics() {
-        return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_upvote', 'user_id', 'mimic_id');
-    }
-
-    public function follows() {
-        return $this->hasMany(\App\Api\V2\Follow\Models\Follow::class, 'followed_by', 'id');
-    }
-
-    public function follows() {
-        return $this->hasMany(\App\Api\V2\Follow\Models\Follow::class, 'following', 'id');
-    }
-
-    public function mimicTagusers() {
-        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicTaguser::class, 'user_id', 'id');
-    }
-
-    public function mimicUpvotes() {
-        return $this->hasMany(\App\Api\V2\Mimic\Models\MimicUpvote::class, 'user_id', 'id');
-    }
-
-    public function mimics() {
-        return $this->hasMany(\App\Api\V2\Mimic\Models\Mimic::class, 'user_id', 'id');
-    }
-
-    public function pushNotificationsTokens() {
-        return $this->hasMany(\App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken::class, 'user_id', 'id');
-    }*/
 
     public function socialAccounts()
     {
@@ -236,7 +200,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function mimicTaguser()
     {
-        return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, 'mimic_taguser', 'user_id', 'mimic_id');
+        return $this->belongsToMany(\App\Api\V2\Mimic\Models\Mimic::class, db_table('mimic_taguser'), 'user_id', 'mimic_id');
     }
 
     /**
@@ -244,7 +208,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function blockedUsers()
     {
-        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'users_blocks_pivot', 'blocked_by', 'user_id');
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, db_table('user_block_pivot'), 'blocked_by', 'user_id');
     }
 
     /**
@@ -252,6 +216,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function blockedFrom()
     {
-        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, 'users_blocks_pivot', 'user_id', 'blocked_by');
+        return $this->belongsToMany(\App\Api\V2\User\Models\User::class, db_table('user_block_pivot'), 'user_id', 'blocked_by');
     }
 }

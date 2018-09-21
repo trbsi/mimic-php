@@ -6,7 +6,6 @@ use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Traits\MimicTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\Helper;
-use App\Helpers\Constants\DatabaseTableConstants;
 
 class Response extends Model
 {
@@ -92,7 +91,7 @@ class Response extends Model
     {
         return $this
         ->select($this->getTable() . ".*")
-        ->selectRaw("IF(EXISTS(SELECT null FROM " . DatabaseTableConstants::PIVOT_TABLE_MIMIC_RESPONSE_UPVOTE . " WHERE user_id=$authUser->id AND mimic_id = " . $this->getTable() . ".id), 1, 0) AS upvoted")
+        ->selectRaw("IF(EXISTS(SELECT null FROM " . db_table('mimic_response_upvote') . " WHERE user_id=$authUser->id AND mimic_id = " . $this->getTable() . ".id), 1, 0) AS upvoted")
         ->where("original_mimic_id", $request->original_mimic_id)
         ->orderBy("id", "DESC")
         ->with(['user', 'meta'])

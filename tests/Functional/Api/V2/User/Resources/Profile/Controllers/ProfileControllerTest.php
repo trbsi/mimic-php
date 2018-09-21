@@ -38,7 +38,7 @@ class ProfileControllerTest extends TestCaseV2
             'i_am_following_you' => false,
             'is_blocked' => false,
             'profile' => [
-                'bio' => "This is my bio, which is little bit too big. I even user emojis and #swag. 😀 😁 😂 \nI need to check it out! I Like #kissing and #dance",
+                'bio' => "This is my bio, which is little bit too big. I even use emojis and #swag. 😀 😁 😂 \nI need to check it out! I Like #kissing and #dance",
                 'hashtags' => [
                     [
                         'hashtag_id' => 4,
