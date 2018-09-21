@@ -538,7 +538,7 @@
         "file_url": "http://mimic.loc/files/user/1/1970/01/1-1.mp4",
         "video_thumb_url": "http://mimic.loc/files/user/1/1970/01/1-1.jpg",
         "aws_file": null,
-        "upvoted": 0,
+        "upvoted": 1,
         "i_am_following_you": true,
         "created_at": 43200,
         "responses_count": 19,
@@ -976,7 +976,7 @@
           "file_url": "http://mimic.loc/files/user/2/1970/01/2-1.mp4",
           "video_thumb_url": "http://mimic.loc/files/user/2/1970/01/2-1.jpg",
           "aws_file": null,
-          "upvoted": 0,
+          "upvoted": 1,
           "i_am_following_you": false,
           "created_at": 43200,
           "meta": {

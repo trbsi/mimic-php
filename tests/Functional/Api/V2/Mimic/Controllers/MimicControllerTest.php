@@ -12,9 +12,11 @@ use App\Api\V2\Mimic\Resources\Upvote\Models\Upvote as MimicUpvote;
 use App\Api\V2\Mimic\Resources\Response\Resources\Upvote\Models\Upvote as ResponseUpvote;
 use Illuminate\Support\Facades\Storage;
 use Tests\Functional\Api\V2\Mimic\Helpers\MimicTestHelper;
+use Tests\Functional\Api\V2\Mimic\Controllers\Traits\{UpvotesTestTrait};
 
 class MimicControllerTest extends TestCaseV2
 {
+    use UpvotesTestTrait;
 
     /**
      * Should you write responses to json file or not
@@ -147,17 +149,19 @@ class MimicControllerTest extends TestCaseV2
     //--------------------------------Upvote/downvote--------------------------------
     public function testUpvoteOriginalMimicSuccessfully()
     {
+        $mimicId = 2;
+
         //change number of upvotes to 5
-        $model = Mimic::find(1);
+        $model = Mimic::find($mimicId);
         $model->upvote = 5;
         $model->save();
 
-        $data = ['original_mimic_id' => 1];
+        $data = ['original_mimic_id' => $mimicId];
 
         $response = $this->doPost('mimic/upvote', $data);
         $assertData = [
             'type' => 'upvoted',
-            'upvotes' => 6,
+            'upvotes' =>'6',
         ];
 
         $response
@@ -168,22 +172,17 @@ class MimicControllerTest extends TestCaseV2
 
     public function testDownvoteOriginalMimicSuccessfully()
     {
-        //first upvote mimic
-        MimicUpvote::create([
-            'mimic_id' => 1,
-            'user_id' => $this->loggedUserId
-        ]);
-        
-        $model = Mimic::find(1);
+        $mimicId = 1;
+        $model = Mimic::find($mimicId);
         $model->upvote = 5;
         $model->save();
 
-        $data = ['original_mimic_id' => 1];
+        $data = ['original_mimic_id' => $mimicId];
 
         $response = $this->doPost('mimic/upvote', $data);
         $assertData = [
             'type' => 'downvoted',
-            'upvotes' => 4,
+            'upvotes' => '4',
         ];
 
         $response
@@ -194,17 +193,21 @@ class MimicControllerTest extends TestCaseV2
 
     public function testUpvoteResponseMimicSuccessfully()
     {
+        $mimicId = 2;
         //change number of upvotes to 5
-        $model = Response::find(1);
+        $model = Response::find($mimicId);
         $model->upvote = 5;
         $model->save();
 
-        $data = ['response_mimic_id' => 1];
+        //delete upvote
+        $model->upvotes()->detach($this->loggedUserId);
+
+        $data = ['response_mimic_id' => $mimicId];
 
         $response = $this->doPost('mimic/upvote', $data);
         $assertData = [
             'type' => 'upvoted',
-            'upvotes' => 6,
+            'upvotes' => '6',
         ];
 
         $response
@@ -215,12 +218,6 @@ class MimicControllerTest extends TestCaseV2
 
     public function testDownvoteResponseMimicSuccessfully()
     {
-        //first upvote response
-        ResponseUpvote::create([
-            'mimic_id' => 1,
-            'user_id' => $this->loggedUserId
-        ]);
-        
         $model = Response::find(1);
         $model->upvote = 5;
         $model->save();
@@ -231,7 +228,7 @@ class MimicControllerTest extends TestCaseV2
 
         $assertData = [
             'type' => 'downvoted',
-            'upvotes' => 4,
+            'upvotes' => '4',
         ];
 
         $response

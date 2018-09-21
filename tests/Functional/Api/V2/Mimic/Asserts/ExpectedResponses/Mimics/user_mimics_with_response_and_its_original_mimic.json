@@ -26,7 +26,7 @@
         "file_url": "http://mimic.loc/files/user/1/1970/01/1-1.mp4",
         "video_thumb_url": "http://mimic.loc/files/user/1/1970/01/1-1.jpg",
         "aws_file": null,
-        "upvoted": 0,
+        "upvoted": 1,
         "i_am_following_you": false,
         "created_at": 43200,
         "responses_count": 19,
@@ -57,6 +57,28 @@
         }
       ],
       "mimic_responses": [
+        {
+          "id": 3,
+          "username": "Cognizant",
+          "profile_picture": "http://mimic.loc/files/hr/female/4.jpg",
+          "user_id": 4,
+          "mimic_type": "video",
+          "upvote": "123M",
+          "file": "4-3.mp4",
+          "file_url": "http://mimic.loc/files/user/4/1970/01/4-3.mp4",
+          "video_thumb_url": "http://mimic.loc/files/user/4/1970/01/4-3.jpg",
+          "aws_file": null,
+          "upvoted": 0,
+          "i_am_following_you": false,
+          "created_at": 43200,
+          "meta": {
+            "width": 600,
+            "height": 900,
+            "thumbnail_width": null,
+            "thumbnail_height": null,
+            "color": "#b1b2b3"
+          }
+        },
         {
           "id": 19,
           "username": "PlasmaHam",
@@ -410,28 +432,6 @@
           }
         },
         {
-          "id": 3,
-          "username": "Cognizant",
-          "profile_picture": "http://mimic.loc/files/hr/female/4.jpg",
-          "user_id": 4,
-          "mimic_type": "video",
-          "upvote": "123M",
-          "file": "4-3.mp4",
-          "file_url": "http://mimic.loc/files/user/4/1970/01/4-3.mp4",
-          "video_thumb_url": "http://mimic.loc/files/user/4/1970/01/4-3.jpg",
-          "aws_file": null,
-          "upvoted": 0,
-          "i_am_following_you": false,
-          "created_at": 43200,
-          "meta": {
-            "width": 600,
-            "height": 900,
-            "thumbnail_width": null,
-            "thumbnail_height": null,
-            "color": "#b1b2b3"
-          }
-        },
-        {
           "id": 2,
           "username": "Chrisburke04",
           "profile_picture": "http://mimic.loc/files/hr/female/3.jpg",
@@ -464,7 +464,7 @@
           "file_url": "http://mimic.loc/files/user/2/1970/01/2-1.mp4",
           "video_thumb_url": "http://mimic.loc/files/user/2/1970/01/2-1.jpg",
           "aws_file": null,
-          "upvoted": 0,
+          "upvoted": 1,
           "i_am_following_you": false,
           "created_at": 43200,
           "meta": {

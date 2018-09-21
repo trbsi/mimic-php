@@ -1,0 +1,289 @@
+{
+    "meta": {
+        "pagination": {
+            "current_page": 1,
+            "first_page_url": "http://mimic.loc/api/mimic/1/upvotes?page=1",
+            "from": 1,
+            "last_page": 4,
+            "last_page_url": "http://mimic.loc/api/mimic/1/upvotes?page=4",
+            "next_page_url": "http://mimic.loc/api/mimic/1/upvotes?page=2",
+            "path": "http://mimic.loc/api/mimic/1/upvotes",
+            "per_page": 30,
+            "prev_page_url": null,
+            "to": 30,
+            "total": 95
+        }
+    },
+    "upvotes": [
+        {
+            "id": 95,
+            "username": "sanjas",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/95.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 94,
+            "username": "fungirl",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/94.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 93,
+            "username": "iheart",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/93.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 92,
+            "username": "eminem_fan",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/92.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 91,
+            "username": "mary_blo",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/91.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 90,
+            "username": "john_s",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/90.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 89,
+            "username": "neo_matrix",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/89.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 88,
+            "username": "theone",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/88.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 87,
+            "username": "mouse_guy",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/87.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 86,
+            "username": "littleuse",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/86.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 85,
+            "username": "Stark",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/85.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 84,
+            "username": "AnonymousBoy",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/84.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 83,
+            "username": "vorte",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/83.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 82,
+            "username": "dessy",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/82.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 81,
+            "username": "theBrunswickian",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/81.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 80,
+            "username": "brainiac",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/80.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 79,
+            "username": "jacketh",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/79.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 78,
+            "username": "jonathanT8",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/78.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 77,
+            "username": "ethn",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/77.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 76,
+            "username": "winpartium",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/76.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 75,
+            "username": "Trendiction",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/75.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 74,
+            "username": "Steven.C",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/74.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 73,
+            "username": "scherzy",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/73.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 72,
+            "username": "winter96",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/72.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 71,
+            "username": "rabbits22",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/71.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 70,
+            "username": "pity",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/70.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 69,
+            "username": "ModernVampire",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/69.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 68,
+            "username": "milesboi",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/68.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 67,
+            "username": "MCarr",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/67.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        },
+        {
+            "id": 66,
+            "username": "majestic-12",
+            "i_am_following_you": false,
+            "is_blocked": false,
+            "profile_picture": "http://mimic.loc/files/hr/female/66.jpg",
+            "followers": "123M",
+            "number_of_mimics": "123M"
+        }
+    ]
+}

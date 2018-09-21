@@ -71,7 +71,7 @@ class MimicAssert
      */
     public function getMimicsJsonOnSuccess(): array
     {
-        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/recent_mimics.json');
+        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/Mimics/recent_mimics.json');
     }
 
     /**
@@ -79,7 +79,7 @@ class MimicAssert
      */
     public function getUserMimicsWithOriginalOnFirstPlaceJsonOnSuccess(): array
     {
-        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/user_mimics_with_original_on_first_place.json');
+        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/Mimics/user_mimics_with_original_on_first_place.json');
     }
 
     /**
@@ -87,7 +87,7 @@ class MimicAssert
      */
     public function getUserMimicsWithResponseAndItsOriginalMimicJsonOnSuccess(): array
     {
-        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/user_mimics_with_response_and_its_original_mimic.json');
+        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/Mimics/user_mimics_with_response_and_its_original_mimic.json');
     }
 
     /**
@@ -99,7 +99,7 @@ class MimicAssert
         $to = [date('Y'), date('m'), strtotime(date('Y-m-d 00:00:00'))];
 
         return Assert::getDecodedJsonDataFromFileByAlteringFile(
-            __DIR__.'/ExpectedResponses/load_more_responses.json',
+            __DIR__.'/ExpectedResponses/Mimics/load_more_responses.json',
             $from,
             $to
         );
@@ -110,7 +110,7 @@ class MimicAssert
      */
     public function getMimicsFromPeopleYouFollowJsonOnSuccess(): array
     {
-        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/mimics_from_people_you_follow.json');
+        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/Mimics/mimics_from_people_you_follow.json');
     }
 
     /**
@@ -118,7 +118,7 @@ class MimicAssert
      */
     public function getPopularMimicsJsonOnSuccess(): array
     {
-        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/popular_mimics.json');
+        return Assert::getDecodedJsonDataFromFile(__DIR__.'/ExpectedResponses/Mimics/popular_mimics.json');
     }
 
     /**
@@ -131,7 +131,7 @@ class MimicAssert
         $to = [date('Y'), date('m'), $data['mimic']['file'], $data['mimic']['created_at']];
 
         return Assert::getDecodedJsonDataFromFileByAlteringFile(
-            __DIR__.'/ExpectedResponses/created_photo_mimic.json',
+            __DIR__.'/ExpectedResponses/Mimics/created_photo_mimic.json',
             $from,
             $to
         );
@@ -147,7 +147,7 @@ class MimicAssert
         $to = [date('Y'), date('m'), $data['mimic']['file'], $data['mimic']['created_at']];
 
         return Assert::getDecodedJsonDataFromFileByAlteringFile(
-            __DIR__.'/ExpectedResponses/created_photo_response_mimic.json',
+            __DIR__.'/ExpectedResponses/Mimics/created_photo_response_mimic.json',
             $from,
             $to
         );
@@ -164,7 +164,7 @@ class MimicAssert
         $to = [date('Y'), date('m'), $data['mimic']['file'], $data['mimic']['created_at'], $data['mimic']['video_thumb_url']];
 
         return Assert::getDecodedJsonDataFromFileByAlteringFile(
-            __DIR__.'/ExpectedResponses/created_video_mimic.json',
+            __DIR__.'/ExpectedResponses/Mimics/created_video_mimic.json',
             $from,
             $to
         );
@@ -180,7 +180,7 @@ class MimicAssert
         $to = [date('Y'), date('m'), $data['mimic']['file'], $data['mimic']['created_at'], $data['mimic']['video_thumb_url']];
 
         return Assert::getDecodedJsonDataFromFileByAlteringFile(
-            __DIR__.'/ExpectedResponses/created_video_response_mimic.json',
+            __DIR__.'/ExpectedResponses/Mimics/created_video_response_mimic.json',
             $from,
             $to
         );

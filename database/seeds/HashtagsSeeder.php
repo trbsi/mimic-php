@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class HashtagsTable extends Seeder
+class HashtagsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

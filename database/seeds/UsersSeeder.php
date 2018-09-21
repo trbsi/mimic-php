@@ -3,7 +3,7 @@
 use App\Models\CoreUser;
 use Illuminate\Database\Seeder;
 
-class UsersTable extends Seeder
+class UsersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class UsersTable extends Seeder
     public function run(CoreUser $user)
     {
         //get number of folders
-        $usernames = include __DIR__ . "/FakeUsernames.php";
+        $usernames = include __DIR__ . "/data/FakeUsernames.php";
 
         for ($i = 1; $i < count($usernames); $i++) {
             $gender = 'female';

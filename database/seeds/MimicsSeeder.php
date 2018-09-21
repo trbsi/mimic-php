@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\CoreUser;
 use App\Api\V2\Hashtag\Repositories\Post\CreateHashtagsRepository;
 
-class MimicsTable extends Seeder
+class MimicsSeeder extends Seeder
 {
     private const THUMB_STRING = '_video_thumb';
     private const DATE = '1970-01-01 12:00:00';

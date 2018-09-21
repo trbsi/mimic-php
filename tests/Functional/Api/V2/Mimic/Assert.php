@@ -3,20 +3,20 @@ namespace Tests\Functional\Api\V2\Mimic;
 
 use Tests\Assert\AssertInterface;
 use Tests\Assert\AssertAbstract;
-use Tests\Functional\Api\V2\Mimic\Asserts\UserMimicAssert;
-use Tests\Functional\Api\V2\Mimic\Asserts\UpvoteDownvoteAssert;
-use Tests\Functional\Api\V2\Mimic\Asserts\MimicAssert;
+use Tests\Functional\Api\V2\Mimic\Asserts\{UserMimicAssert, UpvoteDownvoteAssert, MimicAssert, UpvoteAssert};
 
 class Assert extends AssertAbstract implements AssertInterface
 {
     public function __construct(
         UserMimicAssert $userMimicAssert,
         UpvoteDownvoteAssert $upvoteDownvoteAssert,
-        MimicAssert $mimicAssert
+        MimicAssert $mimicAssert,
+        UpvoteAssert $upvoteAssert
     ) {
         $this->userMimicAssert = $userMimicAssert;
         $this->upvoteDownvoteAssert = $upvoteDownvoteAssert;
         $this->mimicAssert = $mimicAssert;
+        $this->upvoteAssert = $upvoteAssert;
     }
 
     /**
@@ -41,6 +41,12 @@ class Assert extends AssertAbstract implements AssertInterface
                 return $this->mimicAssert->getEmptyMimicsJsonStructureOnSuccess();
             case 'response_mimic':
                 return $this->mimicAssert->getResponseMimicJsonStructureOnSuccess();
+            case 'mimic_upvotes':
+            case 'response_upvotes':
+                return $this->upvoteAssert->getUpvotesJsonStructureOnSuccess();
+            case 'mimic_no_upvotes':
+            case 'response_no_upvotes':
+                return $this->upvoteAssert->getNoUpvotesJsonStructureOnSuccess();
         }
     }
 
@@ -76,6 +82,17 @@ class Assert extends AssertAbstract implements AssertInterface
                 return $this->mimicAssert->getCreatedPhotoResponseMimicJsonOnSuccess($data);
             case 'created_video_response_mimic':
                 return $this->mimicAssert->getCreatedVideoResponseMimicJsonOnSuccess($data);
+            case 'mimic_upvotes_page_1':
+                return $this->upvoteAssert->getMimicUpvotesPageOneJsonOnSuccess();
+            case 'mimic_upvotes_page_2':
+                return $this->upvoteAssert->getMimicUpvotesPageTwoJsonOnSuccess();
+            case 'mimic_no_upvotes':
+            case 'response_no_upvotes':
+                return $this->upvoteAssert->getNoUpvotesJsonOnSuccess($data);
+            case 'response_upvotes_page_1':
+                return $this->upvoteAssert->getResponseUpvotesPageOneJsonOnSuccess();
+            case 'response_upvotes_page_2':
+                return $this->upvoteAssert->getResponseUpvotesPageTwoJsonOnSuccess();
         }
     }
 }
