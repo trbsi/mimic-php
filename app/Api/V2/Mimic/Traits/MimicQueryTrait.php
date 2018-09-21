@@ -5,8 +5,6 @@ use DB;
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Resources\Response\Models\Response;
 use App\Api\V2\Follow\Models\Follow;
-use App\Api\V2\Mimic\Resources\Upvote\Models\Upvote as MimicUpvote;
-use App\Api\V2\Mimic\Resources\Response\Resources\Upvote\Models\Upvote as ResponseUpvote;
 use Illuminate\Http\Request;
 use App\Helpers\Constants;
 use App\Helpers\Constants\DatabaseTableConstants;
@@ -107,13 +105,13 @@ trait MimicQueryTrait
 
         return $this->mimicsQuery
         ->select("$mimicsTable.*")
-        ->selectRaw("IF(EXISTS(SELECT null FROM " . (new MimicUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
+        ->selectRaw("IF(EXISTS(SELECT null FROM " . DatabaseTableConstants::PIVOT_TABLE_MIMIC_UPVOTE . " WHERE user_id=$authUser->id AND mimic_id = $mimicsTable.id), 1, 0) AS upvoted")
         ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$mimicsTable.".user_id),1,0) AS i_am_following_you")
         ->with(['responses' => function ($query) use ($authUser, $responseTable, $request, $followTable) {
             $query->select("$responseTable.*");
             //check if user upvoted this mimic response
             $query
-            ->selectRaw("IF(EXISTS(SELECT null FROM " . (new ResponseUpvote)->getTable() . " WHERE user_id=$authUser->id AND mimic_id = $responseTable.id), 1, 0) AS upvoted")
+            ->selectRaw("IF(EXISTS(SELECT null FROM " . DatabaseTableConstants::PIVOT_TABLE_MIMIC_RESPONSE_UPVOTE . " WHERE user_id=$authUser->id AND mimic_id = $responseTable.id), 1, 0) AS upvoted")
             ->selectRaw("IF(EXISTS(SELECT null FROM " . $followTable . " WHERE followed_by = " . $authUser->id . " AND following = ".$responseTable.".user_id),1,0) AS i_am_following_you");
             //get user info for responses
             $query->with(['user', 'meta']);

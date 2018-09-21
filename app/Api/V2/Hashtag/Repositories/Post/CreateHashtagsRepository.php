@@ -33,7 +33,9 @@ final class CreateHashtagsRepository
 
                 $tag = Hashtag::updateOrCreate(['name' => $hashtag]);
                 $tag->preventMutation = true;
-                $tag->increment("popularity");
+                if (!$tag->wasRecentlyCreated) {
+                    $tag->increment("popularity");
+                }
 
                 $hashtagsArray[$tag->id] = $hashtag;
             }

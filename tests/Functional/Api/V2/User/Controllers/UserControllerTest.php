@@ -6,8 +6,6 @@ use Tests\Functional\Api\V2\TestCaseV2;
 use Tests\Functional\Api\V2\User\Assert;
 use App\Api\V2\User\Models\User;
 use App\Api\V2\Follow\Models\Follow;
-use App\Api\V2\Mimic\Resources\Response\Resources\Upvote\Models\Upvote as ResponseUpvote;
-use App\Api\V2\Mimic\Resources\Upvote\Models\Upvote as MimicUpvote;
 use App\Api\V2\Mimic\Models\MimicTaguser;
 use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
 use Tests\TestCaseHelper;
@@ -15,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use Tests\Functional\Api\V2\Mimic\Helpers\MimicTestHelper;
 use App\Api\V2\User\Resources\Profile\Models\Profile;
 use Tests\Functional\Api\V2\User\Resources\Profile\Assert as AssertProfile;
+use App\Api\V2\Mimic\Models\Mimic;
+use App\Api\V2\Mimic\Resources\Response\Models\Response;
 
 class UserControllerTest extends TestCaseV2
 {
@@ -196,16 +196,14 @@ class UserControllerTest extends TestCaseV2
     //DELETE USER
     public function testDeleteAccount()
     {
+        $mimicId = 1;
+
         //insert followers
         Follow::create(['followed_by' => $this->loggedUserId, 'following' => 1]);
         Follow::create(['followed_by' => 1, 'following' => $this->loggedUserId]);
 
-        //insert upvotes
-        MimicUpvote::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
-        ResponseUpvote::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
-
         //insert user tagging
-        MimicTaguser::create(['mimic_id' => 1, 'user_id' => $this->loggedUserId]);
+        MimicTaguser::create(['mimic_id' => $mimicId, 'user_id' => $this->loggedUserId]);
 
         //insert blockings
         $user = User::find($this->loggedUserId);
@@ -249,7 +247,7 @@ class UserControllerTest extends TestCaseV2
         $videoThumbnail = TestCaseHelper::returnNewUploadedFile($path, '1-1.jpg', 'image/jpg');
         $data = [
             'mimic_file' => $file,
-            'original_mimic_id' => 1,
+            'original_mimic_id' => $mimicId,
             'video_thumbnail' => $videoThumbnail,
             'meta' => [
                 'width' => 900,
@@ -275,10 +273,6 @@ class UserControllerTest extends TestCaseV2
         //assert follow
         $this->assertTrue(Follow::where('followed_by', $this->loggedUserId)->get()->isEmpty());
         $this->assertTrue(Follow::where('following', $this->loggedUserId)->get()->isEmpty());
-
-        //assert upvotes
-        $this->assertTrue(MimicUpvote::where('user_id', $this->loggedUserId)->get()->isEmpty());
-        $this->assertTrue(ResponseUpvote::where('user_id', $this->loggedUserId)->get()->isEmpty());
 
         //assert user tagging
         $this->assertTrue(MimicTaguser::where('user_id', $this->loggedUserId)->get()->isEmpty());

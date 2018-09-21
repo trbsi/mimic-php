@@ -8,8 +8,6 @@ use Tests\TestCaseHelper;
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Follow\Models\Follow;
 use App\Api\V2\Mimic\Resources\Response\Models\Response;
-use App\Api\V2\Mimic\Resources\Upvote\Models\Upvote as MimicUpvote;
-use App\Api\V2\Mimic\Resources\Response\Resources\Upvote\Models\Upvote as ResponseUpvote;
 use Illuminate\Support\Facades\Storage;
 use Tests\Functional\Api\V2\Mimic\Helpers\MimicTestHelper;
 use Tests\Functional\Api\V2\Mimic\Controllers\Traits\{UpvotesTestTrait};

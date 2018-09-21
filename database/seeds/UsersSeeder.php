@@ -65,7 +65,7 @@ class UsersSeeder extends Seeder
 
         $profile =
         [
-            'bio' => sprintf("This is my bio, which is little bit too big. I even user emojis and %s. 😀 😁 😂 \nI need to check it out! I Like %s and %s", $hashtags[0], $hashtags[1], $hashtags[2])
+            'bio' => sprintf("This is my bio, which is little bit too big. I even use emojis and %s. 😀 😁 😂 \nI need to check it out! I Like %s and %s", $hashtags[0], $hashtags[1], $hashtags[2])
         ];
 
         $profile = $user->profile()->create($profile);
