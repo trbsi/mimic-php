@@ -13,14 +13,14 @@ class CreateSocialAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('social_accounts', function (Blueprint $table) {
+        Schema::create(db_table('social_accounts'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('user_id');
             $table->string('provider', 15); //facebook, twitter
             $table->string('provider_id', 30);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on(db_table('user'))->onUpdate('cascade')->onDelete('cascade');
             $table->unique(['provider', 'provider_id']);
         });
     }
@@ -32,8 +32,8 @@ class CreateSocialAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::table('social_accounts', function (Blueprint $table) {
-            Schema::dropIfExists('social_accounts');
+        Schema::table(db_table('social_accounts'), function (Blueprint $table) {
+            Schema::dropIfExists(db_table('social_accounts'));
         });
     }
 }

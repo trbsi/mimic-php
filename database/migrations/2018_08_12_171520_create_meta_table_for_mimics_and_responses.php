@@ -13,9 +13,7 @@ class CreateMetaTableForMimicsAndResponses extends Migration
      */
     public function up()
     {
-        Schema::rename('mimic_response', 'mimic_responses');
-
-        Schema::create('mimics_metas', function (Blueprint $table) {
+        Schema::create(db_table('mimic_meta'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('mimic_id');
@@ -25,13 +23,13 @@ class CreateMetaTableForMimicsAndResponses extends Migration
             $table->integer('thumbnail_height')->comment('In px')->nullable();
             $table->foreign('mimic_id')
             ->references('id')
-            ->on('mimics')
+            ->on(db_table('mimic'))
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->unique(['mimic_id']);
         });
 
-        Schema::create('mimic_responses_metas', function (Blueprint $table) {
+        Schema::create(db_table('mimic_response_meta'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('mimic_id');
@@ -41,7 +39,7 @@ class CreateMetaTableForMimicsAndResponses extends Migration
             $table->integer('thumbnail_height')->comment('In px')->nullable();
             $table->foreign('mimic_id')
             ->references('id')
-            ->on('mimic_responses')
+            ->on(db_table('mimic_response'))
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->unique(['mimic_id']);
@@ -55,8 +53,7 @@ class CreateMetaTableForMimicsAndResponses extends Migration
      */
     public function down()
     {
-        Schema::rename('mimic_responses', 'mimic_response');
-        Schema::dropIfExists('mimics_metas');
-        Schema::dropIfExists('mimic_responses_metas');
+        Schema::dropIfExists(db_table('mimic_meta'));
+        Schema::dropIfExists(db_table('mimic_response_meta'));
     }
 }

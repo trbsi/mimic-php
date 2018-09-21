@@ -13,7 +13,7 @@ class CreatePushNotificationsTokenTable extends Migration
      */
     public function up()
     {
-        Schema::create('push_notifications_token', function (Blueprint $table) {
+        Schema::create(db_table('push_notifications_token'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('user_id');
@@ -21,7 +21,7 @@ class CreatePushNotificationsTokenTable extends Migration
             $table->string('device', 10);
             $table->string('device_id', 50);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on(db_table('user'))->onUpdate('cascade')->onDelete('cascade');
 
         });
     }
@@ -33,6 +33,6 @@ class CreatePushNotificationsTokenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('push_notifications_token');
+        Schema::dropIfExists(db_table('push_notifications_token'));
     }
 }

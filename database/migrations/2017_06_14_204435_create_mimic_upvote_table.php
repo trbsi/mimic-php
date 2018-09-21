@@ -13,14 +13,14 @@ class CreateMimicUpvoteTable extends Migration
      */
     public function up()
     {
-        Schema::create('mimic_upvote', function (Blueprint $table) {
+        Schema::create(db_table('mimic_upvote'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('mimic_id');
             $table->bigInteger('user_id');
             $table->timestamps();
-            $table->foreign('mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('mimic_id')->references('id')->on(db_table('mimic'))->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on(db_table('user'))->onUpdate('cascade')->onDelete('cascade');
             $table->unique(['mimic_id', 'user_id']);
         });
     }
@@ -32,6 +32,6 @@ class CreateMimicUpvoteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mimic_upvote');
+        Schema::dropIfExists(db_table('mimic_upvote'));
     }
 }

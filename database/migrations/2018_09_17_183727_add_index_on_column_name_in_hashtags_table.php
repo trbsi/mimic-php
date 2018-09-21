@@ -13,7 +13,7 @@ class AddIndexOnColumnNameInHashtagsTable extends Migration
      */
     public function up()
     {
-        Schema::table('hashtags', function (Blueprint $table) {
+        Schema::table(db_table('hashtag'), function (Blueprint $table) {
             $table->index('name');
         });
     }
@@ -25,7 +25,7 @@ class AddIndexOnColumnNameInHashtagsTable extends Migration
      */
     public function down()
     {
-        Schema::table('hashtags', function (Blueprint $table) {
+        Schema::table(db_table('hashtag'), function (Blueprint $table) {
             $table->dropIndex(['name']);
         });
     }

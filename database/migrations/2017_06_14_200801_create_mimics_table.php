@@ -13,7 +13,7 @@ class CreateMimicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mimics', function (Blueprint $table) {
+        Schema::create(db_table('mimic'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('user_id');
@@ -26,7 +26,7 @@ class CreateMimicsTable extends Migration
             $table->bigInteger('upvote')->default(1);
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on(db_table('user'))->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
@@ -37,6 +37,6 @@ class CreateMimicsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mimics');
+        Schema::dropIfExists(db_table('mimic'));
     }
 }

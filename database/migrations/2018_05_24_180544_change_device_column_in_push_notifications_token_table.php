@@ -13,8 +13,8 @@ class ChangeDeviceColumnInPushNotificationsTokenTable extends Migration
      */
     public function up()
     {
-        Schema::table('push_notifications_token', function (Blueprint $table) {
-            DB::statement("ALTER TABLE `push_notifications_token` CHANGE `device` `device` ENUM('ios','android') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;");
+        Schema::table(db_table('push_notifications_token'), function (Blueprint $table) {
+            DB::statement("ALTER TABLE `".db_table('push_notifications_token')."` CHANGE `device` `device` ENUM('ios','android') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;");
         });
     }
 
@@ -25,7 +25,7 @@ class ChangeDeviceColumnInPushNotificationsTokenTable extends Migration
      */
     public function down()
     {
-        Schema::table('push_notifications_token', function (Blueprint $table) {
+        Schema::table(db_table('push_notifications_token'), function (Blueprint $table) {
             //
         });
     }

@@ -13,15 +13,15 @@ class CreateFollowTable extends Migration
      */
     public function up()
     {
-        Schema::create('follow', function (Blueprint $table) {
+        Schema::create(db_table('follow'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             //"followed_by" is following "following"
             $table->bigInteger('followed_by')->comment("user who is following another user"); //user who is following another user
             $table->bigInteger('following')->comment("user who is being followed"); //user who is being followed
             $table->timestamps();
-            $table->foreign('followed_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('following')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('followed_by')->references('id')->on(db_table('user'))->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('following')->references('id')->on(db_table('user'))->onUpdate('cascade')->onDelete('cascade');
             $table->unique(['followed_by', 'following']);
         });
     }
@@ -33,6 +33,6 @@ class CreateFollowTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('follow');
+        Schema::dropIfExists(db_table('follow'));
     }
 }

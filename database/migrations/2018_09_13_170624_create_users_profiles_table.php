@@ -13,7 +13,7 @@ class CreateUsersProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_profiles', function (Blueprint $table) {
+        Schema::create(db_table('user_profile'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('user_id');
@@ -22,7 +22,7 @@ class CreateUsersProfilesTable extends Migration
 
             $table->foreign('user_id')
             ->references('id')
-            ->on('users')
+            ->on(db_table('user'))
             ->onDelete('cascade')
             ->onDelete('cascade');
 
@@ -37,6 +37,6 @@ class CreateUsersProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_profiles');
+        Schema::dropIfExists(db_table('user_profile'));
     }
 }

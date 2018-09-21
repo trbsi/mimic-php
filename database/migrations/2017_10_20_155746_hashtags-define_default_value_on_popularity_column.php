@@ -13,7 +13,7 @@ class HashtagsDefineDefaultValueOnPopularityColumn extends Migration
      */
     public function up()
     {
-        Schema::table('hashtags', function (Blueprint $table) {
+        Schema::table(db_table('hashtag'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->integer('popularity')->default(1)->change();
         });

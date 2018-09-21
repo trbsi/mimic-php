@@ -13,13 +13,13 @@ class CreateMimicHashtagTable extends Migration
      */
     public function up()
     {
-        Schema::create('mimic_hashtag', function (Blueprint $table) {
+        Schema::create(db_table('mimic_hashtag'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('mimic_id');
             $table->bigInteger('hashtag_id');
-            $table->foreign('mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('hashtag_id')->references('id')->on('hashtags')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('mimic_id')->references('id')->on(db_table('mimic'))->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('hashtag_id')->references('id')->on(db_table('hashtag'))->onUpdate('cascade')->onDelete('cascade');
 
             $table->unique(['mimic_id', 'hashtag_id']);
         });
@@ -32,6 +32,6 @@ class CreateMimicHashtagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mimic_hashtag');
+        Schema::dropIfExists(db_table('mimic_hashtag'));
     }
 }

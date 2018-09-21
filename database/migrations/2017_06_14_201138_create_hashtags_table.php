@@ -13,7 +13,7 @@ class CreateHashtagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hashtags', function (Blueprint $table) {
+        Schema::create(db_table('hashtag'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->string('name', 255)->collation('utf8_general_ci');
@@ -22,7 +22,7 @@ class CreateHashtagsTable extends Migration
         });
 
         //https://laracasts.com/discuss/channels/general-discussion/fulltext-indexes-at-migrations
-        DB::statement('ALTER TABLE hashtags ADD FULLTEXT INDEX ft_hashtags_name (name);');
+        DB::statement('ALTER TABLE '.db_table('hashtag').' ADD FULLTEXT INDEX ft_hashtags_name (name);');
     }
 
     /**
@@ -32,6 +32,6 @@ class CreateHashtagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hashtags');
+        Schema::dropIfExists(db_table('hashtag'));
     }
 }

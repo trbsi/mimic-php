@@ -13,20 +13,20 @@ class CreateUsersProfilesHashtagsPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_profiles_hashtags_pivot', function (Blueprint $table) {
+        Schema::create(db_table('user_profile_hashtag_pivot'), function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->bigInteger('profile_id');
             $table->bigInteger('hashtag_id');
 
             $table->foreign('hashtag_id')
             ->references('id')
-            ->on('hashtags')
+            ->on(db_table('hashtag'))
             ->onDelete('cascade')
             ->onDelete('cascade');
 
             $table->foreign('profile_id')
             ->references('id')
-            ->on('users_profiles')
+            ->on(db_table('user_profile'))
             ->onDelete('cascade')
             ->onDelete('cascade');
         });
@@ -39,6 +39,6 @@ class CreateUsersProfilesHashtagsPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_profiles_hashtags_pivot');
+        Schema::dropIfExists(db_table('user_profile_hashtag_pivot'));
     }
 }

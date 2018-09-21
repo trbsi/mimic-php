@@ -13,7 +13,7 @@ class AddDeletedAtInUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table(db_table('user'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->softDeletes();
         });
@@ -26,7 +26,7 @@ class AddDeletedAtInUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table(db_table('user'), function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }

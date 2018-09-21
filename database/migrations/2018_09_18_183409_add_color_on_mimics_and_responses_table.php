@@ -13,11 +13,11 @@ class AddColorOnMimicsAndResponsesTable extends Migration
      */
     public function up()
     {
-        Schema::table('mimics_metas', function (Blueprint $table) {
+        Schema::table(db_table('mimic_meta'), function (Blueprint $table) {
             $table->string('color', 10)->nullable();
         });
 
-        Schema::table('mimic_responses_metas', function (Blueprint $table) {
+        Schema::table(db_table('mimic_response_meta'), function (Blueprint $table) {
             $table->string('color', 10)->nullable();
         });
     }
@@ -29,11 +29,11 @@ class AddColorOnMimicsAndResponsesTable extends Migration
      */
     public function down()
     {
-        Schema::table('mimics_metas', function (Blueprint $table) {
+        Schema::table(db_table('mimic_meta'), function (Blueprint $table) {
             $table->dropColumn('color');
         });
 
-        Schema::table('mimic_responses_metas', function (Blueprint $table) {
+        Schema::table(db_table('mimic_response_meta'), function (Blueprint $table) {
             $table->dropColumn('color');
         });
     }

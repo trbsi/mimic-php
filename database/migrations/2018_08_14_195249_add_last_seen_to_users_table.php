@@ -13,7 +13,7 @@ class AddLastSeenToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table(db_table('user'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->dateTime('last_seen')->nullable()->after('deleted_at');
         });
@@ -26,7 +26,7 @@ class AddLastSeenToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table(db_table('user'), function (Blueprint $table) {
             $table->dropColumn('last_seen');
         });
     }

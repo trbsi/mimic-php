@@ -13,7 +13,7 @@ class CreateMimicResponseTable extends Migration
      */
     public function up()
     {
-        Schema::create('mimic_response', function (Blueprint $table) {
+        Schema::create(db_table('mimic_response'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('user_id');
@@ -26,9 +26,9 @@ class CreateMimicResponseTable extends Migration
             $table->bigInteger('upvote')->default(1);
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on(db_table('user'))->onUpdate('cascade')->onDelete('restrict');
 
-            $table->foreign('original_mimic_id')->references('id')->on('mimics')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('original_mimic_id')->references('id')->on(db_table('mimic'))->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -39,6 +39,6 @@ class CreateMimicResponseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mimic_response');
+        Schema::dropIfExists(db_table('mimic_response'));
     }
 }

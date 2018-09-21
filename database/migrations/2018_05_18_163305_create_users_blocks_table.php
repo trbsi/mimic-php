@@ -13,7 +13,7 @@ class CreateUsersBlocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_blocks_pivot', function (Blueprint $table) {
+        Schema::create(db_table('user_block_pivot'), function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigInteger('id', true);
             $table->bigInteger('blocked_by')->comment('User who blocked');
@@ -21,13 +21,13 @@ class CreateUsersBlocksTable extends Migration
 
             $table->foreign('user_id')
             ->references('id')
-            ->on('users')
+            ->on(db_table('user'))
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
             $table->foreign('blocked_by')
             ->references('id')
-            ->on('users')
+            ->on(db_table('user'))
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
@@ -43,6 +43,6 @@ class CreateUsersBlocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_blocks_pivot');
+        Schema::dropIfExists(db_table('user_block_pivot'));
     }
 }

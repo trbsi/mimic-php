@@ -13,7 +13,7 @@ class AddDescriptionToMimicsTable extends Migration
      */
     public function up()
     {
-        Schema::table('mimics', function (Blueprint $table) {
+        Schema::table(db_table('mimic'), function (Blueprint $table) {
             $table->text('description')->after('user_id')->nullable()->collation('utf8mb4_bin');
         });
     }
@@ -25,7 +25,7 @@ class AddDescriptionToMimicsTable extends Migration
      */
     public function down()
     {
-        Schema::table('mimics', function (Blueprint $table) {
+        Schema::table(db_table('mimic'), function (Blueprint $table) {
             $table->dropColumn('description');
         });
     }
