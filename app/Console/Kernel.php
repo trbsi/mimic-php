@@ -49,10 +49,13 @@ class Kernel extends ConsoleKernel
             $model['UpdateHashtagPopularity']->run();
         })->daily();
 
+        //@TODO Should we keep this or remove this?
+        /*
         $schedule->call(function () use ($model) {
             $model['RemoveOldPushTokens']->run();
         })->weekly();
-
+        */
+       
         //FAKES
         //Upvotes
         $model = [

@@ -6,9 +6,40 @@ use App\Api\V2\Auth\Controllers\BaseAuthController;
 use App\Api\V2\PushNotificationsToken\Models\PushNotificationsToken;
 use Illuminate\Http\Request;
 use App\Helpers\SendPushNotification;
+use App\Api\V2\PushNotificationsToken\Requests\SaveTokenRequest;
 
 class PushNotificationsTokenController extends BaseAuthController
 {
+    /**
+     * @param  SaveTokenRequest $request 
+     * @return Response                    
+     */
+    public function saveOrUpdateToken(SaveTokenRequest $request)
+    {
+        $PNT = PushNotificationsToken::where([
+            'user_id' => $this->authUser->id,
+            'device' => $request->device,
+            'device_id' => $request->device_id
+        ])
+        ->first();
+
+        //you cannot find anything in database, so save it
+        if (empty($PNT)) {
+            $PNT = new PushNotificationsToken;
+            $PNT->user_id = $this->authUser->id;
+            $PNT->device_id = $request->device_id;
+            $PNT->token = $request->push_token;
+            $PNT->device = strtolower($request->device);
+            $PNT->save();
+        } //there is something in database
+        else {
+            $PNT->token = $request->push_token;
+            $PNT->update();
+        }
+
+        return response()->json(['success' => true]);
+    }
+
     /**
      * Delete tokens of a logged in user
      *

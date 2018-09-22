@@ -26,7 +26,6 @@ $api->version('v2', function (Router $api) {
 
             $api->group(['prefix' => 'bootstrap'], function (Router $api) {
                 $api->post('send-feedback', ['uses' => 'App\Api\V'.$this->v.'\Bootstrap\Controllers\BootstrapController@sendFeeback']);
-                $api->post('save-push-token', ['uses' => 'App\Api\V'.$this->v.'\Bootstrap\Controllers\BootstrapController@updateNotificationToken']);
             });
            
             $api->group(['prefix' => 'users'], function (Router $api) {
@@ -68,6 +67,7 @@ $api->version('v2', function (Router $api) {
 
             $api->group(['prefix' => 'push-notifications-token'], function (Router $api) {
                 $api->delete('delete-by-user', ['uses' => 'App\Api\V'.$this->v.'\PushNotificationsToken\Controllers\PushNotificationsTokenController@deleteByUser']);
+                $api->post('save-push-token', ['uses' => 'App\Api\V'.$this->v.'\PushNotificationsToken\Controllers\PushNotificationsTokenController@saveOrUpdateToken']);
             });
 
             $api->group(['prefix' => 'search'], function (Router $api) {
