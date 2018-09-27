@@ -21,12 +21,6 @@ class Controller extends BaseController
 
     public function legal(Request $request)
     {
-        $mimics = (new \App\Api\V2\Mimic\Models\Mimic)->get();
-        foreach ($mimics as $mimic) {
-            $h = $mimic->hashtags->pluck('name')->toArray();
-            $mimic->description = (implode(' ', $h));
-            $mimic->save();
-        }
         return view("public.legal.legal", [
             'display' => $request->display ?? 'tos',
         ]);
