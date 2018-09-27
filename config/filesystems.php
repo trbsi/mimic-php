@@ -56,10 +56,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+            'key' => env('AWS_KEY', 'AKIAIE6P7NIJQPMRK6AQ'),
+            'secret' => env('AWS_SECRET', 'qFauyl0C9A6sWdnhsMau0qQG5PG5csn6ssCq/sDR'),
+            'region' => env('AWS_REGION', 'us-east-2'),
+            'bucket' => env('AWS_BUCKET', 'mimic.files'),
         ],
 
     ],

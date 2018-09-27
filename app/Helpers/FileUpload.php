@@ -1,34 +1,30 @@
 <?php
 namespace App\Helpers;
 
-use Aws\S3\Exception\S3Exception;
+use Exception;
 use Image;
-use App\Helpers\AwsHelper;
 use Imagick;
+use Illuminate\Support\Facades\Storage;
 
 class FileUpload
 {
-    const FILE_UPLOAD_SERVER = 'server';
-    const FILE_UPLOAD_AWS = 'aws';
-
-    public function __construct(AwsHelper $awsHelper)
-    {
-        $this->awsHelper = $awsHelper;
-    }
+    public const FILE_UPLOAD_SERVER = 'server';
+    public const FILE_UPLOAD_AWS = 'aws';
 
     /**
-     * upload file to S3
-     * @param  $file File object Access via: $request->file('file_name')
-     * @param  $path string any path you want to for S3 or your server
-     * @param  $allowType array/string What kind of file to allow to upload
-     * @param  $uploadWhere string Where to upload file to, S3 or server?
+     * Upload file to S3
+     *
+     * @param object $file File object. Access via: $request->file('file_name')
+     * @param string $path Any path you want to for S3 or your server
+     * @param string $uploadWhere Where to upload file to, S3 or server?
+     * @param array|string $allowType What kind of file to allow to upload
      * @return string File url
      */
-    public function upload($file, $path, $allowType = null, $uploadWhere)
+    public function upload($file, $path, $uploadWhere, $allowType = null)
     {
         if ($file) {
-            if ($allowType != null) {
-                $this->checkFile($allowType, $file);
+            if ($allowType !== null) {
+                $this->validateFile($allowType, $file);
             }
 
             switch ($uploadWhere) {
@@ -43,16 +39,17 @@ class FileUpload
             }
         }
 
-        throw new \Exception(trans('file.errors.file_not_chosen'), 400);
+        abort(400, __('file.errors.file_not_chosen'));
     }
 
     /**
      * Upload file to Server
-     * @param  Object $file File object
-     * @param  $path string any path you want to for S3 or your server
-     * @return string ULR to a file
+     * 
+     * @param object $file File object
+     * @param string $path Path you want to save file to
+     * @return string URL to a file
      */
-    private function uploadToServer($path, $file)
+    private function uploadToServer(string $path, object $file): string
     {
         try {
             if (!file_exists($path)) {
@@ -62,60 +59,43 @@ class FileUpload
             //save file info
             $fileInfo['mime'] = $file->getMimeType();
             //generate name
-            $file_name = (md5(time() . mt_rand())) . "." . $file->getClientOriginalExtension();
+            $fileName = sprintf('%s.%s', md5(time() . mt_rand()), $file->getClientOriginalExtension());
             //move file
-            $file->move($path, $file_name);
+            $file->move($path, $fileName);
             //correct image orientation
-            $this->correctImageOrientation($path.$file_name, $fileInfo);
-
-            return $file_name;
-        } catch (S3Exception $e) {
-            abort(500, trans('validation.error_upload_file'));
+            $this->correctImageOrientation($path.$fileName, $fileInfo);
+            return $fileName;
+        } catch (Exception $e) {
+            abort(400, __('validation.error_upload_file'));
         }
     }
 
     /**
-     * Upload file to AWS
-     * @param  Object $file File object or string path to a file
-     * @param  $path string any path you want to for S3 or your server
-     * @return string ULR to a file
+     * @param string $relativePath Relative path where you want to upload file on S3
+     * @param string $sourceFile Path to a file, including file itself
+     * @return string URL to a file
      */
-    private function uploadToAws($path, $file)
+    private function uploadToAws(string $relativePath, string $sourceFile): string
     {
         try {
-            //this is laravel's object
-            if (is_object($file)) {
-                $extension = $file->getClientOriginalExtension();
-                $sourceFile = $file->getPathName();
-            } //this is string path to a file
-            else {
-                $extension = pathinfo($file, PATHINFO_EXTENSION);
-                $sourceFile = $file;
-            }
-
-            $this->s3client = $this->awsHelper->initAwsS3client();
-
-            $result = $this->s3client->putObject(array(
-                'Bucket' => env('AWS_BUCKET'),
-                'Key' => $path . (md5(time() . mt_rand())) . "." . $extension,
-                'SourceFile' => $sourceFile,
-                'ContentType' => 'text/plain',
-                'ACL' => 'public-read',
-            ));
-
-            return $result['ObjectURL'];
-        } catch (S3Exception $e) {
-            abort(500, $e->getMessage());
+            $extension = pathinfo($sourceFile, PATHINFO_EXTENSION);
+            $fileName = sprintf('%s.%s', md5(time() . mt_rand()), $extension);
+            $destinationFile = ltrim($relativePath, '/').$fileName;
+            $uploadedFile = Storage::cloud()->put($destinationFile, fopen($sourceFile, 'r+'), 'public');
+            return Storage::cloud()->url($destinationFile);
+        } catch (Exception $e) {
             abort(500, trans('validation.error_upload_file'));
         }
     }
 
     /**
-     * check file and its extenstion
-     * @param  $allowType [what kind of file to allow to upload]
-     * @param  $file            File object, got through: $request->file('file_name')
+     * Validate if file is allowed to upload
+     *
+     * @param array|string $allowType
+     * @param object $file File object, got through: $request->file('file_name')
+     * @return void
      */
-    private function checkFile($allowType, $file)
+    private function validateFile($allowType, object $file): void
     {
         if (is_array($allowType)) {
             $fileAllowed = false;
@@ -125,7 +105,7 @@ class FileUpload
                     $fileAllowed = true;
                 }
             }
-            if ($fileAllowed == false) {
+            if ($fileAllowed === false) {
                 abort(403, trans('validation.file_should_be_image_video'));
             }
         } else {
@@ -173,7 +153,7 @@ class FileUpload
             }
 
             return null;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }
@@ -183,6 +163,7 @@ class FileUpload
      *
      * @param  string $filePath Path to image, e.g. public/files/user/96/2018/03/6a97012502fa31c28d9767c4eb49d678.jpg
      * @param array $fileInfo Information about file, like MIME
+     * @see https://stackoverflow.com/questions/19456036/detect-exif-orientation-and-rotate-image-using-imagemagick
      * @return void
      */
     public function correctImageOrientation($filePath, $fileInfo)

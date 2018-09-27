@@ -4,8 +4,8 @@ namespace App\Api\V2\Mimic\Repositories\Delete;
 
 use App\Api\V2\Mimic\Models\Mimic;
 use App\Api\V2\Mimic\Resources\Response\Models\Response;
-use App\Helpers\AwsHelper;
 use App\Api\V2\User\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 final class DeleteMimicRepository
 {
@@ -13,23 +13,22 @@ final class DeleteMimicRepository
 
     /**
      * Absolute path to mimic and video thumbnail (original or response) files
-     * @var null
+     * @var string|null
      */
     private $absoluteFilePath = null;
     private $absoluteThumbPath = null;
 
     /**
      * Relative path to mimic and video thumbnail (original or response) files on AWS
-     * @var null
+     * @var string|null
      */
     private $relativeAwsFilePath = null;
     private $relativeAwsThumbPath = null;
 
-    public function __construct(Mimic $mimic, Response $response, AwsHelper $awsHelper)
+    public function __construct(Mimic $mimic, Response $response)
     {
         $this->mimic = $mimic;
         $this->response = $response;
-        $this->awsHelper = $awsHelper;
     }
 
     /**
@@ -181,18 +180,11 @@ final class DeleteMimicRepository
     private function removeFromS3()
     {
         //Remove main file
-        $s3client = $this->awsHelper->initAwsS3client();
-        $s3client->deleteObject([
-            'Bucket' => env('AWS_BUCKET'),
-            'Key'    => $this->relativeAwsFilePath
-        ]);
+        Storage::cloud()->delete($this->relativeAwsFilePath);
 
         //Remove thumb file
         if ($this->relativeAwsThumbPath) {
-            $s3client->deleteObject([
-                'Bucket' => env('AWS_BUCKET'),
-                'Key'    => $this->relativeAwsThumbPath
-            ]);
+            Storage::cloud()->delete($this->relativeAwsThumbPath);
         }
     }
 }

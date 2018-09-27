@@ -10,8 +10,12 @@ use App\Helpers\FileUpload;
  */
 class UploadToAws
 {
-    const LIMIT = 3;
+    const LIMIT = 1;
 
+    /**
+     * @param FileUpload $fileUpload
+     * @param Mimic $mimic
+     */
     public function __construct(FileUpload $fileUpload, Mimic $mimic)
     {
         $this->fileUpload = $fileUpload;
@@ -24,7 +28,8 @@ class UploadToAws
     public function uploadOriginalMimicsToAws()
     {
         //get 2 mimics where aws_file is null
-        foreach (Mimic::whereNull('aws_file')->limit(self::LIMIT)->get() as $model) {
+        $mimics = Mimic::whereNull('aws_file')->limit(self::LIMIT)->get();
+        foreach ($mimics as $model) {
             $this->upload($model);
         }
     }
@@ -35,7 +40,8 @@ class UploadToAws
     public function uploadResponseMimicsToAws()
     {
         //get 2 mimics where aws_file is null
-        foreach (Response::whereNull('aws_file')->limit(self::LIMIT)->get() as $model) {
+        $responses = Response::whereNull('aws_file')->limit(self::LIMIT)->get();
+        foreach ($responses as $model) {
             $this->upload($model);
         }
     }
@@ -52,8 +58,13 @@ class UploadToAws
         //Resize and upload original
         $image = $this->fileUpload->resizeAndLowerQuality($model, $model->file);
         $absolutePath = $this->mimic->getAbsolutePathToFile($model->user_id, $model->file, $model);
-        //ltrim($path, "/") - remove "/" from the beginning of a string. That's how upload to AWS works
-        $url = $this->fileUpload->upload($absolutePath, ltrim($path, "/"), null, FileUpload::FILE_UPLOAD_AWS);
+        $relativePath = $this->mimic->getRelativePathWithoutFile($model->user_id, $model);
+        $url = $this->fileUpload->upload(
+            $absolutePath,
+            $relativePath,
+            FileUpload::FILE_UPLOAD_AWS,
+            null
+        );
 
         if ($image) {
             $model->meta()->update([
@@ -66,7 +77,13 @@ class UploadToAws
         if ($model->video_thumb) {
             $image = $this->fileUpload->resizeAndLowerQuality($model, $model->video_thumb);
             $absolutePath = $this->mimic->getAbsolutePathToFile($model->user_id, $model->video_thumb, $model);
-            $videoThumbUrl = $this->fileUpload->upload($absolutePath, ltrim($path, "/"), null, FileUpload::FILE_UPLOAD_AWS);
+            $relativePath = $this->mimic->getRelativePathWithoutFile($model->user_id, $model);
+            $videoThumbUrl = $this->fileUpload->upload(
+                $absolutePath,
+                $relativePath,
+                FileUpload::FILE_UPLOAD_AWS,
+                null
+            );
             
             if ($image) {
                 $model->meta()->update([

@@ -79,8 +79,8 @@ final class CreateMimicRepository
         $fileName = $this->fileUpload->upload(
             $this->mimicFileInfo['file'],
             $this->mimic->getFileOrPath($user->id),
-            ['image', 'video'],
-            FileUpload::FILE_UPLOAD_SERVER
+            FileUpload::FILE_UPLOAD_SERVER,
+            ['image', 'video']            
         );
 
         //create mimic
@@ -168,8 +168,8 @@ final class CreateMimicRepository
             $this->createdModel->video_thumb = $this->fileUpload->upload(
                 $data['video_thumbnail'],
                 $this->mimic->getFileOrPath($this->createdModel->user_id, null, $this->createdModel),
-                ['image'],
-                FileUpload::FILE_UPLOAD_SERVER
+                FileUpload::FILE_UPLOAD_SERVER,
+                ['image']
             );
             $this->createdModel->save();
         }

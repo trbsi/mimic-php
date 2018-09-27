@@ -56,6 +56,19 @@ trait MimicTrait
     }
 
     /**
+     * Get relative path without including file
+     *
+     * @param int $user_id
+     * @param string $file
+     * @param Mimic|Response $model
+     * @return void
+     */
+    public function getRelativePathWithoutFile(int $user_id, object $model): string
+    {
+        return $this->getFileOrPath($user_id, null, $model, false, false);
+    }
+
+    /**
      * Get mimic model and return response
      *
      * @param  Mimic|Response $mimic Mimic or Response loaded result
@@ -109,38 +122,5 @@ trait MimicTrait
             case Mimic::TYPE_PHOTO:
                 return Mimic::TYPE_PHOTO_STRING;
         }
-    }
-
-    /**
-     * create and return array structure for each mimic
-     * @param  $mimic [Mimic model]
-     * @return [array]        [structured array]
-     */
-    private function createMimicArrayStructure($mimic)
-    {
-        $extraParams = [];
-        $standardResponse =
-            [
-                'id' => $mimic->id,
-                'username' => $mimic->user->username,
-                'profile_picture' => $mimic->user->profile_picture,
-                'user_id' => $mimic->user_id,
-                'mimic_type' => $mimic->mimic_type,
-                'upvote' => $mimic->upvote,
-                'file' => $mimic->file,
-                'file_url' => $mimic->file_url,
-                'video_thumb_url' => $mimic->video_thumb_url,
-                'aws_file' => $mimic->aws_file,
-                'upvoted' => $mimic->upvoted,
-                'i_am_following_you' => $mimic->i_am_following_you,
-                'created_at' => (int) strtotime($mimic->created_at),
-                'meta' => $mimic->meta,
-            ];
-
-        if ($mimic instanceof Mimic) {
-            $extraParams['responses_count'] = $mimic->responses_count ?? 0;
-        }
-
-        return array_merge($standardResponse, $extraParams);
     }
 }
