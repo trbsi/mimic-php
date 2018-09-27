@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Functional\Api\V2\Bootstrap;
+namespace Tests\Functional\Api\V2\PushNotificationsToken;
 
 use Tests\Assert\AssertInterface;
 use Tests\Assert\AssertAbstract;
@@ -8,7 +8,7 @@ class Assert extends AssertAbstract implements AssertInterface
 {
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAssertJsonStructureOnSuccess(?string $type = null): array
     {
@@ -18,12 +18,12 @@ class Assert extends AssertAbstract implements AssertInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAssertJsonOnSuccess(array $data, ?string $type = null): array
     {
         return [
-            'success' => true
+            'success' => $data['success']
         ];
     }
 }

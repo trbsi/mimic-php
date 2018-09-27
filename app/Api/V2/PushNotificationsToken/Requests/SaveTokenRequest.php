@@ -24,7 +24,7 @@ class SaveTokenRequest extends FormRequest
     public function rules()
     {
         return [
-            'device_id' => 'required|present',
+            'device_id' => 'required',
             'device' => 'required|in:ios,android',
             'push_token' => 'required',
         ];
