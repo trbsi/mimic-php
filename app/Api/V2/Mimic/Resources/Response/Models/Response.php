@@ -11,7 +11,7 @@ class Response extends Model
 {
     use MimicTrait, SoftDeletes;
     protected $table = 'mimic_responses';
-    protected $fillable = ['id', 'original_mimic_id', 'file', 'aws_file', 'mimic_type', 'upvote', 'user_id', 'aws_video_thumb'];
+    protected $fillable = ['id', 'original_mimic_id', 'file', 'cloud_file', 'mimic_type', 'upvote', 'user_id', 'cloud_video_thumb'];
 
     protected $appends = ['file_url', 'video_thumb_url'];
     protected $casts =

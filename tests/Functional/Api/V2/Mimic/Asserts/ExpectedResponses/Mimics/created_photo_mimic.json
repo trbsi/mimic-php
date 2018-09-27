@@ -9,7 +9,7 @@
     "file": "{file}",
     "file_url": "http://mimic.loc/files/user/95/{year}/{month}/{file}",
     "video_thumb_url": null,
-    "aws_file": null,
+    "cloud_file": null,
     "upvoted": 0,
     "i_am_following_you": null,
     "created_at": "{created_at}",

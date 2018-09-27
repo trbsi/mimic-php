@@ -31,7 +31,7 @@ class MimicResource extends JsonResource
                 'file' => $this->file,
                 'file_url' => $this->file_url,
                 'video_thumb_url' => $this->video_thumb_url,
-                'aws_file' => $this->aws_file,
+                'cloud_file' => $this->cloud_file,
                 'upvoted' => $this->upvoted,
                 'i_am_following_you' => $this->i_am_following_you,
                 'created_at' => (int) strtotime($this->created_at),

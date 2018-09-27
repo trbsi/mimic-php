@@ -10,7 +10,7 @@ use App\Helpers\FileUpload;
  */
 class UploadToAws
 {
-    const LIMIT = 1;
+    const LIMIT = 3;
 
     /**
      * @param FileUpload $fileUpload
@@ -27,8 +27,8 @@ class UploadToAws
      */
     public function uploadOriginalMimicsToAws()
     {
-        //get 2 mimics where aws_file is null
-        $mimics = Mimic::whereNull('aws_file')->limit(self::LIMIT)->get();
+        //get 2 mimics where cloud_file is null
+        $mimics = Mimic::whereNull('cloud_file')->limit(self::LIMIT)->get();
         foreach ($mimics as $model) {
             $this->upload($model);
         }
@@ -39,8 +39,8 @@ class UploadToAws
      */
     public function uploadResponseMimicsToAws()
     {
-        //get 2 mimics where aws_file is null
-        $responses = Response::whereNull('aws_file')->limit(self::LIMIT)->get();
+        //get 2 mimics where cloud_file is null
+        $responses = Response::whereNull('cloud_file')->limit(self::LIMIT)->get();
         foreach ($responses as $model) {
             $this->upload($model);
         }
@@ -93,6 +93,6 @@ class UploadToAws
             }
         }
 
-        $model->update(['aws_file' => $url, 'aws_video_thumb' => $videoThumbUrl]);
+        $model->update(['cloud_file' => $url, 'cloud_video_thumb' => $videoThumbUrl]);
     }
 }

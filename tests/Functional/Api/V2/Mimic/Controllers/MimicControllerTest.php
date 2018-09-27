@@ -45,9 +45,9 @@ class MimicControllerTest extends TestCaseV2
             'id' => 1,
             'user_id' => 1,
             'file' => '1-1.mp4',
-            'aws_file' => null,
+            'cloud_file' => null,
             'video_thumb' => '1-1.jpg',
-            'aws_video_thumb' => null,
+            'cloud_video_thumb' => null,
             'mimic_type' => 'video',
             'is_private' => false,
             'upvote' => '123M',
@@ -89,9 +89,9 @@ class MimicControllerTest extends TestCaseV2
             'user_id' => 2,
             'original_mimic_id' => 1,
             'file' => '2-1.mp4',
-            'aws_file' => null,
+            'cloud_file' => null,
             'video_thumb' => "2-1.jpg",
-            'aws_video_thumb' => null,
+            'cloud_video_thumb' => null,
             'mimic_type' => 'video',
             'upvote' => '123M',
             'deleted_at' => null,
@@ -109,9 +109,9 @@ class MimicControllerTest extends TestCaseV2
                 'id' => 1,
                 'user_id' => 1,
                 'file' => '1-1.mp4',
-                'aws_file' => null,
+                'cloud_file' => null,
                 'video_thumb' => '1-1.jpg',
-                'aws_video_thumb' => null,
+                'cloud_video_thumb' => null,
                 'mimic_type' => 'video',
                 'is_private' => false,
                 'upvote' => '123M',
@@ -919,12 +919,12 @@ class MimicControllerTest extends TestCaseV2
         }
 
         //missing from AWS
-        if ($model->aws_file) {
-            $this->doGet($model->aws_file, $data)->assertStatus(404);
+        if ($model->cloud_file) {
+            $this->doGet($model->cloud_file, $data)->assertStatus(404);
         }
 
-        if ($model->aws_video_thumb) {
-            $this->doGet($model->aws_video_thumb, $data)->assertStatus(404);
+        if ($model->cloud_video_thumb) {
+            $this->doGet($model->cloud_video_thumb, $data)->assertStatus(404);
         }
     }
 
@@ -953,12 +953,12 @@ class MimicControllerTest extends TestCaseV2
         }
 
         //missing from AWS
-        if ($model->aws_file) {
-            $this->doGet($model->aws_file, $data)->assertStatus(404);
+        if ($model->cloud_file) {
+            $this->doGet($model->cloud_file, $data)->assertStatus(404);
         }
 
-        if ($model->aws_video_thumb) {
-            $this->doGet($model->aws_video_thumb, $data)->assertStatus(404);
+        if ($model->cloud_video_thumb) {
+            $this->doGet($model->cloud_video_thumb, $data)->assertStatus(404);
         }
     }
 
