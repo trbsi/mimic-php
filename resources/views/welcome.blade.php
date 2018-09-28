@@ -128,9 +128,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <div id="screenshots" class="owl-carousel owl-theme">
-                    @for($i=1;$i<=10;$i++)
-                    <a href="img/screenshots/{{$i}}.png" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
-                        <img src="img/screenshots/{{$i}}.png" class="img_res wow animated zoomIn" alt="">
+                    @for($i=1;$i<=8;$i++)
+                    <a href="img/screenshots/{{$i}}.jpg" class="item wow flipInY animated animated" data-lightbox-gallery="screenshots">
+                        <img src="img/screenshots/{{$i}}.jpg" class="img_res wow animated zoomIn" alt="">
                     </a>
                     @endfor
                 </div>
