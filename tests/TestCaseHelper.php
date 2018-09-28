@@ -3,11 +3,12 @@ namespace Tests;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\TestResponse;
+
 class TestCaseHelper
-{   
+{
     /**
-     * @param  TestResponse $response 
-     * @return void                 
+     * @param  TestResponse $response
+     * @return void
      */
     public static function decodeResponse(TestResponse $response)
     {

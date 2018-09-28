@@ -80,7 +80,7 @@ final class CreateMimicRepository
             $this->mimicFileInfo['file'],
             $this->mimic->getFileOrPath($user->id),
             FileUpload::FILE_UPLOAD_SERVER,
-            ['image', 'video']            
+            ['image', 'video']
         );
 
         //create mimic
@@ -94,11 +94,10 @@ final class CreateMimicRepository
         );
 
         if ($this->createdModel) {
-
             if (!$isResponseMimic) {
                 //check for hashtags
                 $this->createHashtagsRepository->extractAndSaveHashtags(
-                    array_get($data, 'description'), 
+                    array_get($data, 'description'),
                     $this->createdModel
                 );
             }

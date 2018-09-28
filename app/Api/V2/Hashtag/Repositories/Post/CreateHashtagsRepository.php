@@ -8,10 +8,10 @@ final class CreateHashtagsRepository
 {
     private const MAX_TAG_LENGTH = 50;
 
-	/**
+    /**
      * @TODO - check if tags exists, put in redis as key => value and check in that way
      * Extract hashtags from string and save it in main and pivot table
-     * 
+     *
      * @param string $tags
      * @param Mimic|Profile $model Saved model
      * @return array

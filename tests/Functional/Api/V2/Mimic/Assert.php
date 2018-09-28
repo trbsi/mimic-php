@@ -3,7 +3,10 @@ namespace Tests\Functional\Api\V2\Mimic;
 
 use Tests\Assert\AssertInterface;
 use Tests\Assert\AssertAbstract;
-use Tests\Functional\Api\V2\Mimic\Asserts\{UserMimicAssert, UpvoteDownvoteAssert, MimicAssert, UpvoteAssert};
+use Tests\Functional\Api\V2\Mimic\Asserts\UserMimicAssert;
+use Tests\Functional\Api\V2\Mimic\Asserts\UpvoteDownvoteAssert;
+use Tests\Functional\Api\V2\Mimic\Asserts\MimicAssert;
+use Tests\Functional\Api\V2\Mimic\Asserts\UpvoteAssert;
 
 class Assert extends AssertAbstract implements AssertInterface
 {

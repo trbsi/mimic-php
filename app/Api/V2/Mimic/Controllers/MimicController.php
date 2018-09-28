@@ -132,11 +132,11 @@ class MimicController extends BaseAuthController
 
     /**
      * Get people who upvoted specific mimic
-     * @param  int $id                   
-     * @param  GetUpvotesRepository $getUpvotesRepository 
-     * @return Response                                     
+     * @param  int $id
+     * @param  GetUpvotesRepository $getUpvotesRepository
+     * @return Response
      */
-    public function upvotes($id, GetUpvotesRepository $GetUpvotesRepository) 
+    public function upvotes($id, GetUpvotesRepository $GetUpvotesRepository)
     {
         $result = $GetUpvotesRepository->getUpvotes($id, $this->authUser, Constants::MIMIC_ORIGINAL);
         return response()->json($result);

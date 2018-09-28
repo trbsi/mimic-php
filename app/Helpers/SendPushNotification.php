@@ -207,13 +207,13 @@ class SendPushNotification
 
     /**
      * Send notification to a user
-     * 
+     *
      * @param int $userId Whom to send a notification
      * @param array $data Notification payload
      * @return void
      */
     public static function sendNotification(int $userId, array $data): void
-    {   
+    {
         $model = resolve('PushNotificationsTokenModel');
         $tokens = $model->getNotificationTokens($userId);
         self::send($tokens, $data);
@@ -221,7 +221,7 @@ class SendPushNotification
 
     /**
      * Send push notifications to everyone
-     * @param  array $data 
+     * @param  array $data
      * @return void
      */
     public static function sendNotificationToEveryone(array $data)
@@ -232,9 +232,9 @@ class SendPushNotification
     }
 
     /**
-     * @param  object $tokens 
-     * @param  array  $data   
-     * @return void         
+     * @param  object $tokens
+     * @param  array  $data
+     * @return void
      */
     private static function send(object $tokens, array $data): void
     {

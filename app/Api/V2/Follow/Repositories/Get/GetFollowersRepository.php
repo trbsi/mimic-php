@@ -9,37 +9,37 @@ use App\Api\V2\Follow\Models\Follow;
 
 final class GetFollowersRepository
 {
-	use PaginationTrait;
+    use PaginationTrait;
 
-	private const PAGINATION = 30;
+    private const PAGINATION = 30;
 
-	/**
-	 * @var User
-	 */
-	private $user;
+    /**
+     * @var User
+     */
+    private $user;
 
-	/**
-	 * @var Follow
-	 */
-	private $follow;
+    /**
+     * @var Follow
+     */
+    private $follow;
 
-	/**
-	 * @param User   $user   
-	 * @param Follow $follow 
-	 */
-	public function __construct(User $user, Follow $follow)
-	{
-		$this->user = $user;
-		$this->follow = $follow;
-	}
+    /**
+     * @param User   $user
+     * @param Follow $follow
+     */
+    public function __construct(User $user, Follow $follow)
+    {
+        $this->user = $user;
+        $this->follow = $follow;
+    }
 
-	/**
-	 * @param  int    $userId   
-	 * @param  User   $authUser 
-	 * @return array           
-	 */
-	public function getFollowers(int $userId, User $authUser): array
-	{
+    /**
+     * @param  int    $userId
+     * @param  User   $authUser
+     * @return array
+     */
+    public function getFollowers(int $userId, User $authUser): array
+    {
         $result = $this->user->find($userId)
         ->followers()
         ->select($this->user->getTable().'.*')
@@ -49,8 +49,8 @@ final class GetFollowersRepository
         ->paginate(self::PAGINATION);
 
         return [
-			'meta' => $this->getPagination($result),
-			'followers' => FollowersResource::collection($result),
-		];
-	}
+            'meta' => $this->getPagination($result),
+            'followers' => FollowersResource::collection($result),
+        ];
+    }
 }

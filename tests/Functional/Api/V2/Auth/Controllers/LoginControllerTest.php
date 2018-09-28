@@ -131,7 +131,7 @@ class LoginControllerTest extends TestCaseV2
         $user = User::find($responseArray['user_id']);
         $profileCount = $user->profile()->count();
 
-        $this->assertEquals(1, $profileCount);    
+        $this->assertEquals(1, $profileCount);
         $this->assertEquals('http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg', $user->profile_picture);
         $this->assertEquals('dario_twitter@yahoo.com', $user->email);
     }
@@ -165,7 +165,7 @@ class LoginControllerTest extends TestCaseV2
         $user = User::find($responseArray['user_id']);
         $profileCount = $user->profile()->count();
 
-        $this->assertEquals(1, $profileCount);    
+        $this->assertEquals(1, $profileCount);
         $this->assertEquals('http://pbs.twimg.com/profile_images/834863598199513088/53W0-JKZ_normal.jpg', $user->profile_picture);
         $this->assertEquals(null, $user->email);
     }

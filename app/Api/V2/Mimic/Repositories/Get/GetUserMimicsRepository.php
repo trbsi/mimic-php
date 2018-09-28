@@ -16,9 +16,9 @@ final class GetUserMimicsRepository
     }
 
     /**
-     * @param  Request $request  
-     * @param  User    $authUser 
-     * @return             
+     * @param  Request $request
+     * @param  User    $authUser
+     * @return
      */
     public function getUserMimics(Request $request, User $authUser)
     {

@@ -22,7 +22,6 @@ class CreatePushNotificationsTokenTable extends Migration
             $table->string('device_id', 50);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on(db_table('user'))->onUpdate('cascade')->onDelete('cascade');
-
         });
     }
 

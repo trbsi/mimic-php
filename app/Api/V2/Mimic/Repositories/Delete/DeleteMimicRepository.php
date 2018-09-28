@@ -164,7 +164,7 @@ final class DeleteMimicRepository
         try {
             //Remove main file
             if ($this->absoluteFilePath) {
-                unlink($this->absoluteFilePath);    
+                unlink($this->absoluteFilePath);
             }
             
             //Remove thumb file
@@ -184,7 +184,7 @@ final class DeleteMimicRepository
     {
         //Remove main file
         if ($this->relativeAwsFilePath) {
-            Storage::cloud()->delete($this->relativeAwsFilePath);            
+            Storage::cloud()->delete($this->relativeAwsFilePath);
         }
 
         //Remove thumb file

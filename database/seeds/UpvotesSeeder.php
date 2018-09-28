@@ -8,12 +8,12 @@ class UpvotesSeeder extends Seeder
     /**
      * Run the database seeds.
      * Seed upvotes for one original and one response with all users
-     * 
+     *
      * @return void
      */
     public function run(CoreUser $user)
     {
-    	$userIds = $user->get()->pluck('id')->toArray();
+        $userIds = $user->get()->pluck('id')->toArray();
         $mimicId = 1;
         
         $mimic = resolve('MimicModel');

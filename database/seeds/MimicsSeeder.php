@@ -63,24 +63,24 @@ class MimicsSeeder extends Seeder
                 }
 
                 //get file info
-                ['pathParts' => $pathParts, 'mime' => $mime, 'width' => $width, 'height' => $height] 
+                ['pathParts' => $pathParts, 'mime' => $mime, 'width' => $width, 'height' => $height]
                 = $this->getFileInfo($file, $dirName);
 
                 //copy files to another directory
-                ['file_name' => $fileName, 'video_thumb_file_name' => $videoThumbFileName] 
+                ['file_name' => $fileName, 'video_thumb_file_name' => $videoThumbFileName]
                 = $this->copyFilesToDirectory($userIdTmp, $dirName, $file, $pathParts, $mime);
 
                 //get hashtags
                 $hashtags = $this->getHashtagsFromFile($dirName);
 
                 $data = $this->prepareDataForInsert(
-                    $pathParts, 
-                    $fileName, 
-                    $videoThumbFileName, 
-                    $dirName, 
-                    $userIdTmp, 
-                    $mime, 
-                    $width, 
+                    $pathParts,
+                    $fileName,
+                    $videoThumbFileName,
+                    $dirName,
+                    $userIdTmp,
+                    $mime,
+                    $width,
                     $height,
                     $hashtags
                 );
@@ -89,10 +89,10 @@ class MimicsSeeder extends Seeder
                 //main mimic
                 if ($arrayKey === 0) {
                     $originalMimic = $this->saveOriginalMimic(
-                        $mimic, 
-                        $createHashtagsRepository, 
-                        $data, 
-                        $dirName, 
+                        $mimic,
+                        $createHashtagsRepository,
+                        $data,
+                        $dirName,
                         $hashtags
                     );
                     $this->originalMimicId++;
@@ -108,8 +108,8 @@ class MimicsSeeder extends Seeder
     }
 
     /**
-     * @param  string $dirName 
-     * @return string          
+     * @param  string $dirName
+     * @return string
      */
     private function getHashtagsFromFile(string $dirName): string
     {

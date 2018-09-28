@@ -20,8 +20,8 @@ class ProfileResource extends JsonResource
         $profile = [
             'profile' => [
                 'bio' => $this->profile->bio,
-                'hashtags' => HashtagResource::collection($this->profile->hashtags) 
-            ], 
+                'hashtags' => HashtagResource::collection($this->profile->hashtags)
+            ],
         ];
         
         return array_merge($user, $profile);

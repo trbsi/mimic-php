@@ -44,7 +44,7 @@ class FileUpload
 
     /**
      * Upload file to Server
-     * 
+     *
      * @param object $file File object
      * @param string $path Path you want to save file to
      * @return string URL to a file

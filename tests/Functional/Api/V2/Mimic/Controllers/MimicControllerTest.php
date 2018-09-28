@@ -767,7 +767,7 @@ class MimicControllerTest extends TestCaseV2
 
         $response = $this->doPost('mimic/create', $data);
 
-        $unprocessableEntities = ['meta.height', 'meta.width', 'meta.color', 'meta.thumbnail_height', 'meta.thumbnail_width']; 
+        $unprocessableEntities = ['meta.height', 'meta.width', 'meta.color', 'meta.thumbnail_height', 'meta.thumbnail_width'];
         $errors = [
             'meta.height' => [
                 __('api/mimic/validations.create.height_is_required')
@@ -803,7 +803,7 @@ class MimicControllerTest extends TestCaseV2
 
         $response = $this->doPost('mimic/create', $data);
 
-        $unprocessableEntities = ['meta.height', 'meta.width', 'meta.color']; 
+        $unprocessableEntities = ['meta.height', 'meta.width', 'meta.color'];
         $errors = [
             'meta.height' => [
                 __('api/mimic/validations.create.height_is_required')

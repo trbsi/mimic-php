@@ -11,8 +11,8 @@ use App\Api\V2\PushNotificationsToken\Requests\SaveTokenRequest;
 class PushNotificationsTokenController extends BaseAuthController
 {
     /**
-     * @param  SaveTokenRequest $request 
-     * @return Response                    
+     * @param  SaveTokenRequest $request
+     * @return Response
      */
     public function saveOrUpdateToken(SaveTokenRequest $request)
     {
@@ -60,8 +60,8 @@ class PushNotificationsTokenController extends BaseAuthController
             abort(400);
         }
 
-        $data = $request->all(); 
-        if ($request->url) {   
+        $data = $request->all();
+        if ($request->url) {
             $data['media-url'] = $request->url;
             $data['media-type'] = 'url';
         }

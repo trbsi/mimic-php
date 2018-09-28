@@ -29,7 +29,8 @@ final class UpdateProfileRepository
             $profile = $authUser->profile()->update($data);
             $this->createHashtagsRepository->extractAndSaveHashtags($data['bio'], $authUser->profile);
             return new ProfileResource($authUser->load(['profile.hashtags']));
-        } catch (Exception $e) {dd($e->getMessage());
+        } catch (Exception $e) {
+            dd($e->getMessage());
             abort(400, __('api/user/profile/errors.profile_not_updated'));
         }
     }

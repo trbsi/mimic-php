@@ -56,9 +56,9 @@ class UsersSeeder extends Seeder
      * @param User $user
      * @return void
      */
-    private function createProfile($user) 
+    private function createProfile($user)
     {
-        $hashtags = 
+        $hashtags =
         [
             '#swag', '#kissing', '#dance'
         ];
@@ -74,9 +74,9 @@ class UsersSeeder extends Seeder
     }
 
     /**
-     * @param  Profile $profile  
-     * @param  array  $hashtags 
-     * @return void           
+     * @param  Profile $profile
+     * @param  array  $hashtags
+     * @return void
      */
     private function saveBioHashtags($profile, array $hashtags)
     {
